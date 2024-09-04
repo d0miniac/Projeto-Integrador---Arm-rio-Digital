@@ -20,7 +20,7 @@ public class ccc extends JFrame {
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
 
-		ImagePanel panel = new ImagePanel("src/img/aaa.png");
+		ImagePanel panel = new ImagePanel("img/aaa.png");
 		getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(new MigLayout("", "[][][][][][][][][][][][][][]", "[][][][][][][]"));
 		// TODO Auto-generated constructor stub
