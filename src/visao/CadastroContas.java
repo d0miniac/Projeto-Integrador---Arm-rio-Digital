@@ -8,6 +8,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import net.miginfocom.swing.MigLayout;
 import java.awt.Window.Type;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import javax.swing.JLabel;
 
 public class CadastroContas extends JFrame {
 
@@ -23,7 +26,7 @@ public class CadastroContas extends JFrame {
 				try {
 					CadastroContas frame = new CadastroContas();
 					frame.setVisible(true);
-					frame.setSize(810,540);
+					frame.setSize(1215,735);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -43,10 +46,16 @@ public class CadastroContas extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
-		contentPane.setLayout(new MigLayout("", "[grow]", "[grow]"));
+		contentPane.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		ImagePanel panel = new ImagePanel("img/background3.png");
-		contentPane.add(panel, "cell 0 0,grow");
+		contentPane.add(panel);
+		panel.setLayout(new MigLayout("", "[620px:n][700px:n]", "[grow]"));
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(243, 244, 240));
+		panel.add(panel_1, "cell 1 0,grow");
+		panel_1.setLayout(new MigLayout("", "[][]", "[]"));
 		
 	}
 	
