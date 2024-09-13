@@ -48,7 +48,7 @@ public class CadastroContas extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		ImagePanel panel = new ImagePanel("img/background3.png");
+		ImagePanel panel = new ImagePanel("src/img/background3.png");
 		contentPane.add(panel);
 		panel.setLayout(new MigLayout("", "[620px:n][700px:n]", "[grow]"));
 		
