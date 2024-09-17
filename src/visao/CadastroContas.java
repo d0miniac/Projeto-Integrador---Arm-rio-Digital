@@ -57,8 +57,14 @@ public class CadastroContas extends JFrame {
 		contentPane = new ImagePanel("src/img/background3.png");
 		setContentPane(contentPane);
 		
+<<<<<<< HEAD
 
 		contentPane.setLayout(new GridLayout(0, 2, 0, 0));
+=======
+		ImagePanel panel = new ImagePanel("src/img/background3.png");
+		contentPane.add(panel);
+		panel.setLayout(new MigLayout("", "[620px:n][700px:n]", "[grow]"));
+>>>>>>> origin/logintela
 		
 		JPanel PainelVazio = new JPanel();
 		PainelVazio.setBackground(new Color(0, 0, 0,0));
