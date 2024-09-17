@@ -54,7 +54,7 @@ public class telaMenu extends JFrame {
 		JButton btnNewButton_1 = new JButton("2222");
 		menu.add(btnNewButton_1);
 		
-		JPanel barra = new  ImagePanel("src/img/azulr.png");
+		JPanel barra = new  barraAzul("src/img/azulr.png");
 		contentPane.add(barra, BorderLayout.NORTH);
 		barra.setLayout(new MigLayout("", "[69px][53px][82px]", "[23px]"));
 		
