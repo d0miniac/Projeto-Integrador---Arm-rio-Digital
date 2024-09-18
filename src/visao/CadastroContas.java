@@ -158,7 +158,7 @@ public class CadastroContas extends JFrame {
 
 				}
 				dispose();
-				login tela = new login();
+				telaLogin tela = new telaLogin();
 				tela.setVisible(true);
 			}
 		});
@@ -174,7 +174,7 @@ public class CadastroContas extends JFrame {
 
 			public void mouseClicked(MouseEvent e) {
 				dispose();
-				login tela = new login();
+				telaLogin tela = new telaLogin();
 				tela.setVisible(true);
 			}
 		});
