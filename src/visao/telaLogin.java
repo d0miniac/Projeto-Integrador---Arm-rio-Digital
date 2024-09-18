@@ -54,7 +54,7 @@ public class telaLogin extends JFrame {
 
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setSize(screenSize.width, screenSize.height);
-		contentPane.setLayout(new MigLayout("", "[grow][grow][grow][grow][grow][grow 50][grow 50,fill][grow]", "[bottom][][][][][][][][][][][][::100px][::100px][][][][40px][][70px][][][][][][][][][70px][][][][][][][][][][][][][][][][][][][][][][::100px][::100px][]"));
+		contentPane.setLayout(new MigLayout("", "[grow][grow][grow][grow][grow][grow 50][grow 50,fill][grow]", "[bottom][][][][][][][][][][][][::100px][::100px][][][][40px][][70px][][][][][][][][][70px][][][][][][][][][][][][][][][][][][][70px][]"));
 
 		JLabel lblBemVindo = new JLabel("Bem vindo");
 		lblBemVindo.setForeground(new Color(255, 255, 255));
@@ -71,6 +71,7 @@ public class telaLogin extends JFrame {
 		lblCpf.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		contentPane.add(lblCpf, "cell 5 18,alignx left");
 		textField_2 = new JTextField();
+		textField_2.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		contentPane.add(textField_2, "cell 5 19 2 1,grow");
 		textField_2.setColumns(10);
 		
@@ -79,6 +80,7 @@ public class telaLogin extends JFrame {
 		lblSenha.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		contentPane.add(lblSenha, "cell 5 27,alignx left");
 		textField_1 = new JTextField();
+		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		textField_1.setColumns(10);
 		contentPane.add(textField_1, "cell 5 28 2 1,alignx right,grow");
 		
@@ -102,13 +104,13 @@ public class telaLogin extends JFrame {
 			}
 		});
 		btnLogin.setForeground(Color.WHITE);
-		btnLogin.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		btnLogin.setFont(new Font("Tahoma", Font.BOLD, 30));
 		btnLogin.setBackground(new Color(103, 203, 239));
-		contentPane.add(btnLogin, "cell 5 51 2 1,alignx right,grow");
+		contentPane.add(btnLogin, "cell 5 47 2 1,alignx right,grow");
 		JLabel lblNovaConta = new JLabel("Ainda não tem uma conta?");
 		lblNovaConta.setForeground(new Color(255, 255, 255));
 		lblNovaConta.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		contentPane.add(lblNovaConta, "cell 5 52,alignx left");
+		contentPane.add(lblNovaConta, "cell 5 48,alignx left");
 		JButton btnCadastrese = new JButton("Cadastre-se");
 		btnCadastrese.setHorizontalAlignment(SwingConstants.RIGHT);
 		btnCadastrese.addActionListener(new ActionListener() {
@@ -120,7 +122,7 @@ public class telaLogin extends JFrame {
 		btnCadastrese.setFocusPainted(false);
 		btnCadastrese.setBorderPainted(false);
 		btnCadastrese.setBackground(new Color(32, 60, 115));
-		contentPane.add(btnCadastrese, "cell 6 52,alignx right");
+		contentPane.add(btnCadastrese, "cell 6 48,alignx right");
 
 		setLocationRelativeTo(null); // Centraliza a janela na tela
 	}
