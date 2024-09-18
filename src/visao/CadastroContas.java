@@ -25,6 +25,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Toolkit;
+import controle.ContaDAO;
 
 public class CadastroContas extends JFrame {
 
@@ -80,16 +82,21 @@ public class CadastroContas extends JFrame {
 		JLabel lblNewLabel = new JLabel("Crie uma nova conta!");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 60));
 		PainelComponentes.add(lblNewLabel, "cell 0 1,alignx left,aligny top");
+		
+		JPanel panelAleatorio = new JPanel();
+		PainelComponentes.add(panelAleatorio, "flowx,cell 0 2");
+		panelAleatorio.setOpaque(false);
 
 		JLabel lblNewLabel_6 = new JLabel("Já tem uma conta?");
-		PainelComponentes.add(lblNewLabel_6, "flowx,cell 0 2");
+		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		PainelComponentes.add(lblNewLabel_6, "cell 0 2");
 
 		JLabel lblNewLabel_1 = new JLabel("Nome Completo:");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		PainelComponentes.add(lblNewLabel_1, "cell 0 4");
 
 		txtNome = new JTextField(25);
-		txtNome.setBackground(new Color(128, 128, 192));
+		txtNome.setBackground(new Color(209, 209, 233));
 		txtNome.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		PainelComponentes.add(txtNome, "cell 0 5,alignx left");
 		txtNome.setColumns(25);
@@ -98,8 +105,8 @@ public class CadastroContas extends JFrame {
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		PainelComponentes.add(lblNewLabel_2, "cell 0 6");
 
-		txtCpf = new RoundJTextField(25);
-		txtCpf.setBackground(new Color(65, 82, 179, 128));
+		txtCpf = new JTextField(25);
+		txtCpf.setBackground(new Color(209, 209, 233));
 		txtCpf.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		PainelComponentes.add(txtCpf, "cell 0 7,alignx left");
 		txtCpf.setColumns(25);
@@ -108,8 +115,8 @@ public class CadastroContas extends JFrame {
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		PainelComponentes.add(lblNewLabel_3, "cell 0 8");
 
-		txtEmail = new RoundJTextField(25);
-		txtEmail.setBackground(new Color(65, 82, 179, 128));
+		txtEmail = new JTextField(25);
+		txtEmail.setBackground(new Color(209, 209, 233));
 		txtEmail.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		PainelComponentes.add(txtEmail, "cell 0 9,alignx left");
 		txtEmail.setColumns(25);
@@ -118,8 +125,8 @@ public class CadastroContas extends JFrame {
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		PainelComponentes.add(lblNewLabel_4, "cell 0 10");
 
-		txtSenha = new RoundJTextField(25);
-		txtSenha.setBackground(new Color(65, 82, 179, 128));
+		txtSenha = new JTextField(25);
+		txtSenha.setBackground(new Color(209, 209, 233));
 		txtSenha.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		PainelComponentes.add(txtSenha, "cell 0 11,alignx left");
 		txtSenha.setColumns(25);
@@ -128,8 +135,8 @@ public class CadastroContas extends JFrame {
 		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		PainelComponentes.add(lblNewLabel_5, "cell 0 12");
 
-		txtConfirma = new RoundJTextField(25);
-		txtConfirma.setBackground(new Color(65, 82, 179, 128));
+		txtConfirma = new JTextField(25);
+		txtConfirma.setBackground(new Color(209, 209, 233));
 		txtConfirma.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		PainelComponentes.add(txtConfirma, "cell 0 13,alignx left");
 		txtConfirma.setColumns(25);
@@ -157,6 +164,7 @@ public class CadastroContas extends JFrame {
 					erroTela.setVisible(true);
 
 				}
+				//dao.CadastrarFuncionarios(novo);
 				dispose();
 				telaLogin tela = new telaLogin();
 				tela.setVisible(true);
@@ -167,7 +175,8 @@ public class CadastroContas extends JFrame {
 		btnCadastro.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		PainelComponentes.add(btnCadastro, "cell 0 15,alignx left");
 
-		JLabel lblNewLabel_7 = new JLabel("Login");
+		JLabel lblNewLabel_7 = new JLabel("<html><u>Login</u></html>");
+		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblNewLabel_7.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblNewLabel_7.addMouseListener(new MouseAdapter() {
 			@Override
