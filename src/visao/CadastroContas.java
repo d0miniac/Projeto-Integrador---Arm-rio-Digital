@@ -88,8 +88,8 @@ public class CadastroContas extends JFrame {
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		PainelComponentes.add(lblNewLabel_1, "cell 0 4");
 
-		txtNome = new RoundJTextField(25);
-		txtNome.setBackground(new Color(65, 82, 179, 128));
+		txtNome = new JTextField(25);
+		txtNome.setBackground(new Color(128, 128, 192));
 		txtNome.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		PainelComponentes.add(txtNome, "cell 0 5,alignx left");
 		txtNome.setColumns(25);
@@ -158,7 +158,7 @@ public class CadastroContas extends JFrame {
 
 				}
 				dispose();
-				login tela = new login();
+				telaLogin tela = new telaLogin();
 				tela.setVisible(true);
 			}
 		});
@@ -174,7 +174,7 @@ public class CadastroContas extends JFrame {
 
 			public void mouseClicked(MouseEvent e) {
 				dispose();
-				login tela = new login();
+				telaLogin tela = new telaLogin();
 				tela.setVisible(true);
 			}
 		});
