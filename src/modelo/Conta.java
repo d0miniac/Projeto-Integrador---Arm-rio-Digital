@@ -3,7 +3,7 @@ package modelo;
 public class Conta {
 	public String nome;
 	public String email;
-	public Long cpf;
+	public String cpf;
 	public String senha;
 	public String getNome() {
 		return nome;
@@ -17,10 +17,10 @@ public class Conta {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public Long getCpf() {
+	public String getCpf() {
 		return cpf;
 	}
-	public void setCpf(Long cpf) {
+	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 	public String getSenha() {
