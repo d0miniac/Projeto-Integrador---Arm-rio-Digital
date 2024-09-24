@@ -60,7 +60,7 @@ public class CadastroContas extends JFrame {
 	 */
 	public CadastroContas() {
 		setResizable(false);
-		setTitle("Cadastro de Contas");
+		setTitle("Cadastro de Funcionários");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1018, 680);
 
@@ -79,7 +79,8 @@ public class CadastroContas extends JFrame {
 		PainelComponentes
 				.setLayout(new MigLayout("", "[46px,grow]", "[40px][14px][][100px][][][][][][][][][][][][][]"));
 
-		JLabel lblNewLabel = new JLabel("Crie uma nova conta!");
+		JLabel lblNewLabel = new JLabel("<html>Cadastre um <br>novo funcionário");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 60));
 		PainelComponentes.add(lblNewLabel, "cell 0 1,alignx left,aligny top");
 		
@@ -88,6 +89,7 @@ public class CadastroContas extends JFrame {
 		panelAleatorio.setOpaque(false);
 
 		JLabel lblNewLabel_6 = new JLabel("Já tem uma conta?");
+		lblNewLabel_6.setVisible(false);
 		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		PainelComponentes.add(lblNewLabel_6, "cell 0 2");
 
@@ -148,7 +150,12 @@ public class CadastroContas extends JFrame {
 				novo.setNome(txtNome.getText());
 				novo.setEmail(txtEmail.getText());
 				try {
-					novo.setCpf(Long.parseLong(txtCpf.getText()));
+					String strCpf = txtCpf.getText();
+					strCpf = strCpf.replaceAll("[^0-9]", "");
+					Long longCpf = Long.parseLong(strCpf);
+					strCpf = strCpf.replaceAll("(\\d{3})(\\d{3})(\\d{3})(\\d{2})", "$1.$2.$3-$4");
+					
+					novo.setCpf(strCpf);
 				} catch (NumberFormatException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -164,7 +171,11 @@ public class CadastroContas extends JFrame {
 					erroTela.setVisible(true);
 
 				}
-				//dao.CadastrarFuncionarios(novo);
+				ContaDAO dao = new ContaDAO();
+				
+				
+				int res1=dao.cadastrarFuncionario(novo);
+				
 				dispose();
 				telaLogin tela = new telaLogin();
 				tela.setVisible(true);
@@ -176,6 +187,7 @@ public class CadastroContas extends JFrame {
 		PainelComponentes.add(btnCadastro, "cell 0 15,alignx left");
 
 		JLabel lblNewLabel_7 = new JLabel("<html><u>Login</u></html>");
+		lblNewLabel_7.setVisible(false);
 		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblNewLabel_7.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblNewLabel_7.addMouseListener(new MouseAdapter() {
@@ -189,5 +201,10 @@ public class CadastroContas extends JFrame {
 		});
 		PainelComponentes.add(lblNewLabel_7, "cell 0 2");
 
+		 //public static String formatarCPF(String cpf) {
+		    //  cpf = cpf.replaceAll("[^0-9]", ""); // Remover caracteres não numéricos
+		      //return cpf.replaceAll("(\\d{3})(\\d{3})(\\d{3})(\\d{2})", "$1.$2.$3-$4");
+		 // }
+		
 	}
 }
