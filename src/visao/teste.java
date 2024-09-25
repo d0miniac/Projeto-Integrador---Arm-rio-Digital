@@ -62,8 +62,9 @@ public class teste extends JFrame {
 						topPanel.add(msg1, "cell 1 1");
 		
 		JLabel lblNewLabel_1 = new JLabel("Nome de Usuário");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblNewLabel_1.setForeground(Color.WHITE);
-		topPanel.add(lblNewLabel_1, "cell 1 2,alignx center");
+		topPanel.add(lblNewLabel_1, "cell 1 2,alignx left");
 		mainPanel.add(buttonPanel, BorderLayout.CENTER);
 
 		getContentPane().add(mainPanel);
