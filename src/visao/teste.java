@@ -8,8 +8,8 @@ import java.awt.event.ActionListener;
 public class teste extends JFrame {
 
 	public teste() {
-		// Configurações da janela principal
-		setTitle("Tela de Menu");
+		// janela principal
+		setTitle("MENU");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(600, 400);
 		setLocationRelativeTo(null);
@@ -19,29 +19,26 @@ public class teste extends JFrame {
 		mainPanel.setLayout(new BorderLayout());
 		mainPanel.setBackground(new Color(230, 230, 230));
 
-		// Painel superior (bem-vindo)
+		// Painel superior
 		JPanel topPanel = new JPanel();
 		topPanel.setBackground(new Color(33, 64, 154));
 		topPanel.setPreferredSize(new Dimension(600, 100));
 		topPanel.setLayout(new BorderLayout());
 
-		// Label de bem-vindo
-		JLabel welcomeLabel = new JLabel("Bem vindo!", JLabel.LEFT);
-		welcomeLabel.setForeground(Color.WHITE);
-		welcomeLabel.setFont(new Font("Arial", Font.BOLD, 24));
-		welcomeLabel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 10));
+		JLabel msg1 = new JLabel("Bem vindo!", JLabel.LEFT);
+		msg1.setForeground(Color.WHITE);
+		msg1.setFont(new Font("Arial", Font.BOLD, 24));
+		msg1.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 10));
 
-		// Label de nome do usuário
-		JLabel userNameLabel = new JLabel("Nome do Usuário", JLabel.LEFT);
-		userNameLabel.setForeground(Color.WHITE);
-		userNameLabel.setFont(new Font("Arial", Font.PLAIN, 18));
-		userNameLabel.setBorder(BorderFactory.createEmptyBorder(0, 20, 10, 10));
+		JLabel nomeUser = new JLabel("Nome do Usuário", JLabel.LEFT);
+		nomeUser.setForeground(Color.WHITE);
+		nomeUser.setFont(new Font("Arial", Font.PLAIN, 18));
+		nomeUser.setBorder(BorderFactory.createEmptyBorder(0, 20, 10, 10));
 
-		// Adiciona os labels ao painel superior
-		topPanel.add(welcomeLabel, BorderLayout.NORTH);
-		topPanel.add(userNameLabel, BorderLayout.CENTER);
+		topPanel.add(msg1, BorderLayout.NORTH);
+		topPanel.add(nomeUser, BorderLayout.CENTER);
 
-		// Painel de botões (grid)
+		// Painel de botões
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new GridLayout(2, 3, 20, 20));
 		buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -65,29 +62,29 @@ public class teste extends JFrame {
 		mainPanel.add(topPanel, BorderLayout.NORTH);
 		mainPanel.add(buttonPanel, BorderLayout.CENTER);
 
-		// Adiciona o painel principal ao JFrame
-		add(mainPanel);
+		getContentPane().add(mainPanel);
 
-		// Torna a janela visível
+		// Mostra janela
 		setVisible(true);
 	}
 
-	// Método auxiliar para criar um botão com ícone
+	// Método para criar um botão com imagem
 	private JButton criarBotao(String texto, String caminhoIcone) {
 		JButton button = new JButton(texto);
+		button.setBackground(new Color(255, 255, 255));
+		button.setForeground(new Color(0, 0, 128));
 		button.setFont(new Font("Arial", Font.PLAIN, 16));
-		button.setFocusPainted(false);
 		button.setVerticalTextPosition(SwingConstants.BOTTOM);
 		button.setHorizontalTextPosition(SwingConstants.CENTER);
 
-		// Adiciona o ícone ao botão (se o ícone existir)
+		// Adiciona imagem ao botão
 		ImageIcon icon = new ImageIcon(caminhoIcone);
 		button.setIcon(icon);
 
-		// Carrega a imagem e redimensiona, se necessário
+		// Carrega a imagem e redimensiona
 		ImageIcon icon1 = new ImageIcon(caminhoIcone);
 		Image img = icon1.getImage();
-		Image scaledImg = img.getScaledInstance(60, 60, Image.SCALE_SMOOTH); // Redimensiona a imagem para 500x200
+		Image scaledImg = img.getScaledInstance(200, 120, Image.SCALE_SMOOTH); // Redimensiona a imagem
 		button.setIcon(new ImageIcon(scaledImg));
 
 		return button;
