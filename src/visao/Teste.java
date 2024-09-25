@@ -28,6 +28,7 @@ public class Teste extends JFrame {
 		topPanel.setLayout(new MigLayout("", "[87px][][160px]", "[][][][][][]"));
 				
 				JLabel lblNewLabel = new JLabel("");
+				lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 				lblNewLabel.setIcon(new ImageIcon(Teste.class.getResource("/img/user.png")));
 				topPanel.add(lblNewLabel, "cell 0 0 1 4,alignx left,aligny top");
 
@@ -56,13 +57,13 @@ public class Teste extends JFrame {
 		
 				JLabel msg1 = new JLabel("Bem vindo!", SwingConstants.CENTER);
 				msg1.setForeground(Color.WHITE);
-				msg1.setFont(new Font("Arial", Font.BOLD, 24));
+				msg1.setFont(new Font("Arial", Font.BOLD, 34));
 				msg1.setBorder(null);
 				
 						topPanel.add(msg1, "cell 1 1");
 		
 		JLabel lblNewLabel_1 = new JLabel("Nome de Usuário");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_1.setForeground(Color.WHITE);
 		topPanel.add(lblNewLabel_1, "cell 1 2,alignx left");
 		mainPanel.add(buttonPanel, BorderLayout.CENTER);
