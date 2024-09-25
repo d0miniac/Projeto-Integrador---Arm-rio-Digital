@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import net.miginfocom.swing.MigLayout;
+import javax.swing.border.TitledBorder;
 
 public class teste extends JFrame {
 
@@ -23,20 +25,11 @@ public class teste extends JFrame {
 		JPanel topPanel = new JPanel();
 		topPanel.setBackground(new Color(33, 64, 154));
 		topPanel.setPreferredSize(new Dimension(600, 100));
-		topPanel.setLayout(new BorderLayout());
-
-		JLabel msg1 = new JLabel("Bem vindo!", JLabel.LEFT);
-		msg1.setForeground(Color.WHITE);
-		msg1.setFont(new Font("Arial", Font.BOLD, 24));
-		msg1.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 10));
-
-		JLabel nomeUser = new JLabel("Nome do Usuário", JLabel.LEFT);
-		nomeUser.setForeground(Color.WHITE);
-		nomeUser.setFont(new Font("Arial", Font.PLAIN, 18));
-		nomeUser.setBorder(BorderFactory.createEmptyBorder(0, 20, 10, 10));
-
-		topPanel.add(msg1, BorderLayout.NORTH);
-		topPanel.add(nomeUser, BorderLayout.CENTER);
+		topPanel.setLayout(new MigLayout("", "[87px][][160px]", "[][][][][][]"));
+				
+				JLabel lblNewLabel = new JLabel("");
+				lblNewLabel.setIcon(new ImageIcon(teste.class.getResource("/img/user.png")));
+				topPanel.add(lblNewLabel, "cell 0 0 1 4,alignx left,aligny top");
 
 		// Painel de botões
 		JPanel buttonPanel = new JPanel();
@@ -60,6 +53,17 @@ public class teste extends JFrame {
 
 		// Adiciona os painéis ao painel principal
 		mainPanel.add(topPanel, BorderLayout.NORTH);
+		
+				JLabel msg1 = new JLabel("Bem vindo!", SwingConstants.CENTER);
+				msg1.setForeground(Color.WHITE);
+				msg1.setFont(new Font("Arial", Font.BOLD, 24));
+				msg1.setBorder(null);
+				
+						topPanel.add(msg1, "cell 1 1");
+		
+		JLabel lblNewLabel_1 = new JLabel("Nome de Usuário");
+		lblNewLabel_1.setForeground(Color.WHITE);
+		topPanel.add(lblNewLabel_1, "cell 1 2,alignx center");
 		mainPanel.add(buttonPanel, BorderLayout.CENTER);
 
 		getContentPane().add(mainPanel);
@@ -71,7 +75,7 @@ public class teste extends JFrame {
 	// Método para criar um botão com imagem
 	private JButton criarBotao(String texto, String caminhoIcone) {
 		JButton button = new JButton(texto);
-		button.setBackground(new Color(255, 255, 255));
+		button.setBackground(new Color(230, 230, 230));
 		button.setForeground(new Color(0, 0, 128));
 		button.setFont(new Font("Arial", Font.PLAIN, 16));
 		button.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -79,7 +83,6 @@ public class teste extends JFrame {
 
 		// Adiciona imagem ao botão
 		ImageIcon icon = new ImageIcon(caminhoIcone);
-		button.setIcon(icon);
 
 		// Carrega a imagem e redimensiona
 		ImageIcon icon1 = new ImageIcon(caminhoIcone);
