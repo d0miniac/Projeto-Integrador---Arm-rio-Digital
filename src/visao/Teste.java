@@ -7,9 +7,9 @@ import java.awt.event.ActionListener;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.border.TitledBorder;
 
-public class teste extends JFrame {
+public class Teste extends JFrame {
 
-	public teste() {
+	public Teste() {
 		// janela principal
 		setTitle("MENU");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -28,7 +28,7 @@ public class teste extends JFrame {
 		topPanel.setLayout(new MigLayout("", "[87px][][160px]", "[][][][][][]"));
 				
 				JLabel lblNewLabel = new JLabel("");
-				lblNewLabel.setIcon(new ImageIcon(teste.class.getResource("/img/user.png")));
+				lblNewLabel.setIcon(new ImageIcon(Teste.class.getResource("/img/user.png")));
 				topPanel.add(lblNewLabel, "cell 0 0 1 4,alignx left,aligny top");
 
 		// Painel de botões
@@ -96,6 +96,6 @@ public class teste extends JFrame {
 
 	public static void main(String[] args) {
 		// Executa a tela de menu
-		new teste();
+		new Teste();
 	}
 }

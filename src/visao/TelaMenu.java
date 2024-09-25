@@ -12,7 +12,7 @@ import java.awt.Color;
 import net.miginfocom.swing.MigLayout;
 import java.awt.Font;
 
-public class telaMenu extends JFrame {
+public class TelaMenu extends JFrame {
 
 	private JPanel contentPane;
 
@@ -23,7 +23,7 @@ public class telaMenu extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					telaMenu frame = new telaMenu();
+					TelaMenu frame = new TelaMenu();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -35,7 +35,7 @@ public class telaMenu extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public telaMenu() {
+	public TelaMenu() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 462, 435);
 		contentPane = new JPanel();

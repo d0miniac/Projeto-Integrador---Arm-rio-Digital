@@ -28,7 +28,7 @@ import java.awt.event.MouseEvent;
 import java.awt.Toolkit;
 import controle.ContaDAO;
 
-public class CadastroContas extends JFrame {
+public class CadastroFuncionario extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -45,7 +45,7 @@ public class CadastroContas extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					CadastroContas frame = new CadastroContas();
+					CadastroFuncionario frame = new CadastroFuncionario();
 					frame.setVisible(true);
 					frame.setSize(1215, 850);
 				} catch (Exception e) {
@@ -58,7 +58,7 @@ public class CadastroContas extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public CadastroContas() {
+	public CadastroFuncionario() {
 		setResizable(false);
 		setTitle("Cadastro de Funcionários");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
