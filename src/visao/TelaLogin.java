@@ -10,6 +10,7 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JTextField;
@@ -23,8 +24,8 @@ import java.awt.event.ActionEvent;
 public class TelaLogin extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	public JPasswordField txtSenha;
+	private JTextField txtCPF;
 	private JLabel backgroundLabel;
 
 	/**
@@ -67,7 +68,7 @@ public class TelaLogin extends JFrame {
 
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setSize(screenSize.width, screenSize.height);
-		panelDireito.setLayout(new MigLayout("", "[grow][grow 50][grow 50,fill][grow]", "[bottom][][][][][][][][][][][][::100px][::100px][][][][40px][][70px][][][][][][][][][70px][][][][][][][][][][][][][][][][][][][70px][]"));
+		panelDireito.setLayout(new MigLayout("", "[grow][grow 50][grow 50,fill][grow]", "[bottom][][][][][][][][][][][][::100px][::100px][][][][40px][][70px][][][][][][][][][70px][][][][][][][][][][][][][][][][][][][][70px][]"));
 
 		JLabel lblBemVindo = new JLabel("Bem vindo");
 		lblBemVindo.setForeground(new Color(255, 255, 255));
@@ -83,19 +84,19 @@ public class TelaLogin extends JFrame {
 		lblCpf.setForeground(new Color(255, 255, 255));
 		lblCpf.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		panelDireito.add(lblCpf, "cell 1 18,alignx left");
-		textField_2 = new JTextField();
-		textField_2.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		panelDireito.add(textField_2, "cell 1 19 2 1,grow");
-		textField_2.setColumns(10);
+		txtCPF = new JTextField();
+		txtCPF.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		panelDireito.add(txtCPF, "cell 1 19 2 1,grow");
+		txtCPF.setColumns(10);
 		
 		JLabel lblSenha = new JLabel("Senha:");
 		lblSenha.setForeground(new Color(255, 255, 255));
 		lblSenha.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		panelDireito.add(lblSenha, "cell 1 27,alignx left");
-		textField_1 = new JTextField();
-		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		textField_1.setColumns(10);
-		panelDireito.add(textField_1, "cell 1 28 2 1,alignx right,grow");
+		txtSenha = new JPasswordField();
+		txtSenha.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		txtSenha.setColumns(10);
+		panelDireito.add(txtSenha, "cell 1 28 2 1,alignx right,grow");
 		
 		JCheckBox chckbxMostrarSenha = new JCheckBox("Mostrar senha");
 		chckbxMostrarSenha.setForeground(new Color(255, 255, 255));
@@ -116,14 +117,17 @@ public class TelaLogin extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
+		
+		JLabel lblStatus = new JLabel("");
+		panelDireito.add(lblStatus, "cell 0 37");
 		btnLogin.setForeground(Color.WHITE);
 		btnLogin.setFont(new Font("Tahoma", Font.BOLD, 30));
 		btnLogin.setBackground(new Color(103, 203, 239));
-		panelDireito.add(btnLogin, "cell 1 47 2 1,alignx right,grow");
+		panelDireito.add(btnLogin, "cell 1 48 2 1,alignx right,grow");
 		JLabel lblNovaConta = new JLabel("Ainda não tem uma conta?");
 		lblNovaConta.setForeground(new Color(255, 255, 255));
 		lblNovaConta.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		panelDireito.add(lblNovaConta, "cell 1 48,alignx left");
+		panelDireito.add(lblNovaConta, "cell 1 49,alignx left");
 		JButton btnCadastrese = new JButton("Cadastre-se");
 		btnCadastrese.setHorizontalAlignment(SwingConstants.RIGHT);
 		btnCadastrese.addActionListener(new ActionListener() {
@@ -135,7 +139,7 @@ public class TelaLogin extends JFrame {
 		btnCadastrese.setFocusPainted(false);
 		btnCadastrese.setBorderPainted(false);
 		btnCadastrese.setBackground(new Color(32, 60, 115));
-		panelDireito.add(btnCadastrese, "cell 2 48,alignx right");
+		panelDireito.add(btnCadastrese, "cell 2 49,alignx right");
 
 		setLocationRelativeTo(null); // Centraliza a janela na tela
 	}

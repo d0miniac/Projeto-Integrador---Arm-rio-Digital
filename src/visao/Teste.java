@@ -76,7 +76,7 @@ public class Teste extends JFrame {
 	// Método para criar um botão com imagem
 	private JButton criarBotao(String texto, String caminhoIcone) {
 		JButton button = new JButton(texto);
-		button.setBackground(new Color(230, 230, 230));
+		button.setBackground(new Color(243, 244, 240));
 		button.setForeground(new Color(0, 0, 128));
 		button.setFont(new Font("Arial", Font.PLAIN, 16));
 		button.setVerticalTextPosition(SwingConstants.BOTTOM);
