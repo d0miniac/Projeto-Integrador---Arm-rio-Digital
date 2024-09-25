@@ -177,7 +177,7 @@ public class CadastroContas extends JFrame {
 				int res1=dao.cadastrarFuncionario(novo);
 				
 				dispose();
-				telaLogin tela = new telaLogin();
+				TelaLogin tela = new TelaLogin();
 				tela.setVisible(true);
 			}
 		});
@@ -195,7 +195,7 @@ public class CadastroContas extends JFrame {
 
 			public void mouseClicked(MouseEvent e) {
 				dispose();
-				telaLogin tela = new telaLogin();
+				TelaLogin tela = new TelaLogin();
 				tela.setVisible(true);
 			}
 		});
