@@ -64,7 +64,7 @@ public class Teste extends JFrame {
 		JButton btnTresPontos = new JButton("");
 		btnTresPontos.setForeground(new Color(0, 0, 160));
 		topPanel.add(btnTresPontos, "cell 10 1 1 2,alignx right");
-		btnTresPontos.setIcon(new ImageIcon(Teste.class.getResource("/img/ponto.png")));
+		btnTresPontos.setIcon(new ImageIcon(Teste.class.getResource("/img/tresPontos.png")));
 		btnTresPontos.setBorderPainted(false);// remove a borda do botao
 		btnTresPontos.setContentAreaFilled(false);// remove o fundo
 		btnTresPontos.setFocusPainted(false);// remove o foco
