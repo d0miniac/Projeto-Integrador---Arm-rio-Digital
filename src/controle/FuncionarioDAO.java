@@ -7,12 +7,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 //public static ContaDAO instancia;
 
-import modelo.Conta;
+import modelo.Funcionario;
 
-public class ContaDAO {
+public class FuncionarioDAO {
 
 
-	public int cadastrarFuncionario(Conta c){
+	public int cadastrarFuncionario(Funcionario c){
 		
 		PreparedStatement stmt1 = null;
 		int res1=0;

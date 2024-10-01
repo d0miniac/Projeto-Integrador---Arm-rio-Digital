@@ -23,10 +23,9 @@ USE `armariodigital` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `armariodigital`.`funcionarios` (
   `idFuncionario` INT(11) NOT NULL AUTO_INCREMENT,
-  `Salario` DECIMAL(30,0) ZEROFILL NOT NULL,
   `CPF` VARCHAR(30) NOT NULL,
   `NomeFuncionario` VARCHAR(45) NOT NULL,
-  `Login` VARCHAR(30) NOT NULL,
+  `Email` VARCHAR(30) NOT NULL,
   `Senha` VARCHAR(15) NOT NULL,
   PRIMARY KEY (`idFuncionario`))
 ENGINE = InnoDB

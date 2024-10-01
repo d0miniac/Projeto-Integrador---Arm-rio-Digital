@@ -1,6 +1,6 @@
 package modelo;
 
-public class Conta {
+public class Funcionario {
 	public String nome;
 	public String email;
 	public String cpf;
