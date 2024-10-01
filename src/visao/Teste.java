@@ -7,9 +7,9 @@ import java.awt.event.ActionListener;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.border.TitledBorder;
 
-public class teste extends JFrame {
+public class Teste extends JFrame {
 
-	public teste() {
+	public Teste() {
 		// janela principal
 		setTitle("MENU");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -25,11 +25,11 @@ public class teste extends JFrame {
 		JPanel topPanel = new JPanel();
 		topPanel.setBackground(new Color(33, 64, 154));
 		topPanel.setPreferredSize(new Dimension(600, 100));
-		topPanel.setLayout(new MigLayout("", "[87px][][160px][][][][][][][]", "[][][][][][]"));
+		topPanel.setLayout(new MigLayout("", "[87px][][160px][][][][][][][][grow]", "[][80][][][][][][][]"));
 
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(teste.class.getResource("/img/user.png")));
-		topPanel.add(lblNewLabel, "cell 0 0 1 4,alignx left,aligny top");
+		lblNewLabel.setIcon(new ImageIcon(Teste.class.getResource("/img/user.png")));
+		topPanel.add(lblNewLabel, "cell 0 0 1 7,alignx left,aligny top");
 
 		// Painel de botões
 		JPanel buttonPanel = new JPanel();
@@ -59,21 +59,20 @@ public class teste extends JFrame {
 		msg1.setFont(new Font("Arial", Font.BOLD, 24));
 		msg1.setBorder(null);
 
-		topPanel.add(msg1, "cell 1 1");
-		
-				JButton btnTresPontos = new JButton("");
-				btnTresPontos.setForeground(new Color(0, 0, 160));
-				topPanel.add(btnTresPontos, "cell 9 1,alignx right");
-				btnTresPontos.setIcon(new ImageIcon(teste.class.getResource("/img/ponto.png")));
-				btnTresPontos.setBorderPainted(false);//remove a borda do botao
-				btnTresPontos.setContentAreaFilled(false);//remove o fundo
-				btnTresPontos.setFocusPainted(false);//remove o foco
+		topPanel.add(msg1, "cell 1 1,aligny bottom");
 
-		
+		JButton btnTresPontos = new JButton("");
+		btnTresPontos.setForeground(new Color(0, 0, 160));
+		topPanel.add(btnTresPontos, "cell 10 1 1 2,alignx right");
+		btnTresPontos.setIcon(new ImageIcon(Teste.class.getResource("/img/ponto.png")));
+		btnTresPontos.setBorderPainted(false);// remove a borda do botao
+		btnTresPontos.setContentAreaFilled(false);// remove o fundo
+		btnTresPontos.setFocusPainted(false);// remove o foco
+
 		JLabel lblNewLabel_1 = new JLabel("Nome de Usuário");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblNewLabel_1.setForeground(Color.WHITE);
-		topPanel.add(lblNewLabel_1, "cell 1 2,alignx left");
+		topPanel.add(lblNewLabel_1, "cell 1 2,alignx left,aligny top");
 		mainPanel.add(buttonPanel, BorderLayout.CENTER);
 
 		getContentPane().add(mainPanel);
@@ -105,6 +104,6 @@ public class teste extends JFrame {
 
 	public static void main(String[] args) {
 		// Executa a tela de menu
-		new teste();
+		new Teste();
 	}
 }
