@@ -1,10 +1,19 @@
 package modelo;
 
 public class Funcionario {
+	public int id;
 	public String nome;
 	public String email;
 	public String cpf;
 	public String senha;
+	
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getNome() {
 		return nome;
 	}

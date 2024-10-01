@@ -9,8 +9,12 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import controle.FuncionarioDAO;
+import modelo.Funcionario;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
@@ -23,8 +27,8 @@ import java.awt.event.ActionEvent;
 public class TelaLogin extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField txtSenha;
+	private JTextField txtEmail;
 	private JLabel backgroundLabel;
 
 	/**
@@ -79,23 +83,23 @@ public class TelaLogin extends JFrame {
 		lblNovamente.setFont(new Font("Tahoma", Font.BOLD, 50));
 		panelDireito.add(lblNovamente, "cell 1 14,alignx left");
 		
-		JLabel lblCpf = new JLabel("CPF:");
+		JLabel lblCpf = new JLabel("Email:");
 		lblCpf.setForeground(new Color(255, 255, 255));
 		lblCpf.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		panelDireito.add(lblCpf, "cell 1 18,alignx left");
-		textField_2 = new JTextField();
-		textField_2.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		panelDireito.add(textField_2, "cell 1 19 2 1,grow");
-		textField_2.setColumns(10);
+		txtEmail = new JTextField();
+		txtEmail.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		panelDireito.add(txtEmail, "cell 1 19 2 1,grow");
+		txtEmail.setColumns(10);
 		
 		JLabel lblSenha = new JLabel("Senha:");
 		lblSenha.setForeground(new Color(255, 255, 255));
 		lblSenha.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		panelDireito.add(lblSenha, "cell 1 27,alignx left");
-		textField_1 = new JTextField();
-		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		textField_1.setColumns(10);
-		panelDireito.add(textField_1, "cell 1 28 2 1,alignx right,grow");
+		txtSenha = new JTextField();
+		txtSenha.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		txtSenha.setColumns(10);
+		panelDireito.add(txtSenha, "cell 1 28 2 1,alignx right,grow");
 		
 		JCheckBox chckbxMostrarSenha = new JCheckBox("Mostrar senha");
 		chckbxMostrarSenha.setForeground(new Color(255, 255, 255));
@@ -114,6 +118,19 @@ public class TelaLogin extends JFrame {
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Funcionario login = new Funcionario();
+				login.setEmail(txtEmail.getText());
+				login.setSenha(txtSenha.getText());
+				FuncionarioDAO dao = new FuncionarioDAO();
+				Funcionario f = dao.logarFuncionario(login);
+				if(f != null) {
+					dispose();
+				TelaMenu tela = new TelaMenu(f);
+				tela.setVisible(rootPaneCheckingEnabled);
+				} else {
+					JOptionPane.showMessageDialog(null, "Usuário Nulo");
+				}
+				
 			}
 		});
 		btnLogin.setForeground(Color.WHITE);

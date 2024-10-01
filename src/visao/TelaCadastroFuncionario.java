@@ -28,7 +28,7 @@ import java.awt.event.MouseEvent;
 import java.awt.Toolkit;
 import controle.FuncionarioDAO;
 
-public class CadastroFuncionario extends JFrame {
+public class TelaCadastroFuncionario extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -45,7 +45,7 @@ public class CadastroFuncionario extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					CadastroFuncionario frame = new CadastroFuncionario();
+					TelaCadastroFuncionario frame = new TelaCadastroFuncionario();
 					frame.setVisible(true);
 					frame.setSize(1215, 850);
 				} catch (Exception e) {
@@ -58,7 +58,7 @@ public class CadastroFuncionario extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public CadastroFuncionario() {
+	public TelaCadastroFuncionario() {
 		setResizable(false);
 		setTitle("Cadastro de Funcionários");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
