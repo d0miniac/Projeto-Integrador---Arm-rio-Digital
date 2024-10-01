@@ -38,11 +38,31 @@ public class Teste extends JFrame {
 		buttonPanel.setBackground(new Color(230, 230, 230));
 
 		// Criando os botões
-		JButton btnProdutos = criarBotao("Produtos", "src/img/icone_produtos.png");
-		JButton btnFornecedores = criarBotao("Fornecedores", "src/img/icone_fornecedores.png");
-		JButton btnHistorico = criarBotao("Histórico de vendas", "src/img/icone_historico.png");
-		JButton btnFuncionarios = criarBotao("Funcionários", "src/img/icone_funcionarios.png");
-		JButton btnVendas = criarBotao("Vendas", "src/img/icone_vendas.png");
+		
+		JButton btnProdutos = criarBotao("", "src/img/icone_produtos.png");
+		btnProdutos.setPreferredSize(new Dimension(100, 100));
+		btnProdutos.setBorderPainted(false);// remove a borda do botao
+		btnProdutos.setContentAreaFilled(false);// remove o fundo
+		btnProdutos.setFocusPainted(false);// remove o foco
+		JButton btnFornecedores = criarBotao("", "src/img/icone_fornecedores.png");
+		btnFornecedores.setPreferredSize(new Dimension(100, 100));
+		btnFornecedores.setBorderPainted(false);// remove a borda do botao
+		btnFornecedores.setContentAreaFilled(false);// remove o fundo
+		btnFornecedores.setFocusPainted(false);// remove o foco
+		JButton btnHistorico = criarBotao("", "src/img/icone_historico.png");
+		btnHistorico.setBorderPainted(false);// remove a borda do botao
+		btnHistorico.setContentAreaFilled(false);// remove o fundo
+		btnHistorico.setFocusPainted(false);// remove o foco
+		JButton btnFuncionarios = criarBotao("", "src/img/icone_funcionarios.png");
+		btnFuncionarios.setBorderPainted(false);// remove a borda do botao
+		btnFuncionarios.setContentAreaFilled(false);// remove o fundo
+		btnFuncionarios.setFocusPainted(false);// remove o foco
+		JButton btnVendas = criarBotao("", "src/img/icone_vendas.png");
+		btnVendas.setBorderPainted(false);// remove a borda do botao
+		btnVendas.setContentAreaFilled(false);// remove o fundo
+		btnVendas.setFocusPainted(false);// remove o foco
+		
+		
 
 		// Adiciona os botões ao painel
 		buttonPanel.add(btnProdutos);
