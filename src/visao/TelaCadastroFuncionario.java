@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import modelo.Conta;
+import modelo.Funcionario;
 import net.miginfocom.swing.MigLayout;
 import java.awt.Window.Type;
 import java.awt.Color;
@@ -26,9 +26,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Toolkit;
-import controle.ContaDAO;
+import controle.FuncionarioDAO;
 
-public class CadastroFuncionario extends JFrame {
+public class TelaCadastroFuncionario extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -45,7 +45,7 @@ public class CadastroFuncionario extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					CadastroFuncionario frame = new CadastroFuncionario();
+					TelaCadastroFuncionario frame = new TelaCadastroFuncionario();
 					frame.setVisible(true);
 					frame.setSize(1215, 850);
 				} catch (Exception e) {
@@ -58,7 +58,7 @@ public class CadastroFuncionario extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public CadastroFuncionario() {
+	public TelaCadastroFuncionario() {
 		setResizable(false);
 		setTitle("Cadastro de Funcionários");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -146,7 +146,7 @@ public class CadastroFuncionario extends JFrame {
 		JButton btnCadastro = new JButton("Cadastrar");
 		btnCadastro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Conta novo = new Conta();
+				Funcionario novo = new Funcionario();
 				novo.setNome(txtNome.getText());
 				novo.setEmail(txtEmail.getText());
 				try {
@@ -171,7 +171,7 @@ public class CadastroFuncionario extends JFrame {
 					erroTela.setVisible(true);
 
 				}
-				ContaDAO dao = new ContaDAO();
+				FuncionarioDAO dao = new FuncionarioDAO();
 				
 				
 				int res1=dao.cadastrarFuncionario(novo);

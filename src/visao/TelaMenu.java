@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import modelo.Funcionario;
+
 import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -15,27 +18,13 @@ import java.awt.Font;
 public class TelaMenu extends JFrame {
 
 	private JPanel contentPane;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaMenu frame = new TelaMenu();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	public JLabel nome;
 
 	/**
 	 * Create the frame.
+	 * @param f 
 	 */
-	public TelaMenu() {
+	public TelaMenu(Funcionario f) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 462, 435);
 		contentPane = new JPanel();
@@ -66,7 +55,7 @@ public class TelaMenu extends JFrame {
 		saudacao.setForeground(new Color(255, 255, 255));
 		barra.add(saudacao, "cell 1 0,alignx left,aligny center");
 		
-		JLabel nome = new JLabel("Nome Do Usuário");
+		nome = new JLabel(f.getNome());
 		nome.setForeground(new Color(255, 255, 255));
 		barra.add(nome, "cell 2 0,alignx left");
 		
