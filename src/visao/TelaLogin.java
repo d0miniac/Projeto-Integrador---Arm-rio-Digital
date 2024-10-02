@@ -51,6 +51,7 @@ public class TelaLogin extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaLogin() {
+		setTitle("Login");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1526, 1313);
 		contentPane = new JPanel();
@@ -107,6 +108,16 @@ public class TelaLogin extends JFrame {
 		chckbxMostrarSenha.setBackground(new Color(32, 60, 115));
 		panelDireito.add(chckbxMostrarSenha, "cell 1 29,alignx left");
 		
+		chckbxMostrarSenha.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (chckbxMostrarSenha.isSelected()) {
+					txtSenha.setVisible(true);
+				} else {
+					txtSenha.setVisible(false);
+				}
+			}
+		});
+		
 		JButton btnEsqueciSenha = new JButton("Esqueci a senha");
 		btnEsqueciSenha.setHorizontalAlignment(SwingConstants.RIGHT);
 		btnEsqueciSenha.setForeground(new Color(255, 255, 255));
@@ -153,6 +164,15 @@ public class TelaLogin extends JFrame {
 		btnCadastrese.setBorderPainted(false);
 		btnCadastrese.setBackground(new Color(32, 60, 115));
 		panelDireito.add(btnCadastrese, "cell 2 48,alignx right");
+
+
+		btnCadastrese.addActionListener(new ActionListener() {
+		 public void actionPerformed(ActionEvent e) {
+		 dispose();
+		 TelaCadastroFuncionario telaCadastro = new TelaCadastroFuncionario();
+		 telaCadastro.setVisible(true);
+		 }
+		});
 
 		setLocationRelativeTo(null); // Centraliza a janela na tela
 	}
