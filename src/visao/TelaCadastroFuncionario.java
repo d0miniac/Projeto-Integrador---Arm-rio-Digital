@@ -48,6 +48,7 @@ public class TelaCadastroFuncionario extends JFrame {
 					TelaCadastroFuncionario frame = new TelaCadastroFuncionario();
 					frame.setVisible(true);
 					frame.setSize(1215, 850);
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -59,10 +60,11 @@ public class TelaCadastroFuncionario extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaCadastroFuncionario() {
-		setResizable(false);
+		
 		setTitle("Cadastro de Funcionários");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1018, 680);
+		setResizable(false);
 
 		contentPane = new ImagePanel("src/img/background3.png");
 		setContentPane(contentPane);

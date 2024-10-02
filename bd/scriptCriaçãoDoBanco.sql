@@ -23,7 +23,7 @@ USE `armariodigital` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `armariodigital`.`funcionarios` (
   `idFuncionario` INT(11) NOT NULL AUTO_INCREMENT,
-  `CPF` VARCHAR(30) NOT NULL,
+  `CPF` VARCHAR(14) NOT NULL,
   `NomeFuncionario` VARCHAR(45) NOT NULL,
   `Email` VARCHAR(30) NOT NULL,
   `Senha` VARCHAR(15) NOT NULL,
