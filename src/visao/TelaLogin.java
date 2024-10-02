@@ -137,7 +137,7 @@ public class TelaLogin extends JFrame {
 				if(f != null) {
 					dispose();
 				TelaMenu tela = new TelaMenu(f);
-				tela.setVisible(rootPaneCheckingEnabled);
+				tela.setVisible(true);
 				} else {
 					JOptionPane.showMessageDialog(null, "Usuário Nulo");
 				}
