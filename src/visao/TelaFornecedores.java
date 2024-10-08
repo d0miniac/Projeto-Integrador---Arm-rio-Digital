@@ -5,10 +5,14 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import java.awt.GridLayout;
+import net.miginfocom.swing.MigLayout;
+import javax.swing.JButton;
 
 public class TelaFornecedores extends JFrame {
 
 	private JPanel contentPane;
+	private JPanel contentPane_1;
 
 	/**
 	 * Launch the application.
@@ -35,7 +39,10 @@ public class TelaFornecedores extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		setContentPane(contentPane);
+		contentPane_1 = new ImagePanel("src/img/FundoTelaFornecedores.png");
+		setContentPane(contentPane_1);
+		contentPane_1.setLayout(new MigLayout("", "[][][][]", "[200px][][][]"));
 	}
+
 
 }
