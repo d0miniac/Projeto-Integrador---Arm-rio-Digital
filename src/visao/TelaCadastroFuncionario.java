@@ -27,6 +27,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Toolkit;
 import controle.FuncionarioDAO;
+import javax.swing.border.LineBorder;
 
 public class TelaCadastroFuncionario extends JFrame {
 
@@ -100,6 +101,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		PainelComponentes.add(lblNewLabel_1, "cell 0 4");
 
 		txtNome = new JTextField(25);
+		txtNome.setBorder(new LineBorder(new Color(171, 173, 179), 1, true));
 		txtNome.setBackground(new Color(209, 209, 233));
 		txtNome.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		PainelComponentes.add(txtNome, "cell 0 5,alignx left");
@@ -110,6 +112,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		PainelComponentes.add(lblNewLabel_2, "cell 0 6");
 
 		txtCpf = new JTextField(25);
+		txtCpf.setBorder(new LineBorder(new Color(171, 173, 179), 1, true));
 		txtCpf.setBackground(new Color(209, 209, 233));
 		txtCpf.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		PainelComponentes.add(txtCpf, "cell 0 7,alignx left");
@@ -120,6 +123,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		PainelComponentes.add(lblNewLabel_3, "cell 0 8");
 
 		txtEmail = new JTextField(25);
+		txtEmail.setBorder(new LineBorder(new Color(171, 173, 179), 1, true));
 		txtEmail.setBackground(new Color(209, 209, 233));
 		txtEmail.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		PainelComponentes.add(txtEmail, "cell 0 9,alignx left");
@@ -130,6 +134,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		PainelComponentes.add(lblNewLabel_4, "cell 0 10");
 
 		txtSenha = new JTextField(25);
+		txtSenha.setBorder(new LineBorder(new Color(171, 173, 179), 1, true));
 		txtSenha.setBackground(new Color(209, 209, 233));
 		txtSenha.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		PainelComponentes.add(txtSenha, "cell 0 11,alignx left");
@@ -140,6 +145,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		PainelComponentes.add(lblNewLabel_5, "cell 0 12");
 
 		txtConfirma = new JTextField(25);
+		txtConfirma.setBorder(new LineBorder(new Color(171, 173, 179), 1, true));
 		txtConfirma.setBackground(new Color(209, 209, 233));
 		txtConfirma.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		PainelComponentes.add(txtConfirma, "cell 0 13,alignx left");
