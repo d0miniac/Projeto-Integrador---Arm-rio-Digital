@@ -9,5 +9,6 @@
 	<classpathentry kind="lib" path="com.miglayout.swing_11.3.0.jar"/>
 	<classpathentry kind="lib" path="com.miglayout.core_11.3.0.jar"/>
 	<classpathentry kind="lib" path="mysql-connector-j-9.0.0.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
