@@ -42,10 +42,46 @@ public class Teste extends JFrame {
 
 		// Criando os botões
 		JButton btnProdutos = new ImageButton("src/img/icone_produtos.png");
+		btnProdutos.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+			 dispose();
+			 TelaProdutos telaProdutos = new TelaProdutos();
+			 telaProdutos.setVisible(true);
+			 }
+			});
 		JButton btnFornecedores = new ImageButton("src/img/icone_fornecedores.png");
+		btnFornecedores.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+			 dispose();
+			 TelaFornecedores telaFornecedores = new TelaFornecedores();
+			 telaFornecedores.setVisible(true);
+			 }
+			});
 		JButton btnHistorico = new ImageButton("src/img/icone_historico.png");
+		btnHistorico.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+			 dispose();
+			 TelaHistoricoVendas telaHistoricoVendas = new TelaHistoricoVendas();
+			 telaHistoricoVendas.setVisible(true);
+			 }
+			});
 		JButton btnFuncionarios = new ImageButton("src/img/icone_funcionarios.png");
+		btnHistorico.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+			 dispose();
+			 TelaFuncionarios telaFuncionarios= new TelaFuncionarios();
+			 telaFuncionarios.setVisible(true);
+			 }
+			});
 		JButton btnVendas = new ImageButton("src/img/icone_vendas.png");
+		btnVendas.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+			 dispose();
+			 TelaVendas telaVendas= new TelaVendas();
+			 telaVendas.setVisible(true);
+			 }
+			});
+		
 
 		addComponentListener(new ComponentAdapter() {
 			@Override
