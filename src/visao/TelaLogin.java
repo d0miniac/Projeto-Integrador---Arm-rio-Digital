@@ -145,7 +145,7 @@ public class TelaLogin extends JFrame {
 				Funcionario f = dao.logarFuncionario(login);
 				if(f != null) {
 					dispose();
-				TelaMenu tela = new TelaMenu(f);
+				TelaMenu tela = new TelaMenu();
 				tela.setVisible(true);
 				} else {
 					JOptionPane.showMessageDialog(null, "Usuário Nulo");

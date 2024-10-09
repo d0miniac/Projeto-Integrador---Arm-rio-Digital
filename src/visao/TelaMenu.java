@@ -10,9 +10,9 @@ import java.awt.event.ComponentEvent;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.border.TitledBorder;
 
-public class Teste extends JFrame {
+public class TelaMenu extends JFrame {
 
-	public Teste() {
+	public TelaMenu() {
 		// janela principal
 		setTitle("MENU");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -31,7 +31,7 @@ public class Teste extends JFrame {
 		topPanel.setLayout(new MigLayout("", "[87px][][160px]", "[][][][][][][]"));
 
 		JLabel lblIconeUser = new JLabel("");
-		lblIconeUser.setIcon(new ImageIcon(Teste.class.getResource("/img/user.png")));
+		lblIconeUser.setIcon(new ImageIcon(TelaMenu.class.getResource("/img/user.png")));
 		topPanel.add(lblIconeUser, "cell 0 0 1 5,alignx left,aligny top");
 
 		// Painel de botões
@@ -66,7 +66,7 @@ public class Teste extends JFrame {
 			 }
 			});
 		JButton btnFuncionarios = new ImageButton("src/img/icone_funcionarios.png");
-		btnHistorico.addActionListener(new ActionListener() {
+		btnFuncionarios.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
 			 dispose();
 			 TelaFuncionarios telaFuncionarios= new TelaFuncionarios();
@@ -81,6 +81,7 @@ public class Teste extends JFrame {
 			 telaVendas.setVisible(true);
 			 }
 			});
+		
 		
 
 		addComponentListener(new ComponentAdapter() {
@@ -146,7 +147,7 @@ public class Teste extends JFrame {
 
 	public static void main(String[] args) {
 		// Executa a tela de menu
-		new Teste();
+		new TelaMenu();
 	}
 
 }
