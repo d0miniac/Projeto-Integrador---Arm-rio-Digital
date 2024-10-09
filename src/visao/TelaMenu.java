@@ -1,64 +1,152 @@
 package visao;
 
-import java.awt.EventQueue;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import modelo.Funcionario;
-
-import java.awt.BorderLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import java.awt.Color;
 import net.miginfocom.swing.MigLayout;
-import java.awt.Font;
+import javax.swing.border.TitledBorder;
 
-public class TelaMenu extends JFrame {
+public class Teste extends JFrame {
 
-	private JPanel contentPane;
-	public JLabel nome;
-
-	/**
-	 * Create the frame.
-	 * @param f 
-	 */
-	public TelaMenu(Funcionario f) {
+	public Teste() {
+		// janela principal
+		setTitle("MENU");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 462, 435);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setSize(600, 400);
+		setLocationRelativeTo(null);
 
-		setContentPane(contentPane);
-		contentPane.setLayout(new BorderLayout(0, 0));
+		// Painel principal
+		JPanel mainPanel = new JPanel();
+		mainPanel.setLayout(new BorderLayout());
+		mainPanel.setBackground(new Color(230, 230, 230));
+
+		// Painel superior
+		JPanel topPanel = new JPanel();
+		topPanel.setBackground(new Color(33, 64, 154));
+		topPanel.setPreferredSize(new Dimension(600, 100));
+		topPanel.setLayout(new MigLayout("", "[87px][][160px]", "[][][][][][][]"));
+
+		JLabel lblIconeUser = new JLabel("");
+		lblIconeUser.setIcon(new ImageIcon(Teste.class.getResource("/img/user.png")));
+		topPanel.add(lblIconeUser, "cell 0 0 1 5,alignx left,aligny top");
+
+		// Painel de botões
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setLayout(new GridLayout(2, 3, 20, 20));
+		buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+		buttonPanel.setBackground(new Color(230, 230, 230));
+
+		// Criando os botões
+		JButton btnProdutos = new ImageButton("src/img/icone_produtos.png");
+		btnProdutos.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+			 dispose();
+			 TelaProdutos telaProdutos = new TelaProdutos();
+			 telaProdutos.setVisible(true);
+			 }
+			});
+		JButton btnFornecedores = new ImageButton("src/img/icone_fornecedores.png");
+		btnFornecedores.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+			 dispose();
+			 TelaFornecedores telaFornecedores = new TelaFornecedores();
+			 telaFornecedores.setVisible(true);
+			 }
+			});
+		JButton btnHistorico = new ImageButton("src/img/icone_historico.png");
+		btnHistorico.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+			 dispose();
+			 TelaHistoricoVendas telaHistoricoVendas = new TelaHistoricoVendas();
+			 telaHistoricoVendas.setVisible(true);
+			 }
+			});
+		JButton btnFuncionarios = new ImageButton("src/img/icone_funcionarios.png");
+		btnHistorico.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+			 dispose();
+			 TelaFuncionarios telaFuncionarios= new TelaFuncionarios();
+			 telaFuncionarios.setVisible(true);
+			 }
+			});
+		JButton btnVendas = new ImageButton("src/img/icone_vendas.png");
+		btnVendas.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+			 dispose();
+			 TelaVendas telaVendas= new TelaVendas();
+			 telaVendas.setVisible(true);
+			 }
+			});
 		
-		JPanel panel = new JPanel();
-		contentPane.add(panel, BorderLayout.CENTER);
-		panel.setLayout(new BorderLayout(0, 0));
+
+		addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentResized(ComponentEvent e) {
+				btnProdutos.repaint();
+				btnFornecedores.repaint();
+				btnHistorico.repaint();
+				btnFuncionarios.repaint();
+				btnVendas.repaint();
+
+			}
+		});
+		// Adiciona os botões ao painel
+		buttonPanel.add(btnProdutos);
+		buttonPanel.add(btnFornecedores);
+		buttonPanel.add(btnHistorico);
+		buttonPanel.add(btnFuncionarios);
+		buttonPanel.add(btnVendas);
+
+		// Adiciona os painéis ao painel principal
+		mainPanel.add(topPanel, BorderLayout.NORTH);
+
+		JLabel msg1 = new JLabel("Bem vindo!", SwingConstants.CENTER);
+		msg1.setForeground(Color.WHITE);
+		msg1.setFont(new Font("Arial", Font.BOLD, 30));
+		msg1.setBorder(null);
+
+		topPanel.add(msg1, "cell 1 1");
 		
-		JPanel menu = new  ImagePanel("src/img/backgroundFundo.png");
-		panel.add(menu, BorderLayout.CENTER);
-		
-		JButton btnNewButton_1 = new JButton("2222");
-		menu.add(btnNewButton_1);
-		
-		JPanel barra = new  ImagePanel("src/img/azulr.png");
-		contentPane.add(barra, BorderLayout.NORTH);
-		barra.setLayout(new MigLayout("", "[69px][53px][82px]", "[23px]"));
-		
-		JButton btnNewButton = new JButton("111111");
-		barra.add(btnNewButton, "cell 0 0,alignx left,aligny top");
-		
-		JLabel saudacao = new JLabel("Bem vindo!");
-		saudacao.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		saudacao.setForeground(new Color(255, 255, 255));
-		barra.add(saudacao, "cell 1 0,alignx left,aligny center");
-		
-		nome = new JLabel(f.getNome());
-		nome.setForeground(new Color(255, 255, 255));
-		barra.add(nome, "cell 2 0,alignx left");
-		
+				JLabel lblNewLabel_1 = new JLabel("Nome de Usuário");
+				lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+				lblNewLabel_1.setForeground(Color.WHITE);
+				topPanel.add(lblNewLabel_1, "cell 1 2,alignx left");
+		mainPanel.add(buttonPanel, BorderLayout.CENTER);
+
+		getContentPane().add(mainPanel);
+
+		// Mostra janela
+		setVisible(true);
+	}
+
+	// Método para criar um botão com imagem
+	private JButton criarBotao(String texto, String caminhoIcone) {
+		JButton button = new JButton(texto);
+		button.setBackground(new Color(255, 255, 255));
+		button.setForeground(new Color(0, 0, 128));
+		button.setFont(new Font("Arial", Font.PLAIN, 16));
+		button.setVerticalTextPosition(SwingConstants.BOTTOM);
+		button.setHorizontalTextPosition(SwingConstants.CENTER);
+
+		// Adiciona imagem ao botão
+		ImageIcon icon = new ImageIcon(caminhoIcone);
+
+		// Carrega a imagem e redimensiona
+		ImageIcon icon1 = new ImageIcon(caminhoIcone);
+		Image img = icon1.getImage();
+		Image scaledImg = img.getScaledInstance(200, 120, Image.SCALE_SMOOTH); // Redimensiona a imagem
+		button.setIcon(new ImageIcon(scaledImg));
+
+		return button;
+	}
+
+	public static void main(String[] args) {
+		// Executa a tela de menu
+		new Teste();
 	}
 
 }
