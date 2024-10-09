@@ -28,7 +28,7 @@ public class TelaMenu extends JFrame {
 		JPanel topPanel = new JPanel();
 		topPanel.setBackground(new Color(33, 64, 154));
 		topPanel.setPreferredSize(new Dimension(600, 100));
-		topPanel.setLayout(new MigLayout("", "[87px][][160px]", "[][][][][][][]"));
+		topPanel.setLayout(new MigLayout("", "[87px][][160px][][][][][]", "[][][][][][][]"));
 
 		JLabel lblIconeUser = new JLabel("");
 		lblIconeUser.setIcon(new ImageIcon(TelaMenu.class.getResource("/img/user.png")));
@@ -36,27 +36,23 @@ public class TelaMenu extends JFrame {
 
 		// Painel de botões
 		JPanel buttonPanel = new JPanel();
-		buttonPanel.setLayout(new GridLayout(2, 3, 20, 20));
 		buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 		buttonPanel.setBackground(new Color(230, 230, 230));
+		
+		
 
-		// Criando os botões
-		JButton btnProdutos = new ImageButton("src/img/icone_produtos.png");
-		btnProdutos.addActionListener(new ActionListener() {
-			 public void actionPerformed(ActionEvent e) {
-			 dispose();
-			 TelaProdutos telaProdutos = new TelaProdutos();
-			 telaProdutos.setVisible(true);
-			 }
-			});
-		JButton btnFornecedores = new ImageButton("src/img/icone_fornecedores.png");
-		btnFornecedores.addActionListener(new ActionListener() {
-			 public void actionPerformed(ActionEvent e) {
-			 dispose();
-			 TelaFornecedores telaFornecedores = new TelaFornecedores();
-			 telaFornecedores.setVisible(true);
-			 }
-			});
+		addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentResized(ComponentEvent e) {
+				btnProdutos.repaint();
+				btnFornecedores.repaint();
+				btnHistorico.repaint();
+				btnFuncionarios.repaint();
+				btnVendas.repaint();
+
+			}
+		});
+		buttonPanel.setLayout(new MigLayout("", "[grow 50][grow 50][grow 50][grow 50][grow 50][grow 50]", "[100px,grow][100px,grow]"));
 		JButton btnHistorico = new ImageButton("src/img/icone_historico.png");
 		btnHistorico.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
@@ -65,6 +61,44 @@ public class TelaMenu extends JFrame {
 			 telaHistoricoVendas.setVisible(true);
 			 }
 			});
+		
+				// Criando os botões
+				JButton btnProdutos = new ImageButton("src/img/icone_produtos.png");
+				btnProdutos.addActionListener(new ActionListener() {
+					 public void actionPerformed(ActionEvent e) {
+					 dispose();
+					 TelaProdutos telaProdutos = new TelaProdutos();
+					 telaProdutos.setVisible(true);
+					 }
+					});
+				// Adiciona os botões ao painel
+				buttonPanel.add(btnProdutos, "cell 0 0 2 1,grow");
+		JButton btnFornecedores = new ImageButton("src/img/icone_fornecedores.png");
+		btnFornecedores.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+			 dispose();
+			 TelaFornecedores telaFornecedores = new TelaFornecedores();
+			 telaFornecedores.setVisible(true);
+			 }
+			});
+		buttonPanel.add(btnFornecedores, "cell 2 0 2 1,grow");
+		buttonPanel.add(btnHistorico, "cell 4 0 2 1,grow");
+
+		// Adiciona os painéis ao painel principal
+		mainPanel.add(topPanel, BorderLayout.NORTH);
+
+		JLabel msg1 = new JLabel("Bem vindo!", SwingConstants.CENTER);
+		msg1.setForeground(Color.WHITE);
+		msg1.setFont(new Font("Arial", Font.BOLD, 30));
+		msg1.setBorder(null);
+
+		topPanel.add(msg1, "cell 1 1");
+		
+				JLabel lblNewLabel_1 = new JLabel("Nome de Usuário");
+				lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
+				lblNewLabel_1.setForeground(Color.WHITE);
+				topPanel.add(lblNewLabel_1, "cell 1 2,alignx left");
+		mainPanel.add(buttonPanel, BorderLayout.CENTER);
 		JButton btnFuncionarios = new ImageButton("src/img/icone_funcionarios.png");
 		btnFuncionarios.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
@@ -81,42 +115,8 @@ public class TelaMenu extends JFrame {
 			 telaVendas.setVisible(true);
 			 }
 			});
-		
-		
-
-		addComponentListener(new ComponentAdapter() {
-			@Override
-			public void componentResized(ComponentEvent e) {
-				btnProdutos.repaint();
-				btnFornecedores.repaint();
-				btnHistorico.repaint();
-				btnFuncionarios.repaint();
-				btnVendas.repaint();
-
-			}
-		});
-		// Adiciona os botões ao painel
-		buttonPanel.add(btnProdutos);
-		buttonPanel.add(btnFornecedores);
-		buttonPanel.add(btnHistorico);
-		buttonPanel.add(btnFuncionarios);
-		buttonPanel.add(btnVendas);
-
-		// Adiciona os painéis ao painel principal
-		mainPanel.add(topPanel, BorderLayout.NORTH);
-
-		JLabel msg1 = new JLabel("Bem vindo!", SwingConstants.CENTER);
-		msg1.setForeground(Color.WHITE);
-		msg1.setFont(new Font("Arial", Font.BOLD, 30));
-		msg1.setBorder(null);
-
-		topPanel.add(msg1, "cell 1 1");
-		
-				JLabel lblNewLabel_1 = new JLabel("Nome de Usuário");
-				lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-				lblNewLabel_1.setForeground(Color.WHITE);
-				topPanel.add(lblNewLabel_1, "cell 1 2,alignx left");
-		mainPanel.add(buttonPanel, BorderLayout.CENTER);
+		buttonPanel.add(btnVendas, "cell 1 1 2 1,grow");
+		buttonPanel.add(btnFuncionarios, "cell 3 1 2 1,grow");
 
 		getContentPane().add(mainPanel);
 
