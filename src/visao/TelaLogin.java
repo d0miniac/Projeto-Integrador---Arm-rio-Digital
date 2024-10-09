@@ -126,6 +126,15 @@ public class TelaLogin extends JFrame {
 		btnEsqueciSenha.setBorderPainted(false);
 		btnEsqueciSenha.setBackground(new Color(32, 60, 115));
 		panelDireito.add(btnEsqueciSenha, "cell 2 29,alignx right");
+		
+		btnEsqueciSenha.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+			 dispose();
+			 TelaEsqueciSenha telaEsqueciSenha = new TelaEsqueciSenha();
+			 telaEsqueciSenha.setVisible(true);
+			 }
+			});
+		
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -152,6 +161,7 @@ public class TelaLogin extends JFrame {
 		lblNovaConta.setForeground(new Color(255, 255, 255));
 		lblNovaConta.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		panelDireito.add(lblNovaConta, "cell 1 48,alignx left");
+		
 		JButton btnCadastrese = new JButton("Cadastre-se");
 		btnCadastrese.setHorizontalAlignment(SwingConstants.RIGHT);
 		btnCadastrese.addActionListener(new ActionListener() {
