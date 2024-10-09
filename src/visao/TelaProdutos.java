@@ -9,12 +9,14 @@ import javax.swing.border.EmptyBorder;
 import junit.framework.Test;
 
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.image.BufferedImage;
 
 import net.miginfocom.swing.MigLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import javax.swing.JLabel;
@@ -29,6 +31,8 @@ import java.awt.Font;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
@@ -77,6 +81,8 @@ public class TelaProdutos extends JFrame {
 		contentPane.add(panelVazio, "cell 0 0,grow");
 		panelVazio.setLayout(null);
 		
+		
+		
 		JPanel panelComponentes = new JPanel();
 		panelComponentes.setBackground(new Color(255, 0, 0));
 		panelComponentes.setOpaque(false);
@@ -95,6 +101,11 @@ public class TelaProdutos extends JFrame {
 		JButton btnAdd = new JButton("Adicionar");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				dispose();
+				TelaCadastroProdutos tela = new TelaCadastroProdutos();
+				tela.setVisible(true);
+				tela.setSize(657, 425);
+				tela.setLocationRelativeTo(null);
 				
 			}
 		});
@@ -109,7 +120,23 @@ public class TelaProdutos extends JFrame {
 		scrollPane.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
 		panelComponentes.add(scrollPane, "cell 4 2,grow");
 		
-		
+		JLabel lblSeta = new JLabel("");
+		lblSeta.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		lblSeta.setIcon(new ImageIcon(TelaCadastroProdutos.class.getResource("/img/de-volta.png")));
+		lblSeta.setBounds(0, 0, 110, 100);
+		ImageIcon seta = new ImageIcon(TelaCadastroProdutos.class.getResource("/img/de-volta.png"));
+		Image voltar = seta.getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
+		lblSeta.setIcon(new ImageIcon(voltar));
+		panelVazio.add(lblSeta);
+		lblSeta.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println("No futuro vai voltar pro menu principal");
+				/*TelaMenu tela = new TelaMenu(f);
+				dispose();
+				tela.setVisible(true);*/
+			}
+		});
 		
 		table = new JTable();
 		table.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -134,5 +161,4 @@ public class TelaProdutos extends JFrame {
 		thead.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
 	}
-
 }
