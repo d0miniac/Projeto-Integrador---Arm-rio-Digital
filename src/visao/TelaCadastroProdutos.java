@@ -14,6 +14,10 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.MatteBorder;
+
+import controle.ProdutoDAO;
+import modelo.Produto;
+
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
@@ -27,7 +31,16 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -35,10 +48,12 @@ import java.awt.event.MouseEvent;
 public class TelaCadastroProdutos extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_3;
+	private JTextField txtID;
+	private JTextField txtPreco;
+	private JTextField txtQuantidade;
 	JLabel lblimagem;
+	Produto produto;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -61,6 +76,7 @@ public class TelaCadastroProdutos extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaCadastroProdutos() {
+		produto = new Produto();
 		setTitle("Cadastro de Produtos");
 		contentPane = new ImagePanel("src/img/bgCadastroProdutos.png");
 		setContentPane(contentPane);
@@ -102,22 +118,24 @@ public class TelaCadastroProdutos extends JFrame {
 		JLabel lblNewLabel = new JLabel("ID");
 		topo.add(lblNewLabel, "flowx,cell 0 0,alignx center");
 		
-		textField = new JTextField();
-		topo.add(textField, "cell 0 0,alignx center");
-		textField.setColumns(10);
+		txtID = new JTextField();
+		topo.add(txtID, "cell 0 0,alignx center");
+		txtID.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("PREÇO");
 		topo.add(lblNewLabel_1, "flowx,cell 2 0,alignx center");
 		
-		textField_1 = new JTextField();
-		topo.add(textField_1, "cell 2 0,alignx center");
-		textField_1.setColumns(10);
+		txtPreco = new JTextField();
+		txtPreco.setUI(new HintTextFieldUI("R$"));
+		topo.add(txtPreco, "cell 2 0,alignx center");
+		txtPreco.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("MARCA");
 		topo.add(lblNewLabel_2, "flowx,cell 4 0,alignx center");
 		
-		JComboBox comboBox_1 = new JComboBox();
-		topo.add(comboBox_1, "cell 4 0,alignx center");
+		JComboBox cbxMarca = new JComboBox();
+		cbxMarca.setModel(new DefaultComboBoxModel(new String[] {"NIKE", "ADIDAS", "LACOSTE", "GUCCI", "PUMA"}));
+		topo.add(cbxMarca, "cell 4 0,alignx center");
 		
 		JPanel meio = new JPanel();
 		meio.setBorder(new MatteBorder(0, 0, 5, 0, (Color) new Color(32, 60, 115,124)));
@@ -129,16 +147,23 @@ public class TelaCadastroProdutos extends JFrame {
 		JLabel lblNewLabel_3 = new JLabel("QUANTIDADE NO ESTOQUE");
 		meio.add(lblNewLabel_3, "flowx,cell 0 0,alignx center");
 		
-		textField_3 = new JTextField();
-		meio.add(textField_3, "cell 0 0,alignx center");
-		textField_3.setColumns(10);
+		txtQuantidade = new JTextField();
+		meio.add(txtQuantidade, "cell 0 0,alignx center");
+		txtQuantidade.setColumns(10);
+		
+		JLabel lblNewLabel_8 = new JLabel("Tamanho");
+		meio.add(lblNewLabel_8, "flowx,cell 1 0,alignx center");
 		
 		JLabel lblNewLabel_4 = new JLabel("COR");
 		meio.add(lblNewLabel_4, "flowx,cell 2 0,alignx center");
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Vermelho", "Laranja", "Amarelo", "Rosa", "Azul", "Verde", "Roxo", "Preto", "Branco", "Cinza"}));
-		meio.add(comboBox, "cell 2 0,alignx center");
+		JComboBox cbxCor = new JComboBox();
+		cbxCor.setModel(new DefaultComboBoxModel(new String[] {"VERMELHO", "LARANJA", "AMARELO", "ROSA", "AZUL", "VERDE", "ROXO", "PRETO", "BRANCO", "CINZA"}));
+		meio.add(cbxCor, "cell 2 0,alignx center");
+		
+		JComboBox cbxTamanho = new JComboBox();
+		cbxTamanho.setModel(new DefaultComboBoxModel(new String[] {"PP", "P", "M", "G", "GG", "XG", "XGG", "EG", "EGG"}));
+		meio.add(cbxTamanho, "cell 1 0");
 		
 		JPanel inferior = new JPanel();
 		inferior.setBackground(new Color(128, 0, 255));
@@ -152,9 +177,9 @@ public class TelaCadastroProdutos extends JFrame {
 		JLabel lblNewLabel_5 = new JLabel("CATEGORIA");
 		inferior.add(lblNewLabel_5, "flowx,cell 0 0,alignx center");
 		
-		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"Camisa", "Calça", "Blusa", "Jaqueta", "Saia/Vestido", "Bermuda/Shorts", "Roupa Intíma"}));
-		inferior.add(comboBox_2, "cell 0 0,alignx center");
+		JComboBox cbxCategoria = new JComboBox();
+		cbxCategoria.setModel(new DefaultComboBoxModel(new String[] {"CAMISA", "CALÇA", "BLUSA", "JAQUETA", "SAIA/VESTIDO", "BERMUDA/SHORTS", "ROUPA INTÍMA"}));
+		inferior.add(cbxCategoria, "cell 0 0,alignx center");
 		
 		JLabel lblNewLabel_6 = new JLabel("IMAGEM DO PRODUTO");
 		inferior.add(lblNewLabel_6, "cell 2 0,alignx center");
@@ -163,14 +188,11 @@ public class TelaCadastroProdutos extends JFrame {
 		lblimagem.setIcon(new ImageIcon(TelaCadastroProdutos.class.getResource("/img/user.png")));
 		inferior.add(lblimagem, "cell 2 3 1 2");
 		
-		JButton btnNewButton = new JButton("Salvar");
-		inferior.add(btnNewButton, "flowx,cell 0 5,alignx center");
+		
+		
 		
 		JButton btnLoad = new JButton("Selecionar Imagem");
 		inferior.add(btnLoad, "cell 2 5,alignx center");
-		
-		JButton btnNewButton_1 = new JButton("New button");
-		inferior.add(btnNewButton_1, "cell 0 5,alignx center");
 		btnLoad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				 JFileChooser file = new JFileChooser("C://Users//Aluno//Pictures"); 
@@ -183,8 +205,36 @@ public class TelaCadastroProdutos extends JFrame {
 		        } else {
 		            File arquivo = file.getSelectedFile();
 		
-		            String caminho = arquivo.getAbsolutePath();
-		            ImageIcon imagem = new ImageIcon(caminho);
+		            String caminhoOrigem = arquivo.getAbsolutePath();
+		            
+		            Date now = new Date();
+		            Path f = Paths.get("ImagensProdutos/prod_"+now.getTime()+".png");
+		            String caminhoDestino = f.toAbsolutePath().toString();
+		            InputStream is = null;
+		            OutputStream os = null;
+		            try {
+		                is = new FileInputStream(caminhoOrigem);
+		                os = new FileOutputStream(caminhoDestino);
+		                byte[] buffer = new byte[1024];
+		                int length;
+		                while ((length = is.read(buffer)) > 0) {
+		                    os.write(buffer, 0, length);
+		                }
+		                is.close();
+		                os.close();
+		                produto.setFoto(caminhoDestino);
+		            } catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+						produto.setFoto(null);
+					} finally {
+		              
+		            }
+
+		            
+		            produto.setFoto(caminhoDestino);
+
+		            ImageIcon imagem = new ImageIcon(caminhoDestino);
 		            Image img = imagem.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
 		            System.out.println(arquivo);
 		            lblimagem.setIcon(new ImageIcon(img));
@@ -194,8 +244,149 @@ public class TelaCadastroProdutos extends JFrame {
 				
 			}
 		});
+		JButton btnNewButton = new JButton("Salvar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Float preco = Float.parseFloat(txtPreco.getText());
+				int quantidade = Integer.parseInt(txtQuantidade.getText());
+				Long id = Long.parseLong(txtID.getText());
+				
+				String categoria = null;
+				if(cbxCategoria.getSelectedItem().equals("CAMISA")) {
+					categoria = "Camisa";
+				}
+				if(cbxCategoria.getSelectedItem().equals("CALÇA")) {
+					categoria = "Calça";
+				}
+				if(cbxCategoria.getSelectedItem().equals("BERMUDA/SHORTS")) {
+					categoria = "Bermuda/Shorts";
+				}
+				if(cbxCategoria.getSelectedItem().equals("SAIA/VESTIDO")) {
+					categoria = "Saia/Vestido";
+				}
+				if(cbxCategoria.getSelectedItem().equals("ROUPA INTÍMA")) {
+					categoria = "Roupa Intíma";
+				}
+				if(cbxCategoria.getSelectedItem().equals("JAQUETA")) {
+					categoria = "Jaqueta";
+				}
+				if(cbxCategoria.getSelectedItem().equals("BLUSA")) {
+					categoria = "Blusa";
+				}
+				
+				String cor = null;
+				if(cbxCor.getSelectedItem().equals("LARANJA")) {
+					cor = "Laranja";
+				}
+				if(cbxCor.getSelectedItem().equals("VERMELHO")) {
+					cor = "Vermelho";
+				}
+				if(cbxCor.getSelectedItem().equals("AMARELO")) {
+					cor = "Amarelo";
+				}
+				if(cbxCor.getSelectedItem().equals("ROSA")) {
+					cor = "Rosa";
+				}
+				if(cbxCor.getSelectedItem().equals("AZUL")) {
+					cor = "Azul";
+				}
+				if(cbxCor.getSelectedItem().equals("VERDE")) {
+					cor = "Verde";
+				}
+				if(cbxCor.getSelectedItem().equals("ROXO")) {
+					cor = "Roxo";
+				}
+				if(cbxCor.getSelectedItem().equals("PRETO")) {
+					cor = "Preto";
+				}
+				if(cbxCor.getSelectedItem().equals("BRANCO")) {
+					cor = "Branco";
+				}
+				if(cbxCor.getSelectedItem().equals("CINZA")) {
+					cor = "Cinza";
+				}
+				
+				String marca = null;
+				if(cbxMarca.getSelectedItem().equals("NIKE")) {
+					marca = "Nike";
+				}
+				if(cbxMarca.getSelectedItem().equals("ADIDAS")) {
+					marca = "Adidas";
+				}
+				if(cbxMarca.getSelectedItem().equals("LACOSTE")) {
+					marca = "Lacoste";
+				}
+				if(cbxMarca.getSelectedItem().equals("GUCCI")) {
+					marca = "Gucci";
+				}
+				if(cbxMarca.getSelectedItem().equals("PUMA")) {
+					marca = "Puma";
+				}
+				
+				String tamanho = null;
+				if(cbxTamanho.getSelectedItem().equals("PP")) {
+					tamanho = "PP";
+				}
+				if(cbxTamanho.getSelectedItem().equals("P")) {
+					tamanho = "P";
+				}
+				if(cbxTamanho.getSelectedItem().equals("M")) {
+					tamanho = "M";
+				}
+				if(cbxTamanho.getSelectedItem().equals("G")) {
+					tamanho = "G";
+				}
+				if(cbxTamanho.getSelectedItem().equals("GG")) {
+					tamanho = "GG";
+				}
+				if(cbxTamanho.getSelectedItem().equals("XG")) {
+					tamanho = "XG";
+				}
+				if(cbxTamanho.getSelectedItem().equals("XGG")) {
+					tamanho = "XGG";
+				}
+				if(cbxTamanho.getSelectedItem().equals("EG")) {
+					tamanho = "EG";
+				}
+				if(cbxTamanho.getSelectedItem().equals("EGG")) {
+					tamanho = "EGG";
+				}
+				
+				
+				produto.setCategoria(categoria);
+				//produto.setFoto(caminhoDestino);
+				produto.setId(id);
+				produto.setMarca(marca);
+				produto.setPreco(preco);
+				produto.setQuantidade(quantidade);
+				produto.setCor(cor);
+				produto.setTamanho(tamanho);
+				
+				TelaProdutos tela = new TelaProdutos();
+				tela.cadastrar(produto);
+				dispose();
+				tela.setVisible(true);
+				tela.setSize(1215, 850);
+				
+				//testes
+				System.out.println(produto.getCategoria());
+				System.out.println(produto.getFoto());
+				System.out.println(produto.getMarca());
+				System.out.println(produto.getQuantidade());
+				System.out.println(produto.getId());
+				System.out.println(produto.getPreco());
+				ProdutoDAO dao = new ProdutoDAO();
+				dao.cadastrarProduto(produto);
+				
+				
+			}
+		});
+		inferior.add(btnNewButton, "flowx,cell 0 5,alignx center");
+		
+		JButton btnNewButton_1 = new JButton("New button");
+		inferior.add(btnNewButton_1, "cell 0 5,alignx center");
+		
 		
 
 	}
-
 }
