@@ -7,12 +7,14 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import junit.framework.Test;
+import modelo.Produto;
 
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import net.miginfocom.swing.MigLayout;
 import java.awt.Color;
@@ -42,6 +44,7 @@ public class TelaProdutos extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtFiltro;
 	private JTable table;
+	ArrayList<Produto> listaProdutos;
 
 	/**
 	 * Launch the application.
@@ -161,4 +164,26 @@ public class TelaProdutos extends JFrame {
 		thead.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
 	}
+	
+	public void cadastrar(Produto p) {
+		listaProdutos.add(p);
+		atualizarTabela();
+	}
+	
+	protected void atualizarTabela() {
+		DefaultTableModel tableModel = new DefaultTableModel(
+				new Object[][] {
+					{"1", "Cal\u00E7a", "Nike", "Preta", "38", "150", "R$ 200,00"},
+				},
+				new String[] {
+					"ID", "Categoria", "Marca", "Cor", "Tamanho", "Quantidade", "Pre\u00E7o"
+				}
+				);
+		
+		for (Produto produto : listaProdutos) {
+			tableModel.addRow(new Object[] {produto.getId(),produto.getCategoria(),produto.getMarca(),produto.getCor(),produto.getTamanho(),produto.getQuantidade(),produto.getPreco()});
+		}
+		
+		}
 }
+
