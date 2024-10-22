@@ -103,7 +103,7 @@ public class TelaFornecedores extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				// fazer tela de cadastro fornecedor e botar pra tela de cadastro e fornecedor
-				TelaCadastroFornecedor tela = new TelaCadastroFornecedor();
+				TelaCadastroFornecedores tela = new TelaCadastroFornecedores();
 				tela.setVisible(true);
 				tela.setSize(657, 425);
 				tela.setLocationRelativeTo(null);
