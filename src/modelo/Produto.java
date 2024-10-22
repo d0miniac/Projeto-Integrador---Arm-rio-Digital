@@ -9,7 +9,14 @@ public class Produto {
 	public String categoria;
 	public String cor;
 	public String tamanho;
+	public Long fornecedor;
 	
+	public Long getFornecedor() {
+		return fornecedor;
+	}
+	public void setFornecedor(Long fornecedor) {
+		this.fornecedor = fornecedor;
+	}
 	public String getCor() {
 		return cor;
 	}
