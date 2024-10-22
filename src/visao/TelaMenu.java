@@ -13,18 +13,16 @@ import javax.swing.border.TitledBorder;
 public class TelaMenu extends JFrame {
 
 	public TelaMenu() {
-		// janela principal
+		
 		setTitle("MENU");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(600, 400);
 		setLocationRelativeTo(null);
 
-		// Painel principal
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new BorderLayout());
 		mainPanel.setBackground(new Color(230, 230, 230));
 
-		// Painel superior
 		JPanel topPanel = new JPanel();
 		topPanel.setBackground(new Color(33, 64, 154));
 		topPanel.setPreferredSize(new Dimension(600, 100));
@@ -34,13 +32,11 @@ public class TelaMenu extends JFrame {
 		lblIconeUser.setIcon(new ImageIcon(TelaMenu.class.getResource("/img/user.png")));
 		topPanel.add(lblIconeUser, "cell 0 0 1 5,alignx left,aligny top");
 
-		// Painel de botões
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new GridLayout(2, 3, 20, 20));
 		buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 		buttonPanel.setBackground(new Color(230, 230, 230));
 
-		// Criando os botões
 		JButton btnProdutos = new ImageButton("src/img/icone_produtos.png");
 		btnProdutos.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
@@ -95,14 +91,13 @@ public class TelaMenu extends JFrame {
 
 			}
 		});
-		// Adiciona os botões ao painel
+		
 		buttonPanel.add(btnProdutos);
 		buttonPanel.add(btnFornecedores);
 		buttonPanel.add(btnHistorico);
 		buttonPanel.add(btnFuncionarios);
 		buttonPanel.add(btnVendas);
 
-		// Adiciona os painéis ao painel principal
 		mainPanel.add(topPanel, BorderLayout.NORTH);
 
 		JLabel msg1 = new JLabel("Bem vindo!", SwingConstants.CENTER);
@@ -120,11 +115,9 @@ public class TelaMenu extends JFrame {
 
 		getContentPane().add(mainPanel);
 
-		// Mostra janela
 		setVisible(true);
 	}
 
-	// Método para criar um botão com imagem
 	private JButton criarBotao(String texto, String caminhoIcone) {
 		JButton button = new JButton(texto);
 		button.setBackground(new Color(255, 255, 255));
@@ -133,20 +126,18 @@ public class TelaMenu extends JFrame {
 		button.setVerticalTextPosition(SwingConstants.BOTTOM);
 		button.setHorizontalTextPosition(SwingConstants.CENTER);
 
-		// Adiciona imagem ao botão
 		ImageIcon icon = new ImageIcon(caminhoIcone);
 
-		// Carrega a imagem e redimensiona
 		ImageIcon icon1 = new ImageIcon(caminhoIcone);
 		Image img = icon1.getImage();
-		Image scaledImg = img.getScaledInstance(200, 120, Image.SCALE_SMOOTH); // Redimensiona a imagem
+		Image scaledImg = img.getScaledInstance(200, 120, Image.SCALE_SMOOTH);
 		button.setIcon(new ImageIcon(scaledImg));
 
 		return button;
 	}
 
 	public static void main(String[] args) {
-		// Executa a tela de menu
+	
 		new TelaMenu();
 	}
 
