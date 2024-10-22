@@ -135,9 +135,6 @@ public class TelaProdutos extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("No futuro vai voltar pro menu principal");
-				TelaMenu tela = new TelaMenu();
-				dispose();
-				tela.setVisible(true);
 				/*TelaMenu tela = new TelaMenu(f);
 				dispose();
 				tela.setVisible(true);*/
@@ -150,7 +147,9 @@ public class TelaProdutos extends JFrame {
 		table.setBackground(new Color(123, 150, 212));
 		table.setForeground(new Color(255,255,255));
 		table.setModel(new DefaultTableModel(
-			new Object[][] {},
+			new Object[][] {
+				{"1", "Cal\u00E7a", "Nike", "Preta", "38", "150", "R$ 200,00"},
+			},
 			new String[] {
 				"ID", "Categoria", "Marca", "Cor", "Tamanho", "Quantidade", "Pre\u00E7o"
 			}
@@ -166,11 +165,16 @@ public class TelaProdutos extends JFrame {
 		
 	}
 	
-	
+	public void cadastrar(Produto p) {
+		listaProdutos.add(p);
+		atualizarTabela();
+	}
 	
 	protected void atualizarTabela() {
 		DefaultTableModel tableModel = new DefaultTableModel(
-				new Object[][] {},
+				new Object[][] {
+					{"1", "Cal\u00E7a", "Nike", "Preta", "38", "150", "R$ 200,00"},
+				},
 				new String[] {
 					"ID", "Categoria", "Marca", "Cor", "Tamanho", "Quantidade", "Pre\u00E7o"
 				}
