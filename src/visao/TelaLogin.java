@@ -23,13 +23,14 @@ import javax.swing.JCheckBox;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
 
 public class TelaLogin extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField txtSenha;
 	private JTextField txtEmail;
 	private JLabel backgroundLabel;
+	private JPasswordField passwordField;
 
 	/**
 	 * Launch the application.
@@ -72,7 +73,7 @@ public class TelaLogin extends JFrame {
 
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setSize(screenSize.width, screenSize.height);
-		panelDireito.setLayout(new MigLayout("", "[grow][grow 50][grow 50,fill][grow]", "[bottom][][][][][][][][][][][][::100px][::100px][][][][40px][][70px][][][][][][][][][70px][][][][][][][][][][][][][][][][][][][70px][]"));
+		panelDireito.setLayout(new MigLayout("", "[grow][grow][grow 50,fill][grow]", "[bottom][][][][][][][][][][][][::100px][::100px][][][][40px][][70px][][][][][][][][][70px][][][][][][][][][][][][][][][][][][][70px][]"));
 
 		JLabel lblBemVindo = new JLabel("Bem vindo");
 		lblBemVindo.setForeground(new Color(255, 255, 255));
@@ -97,10 +98,10 @@ public class TelaLogin extends JFrame {
 		lblSenha.setForeground(new Color(255, 255, 255));
 		lblSenha.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		panelDireito.add(lblSenha, "cell 1 27,alignx left");
-		txtSenha = new JTextField();
-		txtSenha.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		txtSenha.setColumns(10);
-		panelDireito.add(txtSenha, "cell 1 28 2 1,alignx right,grow");
+		
+		passwordField = new JPasswordField();
+		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		panelDireito.add(passwordField, "cell 1 28 2 1,grow");
 		
 		JCheckBox chckbxMostrarSenha = new JCheckBox("Mostrar senha");
 		chckbxMostrarSenha.setForeground(new Color(255, 255, 255));
@@ -109,13 +110,13 @@ public class TelaLogin extends JFrame {
 		panelDireito.add(chckbxMostrarSenha, "cell 1 29,alignx left");
 		
 		chckbxMostrarSenha.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (chckbxMostrarSenha.isSelected()) {
-					txtSenha.setVisible(true);
-				} else {
-					txtSenha.setVisible(false);
-				}
-			}
+		    public void actionPerformed(ActionEvent e) {
+		        if (chckbxMostrarSenha.isSelected()) {
+		            passwordField.setEchoChar((char) 0); 
+		        } else {
+		            passwordField.setEchoChar('•');  
+		        }
+		    }
 		});
 		
 		JButton btnEsqueciSenha = new JButton("Esqueci a senha");
@@ -140,7 +141,7 @@ public class TelaLogin extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Funcionario login = new Funcionario();
 				login.setEmail(txtEmail.getText());
-				login.setSenha(txtSenha.getText());
+				login.setSenha(new String(passwordField.getPassword()));
 				FuncionarioDAO dao = new FuncionarioDAO();
 				Funcionario f = dao.logarFuncionario(login);
 				if(f != null) {
@@ -184,6 +185,6 @@ public class TelaLogin extends JFrame {
 		 }
 		});
 
-		setLocationRelativeTo(null); // Centraliza a janela na tela
+		setLocationRelativeTo(null); 
 	}
 }
