@@ -16,7 +16,10 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.MatteBorder;
 
 import controle.ProdutoDAO;
+import modelo.Cor;
+import modelo.Marca;
 import modelo.Produto;
+import modelo.Tamanho;
 
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -53,6 +56,7 @@ public class TelaCadastroProdutos extends JFrame {
 	private JTextField txtQuantidade;
 	JLabel lblimagem;
 	Produto produto;
+	private JTextField txtFornecedor;
 	
 	/**
 	 * Launch the application.
@@ -113,9 +117,9 @@ public class TelaCadastroProdutos extends JFrame {
 		topo.setBackground(new Color(0, 128, 255));
 		contentPane.add(topo, "cell 0 1,grow");
 		topo.setOpaque(false);
-		topo.setLayout(new MigLayout("", "[grow][grow][grow][grow][grow]", "[]"));
+		topo.setLayout(new MigLayout("", "[grow][grow][grow][grow][grow]", "[][]"));
 		
-		JLabel lblNewLabel = new JLabel("ID");
+		JLabel lblNewLabel = new JLabel("ID Produto");
 		topo.add(lblNewLabel, "flowx,cell 0 0,alignx center");
 		
 		txtID = new JTextField();
@@ -134,8 +138,18 @@ public class TelaCadastroProdutos extends JFrame {
 		topo.add(lblNewLabel_2, "flowx,cell 4 0,alignx center");
 		
 		JComboBox cbxMarca = new JComboBox();
-		cbxMarca.setModel(new DefaultComboBoxModel(new String[] {"NIKE", "ADIDAS", "LACOSTE", "GUCCI", "PUMA"}));
+//		cbxMarca.setModel(new DefaultComboBoxModel(new String[] {"NIKE", "ADIDAS", "LACOSTE", "GUCCI", "PUMA"}));
+		cbxMarca.addItem(Marca.NIKE);
+		cbxMarca.addItem(Marca.ADIDAS);
+
 		topo.add(cbxMarca, "cell 4 0,alignx center");
+		
+		JLabel lblNewLabel_9 = new JLabel("ID Fornecedor");
+		topo.add(lblNewLabel_9, "flowx,cell 0 1,alignx center");
+		
+		txtFornecedor = new JTextField();
+		topo.add(txtFornecedor, "cell 0 1,alignx center");
+		txtFornecedor.setColumns(10);
 		
 		JPanel meio = new JPanel();
 		meio.setBorder(new MatteBorder(0, 0, 5, 0, (Color) new Color(32, 60, 115,124)));
@@ -250,7 +264,7 @@ public class TelaCadastroProdutos extends JFrame {
 				Float preco = Float.parseFloat(txtPreco.getText());
 				int quantidade = Integer.parseInt(txtQuantidade.getText());
 				Long id = Long.parseLong(txtID.getText());
-				
+				Long idF = Long.parseLong(txtFornecedor.getText());
 				String categoria = null;
 				if(cbxCategoria.getSelectedItem().equals("CAMISA")) {
 					categoria = "Camisa";
@@ -275,87 +289,23 @@ public class TelaCadastroProdutos extends JFrame {
 				}
 				
 				String cor = null;
-				if(cbxCor.getSelectedItem().equals("LARANJA")) {
-					cor = "Laranja";
-				}
-				if(cbxCor.getSelectedItem().equals("VERMELHO")) {
-					cor = "Vermelho";
-				}
-				if(cbxCor.getSelectedItem().equals("AMARELO")) {
-					cor = "Amarelo";
-				}
-				if(cbxCor.getSelectedItem().equals("ROSA")) {
-					cor = "Rosa";
-				}
-				if(cbxCor.getSelectedItem().equals("AZUL")) {
-					cor = "Azul";
-				}
-				if(cbxCor.getSelectedItem().equals("VERDE")) {
-					cor = "Verde";
-				}
-				if(cbxCor.getSelectedItem().equals("ROXO")) {
-					cor = "Roxo";
-				}
-				if(cbxCor.getSelectedItem().equals("PRETO")) {
-					cor = "Preto";
-				}
-				if(cbxCor.getSelectedItem().equals("BRANCO")) {
-					cor = "Branco";
-				}
-				if(cbxCor.getSelectedItem().equals("CINZA")) {
-					cor = "Cinza";
-				}
+				Cor corselecionada = (Cor)cbxCor.getSelectedItem();
+				cor = corselecionada.getDescricao();
 				
 				String marca = null;
-				if(cbxMarca.getSelectedItem().equals("NIKE")) {
-					marca = "Nike";
-				}
-				if(cbxMarca.getSelectedItem().equals("ADIDAS")) {
-					marca = "Adidas";
-				}
-				if(cbxMarca.getSelectedItem().equals("LACOSTE")) {
-					marca = "Lacoste";
-				}
-				if(cbxMarca.getSelectedItem().equals("GUCCI")) {
-					marca = "Gucci";
-				}
-				if(cbxMarca.getSelectedItem().equals("PUMA")) {
-					marca = "Puma";
-				}
+				Marca marcaselecionada = (Marca) cbxMarca.getSelectedItem();
+				marca = marcaselecionada.getDescricao();
+				
 				
 				String tamanho = null;
-				if(cbxTamanho.getSelectedItem().equals("PP")) {
-					tamanho = "PP";
-				}
-				if(cbxTamanho.getSelectedItem().equals("P")) {
-					tamanho = "P";
-				}
-				if(cbxTamanho.getSelectedItem().equals("M")) {
-					tamanho = "M";
-				}
-				if(cbxTamanho.getSelectedItem().equals("G")) {
-					tamanho = "G";
-				}
-				if(cbxTamanho.getSelectedItem().equals("GG")) {
-					tamanho = "GG";
-				}
-				if(cbxTamanho.getSelectedItem().equals("XG")) {
-					tamanho = "XG";
-				}
-				if(cbxTamanho.getSelectedItem().equals("XGG")) {
-					tamanho = "XGG";
-				}
-				if(cbxTamanho.getSelectedItem().equals("EG")) {
-					tamanho = "EG";
-				}
-				if(cbxTamanho.getSelectedItem().equals("EGG")) {
-					tamanho = "EGG";
-				}
+				Tamanho tamanhoselecionado = (Tamanho) cbxTamanho.getSelectedItem();
+				tamanho = tamanhoselecionado.getDescricao();
 				
 				
 				produto.setCategoria(categoria);
 				//produto.setFoto(caminhoDestino);
 				produto.setId(id);
+				produto.setFornecedor(idF);
 				produto.setMarca(marca);
 				produto.setPreco(preco);
 				produto.setQuantidade(quantidade);
@@ -363,7 +313,6 @@ public class TelaCadastroProdutos extends JFrame {
 				produto.setTamanho(tamanho);
 				
 				TelaProdutos tela = new TelaProdutos();
-				tela.cadastrar(produto);
 				dispose();
 				tela.setVisible(true);
 				tela.setSize(1215, 850);
@@ -376,7 +325,8 @@ public class TelaCadastroProdutos extends JFrame {
 				System.out.println(produto.getId());
 				System.out.println(produto.getPreco());
 				ProdutoDAO dao = new ProdutoDAO();
-				dao.cadastrarProduto(produto);
+				int res1=dao.cadastrarProduto(produto);
+				
 				
 				
 			}

@@ -33,13 +33,13 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class TelaCadastroFornecedor extends JFrame {
-	public TelaCadastroFornecedor() {
+	/*public TelaCadastroFornecedor() {
 		getContentPane().setLayout(new MigLayout("", "[30px][20px,grow][50px,grow][50px,grow][50px,grow][50px,grow][50px,grow][20px,grow][30px]", "[20px,grow][20px,grow][20px,grow][20px,grow][20px,grow][20px,grow][20px,grow][20px,grow][20px,grow]"));
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(0, 128, 192));
 		getContentPane().add(panel, "cell 1 1 7 7,grow");
-	}
+	}*/
 
 	private JPanel contentPane;
 	private JTextField textField;
