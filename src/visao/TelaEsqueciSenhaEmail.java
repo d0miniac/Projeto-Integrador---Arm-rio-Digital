@@ -48,7 +48,7 @@ public class TelaEsqueciSenhaEmail extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		
-		contentPane = new ImagePanel("src/img/backgroundSenha.png");
+		contentPane = new ImagePanel("src/img/bgSenha.png");
 		setContentPane(contentPane);
 
 		contentPane.setLayout(new MigLayout("", "[300px,grow][grow][grow]", "[100px][100px][100px][][][][][][][][][][][][][][50px][][][]"));
