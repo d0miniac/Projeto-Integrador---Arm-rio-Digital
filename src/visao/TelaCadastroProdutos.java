@@ -272,6 +272,8 @@ public class TelaCadastroProdutos extends JFrame {
 				if(cbxCategoria.getSelectedItem().equals("CALÇA")) {
 					categoria = "Calça";
 				}
+				
+				
 				if(cbxCategoria.getSelectedItem().equals("BERMUDA/SHORTS")) {
 					categoria = "Bermuda/Shorts";
 				}
