@@ -296,7 +296,6 @@ public class TelaCadastroProdutos extends JFrame {
 				Marca marcaselecionada = (Marca) cbxMarca.getSelectedItem();
 				marca = marcaselecionada.getDescricao();
 				
-				
 				String tamanho = null;
 				Tamanho tamanhoselecionado = (Tamanho) cbxTamanho.getSelectedItem();
 				tamanho = tamanhoselecionado.getDescricao();
