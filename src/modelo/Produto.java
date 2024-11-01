@@ -9,12 +9,12 @@ public class Produto {
 	public String categoria;
 	public String cor;
 	public String tamanho;
-	public Long fornecedor;
+	public int fornecedor;
 	
-	public Long getFornecedor() {
+	public int getFornecedor() {
 		return fornecedor;
 	}
-	public void setFornecedor(Long fornecedor) {
+	public void setFornecedor(int fornecedor) {
 		this.fornecedor = fornecedor;
 	}
 	public String getCor() {
