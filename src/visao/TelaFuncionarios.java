@@ -1,43 +1,31 @@
 package visao;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import junit.framework.Test;
-import modelo.Produto;
-
-import java.awt.GridBagLayout;
-import java.awt.Image;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-
-import net.miginfocom.swing.MigLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.imageio.ImageIO;
-import javax.swing.Icon;
-import javax.swing.JButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.border.LineBorder;
+import java.awt.EventQueue;
 import java.awt.Font;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.ActionEvent;
-import javax.swing.SwingConstants;
+import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+
+import modelo.Produto;
+import net.miginfocom.swing.MigLayout;
 
 public class TelaFuncionarios extends JFrame {
 
