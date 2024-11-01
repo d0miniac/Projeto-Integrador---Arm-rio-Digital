@@ -11,6 +11,6 @@ public enum Tamanho {
 	}
 	public String getDescricao() {
 		// TODO Auto-generated method stub
-		return null;
+		return descricao;
 	}
 }

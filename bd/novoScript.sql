@@ -18,7 +18,9 @@
 --
 -- Table structure for table `carrinho`
 --
-
+DROP SCHEMA IF EXISTS `armariodigital` ;
+CREATE SCHEMA IF NOT EXISTS `armariodigital` DEFAULT CHARACTER SET utf8 ;
+USE `armariodigital` ;
 DROP TABLE IF EXISTS `carrinho`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;

@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -24,15 +25,18 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
+import controle.ProdutoDAO;
 import modelo.Produto;
+import modelo.ProdutoTableModel;
 import net.miginfocom.swing.MigLayout;
 
 public class TelaProdutos extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtFiltro;
-	private JTable table;
-	ArrayList<Produto> listaProdutos;
+	private JTable tableProdutos;
+	private ArrayList<Produto> listaProdutos;
+	private ProdutoTableModel ptm;
 
 	/**
 	 * Launch the application.
@@ -55,8 +59,13 @@ public class TelaProdutos extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws SQLException 
 	 */
-	public TelaProdutos() {
+	public TelaProdutos() throws SQLException {
+		listaProdutos = new ArrayList<>();
+		ProdutoDAO pDao = new ProdutoDAO();
+		listaProdutos = pDao.selecionarProdutos();
+		
 		setTitle("Produtos");
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -131,23 +140,18 @@ public class TelaProdutos extends JFrame {
 				tela.setVisible(true);*/
 			}
 		});
-		
-		table = new JTable();
-		table.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		table.setGridColor(new Color(0,0,0));
-		table.setBackground(new Color(123, 150, 212));
-		table.setForeground(new Color(255,255,255));
-		table.setModel(new DefaultTableModel(
-			new Object[][] {},
-			new String[] {
-				"ID", "Categoria", "Marca", "Cor", "Tamanho", "Quantidade", "Pre\u00E7o"
-			}
-		));
+		ptm = new ProdutoTableModel(listaProdutos);
+		tableProdutos = new JTable();
+		tableProdutos.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		tableProdutos.setGridColor(new Color(0,0,0));
+		tableProdutos.setBackground(new Color(123, 150, 212));
+		tableProdutos.setForeground(new Color(255,255,255));
+		tableProdutos.setModel(ptm);
 		theader();
-		scrollPane.setViewportView(table);
+		scrollPane.setViewportView(tableProdutos);
 	}
 	private void theader() {
-		JTableHeader thead= table.getTableHeader();
+		JTableHeader thead= tableProdutos.getTableHeader();
 		thead.setForeground(new Color(123,150,212));
 		thead.setBackground(new Color(255,255,255));
 		thead.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -156,18 +160,6 @@ public class TelaProdutos extends JFrame {
 	
 	
 	
-	protected void atualizarTabela() {
-		DefaultTableModel tableModel = new DefaultTableModel(
-				new Object[][] {},
-				new String[] {
-					"ID", "Categoria", "Marca", "Cor", "Tamanho", "Quantidade", "Pre\u00E7o"
-				}
-				);
-		
-		for (Produto produto : listaProdutos) {
-			tableModel.addRow(new Object[] {produto.getId(),produto.getCategoria(),produto.getMarca(),produto.getCor(),produto.getTamanho(),produto.getQuantidade(),produto.getPreco()});
-		}
-		
-		}
+	
 }
 

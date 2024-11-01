@@ -2,6 +2,9 @@ package controle;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import modelo.Produto;
 
@@ -33,5 +36,32 @@ public class ProdutoDAO {
 			// TODO: handle exception
 		}
 		return res1;
+	}
+	
+	public ArrayList<Produto> selecionarProdutos() throws SQLException{
+		ArrayList<Produto> listaProdutos = new ArrayList<>();
+		String sql = "SELECT * FROM Produtos;";
+		PreparedStatement stmt1 = null;
+		ResultSet rs = null;
+		Connection conn = ConexaoBD.getConexaoMySQL();
+		stmt1= conn.prepareStatement("SELECT * FROM Produtos;");
+		rs = stmt1.executeQuery();
+		while(rs.next()) {
+			Produto p = new Produto();
+			p.setId(rs.getLong("idProduto"));
+			p.setCategoria(rs.getString("Categoria"));
+			p.setCor(rs.getString("Cor"));
+			p.setTamanho(rs.getString("Tamanho"));
+			p.setPreco(rs.getFloat("Preco"));
+			p.setQuantidade(rs.getInt("QT_Estoque"));
+			p.setMarca(rs.getString("Marca"));
+			p.setFornecedor(rs.getInt("Fornecedor_idFornecedor"));
+			p.setFoto(rs.getString("Imagem"));
+			listaProdutos.add(p);
+			
+			
+		}
+		return listaProdutos;
+		
 	}
 }
