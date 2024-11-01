@@ -16,6 +16,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.MatteBorder;
 
 import controle.ProdutoDAO;
+import modelo.Categoria;
 import modelo.Cor;
 import modelo.Marca;
 import modelo.Produto;
@@ -42,6 +43,7 @@ import java.io.OutputStreamWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.awt.event.ActionEvent;
@@ -103,11 +105,18 @@ public class TelaCadastroProdutos extends JFrame {
 		lblNewLabel_7.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				TelaProdutos tela = new TelaProdutos();
-				dispose();
-				tela.setSize(1215, 850);
-				tela.setLocationRelativeTo(null);
-				tela.setVisible(true);
+				TelaProdutos tela;
+				try {
+					tela = new TelaProdutos();
+					dispose();
+					tela.setSize(1215, 850);
+					tela.setLocationRelativeTo(null);
+					tela.setVisible(true);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 			}
 		});
 		
@@ -141,6 +150,7 @@ public class TelaCadastroProdutos extends JFrame {
 //		cbxMarca.setModel(new DefaultComboBoxModel(new String[] {"NIKE", "ADIDAS", "LACOSTE", "GUCCI", "PUMA"}));
 		cbxMarca.addItem(Marca.NIKE);
 		cbxMarca.addItem(Marca.ADIDAS);
+		cbxMarca.addItem(Marca.PUMA);
 
 		topo.add(cbxMarca, "cell 4 0,alignx center");
 		
@@ -172,11 +182,30 @@ public class TelaCadastroProdutos extends JFrame {
 		meio.add(lblNewLabel_4, "flowx,cell 2 0,alignx center");
 		
 		JComboBox cbxCor = new JComboBox();
-		cbxCor.setModel(new DefaultComboBoxModel(new String[] {"VERMELHO", "LARANJA", "AMARELO", "ROSA", "AZUL", "VERDE", "ROXO", "PRETO", "BRANCO", "CINZA"}));
+		cbxCor.addItem(Cor.AMARELO);
+		cbxCor.addItem(Cor.AZUL);
+		cbxCor.addItem(Cor.BRANCO);
+		cbxCor.addItem(Cor.CINZA);
+		cbxCor.addItem(Cor.LARANJA);
+		cbxCor.addItem(Cor.MARROM);
+		cbxCor.addItem(Cor.PRETO);
+		cbxCor.addItem(Cor.ROSA);
+		cbxCor.addItem(Cor.ROXO);
+		cbxCor.addItem(Cor.VERDE);
+		cbxCor.addItem(Cor.VERMELHO);
+		
 		meio.add(cbxCor, "cell 2 0,alignx center");
 		
 		JComboBox cbxTamanho = new JComboBox();
-		cbxTamanho.setModel(new DefaultComboBoxModel(new String[] {"PP", "P", "M", "G", "GG", "XG", "XGG", "EG", "EGG"}));
+		cbxTamanho.addItem(Tamanho.PP);
+		cbxTamanho.addItem(Tamanho.P);
+		cbxTamanho.addItem(Tamanho.M);
+		cbxTamanho.addItem(Tamanho.G);
+		cbxTamanho.addItem(Tamanho.GG);
+		cbxTamanho.addItem(Tamanho.XG);
+		cbxTamanho.addItem(Tamanho.XGG);
+		cbxTamanho.addItem(Tamanho.EG);
+		cbxTamanho.addItem(Tamanho.EGG);
 		meio.add(cbxTamanho, "cell 1 0");
 		
 		JPanel inferior = new JPanel();
@@ -192,7 +221,13 @@ public class TelaCadastroProdutos extends JFrame {
 		inferior.add(lblNewLabel_5, "flowx,cell 0 0,alignx center");
 		
 		JComboBox cbxCategoria = new JComboBox();
-		cbxCategoria.setModel(new DefaultComboBoxModel(new String[] {"CAMISA", "CALÇA", "BLUSA", "JAQUETA", "SAIA/VESTIDO", "BERMUDA/SHORTS", "ROUPA INTÍMA"}));
+		cbxCategoria.addItem(Categoria.BLUSA);
+		cbxCategoria.addItem(Categoria.CALÇA);
+		cbxCategoria.addItem(Categoria.CAMISA);
+		cbxCategoria.addItem(Categoria.INTIMA);
+		cbxCategoria.addItem(Categoria.JAQUETA);
+		cbxCategoria.addItem(Categoria.SAIA);
+		cbxCategoria.addItem(Categoria.SHORTS);
 		inferior.add(cbxCategoria, "cell 0 0,alignx center");
 		
 		JLabel lblNewLabel_6 = new JLabel("IMAGEM DO PRODUTO");
@@ -264,42 +299,25 @@ public class TelaCadastroProdutos extends JFrame {
 				Float preco = Float.parseFloat(txtPreco.getText());
 				int quantidade = Integer.parseInt(txtQuantidade.getText());
 				Long id = Long.parseLong(txtID.getText());
-				Long idF = Long.parseLong(txtFornecedor.getText());
-				String categoria = null;
-				if(cbxCategoria.getSelectedItem().equals("CAMISA")) {
-					categoria = "Camisa";
-				}
-				if(cbxCategoria.getSelectedItem().equals("CALÇA")) {
-					categoria = "Calça";
-				}
-				if(cbxCategoria.getSelectedItem().equals("BERMUDA/SHORTS")) {
-					categoria = "Bermuda/Shorts";
-				}
-				if(cbxCategoria.getSelectedItem().equals("SAIA/VESTIDO")) {
-					categoria = "Saia/Vestido";
-				}
-				if(cbxCategoria.getSelectedItem().equals("ROUPA INTÍMA")) {
-					categoria = "Roupa Intíma";
-				}
-				if(cbxCategoria.getSelectedItem().equals("JAQUETA")) {
-					categoria = "Jaqueta";
-				}
-				if(cbxCategoria.getSelectedItem().equals("BLUSA")) {
-					categoria = "Blusa";
-				}
+				int idF = Integer.parseInt(txtFornecedor.getText());
 				
-				String cor = null;
+				
+				String cor;
 				Cor corselecionada = (Cor)cbxCor.getSelectedItem();
 				cor = corselecionada.getDescricao();
 				
-				String marca = null;
+				String marca;
 				Marca marcaselecionada = (Marca) cbxMarca.getSelectedItem();
 				marca = marcaselecionada.getDescricao();
 				
 				
-				String tamanho = null;
+				String tamanho;
 				Tamanho tamanhoselecionado = (Tamanho) cbxTamanho.getSelectedItem();
 				tamanho = tamanhoselecionado.getDescricao();
+				
+				String categoria;
+				Categoria categoriaSelecionada = (Categoria) cbxCategoria.getSelectedItem();
+				categoria = categoriaSelecionada.getDescricao();
 				
 				
 				produto.setCategoria(categoria);
@@ -312,10 +330,9 @@ public class TelaCadastroProdutos extends JFrame {
 				produto.setCor(cor);
 				produto.setTamanho(tamanho);
 				
-				TelaProdutos tela = new TelaProdutos();
-				dispose();
-				tela.setVisible(true);
-				tela.setSize(1215, 850);
+				
+				
+				
 				
 				//testes
 				System.out.println(produto.getCategoria());
@@ -324,10 +341,20 @@ public class TelaCadastroProdutos extends JFrame {
 				System.out.println(produto.getQuantidade());
 				System.out.println(produto.getId());
 				System.out.println(produto.getPreco());
+				System.out.println(produto.getTamanho());
 				ProdutoDAO dao = new ProdutoDAO();
 				int res1=dao.cadastrarProduto(produto);
 				
-				
+				TelaProdutos tela;
+				try {
+					tela = new TelaProdutos();
+					tela.setVisible(true);
+					tela.setSize(1215, 850);
+					dispose();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				
 			}
 		});
