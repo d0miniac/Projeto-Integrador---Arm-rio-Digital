@@ -29,7 +29,7 @@ public class TelaCadastroFornecedores extends JFrame {
     private JTextField txtID;
     private JTextField textEMAIL;
     private JTextField textNOMECONTATO;
-    private JTextField textNOME_FORNECEDOR; // Alterado para 'textNOME_FORNECEDOR'
+    private JTextField textNOME_FORNECEDOR; 
     private JTextField textTELEFONE;
     private TelaFornecedores telaFornecedores;  
 
@@ -37,7 +37,9 @@ public class TelaCadastroFornecedores extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    TelaCadastroFornecedores frame = new TelaCadastroFornecedores(null);
+                    TelaFornecedores telaFornecedores = new TelaFornecedores();
+
+                    TelaCadastroFornecedores frame = new TelaCadastroFornecedores(telaFornecedores);
                     frame.setVisible(true);
                     frame.setSize(657, 425);
                     frame.setLocationRelativeTo(null);
@@ -73,16 +75,16 @@ public class TelaCadastroFornecedores extends JFrame {
         lblNewLabel_7.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                TelaFornecedores tela = new TelaFornecedores();
+            	TelaFornecedores telaFornecedores = new TelaFornecedores();
                 dispose();
-                tela.setSize(1215, 850);
-                tela.setLocationRelativeTo(null);
-                tela.setVisible(true);
+                telaFornecedores.setSize(1215, 850);
+                telaFornecedores.setLocationRelativeTo(null);
+                telaFornecedores.setVisible(true);
             }
         });
 
         JLabel lblNewLabel = new JLabel("Informações do fornecedor");
-        lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
         lblNewLabel.setForeground(new Color(153, 162, 209));
         contentPane.add(lblNewLabel, "cell 0 3");
 
@@ -102,14 +104,14 @@ public class TelaCadastroFornecedores extends JFrame {
         JLabel lblEMAIL = new JLabel("EMAIL");
         topo.add(lblEMAIL, "flowx,cell 2 0,alignx center");
 
-        JLabel lblNOME_FORNECEDOR = new JLabel("NOME DO FORNECEDOR"); // Atualizado
+        JLabel lblNOME_FORNECEDOR = new JLabel("NOME DO FORNECEDOR"); 
         topo.add(lblNOME_FORNECEDOR, "flowx,cell 4 0,alignx center");
 
         textEMAIL = new JTextField();
         textEMAIL.setColumns(10);
         topo.add(textEMAIL, "cell 2 0");
 
-        textNOME_FORNECEDOR = new JTextField(); // Alterado para 'textNOME_FORNECEDOR'
+        textNOME_FORNECEDOR = new JTextField(); 
         topo.add(textNOME_FORNECEDOR, "cell 4 0");
         textNOME_FORNECEDOR.setColumns(10);
 
@@ -144,19 +146,20 @@ public class TelaCadastroFornecedores extends JFrame {
         btnCadastrar.setForeground(Color.WHITE);
         btnCadastrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Aqui você deve pegar os valores dos campos e criar um objeto Fornecedor
+
             	Fornecedor fornecedor = new Fornecedor();
             	fornecedor.setEmail(textEMAIL.getText());
-            	fornecedor.setNomeFornecedor(textNOME_FORNECEDOR.getText());// Altere para Nome_Fornecedor
-            	fornecedor.setNomeCtt(textNOMECONTATO.getText()); // Altere para Nome_Ctt
+            	fornecedor.setNomeFornecedor(textNOME_FORNECEDOR.getText());
+            	fornecedor.setNomeCtt(textNOMECONTATO.getText()); 
             	fornecedor.setTelefone(textTELEFONE.getText());
-            	
+                
                 FornecedorDAO dao = new FornecedorDAO();
                 int resultado = dao.cadastrarFornecedor(fornecedor);
                 if (resultado == 1) {
-                    // Cadastro bem-sucedido
                     System.out.println("Fornecedor cadastrado com sucesso!");
-                    // Limpar campos após o cadastro
+
+                    telaFornecedores.adicionarFornecedor(fornecedor);
+
                     limparCampos();
                 } else {
                     System.out.println("Erro ao cadastrar fornecedor.");
@@ -170,7 +173,7 @@ public class TelaCadastroFornecedores extends JFrame {
         btnCancelar.setForeground(Color.WHITE);
         btnCancelar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                dispose(); // Fechar a tela de cadastro
+                dispose();
             }
         });
         inferior.add(btnCancelar, "cell 1 0");

@@ -4,103 +4,98 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.util.ArrayList;
+import modelo.Funcionario;
 import javax.swing.JOptionPane;
 
-import modelo.Funcionario;
-import visao.TelaMenu;
-
 public class FuncionarioDAO {
-    private TelaMenu menu;
 
     // Método para cadastrar um funcionário
-    public int cadastrarFuncionario(Funcionario c) {
-        PreparedStatement stmt1 = null;
-        int res1 = 0;
-        Connection conn = ConexaoBD.getConexaoMySQL();
+    public int cadastrarFuncionario(Funcionario f) {
+        String sql = "INSERT INTO funcionarios (CPF, NomeFuncionario, Email, Senha) VALUES (?, ?, ?, ?)";
+        try (Connection conn = ConexaoBD.getConexaoMySQL();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-        try {
-            stmt1 = conn.prepareStatement(
-                    "INSERT INTO funcionarios (CPF, NomeFuncionario, Email, Senha) VALUES (?, ?, ?, ?);");
-            stmt1.setString(1, c.getCpf());
-            stmt1.setString(2, c.getNome());
-            stmt1.setString(3, c.getEmail());
-            stmt1.setString(4, c.getSenha());
+            stmt.setString(1, f.getCpf());
+            stmt.setString(2, f.getNome());
+            stmt.setString(3, f.getEmail());
+            stmt.setString(4, f.getSenha());
 
-            res1 = stmt1.executeUpdate();
-            stmt1.close();
-            conn.close();
-
+            return stmt.executeUpdate(); // Retorna o número de linhas afetadas (1 se bem-sucedido)
         } catch (SQLException e) {
             e.printStackTrace();
+            return 0; // Retorna 0 em caso de erro
         }
-
-        return res1;
     }
 
     // Método para logar um funcionário
     public Funcionario logarFuncionario(Funcionario f) {
-        ResultSet res1 = null;
-        PreparedStatement stmt1 = null;
-        Connection conn = ConexaoBD.getConexaoMySQL();
+        String sql = "SELECT * FROM funcionarios WHERE Email = ? AND Senha = ?";
+        try (Connection conn = ConexaoBD.getConexaoMySQL();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-        try {
-            stmt1 = conn.prepareStatement(
-                    "SELECT * FROM armariodigital.funcionarios WHERE Email LIKE ? AND Senha LIKE ?;");
-            stmt1.setString(1, f.getEmail());
-            stmt1.setString(2, f.getSenha());
-            res1 = stmt1.executeQuery();
+            stmt.setString(1, f.getEmail());
+            stmt.setString(2, f.getSenha());
 
-            if (res1.next()) {
-                int id = res1.getInt("idFuncionario");
-                String cpf = res1.getString("CPF");
-                String nome = res1.getString("NomeFuncionario");
-
-                f.setId(id);
-                f.setCpf(cpf);
-                f.setNome(nome);
-
-                return f;
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    f.setId(rs.getInt("idFuncionario"));
+                    f.setCpf(rs.getString("CPF"));
+                    f.setNome(rs.getString("NomeFuncionario"));
+                    return f;
+                }
             }
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Não Logado");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao tentar fazer login.");
+            e.printStackTrace();
         }
-        return null;
+        return null; // Retorna null se não encontrou o funcionário
     }
 
-    // Novo método para buscar um funcionário pelo e-mail
+    // Método para buscar um funcionário por e-mail
     public Funcionario buscarPorEmail(String email) {
-        ResultSet res1 = null;
-        PreparedStatement stmt1 = null;
-        Connection conn = ConexaoBD.getConexaoMySQL();
-        Funcionario funcionario = null;
+        String sql = "SELECT * FROM funcionarios WHERE Email = ?";
+        try (Connection conn = ConexaoBD.getConexaoMySQL();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-        try {
-            stmt1 = conn.prepareStatement("SELECT * FROM funcionarios WHERE Email = ?;");
-            stmt1.setString(1, email);
-            res1 = stmt1.executeQuery();
-
-            if (res1.next()) {
-                funcionario = new Funcionario();
-                funcionario.setId(res1.getInt("idFuncionario"));
-                funcionario.setCpf(res1.getString("CPF"));
-                funcionario.setNome(res1.getString("NomeFuncionario"));
-                funcionario.setEmail(res1.getString("Email"));
-                funcionario.setSenha(res1.getString("Senha"));
+            stmt.setString(1, email);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    Funcionario funcionario = new Funcionario();
+                    funcionario.setId(rs.getInt("idFuncionario"));
+                    funcionario.setCpf(rs.getString("CPF"));
+                    funcionario.setNome(rs.getString("NomeFuncionario"));
+                    funcionario.setEmail(rs.getString("Email"));
+                    funcionario.setSenha(rs.getString("Senha"));
+                    return funcionario;
+                }
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (res1 != null) res1.close();
-                if (stmt1 != null) stmt1.close();
-                if (conn != null) conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
-        return funcionario;
+        return null; // Retorna null se não encontrar o funcionário
+    }
+
+    // Método para buscar todos os funcionários (similar ao selecionarUsuarios do UsuarioDAO)
+    public ArrayList<Funcionario> selecionarFuncionarios() throws SQLException {
+        ArrayList<Funcionario> funcionarios = new ArrayList<>();
+        String sql = "SELECT * FROM funcionarios";
+        try (Connection conn = ConexaoBD.getConexaoMySQL();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Funcionario funcionario = new Funcionario();
+                funcionario.setId(rs.getInt("idFuncionario"));
+                funcionario.setCpf(rs.getString("CPF"));
+                funcionario.setNome(rs.getString("NomeFuncionario"));
+                funcionario.setEmail(rs.getString("Email"));
+                funcionario.setSenha(rs.getString("Senha"));
+                funcionarios.add(funcionario);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return funcionarios;
     }
 }
