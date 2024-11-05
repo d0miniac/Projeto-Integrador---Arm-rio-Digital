@@ -3,12 +3,12 @@ package modelo;
 public class Produto {
 	public Long id;
 	public Float preco;
-	public String marca;
+	public Marca marca;
 	public int quantidade;
 	public String foto;
-	public String categoria;
-	public String cor;
-	public String tamanho;
+	public Categoria categoria;
+	public Cor cor;
+	public Tamanho tamanho;
 	public int fornecedor;
 	
 	public int getFornecedor() {
@@ -17,22 +17,22 @@ public class Produto {
 	public void setFornecedor(int fornecedor) {
 		this.fornecedor = fornecedor;
 	}
-	public String getCor() {
+	public Cor getCor() {
 		return cor;
 	}
-	public void setCor(String cor) {
+	public void setCor(Cor cor) {
 		this.cor = cor;
 	}
-	public String getTamanho() {
+	public Tamanho getTamanho() {
 		return tamanho;
 	}
-	public void setTamanho(String tamanho) {
+	public void setTamanho(Tamanho tamanho) {
 		this.tamanho = tamanho;
 	}
-	public String getCategoria() {
+	public Categoria getCategoria() {
 		return categoria;
 	}
-	public void setCategoria(String categoria) {
+	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
 	public Long getId() {
@@ -47,10 +47,10 @@ public class Produto {
 	public void setPreco(Float preco) {
 		this.preco = preco;
 	}
-	public String getMarca() {
+	public Marca getMarca() {
 		return marca;
 	}
-	public void setMarca(String marca) {
+	public void setMarca(Marca marca) {
 		this.marca = marca;
 	}
 	public int getQuantidade() {

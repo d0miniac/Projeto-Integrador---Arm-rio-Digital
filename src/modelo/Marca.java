@@ -19,5 +19,18 @@ public enum Marca {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+	
+	public static Marca getMarcaPorDescricao(String marca) {
+		switch (marca) {
+		case "Nike":
+			return NIKE;
+		case "Adidas":
+			return ADIDAS;
+		case "Puma":
+			return PUMA;
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + marca);
+		}
+	}
 
 }

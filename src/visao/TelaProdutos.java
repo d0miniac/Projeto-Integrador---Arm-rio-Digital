@@ -63,8 +63,8 @@ public class TelaProdutos extends JFrame {
 	 */
 	public TelaProdutos() throws SQLException {
 		listaProdutos = new ArrayList<>();
-		ProdutoDAO pDao = new ProdutoDAO();
-		listaProdutos = pDao.selecionarProdutos();
+		ProdutoDAO p = new ProdutoDAO();
+		listaProdutos = p.selecionarProdutos();
 		
 		setTitle("Produtos");
 		
@@ -114,7 +114,7 @@ public class TelaProdutos extends JFrame {
 		btnAdd.setMinimumSize(new Dimension(150, 30));
 		btnAdd.setMaximumSize(new Dimension(150, 30));
 		btnAdd.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
-		panelComponentes.add(btnAdd, "cell 4 1,alignx left,growy");
+		panelComponentes.add(btnAdd, "flowx,cell 4 1,alignx left,aligny center");
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
@@ -139,15 +139,81 @@ public class TelaProdutos extends JFrame {
 				tela.setVisible(true);
 			}
 		});
-		ptm = new ProdutoTableModel(listaProdutos);
 		tableProdutos = new JTable();
 		tableProdutos.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		tableProdutos.setGridColor(new Color(0,0,0));
 		tableProdutos.setBackground(new Color(123, 150, 212));
 		tableProdutos.setForeground(new Color(255,255,255));
+		
+		ptm = new ProdutoTableModel(listaProdutos);
 		tableProdutos.setModel(ptm);
+		
 		theader();
+		
 		scrollPane.setViewportView(tableProdutos);
+		
+		JButton btnUpdate = new JButton("Alterar");
+		btnUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int i = tableProdutos.getSelectedRow();
+				Long id = (Long) tableProdutos.getModel().getValueAt(i, 0);
+				Produto pdt = listaProdutos.get(i);// Produto();
+				/*
+				for (Produto produto : listaProdutos) {
+					if(produto.getId()==id) {
+						pdt.setId(produto.getId());
+						pdt.setCategoria(produto.getCategoria());
+						pdt.setCor(produto.getCor());
+						pdt.setFornecedor(produto.getFornecedor());
+						pdt.setFoto(produto.getFoto());
+						pdt.setMarca(produto.getMarca());
+						pdt.setPreco(produto.getPreco());
+						pdt.setQuantidade(produto.getQuantidade());
+						pdt.setTamanho(produto.getTamanho());
+					}
+				}*/
+				
+				TelaEditarProdutos tela = new TelaEditarProdutos(pdt);
+				dispose();
+				tela.setVisible(true);
+			}
+		});
+		btnUpdate.setBackground(new Color(243, 244, 240));
+		btnUpdate.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		btnUpdate.setMinimumSize(new Dimension(150, 30));
+		btnUpdate.setMaximumSize(new Dimension(150, 30));
+		btnUpdate.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
+		panelComponentes.add(btnUpdate, "cell 4 1");
+		
+		JButton btnDelete = new JButton("Deletar");
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				int i = tableProdutos.getSelectedRow();
+				Long id = (Long) tableProdutos.getModel().getValueAt(i, 0);
+				
+				
+				
+				
+				try {
+					p.excluirProdutos(id);
+					listaProdutos = p.selecionarProdutos();
+					ptm = new ProdutoTableModel(listaProdutos);
+					tableProdutos.setModel(ptm);
+					
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnDelete.setBackground(new Color(243, 244, 240));
+		btnDelete.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		btnDelete.setMinimumSize(new Dimension(150, 30));
+		btnDelete.setMaximumSize(new Dimension(150, 30));
+		btnDelete.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
+		panelComponentes.add(btnDelete, "cell 4 1");
 	}
 	private void theader() {
 		JTableHeader thead= tableProdutos.getTableHeader();
