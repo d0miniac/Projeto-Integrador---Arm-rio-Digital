@@ -1,7 +1,7 @@
 package modelo;
 
 public enum Categoria {
-	CAMISA("Camisa"),CALÇA("Calça"),BLUSA("Blusa"),JAQUETA("Jaqueta"),SAIA("Saia/Vestido"),SHORTS("Bermuda/Shorts"),INTIMA("Roupa Intíma");
+	CAMISA("Camisa"),CALÇA("Calça"),BLUSA("Blusa"),JAQUETA("Jaqueta"),VESTIDO("Vestido"),SHORTS("Shorts"),INTIMA("Intíma");
 	
 	private String descricao;
 
@@ -18,6 +18,33 @@ public enum Categoria {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	
+	public static Categoria getCategoriaPorDescricao(String categoria) {
+		switch (categoria) {
+		case "Camisa": 
+			return CAMISA;
+			
+		case "Calça":
+			return CALÇA;
+			
+		case "Blusa":
+			return BLUSA;
+			
+		case "Jaqueta":
+			return JAQUETA;
+			
+		case "Vestido":
+			return VESTIDO;
+			
+		case "Shorts":
+			return SHORTS;
+			
+		case "Intíma":
+			return INTIMA;
+		
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + categoria);
+		}
+		
+	}
 	
 }

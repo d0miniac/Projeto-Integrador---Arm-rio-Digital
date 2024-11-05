@@ -25,29 +25,24 @@ public class ProdutoTableModel extends AbstractTableModel {
 			return produto.getId();
 		}
 		else if(columnIndex ==1) {
-			return produto.getTamanho();
-		}
-		else if(columnIndex ==2) {
 			return produto.getCategoria();
 		}
-		else if(columnIndex ==3) {
-			return produto.getPreco();
-		}
-		else if(columnIndex ==4) {
-			return produto.getQuantidade();
-		}
-		else if(columnIndex ==5) {
-			return produto.getCor();
-		}
-		else if(columnIndex ==6) {
+		else if(columnIndex ==2) {
 			return produto.getMarca();
 		}
-		else if(columnIndex ==7) {
-			return produto.getFornecedor();
+		else if(columnIndex ==3) {
+			return produto.getCor();
 		}
-		else if(columnIndex ==8) {
-			return produto.getFoto();
+		else if(columnIndex ==4) {
+			return produto.getTamanho();
 		}
+		else if(columnIndex ==5) {
+			return produto.getQuantidade();
+		}
+		else if(columnIndex ==6) {
+			return produto.getPreco();
+		}
+		
 		else {
 			return null;
 		}

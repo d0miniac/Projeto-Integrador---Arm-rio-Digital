@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.sql.SQLException;
 
 import net.miginfocom.swing.MigLayout;
 import javax.swing.border.TitledBorder;
@@ -41,8 +42,18 @@ public class TelaMenu extends JFrame {
 		btnProdutos.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
 			 dispose();
-			 TelaProdutos telaProdutos = new TelaProdutos();
-			 telaProdutos.setVisible(true);
+			 TelaProdutos telaProdutos;
+			try {
+				telaProdutos = new TelaProdutos();
+				telaProdutos.setVisible(true);
+				telaProdutos.setSize(1215, 850);
+				telaProdutos.setLocationRelativeTo(null);
+				
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			 
 			 }
 			});
 		JButton btnFornecedores = new ImageButton("src/img/icone_fornecedores.png");
