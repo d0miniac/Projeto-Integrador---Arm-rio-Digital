@@ -5,14 +5,10 @@ import java.awt.Image;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import net.miginfocom.swing.MigLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 
-import javax.swing.border.LineBorder;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EtchedBorder;
 import javax.swing.border.MatteBorder;
 
 import controle.ProdutoDAO;
@@ -26,31 +22,24 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
-import javax.imageio.ImageIO;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class TelaCadastroProdutos extends JFrame {
+public class TelaEditarProdutos extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtID;
@@ -59,7 +48,7 @@ public class TelaCadastroProdutos extends JFrame {
 	JLabel lblimagem;
 	Produto produto;
 	private JTextField txtFornecedor;
-	
+
 	/**
 	 * Launch the application.
 	 */
@@ -67,7 +56,7 @@ public class TelaCadastroProdutos extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaCadastroProdutos frame = new TelaCadastroProdutos();
+					TelaEditarProdutos frame = new TelaEditarProdutos();
 					frame.setVisible(true);
 					frame.setSize(657, 425);
 					frame.setLocationRelativeTo(null);
@@ -81,24 +70,24 @@ public class TelaCadastroProdutos extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaCadastroProdutos() {
+	public TelaEditarProdutos() {
 		produto = new Produto();
 		setTitle("Cadastro de Produtos");
 		contentPane = new ImagePanel("src/img/bgCadastroProdutos.png");
 		setContentPane(contentPane);
 		contentPane.setLayout(new MigLayout("", "[grow]", "[70px][100px][100px][200px]"));
-		
+
 		JPanel vazio = new JPanel();
 		vazio.setBackground(new Color(255, 0, 0));
 		contentPane.add(vazio, "cell 0 0,grow");
 		vazio.setOpaque(false);
 		vazio.setLayout(null);
-		
+
 		JLabel lblNewLabel_7 = new JLabel("");
 		lblNewLabel_7.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		lblNewLabel_7.setIcon(new ImageIcon(TelaCadastroProdutos.class.getResource("/img/de-volta.png")));
+		lblNewLabel_7.setIcon(new ImageIcon(TelaEditarProdutos.class.getResource("/img/de-volta.png")));
 		lblNewLabel_7.setBounds(0, 0, 40, 40);
-		ImageIcon seta = new ImageIcon(TelaCadastroProdutos.class.getResource("/img/de-volta.png"));
+		ImageIcon seta = new ImageIcon(TelaEditarProdutos.class.getResource("/img/de-volta.png"));
 		Image voltar = seta.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
 		lblNewLabel_7.setIcon(new ImageIcon(voltar));
 		vazio.add(lblNewLabel_7);
@@ -116,72 +105,72 @@ public class TelaCadastroProdutos extends JFrame {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
+
 			}
 		});
-		
-		
+
 		JPanel topo = new JPanel();
-		topo.setBorder(new MatteBorder(0, 0, 5, 0, (Color) new Color(32, 60, 115,124)));
+		topo.setBorder(new MatteBorder(0, 0, 5, 0, (Color) new Color(32, 60, 115, 124)));
 		topo.setBackground(new Color(0, 128, 255));
 		contentPane.add(topo, "cell 0 1,grow");
 		topo.setOpaque(false);
-		topo.setLayout(new MigLayout("", "[grow][grow][grow][grow][grow]", "[][]"));
-		
-		JLabel lblNewLabel = new JLabel("ID Produto");
-		topo.add(lblNewLabel, "flowx,cell 0 0,alignx center");
-		
+		topo.setLayout(new MigLayout("", "[grow][grow][grow][grow][grow]", "[][][]"));
+
+		JLabel lblNewLabel = new JLabel("ID Produto      ");
+		topo.add(lblNewLabel, "flowx,cell 0 1,alignx center");
+
 		txtID = new JTextField();
-		topo.add(txtID, "cell 0 0,alignx center");
+		topo.add(txtID, "cell 0 1,alignx center");
 		txtID.setColumns(10);
-		
-		JLabel lblNewLabel_1 = new JLabel("PREÇO");
-		topo.add(lblNewLabel_1, "flowx,cell 2 0,alignx center");
-		
+
+		JLabel lblNewLabel_1 = new JLabel("           PREÇO");
+		topo.add(lblNewLabel_1, "flowx,cell 2 1,alignx center");
+
+		JLabel lblNewLabel_2 = new JLabel("                               MARCA");
+		topo.add(lblNewLabel_2, "flowx,cell 4 1,alignx left");
+
+		JLabel lblNewLabel_9 = new JLabel("ID Fornecedor");
+		topo.add(lblNewLabel_9, "flowx,cell 0 2,alignx center");
+
+		txtFornecedor = new JTextField();
+		topo.add(txtFornecedor, "cell 0 2,alignx center");
+		txtFornecedor.setColumns(10);
+
 		txtPreco = new JTextField();
 		txtPreco.setUI(new HintTextFieldUI("R$"));
-		topo.add(txtPreco, "cell 2 0,alignx center");
+		topo.add(txtPreco, "cell 2 1,alignx center");
 		txtPreco.setColumns(10);
-		
-		JLabel lblNewLabel_2 = new JLabel("MARCA");
-		topo.add(lblNewLabel_2, "flowx,cell 4 0,alignx center");
-		
-		JComboBox cbxMarca = new JComboBox();
-//		cbxMarca.setModel(new DefaultComboBoxModel(new String[] {"NIKE", "ADIDAS", "LACOSTE", "GUCCI", "PUMA"}));
+
+		JComboBox<Marca> cbxMarca = new JComboBox<Marca>();
+		// cbxMarca.setModel(new DefaultComboBoxModel(new String[] {"NIKE", "ADIDAS",
+		// "LACOSTE", "GUCCI", "PUMA"}));
 		cbxMarca.addItem(Marca.NIKE);
 		cbxMarca.addItem(Marca.ADIDAS);
 		cbxMarca.addItem(Marca.PUMA);
 
-		topo.add(cbxMarca, "cell 4 0,alignx center");
-		
-		JLabel lblNewLabel_9 = new JLabel("ID Fornecedor");
-		topo.add(lblNewLabel_9, "flowx,cell 0 1,alignx center");
-		
-		txtFornecedor = new JTextField();
-		topo.add(txtFornecedor, "cell 0 1,alignx center");
-		txtFornecedor.setColumns(10);
-		
+		topo.add(cbxMarca, "cell 4 1,alignx center");
+
 		JPanel meio = new JPanel();
-		meio.setBorder(new MatteBorder(0, 0, 5, 0, (Color) new Color(32, 60, 115,124)));
+		meio.setBorder(new MatteBorder(0, 0, 5, 0, (Color) new Color(32, 60, 115, 124)));
 		meio.setBackground(new Color(0, 255, 0));
 		contentPane.add(meio, "cell 0 2,grow");
 		meio.setOpaque(false);
 		meio.setLayout(new MigLayout("", "[grow][grow][grow]", "[][][]"));
-		
+
 		JLabel lblNewLabel_3 = new JLabel("QUANTIDADE NO ESTOQUE");
-		meio.add(lblNewLabel_3, "flowx,cell 0 0,alignx center");
-		
+		meio.add(lblNewLabel_3, "flowx,cell 0 0,alignx left");
+
 		txtQuantidade = new JTextField();
 		meio.add(txtQuantidade, "cell 0 0,alignx center");
 		txtQuantidade.setColumns(10);
-		
-		JLabel lblNewLabel_8 = new JLabel("Tamanho");
-		meio.add(lblNewLabel_8, "flowx,cell 1 0,alignx center");
-		
+
+		JLabel lblNewLabel_8 = new JLabel(" Tamanho");
+		meio.add(lblNewLabel_8, "flowx,cell 1 0,alignx left");
+
 		JLabel lblNewLabel_4 = new JLabel("COR");
 		meio.add(lblNewLabel_4, "flowx,cell 2 0,alignx center");
-		
-		JComboBox cbxCor = new JComboBox();
+
+		JComboBox<Cor> cbxCor = new JComboBox<Cor>();
 		cbxCor.addItem(Cor.AMARELO);
 		cbxCor.addItem(Cor.AZUL);
 		cbxCor.addItem(Cor.BRANCO);
@@ -193,10 +182,10 @@ public class TelaCadastroProdutos extends JFrame {
 		cbxCor.addItem(Cor.ROXO);
 		cbxCor.addItem(Cor.VERDE);
 		cbxCor.addItem(Cor.VERMELHO);
-		
+
 		meio.add(cbxCor, "cell 2 0,alignx center");
-		
-		JComboBox cbxTamanho = new JComboBox();
+
+		JComboBox<Tamanho> cbxTamanho = new JComboBox<Tamanho>();
 		cbxTamanho.addItem(Tamanho.PP);
 		cbxTamanho.addItem(Tamanho.P);
 		cbxTamanho.addItem(Tamanho.M);
@@ -207,7 +196,7 @@ public class TelaCadastroProdutos extends JFrame {
 		cbxTamanho.addItem(Tamanho.EG);
 		cbxTamanho.addItem(Tamanho.EGG);
 		meio.add(cbxTamanho, "cell 1 0");
-		
+
 		JPanel inferior = new JPanel();
 		inferior.setBackground(new Color(128, 0, 255));
 		contentPane.add(inferior, "cell 0 3,grow");
@@ -216,11 +205,11 @@ public class TelaCadastroProdutos extends JFrame {
 		setBounds(100, 100, 900, 568);
 		inferior.setOpaque(false);
 		inferior.setLayout(new MigLayout("", "[grow][grow][]", "[][][][][][]"));
-		
+
 		JLabel lblNewLabel_5 = new JLabel("CATEGORIA");
 		inferior.add(lblNewLabel_5, "flowx,cell 0 0,alignx center");
-		
-		JComboBox cbxCategoria = new JComboBox();
+
+		JComboBox<Categoria> cbxCategoria = new JComboBox<Categoria>();
 		cbxCategoria.addItem(Categoria.BLUSA);
 		cbxCategoria.addItem(Categoria.CALÇA);
 		cbxCategoria.addItem(Categoria.CAMISA);
@@ -229,68 +218,63 @@ public class TelaCadastroProdutos extends JFrame {
 		cbxCategoria.addItem(Categoria.SAIA);
 		cbxCategoria.addItem(Categoria.SHORTS);
 		inferior.add(cbxCategoria, "cell 0 0,alignx center");
-		
+
 		JLabel lblNewLabel_6 = new JLabel("IMAGEM DO PRODUTO");
-		inferior.add(lblNewLabel_6, "cell 2 0,alignx center");
-		
+		inferior.add(lblNewLabel_6, "cell 2 1,alignx center");
+
 		lblimagem = new JLabel("");
-		lblimagem.setIcon(new ImageIcon(TelaCadastroProdutos.class.getResource("/img/user.png")));
-		inferior.add(lblimagem, "cell 2 3 1 2");
-		
-		
-		
-		
+		lblimagem.setIcon(new ImageIcon(TelaEditarProdutos.class.getResource("/img/user2.png")));
+		inferior.add(lblimagem, "cell 2 3 1 2,alignx center,aligny center");
+
 		JButton btnLoad = new JButton("Selecionar Imagem");
 		inferior.add(btnLoad, "cell 2 5,alignx center");
 		btnLoad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				 JFileChooser file = new JFileChooser("C://Users//Aluno//Pictures"); 
-		          file.setFileSelectionMode(JFileChooser.FILES_ONLY);
-		          int i= file.showSaveDialog(null);
-		            System.out.println(i);
+				JFileChooser file = new JFileChooser("C://Users//Aluno//Pictures");
+				file.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				int i = file.showSaveDialog(null);
+				System.out.println(i);
 
-		        if (i==1){
-		           // JtextFieldLocal.setText("");
-		        } else {
-		            File arquivo = file.getSelectedFile();
-		
-		            String caminhoOrigem = arquivo.getAbsolutePath();
-		            
-		            Date now = new Date();
-		            Path f = Paths.get("ImagensProdutos/prod_"+now.getTime()+".png");
-		            String caminhoDestino = f.toAbsolutePath().toString();
-		            InputStream is = null;
-		            OutputStream os = null;
-		            try {
-		                is = new FileInputStream(caminhoOrigem);
-		                os = new FileOutputStream(caminhoDestino);
-		                byte[] buffer = new byte[1024];
-		                int length;
-		                while ((length = is.read(buffer)) > 0) {
-		                    os.write(buffer, 0, length);
-		                }
-		                is.close();
-		                os.close();
-		                produto.setFoto(caminhoDestino);
-		            } catch (IOException e1) {
+				if (i == 1) {
+					// JtextFieldLocal.setText("");
+				} else {
+					File arquivo = file.getSelectedFile();
+
+					String caminhoOrigem = arquivo.getAbsolutePath();
+
+					Date now = new Date();
+					Path f = Paths.get("ImagensProdutos/prod_" + now.getTime() + ".png");
+					String caminhoDestino = f.toAbsolutePath().toString();
+					InputStream is = null;
+					OutputStream os = null;
+					try {
+						is = new FileInputStream(caminhoOrigem);
+						os = new FileOutputStream(caminhoDestino);
+						byte[] buffer = new byte[1024];
+						int length;
+						while ((length = is.read(buffer)) > 0) {
+							os.write(buffer, 0, length);
+						}
+						is.close();
+						os.close();
+						produto.setFoto(caminhoDestino);
+					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 						produto.setFoto(null);
 					} finally {
-		              
-		            }
 
-		            
-		            produto.setFoto(caminhoDestino);
+					}
 
-		            ImageIcon imagem = new ImageIcon(caminhoDestino);
-		            Image img = imagem.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-		            System.out.println(arquivo);
-		            lblimagem.setIcon(new ImageIcon(img));
-		            
-		        }
+					produto.setFoto(caminhoDestino);
 
-				
+					ImageIcon imagem = new ImageIcon(caminhoDestino);
+					Image img = imagem.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+					System.out.println(arquivo);
+					lblimagem.setIcon(new ImageIcon(img));
+
+				}
+
 			}
 		});
 		JButton btnNewButton = new JButton("Salvar");
@@ -300,28 +284,25 @@ public class TelaCadastroProdutos extends JFrame {
 				int quantidade = Integer.parseInt(txtQuantidade.getText());
 				Long id = Long.parseLong(txtID.getText());
 				int idF = Integer.parseInt(txtFornecedor.getText());
-				
-				
+
 				String cor;
-				Cor corselecionada = (Cor)cbxCor.getSelectedItem();
+				Cor corselecionada = (Cor) cbxCor.getSelectedItem();
 				cor = corselecionada.getDescricao();
-				
+
 				String marca;
 				Marca marcaselecionada = (Marca) cbxMarca.getSelectedItem();
 				marca = marcaselecionada.getDescricao();
-				
-				
+
 				String tamanho;
 				Tamanho tamanhoselecionado = (Tamanho) cbxTamanho.getSelectedItem();
 				tamanho = tamanhoselecionado.getDescricao();
-				
+
 				String categoria;
 				Categoria categoriaSelecionada = (Categoria) cbxCategoria.getSelectedItem();
 				categoria = categoriaSelecionada.getDescricao();
-				
-				
+
 				produto.setCategoria(categoria);
-				//produto.setFoto(caminhoDestino);
+				// produto.setFoto(caminhoDestino);
 				produto.setId(id);
 				produto.setFornecedor(idF);
 				produto.setMarca(marca);
@@ -329,12 +310,8 @@ public class TelaCadastroProdutos extends JFrame {
 				produto.setQuantidade(quantidade);
 				produto.setCor(cor);
 				produto.setTamanho(tamanho);
-				
-				
-				
-				
-				
-				//testes
+
+				// testes
 				System.out.println(produto.getCategoria());
 				System.out.println(produto.getFoto());
 				System.out.println(produto.getMarca());
@@ -343,8 +320,8 @@ public class TelaCadastroProdutos extends JFrame {
 				System.out.println(produto.getPreco());
 				System.out.println(produto.getTamanho());
 				ProdutoDAO dao = new ProdutoDAO();
-				int res1=dao.cadastrarProduto(produto);
-				
+				int res1 = dao.cadastrarProduto(produto);
+
 				TelaProdutos tela;
 				try {
 					tela = new TelaProdutos();
@@ -355,16 +332,32 @@ public class TelaCadastroProdutos extends JFrame {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
+
 			}
 		});
 		inferior.add(btnNewButton, "flowx,cell 0 5,alignx center");
-		
-		JButton btnNewButton_1 = new JButton("Cancelar");
-		btnNewButton_1.setBackground(new Color(255, 0, 0));
-		inferior.add(btnNewButton_1, "cell 0 5,alignx center");
-		
-		
 
+		JButton btnNewButton_1 = new JButton("Cancelar");
+		btnNewButton_1.setBackground(new Color(240, 240, 240));
+		inferior.add(btnNewButton_1, "cell 0 5,alignx center");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				TelaProdutos telaProdutos = null;
+				try {
+					telaProdutos = new TelaProdutos();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				telaProdutos.setVisible(true);
+			}
+
+		});
+
+		JButton btnNewButton_2 = new JButton("EXCLUIR");
+		btnNewButton_2.setBackground(new Color(255, 91, 91));
+		inferior.add(btnNewButton_2, "cell 0 5");
 	}
+
 }

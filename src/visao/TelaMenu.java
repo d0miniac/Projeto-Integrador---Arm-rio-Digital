@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.sql.SQLException;
 
 import net.miginfocom.swing.MigLayout;
 import javax.swing.border.TitledBorder;
@@ -30,7 +31,7 @@ public class TelaMenu extends JFrame {
 
 		JLabel lblIconeUser = new JLabel("");
 		lblIconeUser.setIcon(new ImageIcon(TelaMenu.class.getResource("/img/user.png")));
-		topPanel.add(lblIconeUser, "cell 0 0 1 5,alignx left,aligny top");
+		topPanel.add(lblIconeUser, "cell 0 0 1 5,alignx center,aligny center");
 
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new GridLayout(2, 3, 20, 20));
@@ -41,7 +42,13 @@ public class TelaMenu extends JFrame {
 		btnProdutos.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
 			 dispose();
-			 TelaProdutos telaProdutos = new TelaProdutos();
+			 TelaProdutos telaProdutos = null;
+			try {
+				telaProdutos = new TelaProdutos();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			 telaProdutos.setVisible(true);
 			 }
 			});
