@@ -34,4 +34,9 @@ public class FornecedorDAO {
 	        return 0; // Erro ao cadastrar
 	    }
 	}
+
+	public int excluirFornecedor(int id) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
