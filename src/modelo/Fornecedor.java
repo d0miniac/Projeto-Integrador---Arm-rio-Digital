@@ -3,11 +3,10 @@ package modelo;
 public class Fornecedor {
     private int idFornecedor;
     private String email;
-    private String nomeFornecedor; // Corrigido para corresponder ao nome da coluna no banco
-    private String nomeCtt; // Corrigido para corresponder ao nome da coluna no banco
+    private String nomeFornecedor;
+    private String nomeCtt;
     private String telefone;
 
-    // Getters e Setters
     public int getIdFornecedor() {
         return idFornecedor;
     }

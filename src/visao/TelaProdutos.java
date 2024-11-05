@@ -131,13 +131,12 @@ public class TelaProdutos extends JFrame {
 		lblSeta.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("No futuro vai voltar pro menu principal");
 				TelaMenu tela = new TelaMenu();
 				dispose();
 				tela.setVisible(true);
-				/*TelaMenu tela = new TelaMenu(f);
+				TelaMenu telaMenu = new TelaMenu();
 				dispose();
-				tela.setVisible(true);*/
+				tela.setVisible(true);
 			}
 		});
 		ptm = new ProdutoTableModel(listaProdutos);
