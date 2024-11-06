@@ -53,16 +53,6 @@ public class TelaEsqueciSenha extends JFrame {
         });
     }
 
-<<<<<<< Updated upstream
-    public TelaEsqueciSenha() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 824, 695);
-        contentPane = new JPanel();
-        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-=======
-	/**
-	 * Create the frame.
-	 */
 	public TelaEsqueciSenha() {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -72,20 +62,16 @@ public class TelaEsqueciSenha extends JFrame {
 		
 		contentPane = new ImagePanel("src/img/bgSenha.png");
 		setContentPane(contentPane);
->>>>>>> Stashed changes
 
         contentPane = new ImagePanel("src/img/backgroundSenha.png");
         setContentPane(contentPane);
 
-<<<<<<< Updated upstream
         contentPane.setLayout(new MigLayout("", "[200px,grow][grow][grow]", "[50px][100px][100px][][][][][][][][][][][][][][50px][][][]"));
 
         JLabel lblEqueceuSenha = new JLabel("Esqueceu sua Senha?");
         lblEqueceuSenha.setFont(new Font("Tahoma", Font.BOLD, 50));
         contentPane.add(lblEqueceuSenha, "cell 1 5 2 1");
-=======
-	}
->>>>>>> Stashed changes
+
 
         JLabel lblRedefinir1 = new JLabel("Para redefinir sua senha, precisamos do");
         lblRedefinir1.setFont(new Font("Tahoma", Font.PLAIN, 30));
