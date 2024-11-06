@@ -34,34 +34,53 @@ public class TelaMenu extends JFrame {
 		topPanel.add(lblIconeUser, "cell 0 0 1 5,alignx left,aligny top");
 
 		JPanel buttonPanel = new JPanel();
-		buttonPanel.setLayout(new GridLayout(2, 3, 20, 20));
 		buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 		buttonPanel.setBackground(new Color(230, 230, 230));
 
+		buttonPanel
+				.setLayout(new MigLayout("", "[173px,grow][173px,grow][173px,grow][173px,grow][173px,grow][173px,grow]",
+						"[100px,grow][100px,grow]"));
+
 		JButton btnProdutos = new ImageButton("src/img/icone_produtos.png");
 		btnProdutos.addActionListener(new ActionListener() {
-			 public void actionPerformed(ActionEvent e) {
-			 dispose();
-			 TelaProdutos telaProdutos;
-			try {
-				telaProdutos = new TelaProdutos();
-				telaProdutos.setVisible(true);
-				telaProdutos.setSize(1215, 850);
-				telaProdutos.setLocationRelativeTo(null);
-				
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				TelaProdutos telaProdutos;
+				try {
+					telaProdutos = new TelaProdutos();
+					telaProdutos.setVisible(true);
+					telaProdutos.setSize(1215, 850);
+					telaProdutos.setLocationRelativeTo(null);
+
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
 			}
-			 
-			 }
-			});
+		});
+
 		JButton btnFornecedores = new ImageButton("src/img/icone_fornecedores.png");
 		btnFornecedores.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				TelaFornecedores telaFornecedores = new TelaFornecedores();
 				telaFornecedores.setVisible(true);
+			}
+		});
+
+		JButton btnFuncionarios = new ImageButton("src/img/icone_funcionarios.png");
+		btnFuncionarios.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				TelaFuncionarios telaFuncionarios = null;
+				try {
+					telaFuncionarios = new TelaFuncionarios();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				telaFuncionarios.setVisible(true);
 			}
 		});
 		JButton btnHistorico = new ImageButton("src/img/icone_historico.png");
@@ -72,14 +91,7 @@ public class TelaMenu extends JFrame {
 				telaHistoricoVendas.setVisible(true);
 			}
 		});
-		JButton btnFuncionarios = new ImageButton("src/img/icone_funcionarios.png");
-		btnFuncionarios.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				TelaFuncionarios telaFuncionarios = new TelaFuncionarios();
-				telaFuncionarios.setVisible(true);
-			}
-		});
+
 		JButton btnVendas = new ImageButton("src/img/icone_vendas.png");
 		btnVendas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -89,23 +101,11 @@ public class TelaMenu extends JFrame {
 			}
 		});
 
-		addComponentListener(new ComponentAdapter() {
-			@Override
-			public void componentResized(ComponentEvent e) {
-				btnProdutos.repaint();
-				btnFornecedores.repaint();
-				btnHistorico.repaint();
-				btnFuncionarios.repaint();
-				btnVendas.repaint();
-
-			}
-		});
-
-		buttonPanel.add(btnProdutos);
-		buttonPanel.add(btnFornecedores);
-		buttonPanel.add(btnHistorico);
-		buttonPanel.add(btnFuncionarios);
-		buttonPanel.add(btnVendas);
+		buttonPanel.add(btnFornecedores, "cell 2 0 2 1,grow");
+		buttonPanel.add(btnHistorico, "cell 4 0 2 1,grow");
+		buttonPanel.add(btnFuncionarios, "cell 1 1 2 1,grow");
+		buttonPanel.add(btnProdutos, "cell 0 0 2 1,grow");
+		buttonPanel.add(btnVendas, "cell 3 1 2 1,grow");
 
 		mainPanel.add(topPanel, BorderLayout.NORTH);
 
@@ -125,24 +125,6 @@ public class TelaMenu extends JFrame {
 		getContentPane().add(mainPanel);
 
 		setVisible(true);
-	}
-
-	private JButton criarBotao(String texto, String caminhoIcone) {
-		JButton button = new JButton(texto);
-		button.setBackground(new Color(255, 255, 255));
-		button.setForeground(new Color(0, 0, 128));
-		button.setFont(new Font("Arial", Font.PLAIN, 16));
-		button.setVerticalTextPosition(SwingConstants.BOTTOM);
-		button.setHorizontalTextPosition(SwingConstants.CENTER);
-
-		ImageIcon icon = new ImageIcon(caminhoIcone);
-
-		ImageIcon icon1 = new ImageIcon(caminhoIcone);
-		Image img = icon1.getImage();
-		Image scaledImg = img.getScaledInstance(200, 120, Image.SCALE_SMOOTH);
-		button.setIcon(new ImageIcon(scaledImg));
-
-		return button;
 	}
 
 	public static void main(String[] args) {
