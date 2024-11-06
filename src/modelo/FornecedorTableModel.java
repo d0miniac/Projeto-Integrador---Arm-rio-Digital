@@ -6,7 +6,7 @@ import modelo.Fornecedor;
 
 public class FornecedorTableModel extends AbstractTableModel {
     private List<Fornecedor> fornecedores;
-    private String[] colunas = {"ID", "Email", "Marca", "Nome p/ contato", "Telefone"};
+    private String[] colunas = {"ID", "Email", "Nome Fornecedor", "Nome p/ contato", "Telefone"};
     
 
     public FornecedorTableModel(List<Fornecedor> fornecedores) {

@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 
 public class FuncionarioDAO {
 
-    // Método para cadastrar um funcionário
+
     public int cadastrarFuncionario(Funcionario f) {
         String sql = "INSERT INTO funcionarios (CPF, NomeFuncionario, Email, Senha) VALUES (?, ?, ?, ?)";
         try (Connection conn = ConexaoBD.getConexaoMySQL();
@@ -21,14 +21,14 @@ public class FuncionarioDAO {
             stmt.setString(3, f.getEmail());
             stmt.setString(4, f.getSenha());
 
-            return stmt.executeUpdate(); // Retorna o número de linhas afetadas (1 se bem-sucedido)
+            return stmt.executeUpdate(); 
         } catch (SQLException e) {
             e.printStackTrace();
-            return 0; // Retorna 0 em caso de erro
+            return 0; 
         }
     }
 
-    // Método para logar um funcionário
+
     public Funcionario logarFuncionario(Funcionario f) {
         String sql = "SELECT * FROM funcionarios WHERE Email = ? AND Senha = ?";
         try (Connection conn = ConexaoBD.getConexaoMySQL();
@@ -49,10 +49,10 @@ public class FuncionarioDAO {
             JOptionPane.showMessageDialog(null, "Erro ao tentar fazer login.");
             e.printStackTrace();
         }
-        return null; // Retorna null se não encontrou o funcionário
+        return null; 
     }
 
-    // Método para buscar um funcionário por e-mail
+
     public Funcionario buscarPorEmail(String email) {
         String sql = "SELECT * FROM funcionarios WHERE Email = ?";
         try (Connection conn = ConexaoBD.getConexaoMySQL();
@@ -73,10 +73,9 @@ public class FuncionarioDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null; // Retorna null se não encontrar o funcionário
+        return null; 
     }
 
-    // Método para buscar todos os funcionários (similar ao selecionarUsuarios do UsuarioDAO)
     public ArrayList<Funcionario> selecionarFuncionarios() throws SQLException {
         ArrayList<Funcionario> funcionarios = new ArrayList<>();
         String sql = "SELECT * FROM funcionarios";

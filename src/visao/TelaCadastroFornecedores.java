@@ -106,12 +106,12 @@ public class TelaCadastroFornecedores extends JFrame {
         JLabel lblEMAIL = new JLabel("EMAIL");
         topo.add(lblEMAIL, "flowx,cell 2 0,alignx center");
 
-        JLabel lblNOME_FORNECEDOR = new JLabel("NOME DO FORNECEDOR"); 
-        topo.add(lblNOME_FORNECEDOR, "flowx,cell 4 0,alignx center");
-
         textEMAIL = new JTextField();
         textEMAIL.setColumns(10);
         topo.add(textEMAIL, "cell 2 0");
+        
+        JLabel lblNOME_FORNECEDOR = new JLabel("NOME DO FORNECEDOR"); 
+        topo.add(lblNOME_FORNECEDOR, "flowx,cell 4 0,alignx center");
 
         textNOME_FORNECEDOR = new JTextField(); 
         topo.add(textNOME_FORNECEDOR, "cell 4 0");
