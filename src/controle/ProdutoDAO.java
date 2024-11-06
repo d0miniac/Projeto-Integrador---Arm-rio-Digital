@@ -92,7 +92,8 @@ public class ProdutoDAO {
 		ResultSet rs = null;
 		Connection conn = ConexaoBD.getConexaoMySQL();
 		try {
-			stmt1 = conn.prepareStatement("update armariodigital.produtos set Tamanho =? Categoria = ?, Preco = ? QT_Estoque = ?, Cor=?, Marca = ?, Fornecedor_idFornecedor=?,Imagem=? where idProduto = ?;");
+			stmt1 = conn.prepareStatement("update armariodigital.produtos set Tamanho =?, Categoria = ?, Preco = ?, QT_Estoque = ?, Cor=?, Marca = ?, Fornecedor_idFornecedor=?,Imagem=? where idProduto = ?;");
+			System.out.println(p.getTamanho());
 			stmt1.setString(1, p.getTamanho().getDescricao());
 			stmt1.setString(2, p.getCategoria().getDescricao());
 			stmt1.setFloat(3, p.getPreco());

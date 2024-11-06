@@ -40,6 +40,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -59,6 +60,7 @@ public class TelaEditarProdutos extends JFrame {
 	JLabel lblimagem;
 	Produto produto;
 	private JTextField txtFornecedor;
+	private String caminhoDestino;
 	
 	/**
 	 * Launch the application.
@@ -232,6 +234,11 @@ public class TelaEditarProdutos extends JFrame {
 		
 		lblimagem = new JLabel("");
 		lblimagem.setIcon(new ImageIcon(TelaEditarProdutos.class.getResource("/img/user.png")));
+		if(prod.getFoto()!=null) {
+			ImageIcon imagem = new ImageIcon(prod.getFoto());
+            Image img = imagem.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+			lblimagem.setIcon(new ImageIcon(img));
+		}
 		inferior.add(lblimagem, "cell 2 3 1 2");
 		
 		
@@ -254,8 +261,9 @@ public class TelaEditarProdutos extends JFrame {
 		            String caminhoOrigem = arquivo.getAbsolutePath();
 		            
 		            Date now = new Date();
-		            Path f = Paths.get("ImagensProdutos/prod_"+now.getTime()+".png");
-		            String caminhoDestino = f.toAbsolutePath().toString();
+		            String nome_imagem = "ImagensProdutos/prod_"+now.getTime()+".png";
+		            Path f = Paths.get(nome_imagem);
+		            caminhoDestino = f.toString();
 		            InputStream is = null;
 		            OutputStream os = null;
 		            try {
@@ -278,11 +286,12 @@ public class TelaEditarProdutos extends JFrame {
 		            }
 
 		            
-		            produto.setFoto(caminhoDestino);
+		            produto.setFoto(nome_imagem);
 
 		            ImageIcon imagem = new ImageIcon(caminhoDestino);
 		            Image img = imagem.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
 		            System.out.println(arquivo);
+		            
 		            lblimagem.setIcon(new ImageIcon(img));
 		            
 		        }
@@ -299,26 +308,26 @@ public class TelaEditarProdutos extends JFrame {
 				int idF = Integer.parseInt(txtFornecedor.getText());
 				
 				
-				String cor;
+				
 				Cor corselecionada = (Cor)cbxCor.getSelectedItem();
-				cor = corselecionada.getDescricao();
 				
-				String marca;
+				
+				
 				Marca marcaselecionada = (Marca) cbxMarca.getSelectedItem();
-				marca = marcaselecionada.getDescricao();
 				
 				
-				String tamanho;
+				
+				
 				Tamanho tamanhoselecionado = (Tamanho) cbxTamanho.getSelectedItem();
-				tamanho = tamanhoselecionado.getDescricao();
 				
-				String categoria;
+				
+				
 				Categoria categoriaSelecionada = (Categoria) cbxCategoria.getSelectedItem();
-				categoria = categoriaSelecionada.getDescricao();
+				
 				
 				
 				produto.setCategoria(categoriaSelecionada);
-				//produto.setFoto(caminhoDestino);
+				produto.setFoto(caminhoDestino);
 				//produto.setId(id);
 				prod.setFornecedor(idF);
 				prod.setMarca(marcaselecionada);
@@ -335,7 +344,7 @@ public class TelaEditarProdutos extends JFrame {
 				
 				ProdutoDAO dao = new ProdutoDAO();
 				try {
-					dao.alterarProdutos(produto);
+					dao.alterarProdutos(prod);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
