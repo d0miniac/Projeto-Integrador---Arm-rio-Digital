@@ -69,10 +69,13 @@ public class TelaProdutos extends JFrame {
 		setTitle("Produtos");
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 841, 545);
 		contentPane = new ImagePanel("src/img/bgProdutos.png");
 		contentPane.setBackground(new Color(243, 244, 240));
 		setContentPane(contentPane);
+		setSize(1215, 850);
+		setLocationRelativeTo(null);
+		setResizable(false);
+
 		contentPane.setLayout(new MigLayout("", "[grow,fill]", "[120px][grow]"));
 		
 		JPanel panelVazio = new JPanel();

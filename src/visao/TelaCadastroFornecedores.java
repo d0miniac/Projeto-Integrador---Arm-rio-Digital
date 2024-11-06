@@ -95,12 +95,14 @@ public class TelaCadastroFornecedores extends JFrame {
         topo.setLayout(new MigLayout("", "[grow][grow][grow][grow][grow]", "[]"));
 
         JLabel lblID = new JLabel("ID");
-        topo.add(lblID, "flowx,cell 0 0,alignx center");
+        lblID.setEnabled(false);
+		topo.add(lblID, "flowx,cell 0 0,alignx center");
 
-        txtID = new JTextField();
-        topo.add(txtID, "cell 0 0,alignx center");
-        txtID.setColumns(10);
-
+		txtID = new JTextField();
+		txtID.setEnabled(false);
+		topo.add(txtID, "cell 0 0,alignx center");
+		txtID.setColumns(10);
+		
         JLabel lblEMAIL = new JLabel("EMAIL");
         topo.add(lblEMAIL, "flowx,cell 2 0,alignx center");
 
@@ -173,7 +175,9 @@ public class TelaCadastroFornecedores extends JFrame {
         btnCancelar.setForeground(Color.WHITE);
         btnCancelar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	TelaFornecedores tela = new TelaFornecedores();
                 dispose();
+                tela.setVisible(true);
             }
         });
         inferior.add(btnCancelar, "cell 1 0");

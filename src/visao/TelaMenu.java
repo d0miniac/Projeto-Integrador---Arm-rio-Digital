@@ -17,8 +17,9 @@ public class TelaMenu extends JFrame {
 
 		setTitle("MENU");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(600, 400);
+		setSize(1215, 850);
 		setLocationRelativeTo(null);
+		setResizable(false);
 
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new BorderLayout());
@@ -46,16 +47,10 @@ public class TelaMenu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				TelaProdutos telaProdutos;
-				try {
-					telaProdutos = new TelaProdutos();
-					telaProdutos.setVisible(true);
-					telaProdutos.setSize(1215, 850);
-					telaProdutos.setLocationRelativeTo(null);
-
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				telaProdutos = new TelaProdutos();
+				telaProdutos.setVisible(true);
+				telaProdutos.setSize(1215, 850);
+				telaProdutos.setLocationRelativeTo(null);
 
 			}
 		});

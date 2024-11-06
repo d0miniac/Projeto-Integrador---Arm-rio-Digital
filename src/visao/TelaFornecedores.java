@@ -37,8 +37,10 @@ public class TelaFornecedores extends JFrame {
     public TelaFornecedores() {
         listaFornecedores = new ArrayList<>();
         setTitle("Fornecedores");
+        setSize(1215, 850);
+		setLocationRelativeTo(null);
+		setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 841, 545);
         contentPane = new ImagePanel("src/img/bgTelaFornecedores.png");
         contentPane.setBackground(new Color(243, 244, 240));
         setContentPane(contentPane);

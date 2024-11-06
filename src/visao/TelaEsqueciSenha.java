@@ -63,9 +63,6 @@ public class TelaEsqueciSenha extends JFrame {
 		contentPane = new ImagePanel("src/img/bgSenha.png");
 		setContentPane(contentPane);
 
-        contentPane = new ImagePanel("src/img/backgroundSenha.png");
-        setContentPane(contentPane);
-
         contentPane.setLayout(new MigLayout("", "[200px,grow][grow][grow]", "[50px][100px][100px][][][][][][][][][][][][][][50px][][][]"));
 
         JLabel lblEqueceuSenha = new JLabel("Esqueceu sua Senha?");
