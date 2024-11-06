@@ -25,9 +25,8 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
-import br.com.loja.assistec.controller.UsuarioController;
-import br.com.loja.assistec.model.Usuario;
 import controle.FuncionarioController;
+import modelo.Funcionario;
 import net.miginfocom.swing.MigLayout;
 
 public class TelaFuncionarios extends JFrame {
@@ -35,26 +34,26 @@ public class TelaFuncionarios extends JFrame {
     private JPanel contentPane;
     private JTextField txtFiltro;
     private JTable table;
-    private ArrayList<Usuario> listaUsuarios;
+    private ArrayList<Funcionario> listarFuncionarios; 
 
     /**
      * Launch the application.
      */
     public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    TelaFuncionarios frame = new TelaFuncionarios();
-                    frame.setVisible(true);
-                    frame.setSize(1215, 850);
-                    frame.setLocationRelativeTo(null);
-                    frame.setResizable(false);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					TelaFuncionarios frame = new TelaFuncionarios();
+					frame.setVisible(true);
+					frame.setSize(1215, 850);
+					frame.setLocationRelativeTo(null);
+					frame.setResizable(false);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
     /**
      * Create the frame.
@@ -126,8 +125,8 @@ public class TelaFuncionarios extends JFrame {
         });
         
         // Inicializando o controlador e a lista de usuários
-        FuncionarioController usuarioController = new FuncionarioController();
-        listaUsuarios = usuarioController.listarUsuarios(); // Obtendo lista de usuários do banco
+        FuncionarioController funcionarioController = new FuncionarioController();
+        listarFuncionarios = funcionarioController.listarFuncionarios(); // Obtendo lista de funcionários do banco
         
         // Criando e configurando a tabela
         table = new JTable();
@@ -150,33 +149,33 @@ public class TelaFuncionarios extends JFrame {
         thead.setFont(new Font("Tahoma", Font.PLAIN, 20));
     }
     
-    // Método para atualizar a tabela com a lista de usuários
+    // Método para atualizar a tabela com a lista de funcionários
     protected void atualizarTabela() {
         // Modelo de dados da tabela
         DefaultTableModel tableModel = new DefaultTableModel(
                 new Object[][] {},
                 new String[] {
-                    "ID", "Nome", "Telefone", "Login", "Perfil"
+                    "ID", "Nome", "Email", "CPF", "Senha"
                 }
         );
         
-        // Preenchendo a tabela com os dados de usuários
-        for (Usuario usuario : listaUsuarios) {
+        // Preenchendo a tabela com os dados de funcionários
+        for (Funcionario funcionario : listarFuncionarios) {
             tableModel.addRow(new Object[] {
-                usuario.getIduser(),
-                usuario.getNome(),
-                usuario.getFone(),
-                usuario.getLogin(),
-                usuario.getPerfil()
+                funcionario.getId(),
+                funcionario.getNome(),
+                funcionario.getEmail(),
+                funcionario.getCpf(),
+                funcionario.getSenha()
             });
         }
         
         table.setModel(tableModel);
     }
     
-    // Método para cadastrar novo usuário (se necessário)
-    public void cadastrar(Usuario usuario) {
-        listaUsuarios.add(usuario);
+    // Método para cadastrar novo funcionário (se necessário)
+    public void cadastrar(Funcionario funcionario) {
+        listarFuncionarios.add(funcionario);
         atualizarTabela();
     }
 }
