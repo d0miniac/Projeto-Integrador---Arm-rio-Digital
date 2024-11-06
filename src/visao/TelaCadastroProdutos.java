@@ -254,7 +254,9 @@ public class TelaCadastroProdutos extends JFrame {
 		            String caminhoOrigem = arquivo.getAbsolutePath();
 		            
 		            Date now = new Date();
-		            Path f = Paths.get("ImagensProdutos/prod_"+now.getTime()+".png");
+		            String nome_imagem = "ImagensProdutos/prod_"+now.getTime()+".png";
+
+		            Path f = Paths.get(nome_imagem);
 		            String caminhoDestino = f.toAbsolutePath().toString();
 		            InputStream is = null;
 		            OutputStream os = null;
@@ -278,7 +280,7 @@ public class TelaCadastroProdutos extends JFrame {
 		            }
 
 		            
-		            produto.setFoto(caminhoDestino);
+		            produto.setFoto(nome_imagem);
 
 		            ImageIcon imagem = new ImageIcon(caminhoDestino);
 		            Image img = imagem.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
