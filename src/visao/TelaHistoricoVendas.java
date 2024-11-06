@@ -15,6 +15,7 @@ import javax.swing.table.JTableHeader;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -25,7 +26,6 @@ public class TelaHistoricoVendas extends JFrame {
     private JComboBox<String> comboCategoria;
     private List<Object[]> vendas;
 
-    /** Inicie o aplicativo. */
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -39,21 +39,40 @@ public class TelaHistoricoVendas extends JFrame {
         });
     }
 
-    /** Construtor do frame */
     public TelaHistoricoVendas() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 600, 400);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
-        contentPane.setLayout(new MigLayout("", "[grow][][grow][]", "[][grow]"));
+        contentPane.setLayout(new MigLayout("", "[][grow][][grow][]", "[][][grow]"));
+        
+        JButton btnVoltar = new JButton(new ImageIcon("/img/de-volta.png"));
+        btnVoltar.setBackground(new Color(0, 0, 0));
+        btnVoltar.setToolTipText("Voltar ao Menu");
+        btnVoltar.setFocusPainted(false);
+        btnVoltar.setContentAreaFilled(false);
+        btnVoltar.setBorderPainted(false);
+        
+        contentPane.add(btnVoltar, "cell 0 0 1 2,alignx left");
+        
+                btnVoltar.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        TelaMenu telaMenu = new TelaMenu();  
+                        telaMenu.setVisible(true);
+                        dispose();
+                    }
+                });
+
+
 
         JLabel lblNewLabel = new JLabel("Categoria");
         lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        contentPane.add(lblNewLabel, "flowx,cell 0 0,alignx right");
+        contentPane.add(lblNewLabel, "flowx,cell 1 1,alignx right");
 
         comboCategoria = new JComboBox<>();
-        contentPane.add(comboCategoria, "cell 1 0,growx, wmin 200");
+        comboCategoria.setBackground(new Color(209, 209, 233));
+        contentPane.add(comboCategoria, "cell 2 1,growx,wmin 200");
         comboCategoria.addItem("Todos");
         comboCategoria.addItem("Camisa");
         comboCategoria.addItem("Calça");
@@ -64,17 +83,19 @@ public class TelaHistoricoVendas extends JFrame {
         comboCategoria.addItem("Roupa Íntima");
 
         JButton btnBuscar = new JButton("Buscar");
+        btnBuscar.setForeground(new Color(255, 255, 255));
+        btnBuscar.setBackground(new Color(32, 60, 115));
         btnBuscar.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        contentPane.add(btnBuscar, "cell 2 0");
+        contentPane.add(btnBuscar, "cell 3 1");
 
         btnBuscar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                buscarVendas(); // Chama o método de busca ao clicar no botão
+                buscarVendas(); 
             }
         });
 
         JScrollPane scrollPane = new JScrollPane();
-        contentPane.add(scrollPane, "cell 0 1 3 1,grow");
+        contentPane.add(scrollPane, "cell 1 2 3 1,grow");
 
         table = new JTable();
         scrollPane.setViewportView(table);
@@ -83,6 +104,10 @@ public class TelaHistoricoVendas extends JFrame {
         vendas.add(new Object[] { "1", "Camisa", "Nike", "Azul", "M", "100", "R$ 150,00" });
         vendas.add(new Object[] { "2", "Calça", "Adidas", "Preta", "38", "200", "R$ 200,00" });
         vendas.add(new Object[] { "3", "Blusa", "Puma", "Vermelha", "P", "50", "R$ 180,00" });
+        vendas.add(new Object[] { "4", "Jaqueta", "Puma", "Preta", "M", "50", "R$ 250,00" });
+        vendas.add(new Object[] { "5", "Calça", "Nike", "Azul", "40", "100", "R$ 100,00" });
+
+
 
         atualizarTabela(vendas);
         theader();
@@ -103,7 +128,6 @@ public class TelaHistoricoVendas extends JFrame {
     }
 
     private void atualizarTabela(List<Object[]> dados) {
-        // Usa o modelo de tabela não editável
         NonEditableTableModel modelo = new NonEditableTableModel(
             dados.toArray(new Object[0][0]),
             new String[] { "ID", "Categoria", "Marca", "Cor", "Tamanho", "Quantidade", "Preço" }
@@ -117,8 +141,7 @@ public class TelaHistoricoVendas extends JFrame {
         thead.setBackground(new Color(255, 255, 255));
         thead.setFont(new Font("Tahoma", Font.PLAIN, 14));
     }
-
-    // Classe interna para tornar a tabela não editável
+    
     private class NonEditableTableModel extends DefaultTableModel {
         public NonEditableTableModel(Object[][] data, String[] columnNames) {
             super(data, columnNames);
@@ -126,7 +149,7 @@ public class TelaHistoricoVendas extends JFrame {
 
         @Override
         public boolean isCellEditable(int row, int column) {
-            return false; // Impede a edição de todas as células
+            return false; 
         }
     }
 }
