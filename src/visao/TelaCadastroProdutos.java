@@ -106,16 +106,11 @@ public class TelaCadastroProdutos extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				TelaProdutos tela;
-				try {
-					tela = new TelaProdutos();
-					dispose();
-					tela.setSize(1215, 850);
-					tela.setLocationRelativeTo(null);
-					tela.setVisible(true);
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				tela = new TelaProdutos();
+				dispose();
+				tela.setSize(1215, 850);
+				tela.setLocationRelativeTo(null);
+				tela.setVisible(true);
 				
 			}
 		});
@@ -348,15 +343,10 @@ public class TelaCadastroProdutos extends JFrame {
 				int res1=dao.cadastrarProduto(produto);
 				
 				TelaProdutos tela;
-				try {
-					tela = new TelaProdutos();
-					tela.setVisible(true);
-					tela.setSize(1215, 850);
-					dispose();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				tela = new TelaProdutos();
+				tela.setVisible(true);
+				tela.setSize(1215, 850);
+				dispose();
 				
 			}
 		});
