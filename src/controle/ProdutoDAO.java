@@ -42,14 +42,15 @@ public class ProdutoDAO {
 		return res1;
 	}
 	
-	public ArrayList<Produto> selecionarProdutos() throws SQLException{
+	public ArrayList<Produto> selecionarProdutos() {
 		ArrayList<Produto> listaProdutos = new ArrayList<>();
 		String sql = "SELECT * FROM Produtos;";
 		PreparedStatement stmt1 = null;
 		ResultSet rs = null;
 		Connection conn = ConexaoBD.getConexaoMySQL();
-		stmt1= conn.prepareStatement("SELECT * FROM Produtos;");
-		rs = stmt1.executeQuery();
+		try {
+			stmt1= conn.prepareStatement("SELECT * FROM Produtos;");
+			rs = stmt1.executeQuery();
 		while(rs.next()) {
 			Produto p = new Produto();
 			p.setId(rs.getLong("idProduto"));
@@ -65,6 +66,12 @@ public class ProdutoDAO {
 			
 			
 		}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return listaProdutos;
 		
 	}

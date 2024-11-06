@@ -32,6 +32,7 @@ public class FornecedorDAO {
                 }
             }
 
+<<<<<<< HEAD
             return affectedRows; // Retorna o número de linhas afetadas, indicando se o insert foi bem-sucedido.
         } catch (SQLException e) {
             e.printStackTrace(); // Imprime o erro para o console
@@ -62,3 +63,17 @@ public class FornecedorDAO {
         return fornecedores; // Retorna a lista de fornecedores recuperada do banco
     }
 }
+=======
+	        return affectedRows; // Retorna o número de linhas afetadas
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return 0; // Erro ao cadastrar
+	    }
+	}
+
+	public int excluirFornecedor(int id) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+}
+>>>>>>> telaeditarfornecedores
