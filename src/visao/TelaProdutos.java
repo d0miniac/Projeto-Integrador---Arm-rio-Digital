@@ -61,7 +61,7 @@ public class TelaProdutos extends JFrame {
 	 * Create the frame.
 	 * @throws SQLException 
 	 */
-	public TelaProdutos() throws SQLException {
+	public TelaProdutos()  {
 		listaProdutos = new ArrayList<>();
 		ProdutoDAO p = new ProdutoDAO();
 		listaProdutos = p.selecionarProdutos();
