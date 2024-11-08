@@ -94,6 +94,15 @@ public class ProdutoDAO {
 		
 	}
 	
+	public void excluirProdutosPorFornecedor(Long idFornecedor) throws SQLException {
+	    String sql = "DELETE FROM produtos WHERE Fornecedor_idFornecedor = ?";
+	    try (Connection conn = ConexaoBD.getConexaoMySQL();
+	         PreparedStatement stmt = conn.prepareStatement(sql)) {
+	        stmt.setLong(1, idFornecedor);
+	        stmt.executeUpdate();
+	    }
+	}
+	
 	public void alterarProdutos(Produto p) throws SQLException {
 		PreparedStatement stmt1 = null;
 		ResultSet rs = null;

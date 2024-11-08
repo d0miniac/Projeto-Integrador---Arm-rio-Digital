@@ -192,11 +192,8 @@ public class TelaProdutos extends JFrame {
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				
 				int i = tableProdutos.getSelectedRow();
 				Long id = (Long) tableProdutos.getModel().getValueAt(i, 0);
-				
-				
 				
 				
 				try {

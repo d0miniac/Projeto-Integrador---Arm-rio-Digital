@@ -1,17 +1,17 @@
 package modelo;
 
 public class Fornecedor {
-    private int idFornecedor;
+    private Long idFornecedor;
     private String email;
     private String nomeFornecedor;
     private String nomeCtt;
     private String telefone;
 
-    public int getIdFornecedor() {
+    public Long getIdFornecedor() {
         return idFornecedor;
     }
 
-    public void setIdFornecedor(int idFornecedor) {
+    public void setIdFornecedor(Long idFornecedor) {
         this.idFornecedor = idFornecedor;
     }
 
