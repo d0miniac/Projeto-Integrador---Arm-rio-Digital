@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import controle.FornecedorController;
 import modelo.Fornecedor;
 import modelo.FornecedorTableModel;
+import modelo.Produto;
+import modelo.ProdutoTableModel;
 import net.miginfocom.swing.MigLayout;
 
 public class TelaFornecedores extends JFrame {
@@ -74,6 +76,44 @@ public class TelaFornecedores extends JFrame {
                 tela.setLocationRelativeTo(null);
             }
         });
+        tableFornecedores = new JTable();
+		tableFornecedores.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		tableFornecedores.setGridColor(new Color(0,0,0));
+		tableFornecedores.setBackground(new Color(123, 150, 212));
+		tableFornecedores.setForeground(new Color(255,255,255));
+		
+		ftm = new FornecedorTableModel(listaFornecedores);
+		tableFornecedores.setModel(ftm);
+		
+		theader();
+	
+		
+		JButton btnUpdate = new JButton("Alterar");
+		btnUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int i = tableFornecedores.getSelectedRow();
+				Long id = (Long) tableFornecedores.getModel().getValueAt(i, 0);
+				Fornecedor pdt = listaFornecedores.get(i);// Fornecedores();
+				/*
+				for (Fornecedores fornecedores : listaFornecedores) {
+					if(Fornecedores.getId()==id) {
+						pdt.setId(fornecedores.getId());
+						pdt.setCategoria(fornecedores.getCategoria());
+						pdt.setCor(produto.getCor());
+						pdt.setFornecedor(produto.getFornecedor());
+						pdt.setFoto(produto.getFoto());
+						pdt.setMarca(produto.getMarca());
+						pdt.setPreco(produto.getPreco());
+						pdt.setQuantidade(produto.getQuantidade());
+						pdt.setTamanho(produto.getTamanho());
+					}
+				}*/
+				
+				TelaEditarFornecedores tela = new TelaEditarFornecedores(pdt);
+				dispose();
+				tela.setVisible(true);
+			}
+		});
         btnAdd.setBackground(new Color(243, 244, 240));
         btnAdd.setFont(new Font("Tahoma", Font.PLAIN, 24));
         btnAdd.setMinimumSize(new Dimension(150, 30));
@@ -112,8 +152,10 @@ public class TelaFornecedores extends JFrame {
                 dispose();
                 tela.setVisible(true);
             }
+            
         });
-
+    	
+   
         theader();
     }
 

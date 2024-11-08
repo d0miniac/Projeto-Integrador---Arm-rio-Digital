@@ -32,7 +32,7 @@ public class TelaEditarFornecedores extends JFrame {
     private JTextField textNOMECONTATO;
     private JTextField textNOME_FORNECEDOR; // Alterado para 'textNOME_FORNECEDOR'
     private JTextField textTELEFONE;
-    private TelaFornecedores telaFornecedores;  
+    private Fornecedor telaFornecedores;  
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -49,8 +49,8 @@ public class TelaEditarFornecedores extends JFrame {
         });
     }
 
-    public TelaEditarFornecedores(TelaFornecedores telaFornecedores) {
-        this.telaFornecedores = telaFornecedores;
+    public TelaEditarFornecedores(Fornecedor pdt) {
+        this.telaFornecedores = pdt;
         setResizable(false);
         setTitle("Cadastro de Fornecedores");
         contentPane = new ImagePanel("src/img/bgEditarFornecedores.png");
@@ -179,48 +179,11 @@ public class TelaEditarFornecedores extends JFrame {
             }
         });
         inferior.add(btnCancelar, "flowx,cell 1 0");
-        
-        JButton btnExcluir = new JButton("EXCLUIR");
-        btnExcluir.setForeground(new Color(255, 255, 255));
-        btnExcluir.setBackground(new Color(255, 0, 0));
-        inferior.add(btnExcluir, "cell 1 0");
-        btnExcluir = new JButton("EXCLUIR");
-        btnExcluir.setForeground(new Color(255, 255, 255));
-        btnExcluir.setBackground(new Color(255, 0, 0));
-        btnExcluir.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Pega o ID do fornecedor a ser excluído
-                String idText = txtID.getText();
-
-                // Verifica se o ID foi preenchido
-                if (idText.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Por favor, preencha o ID do fornecedor para excluir.", "Erro", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-
-                try {
-                    // Converte o ID para um inteiro (caso o usuário tenha inserido um valor válido)
-                    int id = Integer.parseInt(idText);
-
-                    // Cria uma instância do FornecedorDAO e chama o método para excluir o fornecedor
-                    FornecedorDAO dao = new FornecedorDAO();
-                    int resultado = dao.excluirFornecedor(id);  // Chama o método de exclusão no DAO
-
-                    if (resultado == 1) {
-                        JOptionPane.showMessageDialog(null, "Fornecedor excluído com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-                        limparCampos();  // Limpa os campos após a exclusão
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Erro ao excluir fornecedor.", "Erro", JOptionPane.ERROR_MESSAGE);
-                    }
-
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(null, "ID inválido. Por favor, insira um ID numérico válido.", "Erro", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        });
-
-        
+      
     }
+
+        
+    
 
     private void limparCampos() {
         txtID.setText("");
