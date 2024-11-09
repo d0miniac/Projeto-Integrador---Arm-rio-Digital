@@ -8,9 +8,10 @@ import java.awt.event.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import controle.FornecedorController;
+import controle.FornecedorDAO;
+import controle.ProdutoDAO;
 import modelo.Fornecedor;
 import modelo.FornecedorTableModel;
-import modelo.Produto;
 import modelo.ProdutoTableModel;
 import net.miginfocom.swing.MigLayout;
 
@@ -38,6 +39,14 @@ public class TelaFornecedores extends JFrame {
 
     public TelaFornecedores() {
         listaFornecedores = new ArrayList<>();
+		FornecedorDAO f = new FornecedorDAO();
+		try {
+			listaFornecedores = f.selecionarFornecedores();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
         setTitle("Fornecedores");
         setSize(1215, 850);
 		setLocationRelativeTo(null);
@@ -76,50 +85,54 @@ public class TelaFornecedores extends JFrame {
                 tela.setLocationRelativeTo(null);
             }
         });
-        tableFornecedores = new JTable();
-		tableFornecedores.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		tableFornecedores.setGridColor(new Color(0,0,0));
-		tableFornecedores.setBackground(new Color(123, 150, 212));
-		tableFornecedores.setForeground(new Color(255,255,255));
-		
-		ftm = new FornecedorTableModel(listaFornecedores);
-		tableFornecedores.setModel(ftm);
-		
-		theader();
-	
-		
-		JButton btnUpdate = new JButton("Alterar");
-		btnUpdate.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int i = tableFornecedores.getSelectedRow();
-				Long id = (Long) tableFornecedores.getModel().getValueAt(i, 0);
-				Fornecedor pdt = listaFornecedores.get(i);// Fornecedores();
-				/*
-				for (Fornecedores fornecedores : listaFornecedores) {
-					if(Fornecedores.getId()==id) {
-						pdt.setId(fornecedores.getId());
-						pdt.setCategoria(fornecedores.getCategoria());
-						pdt.setCor(produto.getCor());
-						pdt.setFornecedor(produto.getFornecedor());
-						pdt.setFoto(produto.getFoto());
-						pdt.setMarca(produto.getMarca());
-						pdt.setPreco(produto.getPreco());
-						pdt.setQuantidade(produto.getQuantidade());
-						pdt.setTamanho(produto.getTamanho());
-					}
-				}*/
-				
-				TelaEditarFornecedores tela = new TelaEditarFornecedores(pdt);
-				dispose();
-				tela.setVisible(true);
+        
+        JButton btnUpdate = new JButton("Alterar");
+        btnUpdate.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int i = tableFornecedores.getSelectedRow(); 
+                Long id = (Long) tableFornecedores.getModel().getValueAt(i, 0);
+                
+                Fornecedor fornecedor = listaFornecedores.get(i);
+               
+                TelaEditarFornecedores tela = new TelaEditarFornecedores(fornecedor);
+                dispose();
+                tela.setVisible(true);
+            }
+        }); 
+        
+   
+        JButton btnDelete = new JButton("Deletar");
+        btnDelete.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int i = tableFornecedores.getSelectedRow();
+                Long id = (Long) tableFornecedores.getModel().getValueAt(i, 0);
+                try {
+                	f.excluirFornecedor(id);
+					listaFornecedores = f.selecionarFornecedores();
+					ftm = new FornecedorTableModel(listaFornecedores);
+					tableFornecedores.setModel(ftm);
+					
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
+
+        btnDelete.setBackground(new Color(243, 244, 240));
+        btnDelete.setFont(new Font("Tahoma", Font.PLAIN, 24));
+        btnDelete.setMinimumSize(new Dimension(150, 30));
+        btnDelete.setMaximumSize(new Dimension(150, 30));
+        btnDelete.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
+        panelComponentes.add(btnDelete, "cell 4 1");
+
         btnAdd.setBackground(new Color(243, 244, 240));
         btnAdd.setFont(new Font("Tahoma", Font.PLAIN, 24));
         btnAdd.setMinimumSize(new Dimension(150, 30));
         btnAdd.setMaximumSize(new Dimension(150, 30));
         btnAdd.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
-        panelComponentes.add(btnAdd, "cell 4 1,alignx left,growy");
+        panelComponentes.add(btnAdd, "flowx,cell 4 1,alignx left,growy");
+        panelComponentes.add(btnUpdate, "cell 4 1, alignx left, growy");
 
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
@@ -152,10 +165,8 @@ public class TelaFornecedores extends JFrame {
                 dispose();
                 tela.setVisible(true);
             }
-            
         });
-    	
-   
+
         theader();
     }
 
