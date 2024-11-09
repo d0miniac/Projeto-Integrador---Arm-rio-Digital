@@ -27,11 +27,16 @@ public class FornecedorTableModel extends AbstractTableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
         Fornecedor fornecedor = fornecedores.get(rowIndex);
         switch (columnIndex) {
-            case 0: return fornecedor.getIdFornecedor();
-            case 1: return fornecedor.getNomeFornecedor();
-            case 2: return fornecedor.getEmail();
-            case 3: return fornecedor.getTelefone();
-            default: return null;
+            case 0:
+                return fornecedor.getIdFornecedor();  
+            case 1:
+                return fornecedor.getNomeFornecedor();
+            case 2:
+                return fornecedor.getEmail();
+            case 3:
+                return fornecedor.getTelefone();
+            default:
+                return null;
         }
     }
 
