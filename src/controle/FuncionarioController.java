@@ -3,6 +3,7 @@ package controle;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import modelo.Fornecedor;
 import modelo.Funcionario;
 
 public class FuncionarioController {
@@ -26,4 +27,14 @@ public class FuncionarioController {
 		FuncionarioDAO dao = new FuncionarioDAO();
 		dao.cadastrarFuncionario(funcionario);
 	}
+	
+	public ArrayList<Funcionario> listarFuncionario() throws SQLException {
+		FuncionarioDAO dao = new FuncionarioDAO();
+        return dao.selecionarFuncionarios();
+    }
+
+    public void salvar(Funcionario funcionario) throws SQLException {
+    	FuncionarioDAO dao = new FuncionarioDAO();
+        dao.cadastrarFuncionario(funcionario);
+    }
 }

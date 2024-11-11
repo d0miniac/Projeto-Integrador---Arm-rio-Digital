@@ -17,6 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -25,20 +26,25 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
+import controle.FornecedorController;
+import controle.FornecedorDAO;
 import controle.FuncionarioController;
+import controle.FuncionarioDAO;
+import modelo.FornecedorTableModel;
 import modelo.Funcionario;
+import modelo.FuncionarioTableModel;
 import net.miginfocom.swing.MigLayout;
 
 public class TelaFuncionarios extends JFrame {
 
+	protected static final String Funcionario = null;
 	private JPanel contentPane;
 	private JTextField txtFiltro;
 	private JTable table;
+	private JTable tableFuncionarios;
+	private FuncionarioTableModel futm;
 	private ArrayList<Funcionario> listarFuncionarios;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -55,16 +61,22 @@ public class TelaFuncionarios extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public TelaFuncionarios() throws SQLException {
 		setTitle("Funcionarios");
+
+		listarFuncionarios = new ArrayList<>();
+		FuncionarioDAO fu = new FuncionarioDAO();
+		try {
+			listarFuncionarios = fu.selecionarFuncionarios();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		contentPane = new ImagePanel("src/img/bgFuncionarios.png");
 		contentPane.setBackground(new Color(243, 244, 240));
-		
+
 		setSize(1215, 850);
 		setLocationRelativeTo(null);
 		setResizable(false);
@@ -108,9 +120,85 @@ public class TelaFuncionarios extends JFrame {
 		btnAdd.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
 		panelComponentes.add(btnAdd, "cell 4 1,alignx left,growy");
 
+		// Botão Alterar
+		JButton btnUpdate = new JButton("Alterar");
+		btnUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int i = table.getSelectedRow();
+				if (i != -1) {
+					Funcionario funcionario = listarFuncionarios.get(i);
+					TelaEditarFuncionario telaEditar = new TelaEditarFuncionario(funcionario);
+					dispose();
+					telaEditar.setVisible(true);
+					telaEditar.setSize(657, 425);
+					telaEditar.setLocationRelativeTo(null);
+				} else {
+					JOptionPane.showMessageDialog(null, "Selecione um funcionário para alterar.");
+				}
+			}
+		});
+		btnUpdate.setBackground(new Color(243, 244, 240));
+		btnUpdate.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		btnUpdate.setMinimumSize(new Dimension(150, 30));
+		btnUpdate.setMaximumSize(new Dimension(150, 30));
+		btnUpdate.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
+		panelComponentes.add(btnUpdate, "cell 4 1,alignx left,growy");
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
 		panelComponentes.add(scrollPane, "cell 4 2,grow");
+		// Inicializa a tabela
+		try {
+			carregarFuncionarios();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		futm = new FuncionarioTableModel(listarFuncionarios);
+		tableFuncionarios = new JTable(futm);
+		tableFuncionarios.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		tableFuncionarios.setBackground(new Color(123, 150, 212));
+		scrollPane.setViewportView(tableFuncionarios);
+
+		JButton btnDelete = new JButton("Deletar");
+		btnDelete.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        int i = table.getSelectedRow(); 
+		        if (i == -1) {
+		            JOptionPane.showMessageDialog(TelaFuncionarios.this, "Selecione um funcionário para deletar.", "Erro", JOptionPane.ERROR_MESSAGE);
+		            return;
+		        }
+
+		        Object idObj = table.getModel().getValueAt(i, 0); // Obtém o ID da tabela
+		        Long id;
+
+		        // Verifica se o ID é Integer ou Long e faz a conversão
+		        if (idObj instanceof Integer) {
+		            id = ((Integer) idObj).longValue(); // Converte Integer para Long
+		        } else if (idObj instanceof Long) {
+		            id = (Long) idObj;
+		        } else {
+		            JOptionPane.showMessageDialog(TelaFuncionarios.this, "Erro ao obter o ID do funcionário.", "Erro", JOptionPane.ERROR_MESSAGE);
+		            return;
+		        }
+
+		        try {
+		            fu.excluirFuncionario(id); 
+		            listarFuncionarios = fu.selecionarFuncionarios(); 
+		            atualizarTabela(); 
+		        } catch (SQLException e1) {
+		            e1.printStackTrace();
+		            JOptionPane.showMessageDialog(TelaFuncionarios.this, "Erro ao deletar funcionário.", "Erro", JOptionPane.ERROR_MESSAGE);
+		        }
+		    }
+		});
+
+		btnDelete.setBackground(new Color(243, 244, 240));
+		btnDelete.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		btnDelete.setMinimumSize(new Dimension(150, 30));
+		btnDelete.setMaximumSize(new Dimension(150, 30));
+		btnDelete.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
+		panelComponentes.add(btnDelete, "cell 4 1");
 
 		JLabel lblSeta = new JLabel();
 		lblSeta.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -127,9 +215,8 @@ public class TelaFuncionarios extends JFrame {
 			}
 		});
 
-
 		FuncionarioController funcionarioController = new FuncionarioController();
-		listarFuncionarios = funcionarioController.listarFuncionarios(); 
+		listarFuncionarios = funcionarioController.listarFuncionarios();
 
 		table = new JTable();
 		table.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -165,5 +252,11 @@ public class TelaFuncionarios extends JFrame {
 	public void cadastrar(Funcionario funcionario) {
 		listarFuncionarios.add(funcionario);
 		atualizarTabela();
+	}
+
+	private void carregarFuncionarios() throws SQLException {
+		FuncionarioController controller = new FuncionarioController();
+		listarFuncionarios = controller.listarFuncionarios();
+		futm = new FuncionarioTableModel(listarFuncionarios);
 	}
 }

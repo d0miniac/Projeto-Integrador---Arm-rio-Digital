@@ -87,6 +87,7 @@ public class TelaFornecedores extends JFrame {
         });
         
         JButton btnUpdate = new JButton("Alterar");
+        btnUpdate.setFont(new Font("Tahoma", Font.PLAIN, 24));
         btnUpdate.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int i = tableFornecedores.getSelectedRow(); 
@@ -97,8 +98,42 @@ public class TelaFornecedores extends JFrame {
                 TelaEditarFornecedores tela = new TelaEditarFornecedores(fornecedor);
                 dispose();
                 tela.setVisible(true);
+                tela.setSize(657, 425);
+                tela.setLocationRelativeTo(null);
             }
         }); 
+
+        btnAdd.setBackground(new Color(243, 244, 240));
+        btnAdd.setFont(new Font("Tahoma", Font.PLAIN, 24));
+        btnAdd.setMinimumSize(new Dimension(150, 30));
+        btnAdd.setMaximumSize(new Dimension(150, 30));
+        btnAdd.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
+        panelComponentes.add(btnAdd, "flowx,cell 4 1,alignx left,growy");
+        
+        
+        btnUpdate.setBackground(new Color(243, 244, 240));
+        btnUpdate.setFont(new Font("Tahoma", Font.PLAIN, 24));
+        btnUpdate.setMinimumSize(new Dimension(150, 30));
+        btnUpdate.setMaximumSize(new Dimension(150, 30));
+        btnUpdate.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
+        panelComponentes.add(btnUpdate, "cell 4 1,alignx left,growy");
+
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
+        panelComponentes.add(scrollPane, "cell 4 2,grow");
+
+        // Inicializa a tabela
+        try {
+            carregarFornecedores();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        ftm = new FornecedorTableModel(listaFornecedores);
+        tableFornecedores = new JTable(ftm);
+        tableFornecedores.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        tableFornecedores.setBackground(new Color(123, 150, 212));
+        scrollPane.setViewportView(tableFornecedores);
         
    
         JButton btnDelete = new JButton("Deletar");
@@ -118,38 +153,13 @@ public class TelaFornecedores extends JFrame {
 				}
 			}
 		});
-
-        btnDelete.setBackground(new Color(243, 244, 240));
-        btnDelete.setFont(new Font("Tahoma", Font.PLAIN, 24));
-        btnDelete.setMinimumSize(new Dimension(150, 30));
-        btnDelete.setMaximumSize(new Dimension(150, 30));
-        btnDelete.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
-        panelComponentes.add(btnDelete, "cell 4 1");
-
-        btnAdd.setBackground(new Color(243, 244, 240));
-        btnAdd.setFont(new Font("Tahoma", Font.PLAIN, 24));
-        btnAdd.setMinimumSize(new Dimension(150, 30));
-        btnAdd.setMaximumSize(new Dimension(150, 30));
-        btnAdd.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
-        panelComponentes.add(btnAdd, "flowx,cell 4 1,alignx left,growy");
-        panelComponentes.add(btnUpdate, "cell 4 1, alignx left, growy");
-
-        JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
-        panelComponentes.add(scrollPane, "cell 4 2,grow");
-
-        // Inicializa a tabela
-        try {
-            carregarFornecedores();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        ftm = new FornecedorTableModel(listaFornecedores);
-        tableFornecedores = new JTable(ftm);
-        tableFornecedores.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        tableFornecedores.setBackground(new Color(123, 150, 212));
-        scrollPane.setViewportView(tableFornecedores);
+        
+                btnDelete.setBackground(new Color(243, 244, 240));
+                btnDelete.setFont(new Font("Tahoma", Font.PLAIN, 24));
+                btnDelete.setMinimumSize(new Dimension(150, 30));
+                btnDelete.setMaximumSize(new Dimension(150, 30));
+                btnDelete.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
+                panelComponentes.add(btnDelete, "cell 4 1");
 
         JLabel lblSeta = new JLabel();
         lblSeta.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
