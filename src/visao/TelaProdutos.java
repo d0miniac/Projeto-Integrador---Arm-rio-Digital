@@ -89,14 +89,9 @@ public class TelaProdutos extends JFrame {
 		panelComponentes.setBackground(new Color(255, 0, 0));
 		panelComponentes.setOpaque(false);
 		contentPane.add(panelComponentes, "cell 0 1,grow");
-<<<<<<< Updated upstream
+
 		panelComponentes.setLayout(new MigLayout("", "[][][][][grow][]", "[][][grow]"));
 
-=======
-		panelComponentes.setLayout(new MigLayout("", "[][grow][]", "[][][grow]"));
-		
-		
->>>>>>> Stashed changes
 		txtFiltro = new JTextField();
 		txtFiltro.setUI(new HintTextFieldUI("Pesquisa"));
 		txtFiltro.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -121,21 +116,13 @@ public class TelaProdutos extends JFrame {
 		btnAdd.setMinimumSize(new Dimension(150, 30));
 		btnAdd.setMaximumSize(new Dimension(150, 30));
 		btnAdd.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
-<<<<<<< Updated upstream
+
 		panelComponentes.add(btnAdd, "flowx,cell 4 1,alignx left,aligny center");
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
 		panelComponentes.add(scrollPane, "cell 4 2,grow");
 
-=======
-		panelComponentes.add(btnAdd, "flowx,cell 1 1,alignx left,aligny center");
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
-		panelComponentes.add(scrollPane, "cell 1 2,grow");
-		
->>>>>>> Stashed changes
 		JLabel lblSeta = new JLabel("");
 		lblSeta.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblSeta.setIcon(new ImageIcon(TelaCadastroProdutos.class.getResource("/img/de-volta.png")));
@@ -195,13 +182,9 @@ public class TelaProdutos extends JFrame {
 		btnUpdate.setMinimumSize(new Dimension(150, 30));
 		btnUpdate.setMaximumSize(new Dimension(150, 30));
 		btnUpdate.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
-<<<<<<< Updated upstream
+
 		panelComponentes.add(btnUpdate, "cell 4 1");
 
-=======
-		panelComponentes.add(btnUpdate, "cell 1 1");
-		
->>>>>>> Stashed changes
 		JButton btnDelete = new JButton("Deletar");
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
