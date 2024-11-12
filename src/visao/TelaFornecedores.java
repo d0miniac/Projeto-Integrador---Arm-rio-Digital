@@ -65,13 +65,13 @@ public class TelaFornecedores extends JFrame {
         JPanel panelComponentes = new JPanel();
         panelComponentes.setOpaque(false);
         contentPane.add(panelComponentes, "cell 0 1,grow");
-        panelComponentes.setLayout(new MigLayout("", "[][][][][grow][]", "[][][grow]"));
+        panelComponentes.setLayout(new MigLayout("", "[][grow][]", "[][][grow]"));
 
         txtFiltro = new JTextField();
         txtFiltro.setUI(new HintTextFieldUI("Pesquisa"));
         txtFiltro.setFont(new Font("Tahoma", Font.PLAIN, 18));
         txtFiltro.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
-        panelComponentes.add(txtFiltro, "cell 4 0,alignx left");
+        panelComponentes.add(txtFiltro, "cell 1 0,alignx left");
         txtFiltro.setColumns(90);
         txtFiltro.setPreferredSize(new Dimension(450, 45));
 
@@ -108,7 +108,7 @@ public class TelaFornecedores extends JFrame {
         btnAdd.setMinimumSize(new Dimension(150, 30));
         btnAdd.setMaximumSize(new Dimension(150, 30));
         btnAdd.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
-        panelComponentes.add(btnAdd, "flowx,cell 4 1,alignx left,growy");
+        panelComponentes.add(btnAdd, "flowx,cell 1 1,alignx left,growy");
         
         
         btnUpdate.setBackground(new Color(243, 244, 240));
@@ -116,11 +116,11 @@ public class TelaFornecedores extends JFrame {
         btnUpdate.setMinimumSize(new Dimension(150, 30));
         btnUpdate.setMaximumSize(new Dimension(150, 30));
         btnUpdate.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
-        panelComponentes.add(btnUpdate, "cell 4 1,alignx left,growy");
+        panelComponentes.add(btnUpdate, "cell 1 1,alignx left,growy");
 
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
-        panelComponentes.add(scrollPane, "cell 4 2,grow");
+        panelComponentes.add(scrollPane, "cell 1 2,grow");
 
         // Inicializa a tabela
         try {
@@ -159,7 +159,7 @@ public class TelaFornecedores extends JFrame {
                 btnDelete.setMinimumSize(new Dimension(150, 30));
                 btnDelete.setMaximumSize(new Dimension(150, 30));
                 btnDelete.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
-                panelComponentes.add(btnDelete, "cell 4 1");
+                panelComponentes.add(btnDelete, "cell 1 1");
 
         JLabel lblSeta = new JLabel();
         lblSeta.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));

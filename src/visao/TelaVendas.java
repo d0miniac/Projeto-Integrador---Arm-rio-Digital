@@ -1,5 +1,6 @@
 package visao;
 
+<<<<<<< Updated upstream
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -10,10 +11,19 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import controle.ProdutoDAO;
 import modelo.Produto;
+=======
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JButton;
+>>>>>>> Stashed changes
 import net.miginfocom.swing.MigLayout;
 
 public class TelaVendas extends JFrame {
 
+<<<<<<< Updated upstream
     private JPanel contentPane;
     private ArrayList<Produto> listaProdutos;
     private ProdutoDAO produtoDAO;
@@ -130,6 +140,41 @@ class TelaDetalhesProduto extends JFrame {
         panelInfo.add(lblNome);
         panelInfo.add(lblPreco);
         add(panelInfo, BorderLayout.CENTER);
+=======
+	private JPanel contentPane;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					TelaVendas frame = new TelaVendas();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public TelaVendas() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 696, 463);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(new MigLayout("", "[grow][grow]", "[grow][grow]"));
+		
+		JButton btnNewButton = new JButton("");
+		contentPane.add(btnNewButton, "cell 0 0,grow");
+	}
+>>>>>>> Stashed changes
 
         setVisible(true);
     }

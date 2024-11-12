@@ -53,7 +53,12 @@ public class TelaHistoricoVendas extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
 
+<<<<<<< Updated upstream
         contentPane = new ImagePanel("src/img/bgTelaHistorico.png");
+=======
+        // Painel de fundo com imagem
+        contentPane = new ImagePanel("src/img/bg.TelaHistoricoVendas.png");
+>>>>>>> Stashed changes
         contentPane.setBackground(new Color(243, 244, 240));
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
@@ -64,7 +69,11 @@ public class TelaHistoricoVendas extends JFrame {
         contentPane.add(panelVazio, "cell 0 0,grow");
         panelVazio.setLayout(null);
 
+<<<<<<< Updated upstream
         
+=======
+        // Botão Voltar com imagem e ação
+>>>>>>> Stashed changes
         JLabel lblSeta = new JLabel();
         lblSeta.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         lblSeta.setIcon(new ImageIcon(new ImageIcon(TelaCadastroProdutos.class.getResource("/img/de-volta.png"))
@@ -81,7 +90,11 @@ public class TelaHistoricoVendas extends JFrame {
             }
         });
 
+<<<<<<< Updated upstream
         
+=======
+        // Label e ComboBox para o filtro
+>>>>>>> Stashed changes
         JLabel lblNewLabel = new JLabel("Filtrar");
         lblNewLabel.setForeground(new Color(30, 62, 115));
         lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 25));
@@ -100,7 +113,11 @@ public class TelaHistoricoVendas extends JFrame {
         comboFiltrar.addItem("Bermudas/Shorts");
         comboFiltrar.addItem("Roupa Íntima");
 
+<<<<<<< Updated upstream
        
+=======
+        // Botão Buscar estilizado
+>>>>>>> Stashed changes
         JButton btnBuscar = new JButton("Buscar");
         btnBuscar.setForeground(Color.WHITE);
         btnBuscar.setBackground(new Color(32, 60, 115));
@@ -113,12 +130,20 @@ public class TelaHistoricoVendas extends JFrame {
             }
         });
 
+<<<<<<< Updated upstream
         
+=======
+        // Configuração da Tabela com cabeçalho estilizado
+>>>>>>> Stashed changes
         JScrollPane scrollPane = new JScrollPane();
         contentPane.add(scrollPane, "cell 0 5 6 1,grow");
 
         table = new JTable();
+<<<<<<< Updated upstream
         table.setBackground(new Color(123, 150, 212));
+=======
+        table.setBackground(new Color(243, 244, 240));
+>>>>>>> Stashed changes
         table.setFont(new Font("Tahoma", Font.PLAIN, 16));
         scrollPane.setViewportView(table);
 
