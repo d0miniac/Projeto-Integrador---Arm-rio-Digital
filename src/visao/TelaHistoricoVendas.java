@@ -1,29 +1,36 @@
 package visao;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+
 import net.miginfocom.swing.MigLayout;
-import javax.swing.JLabel;
-import javax.swing.JComboBox;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 
 public class TelaHistoricoVendas extends JFrame {
+
     private JPanel contentPane;
     private JTable table;
-    private JComboBox<String> comboCategoria;
+    private JComboBox<String> comboFiltrar;
     private List<Object[]> vendas;
 
     public static void main(String[] args) {
@@ -40,81 +47,94 @@ public class TelaHistoricoVendas extends JFrame {
     }
 
     public TelaHistoricoVendas() {
+        setTitle("Histórico de Vendas");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 600, 400);
-        contentPane = new JPanel();
+        setSize(1215, 850);
+        setLocationRelativeTo(null);
+        setResizable(false);
+
+        contentPane = new ImagePanel("src/img/bgTelaHistorico.png");
+        contentPane.setBackground(new Color(243, 244, 240));
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
-        contentPane.setLayout(new MigLayout("", "[][grow][][grow][]", "[][][grow]"));
+        contentPane.setLayout(new MigLayout("", "[183px][276px][4px][422px][4px][292px]", "[120px][][][][25px][523px]"));
+
+        JPanel panelVazio = new JPanel();
+        panelVazio.setOpaque(false);
+        contentPane.add(panelVazio, "cell 0 0,grow");
+        panelVazio.setLayout(null);
+
         
-        JButton btnVoltar = new JButton(new ImageIcon("/img/de-volta.png"));
-        btnVoltar.setBackground(new Color(0, 0, 0));
-        btnVoltar.setToolTipText("Voltar ao Menu");
-        btnVoltar.setFocusPainted(false);
-        btnVoltar.setContentAreaFilled(false);
-        btnVoltar.setBorderPainted(false);
-        
-        contentPane.add(btnVoltar, "cell 0 0 1 2,alignx left");
-        
-                btnVoltar.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        TelaMenu telaMenu = new TelaMenu();  
-                        telaMenu.setVisible(true);
-                        dispose();
-                    }
-                });
+        JLabel lblSeta = new JLabel();
+        lblSeta.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        lblSeta.setIcon(new ImageIcon(new ImageIcon(TelaCadastroProdutos.class.getResource("/img/de-volta.png"))
+                .getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH)));
+        lblSeta.setBounds(0, 0, 110, 100);
+        panelVazio.add(lblSeta);
 
-
-
-        JLabel lblNewLabel = new JLabel("Categoria");
-        lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        contentPane.add(lblNewLabel, "flowx,cell 1 1,alignx right");
-
-        comboCategoria = new JComboBox<>();
-        comboCategoria.setBackground(new Color(209, 209, 233));
-        contentPane.add(comboCategoria, "cell 2 1,growx,wmin 200");
-        comboCategoria.addItem("Todos");
-        comboCategoria.addItem("Camisa");
-        comboCategoria.addItem("Calça");
-        comboCategoria.addItem("Blusa");
-        comboCategoria.addItem("Jaqueta");
-        comboCategoria.addItem("Saia/Vestido");
-        comboCategoria.addItem("Bermudas/Shorts");
-        comboCategoria.addItem("Roupa Íntima");
-
-        JButton btnBuscar = new JButton("Buscar");
-        btnBuscar.setForeground(new Color(255, 255, 255));
-        btnBuscar.setBackground(new Color(32, 60, 115));
-        btnBuscar.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        contentPane.add(btnBuscar, "cell 3 1");
-
-        btnBuscar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                buscarVendas(); 
+        lblSeta.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                TelaMenu tela = new TelaMenu();
+                dispose();
+                tela.setVisible(true);
             }
         });
 
+        
+        JLabel lblNewLabel = new JLabel("Filtrar");
+        lblNewLabel.setForeground(new Color(30, 62, 115));
+        lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 25));
+        contentPane.add(lblNewLabel, "cell 0 3 1 2,alignx center,aligny center");
+
+        comboFiltrar = new JComboBox<>();
+        comboFiltrar.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        comboFiltrar.setBackground(new Color(209, 209, 233));
+        contentPane.add(comboFiltrar, "cell 1 3 1 2,growx,aligny center");
+        comboFiltrar.addItem("Todos");
+        comboFiltrar.addItem("Camisa");
+        comboFiltrar.addItem("Calça");
+        comboFiltrar.addItem("Blusa");
+        comboFiltrar.addItem("Jaqueta");
+        comboFiltrar.addItem("Saia/Vestido");
+        comboFiltrar.addItem("Bermudas/Shorts");
+        comboFiltrar.addItem("Roupa Íntima");
+
+       
+        JButton btnBuscar = new JButton("Buscar");
+        btnBuscar.setForeground(Color.WHITE);
+        btnBuscar.setBackground(new Color(32, 60, 115));
+        btnBuscar.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        contentPane.add(btnBuscar, "cell 3 4,alignx left,aligny top");
+
+        btnBuscar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                buscarVendas();
+            }
+        });
+
+        
         JScrollPane scrollPane = new JScrollPane();
-        contentPane.add(scrollPane, "cell 1 2 3 1,grow");
+        contentPane.add(scrollPane, "cell 0 5 6 1,grow");
 
         table = new JTable();
+        table.setBackground(new Color(123, 150, 212));
+        table.setFont(new Font("Tahoma", Font.PLAIN, 16));
         scrollPane.setViewportView(table);
 
         vendas = new ArrayList<>();
-        vendas.add(new Object[] { "1", "Camisa", "Nike", "Azul", "M", "100", "R$ 150,00" });
-        vendas.add(new Object[] { "2", "Calça", "Adidas", "Preta", "38", "200", "R$ 200,00" });
-        vendas.add(new Object[] { "3", "Blusa", "Puma", "Vermelha", "P", "50", "R$ 180,00" });
-        vendas.add(new Object[] { "4", "Jaqueta", "Puma", "Preta", "M", "50", "R$ 250,00" });
-        vendas.add(new Object[] { "5", "Calça", "Nike", "Azul", "40", "100", "R$ 100,00" });
-
-
+        vendas.add(new Object[]{"1", "Camisa", "Nike", "Azul", "M", "100", "R$ 150,00"});
+        vendas.add(new Object[]{"2", "Calça", "Adidas", "Preta", "38", "200", "R$ 200,00"});
+        vendas.add(new Object[]{"3", "Blusa", "Puma", "Vermelha", "P", "50", "R$ 180,00"});
+        vendas.add(new Object[]{"4", "Jaqueta", "Puma", "Preta", "M", "50", "R$ 250,00"});
+        vendas.add(new Object[]{"5", "Calça", "Nike", "Azul", "40", "100", "R$ 100,00"});
 
         atualizarTabela(vendas);
         theader();
     }
 
     protected void buscarVendas() {
-        String categoriaSelecionada = (String) comboCategoria.getSelectedItem();
+        String categoriaSelecionada = (String) comboFiltrar.getSelectedItem();
         List<Object[]> vendasFiltradas = new ArrayList<>();
 
         for (Object[] venda : vendas) {
@@ -129,19 +149,18 @@ public class TelaHistoricoVendas extends JFrame {
 
     private void atualizarTabela(List<Object[]> dados) {
         NonEditableTableModel modelo = new NonEditableTableModel(
-            dados.toArray(new Object[0][0]),
-            new String[] { "ID", "Categoria", "Marca", "Cor", "Tamanho", "Quantidade", "Preço" }
-        );
+                dados.toArray(new Object[0][0]),
+                new String[]{"ID", "Categoria", "Marca", "Cor", "Tamanho", "Quantidade", "Preço"});
         table.setModel(modelo);
     }
 
     private void theader() {
         JTableHeader thead = table.getTableHeader();
         thead.setForeground(new Color(123, 150, 212));
-        thead.setBackground(new Color(255, 255, 255));
-        thead.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        thead.setBackground(Color.WHITE);
+        thead.setFont(new Font("Tahoma", Font.PLAIN, 20));
     }
-    
+
     private class NonEditableTableModel extends DefaultTableModel {
         public NonEditableTableModel(Object[][] data, String[] columnNames) {
             super(data, columnNames);
@@ -149,8 +168,7 @@ public class TelaHistoricoVendas extends JFrame {
 
         @Override
         public boolean isCellEditable(int row, int column) {
-            return false; 
+            return false;
         }
     }
 }
-
