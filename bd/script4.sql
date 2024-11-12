@@ -3,11 +3,6 @@
 -- Host: localhost    Database: armariodigital
 -- ------------------------------------------------------
 -- Server version	8.0.15
-DROP SCHEMA IF EXISTS armariodigital;
-CREATE SCHEMA IF NOT EXISTS armariodigital;
-USE armariodigital;
- 
-
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -113,6 +108,7 @@ CREATE TABLE `funcionarios` (
   `NomeFuncionario` varchar(45) NOT NULL,
   `Email` varchar(30) NOT NULL,
   `Senha` varchar(15) NOT NULL,
+  `Perfil` varchar(5) NOT NULL,
   PRIMARY KEY (`idFuncionario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -123,7 +119,6 @@ CREATE TABLE `funcionarios` (
 
 LOCK TABLES `funcionarios` WRITE;
 /*!40000 ALTER TABLE `funcionarios` DISABLE KEYS */;
-INSERT INTO `funcionarios` VALUES (1,'123.456.789-01','Fulano da Silva','fulano@email.com','12345');
 /*!40000 ALTER TABLE `funcionarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -197,4 +192,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-06 11:45:56
+-- Dump completed on 2024-11-12 12:03:17

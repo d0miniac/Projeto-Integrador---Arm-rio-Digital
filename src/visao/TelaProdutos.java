@@ -17,6 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -24,8 +25,10 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.text.JTextComponent;
 
 import controle.ProdutoDAO;
+import modelo.Funcionario;
 import modelo.Produto;
 import modelo.ProdutoTableModel;
 import net.miginfocom.swing.MigLayout;
@@ -41,28 +44,14 @@ public class TelaProdutos extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaProdutos frame = new TelaProdutos();
-					frame.setVisible(true);
-					frame.setSize(1215, 850);
-					frame.setLocationRelativeTo(null);
-					frame.setResizable(false);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the frame.
 	 * 
 	 * @throws SQLException
 	 */
-	public TelaProdutos() {
+	public TelaProdutos(Funcionario func)  {
 		listaProdutos = new ArrayList<>();
 		ProdutoDAO p = new ProdutoDAO();
 		listaProdutos = p.selecionarProdutos();
@@ -93,10 +82,10 @@ public class TelaProdutos extends JFrame {
 		panelComponentes.setLayout(new MigLayout("", "[][][][][grow][]", "[][][grow]"));
 
 		txtFiltro = new JTextField();
-		txtFiltro.setUI(new HintTextFieldUI("Pesquisa"));
+		txtFiltro.setUI(new HintTextFieldUI("Pesquise por categoria, marca, cor ou tamanho"));
 		txtFiltro.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtFiltro.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
-		panelComponentes.add(txtFiltro, "cell 1 0,alignx left");
+		panelComponentes.add(txtFiltro, "flowx,cell 4 0,alignx left");
 		txtFiltro.setColumns(90);
 		txtFiltro.setPreferredSize(new Dimension(450, 45));
 
@@ -104,7 +93,7 @@ public class TelaProdutos extends JFrame {
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				TelaCadastroProdutos tela = new TelaCadastroProdutos();
+				TelaCadastroProdutos tela = new TelaCadastroProdutos(func);
 				tela.setVisible(true);
 				tela.setSize(657, 425);
 				tela.setLocationRelativeTo(null);
@@ -134,12 +123,10 @@ public class TelaProdutos extends JFrame {
 		lblSeta.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				TelaMenu tela = new TelaMenu();
+				TelaMenu tela = new TelaMenu(func);
 				dispose();
 				tela.setVisible(true);
-				TelaMenu telaMenu = new TelaMenu();
-				dispose();
-				tela.setVisible(true);
+				
 			}
 		});
 		tableProdutos = new JTable();
@@ -162,18 +149,21 @@ public class TelaProdutos extends JFrame {
 				Long id = (Long) tableProdutos.getModel().getValueAt(i, 0);
 				Produto pdt = listaProdutos.get(i);// Produto();
 				/*
-				 * for (Produto produto : listaProdutos) { if(produto.getId()==id) {
-				 * pdt.setId(produto.getId()); pdt.setCategoria(produto.getCategoria());
-				 * pdt.setCor(produto.getCor()); pdt.setFornecedor(produto.getFornecedor());
-				 * pdt.setFoto(produto.getFoto()); pdt.setMarca(produto.getMarca());
-				 * pdt.setPreco(produto.getPreco()); pdt.setQuantidade(produto.getQuantidade());
-				 * pdt.setTamanho(produto.getTamanho()); } }
-				 */
-
-				TelaEditarProdutos tela = new TelaEditarProdutos(pdt);
-				tela.setVisible(true);
-				tela.setSize(657, 425);
-				tela.setLocationRelativeTo(null);
+				for (Produto produto : listaProdutos) {
+					if(produto.getId()==id) {
+						pdt.setId(produto.getId());
+						pdt.setCategoria(produto.getCategoria());
+						pdt.setCor(produto.getCor());
+						pdt.setFornecedor(produto.getFornecedor());
+						pdt.setFoto(produto.getFoto());
+						pdt.setMarca(produto.getMarca());
+						pdt.setPreco(produto.getPreco());
+						pdt.setQuantidade(produto.getQuantidade());
+						pdt.setTamanho(produto.getTamanho());
+					}
+				}*/
+				
+				TelaEditarProdutos tela = new TelaEditarProdutos(pdt,func);
 				dispose();
 			}
 		});
@@ -188,20 +178,30 @@ public class TelaProdutos extends JFrame {
 		JButton btnDelete = new JButton("Deletar");
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				int i = tableProdutos.getSelectedRow();
-				Long id = (Long) tableProdutos.getModel().getValueAt(i, 0);
-
-				try {
-					p.excluirProdutos(id);
-					listaProdutos = p.selecionarProdutos();
-					ptm = new ProdutoTableModel(listaProdutos);
-					tableProdutos.setModel(ptm);
-
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				
+				int r=JOptionPane.showConfirmDialog(null, "Deseja realmente excluir esse produto?", "Exclusão", JOptionPane.YES_NO_OPTION);
+				if(r==JOptionPane.YES_OPTION) {
+					int i = tableProdutos.getSelectedRow();
+					Long id = (Long) tableProdutos.getModel().getValueAt(i, 0);
+					
+					
+					
+					
+					try {
+						p.excluirProdutos(id);
+						listaProdutos = p.selecionarProdutos();
+						ptm = new ProdutoTableModel(listaProdutos);
+						tableProdutos.setModel(ptm);
+						
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
+				
+				
+				
+				
 			}
 		});
 		btnDelete.setBackground(new Color(243, 244, 240));
@@ -209,7 +209,37 @@ public class TelaProdutos extends JFrame {
 		btnDelete.setMinimumSize(new Dimension(150, 30));
 		btnDelete.setMaximumSize(new Dimension(150, 30));
 		btnDelete.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
-		panelComponentes.add(btnDelete, "cell 1 1");
+		panelComponentes.add(btnDelete, "cell 4 1");
+		
+		
+		
+		JButton btnPesquisa = new JButton("PESQUISAR");
+		btnPesquisa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if(!txtFiltro.getText().trim().isEmpty()) {
+					String filtro = txtFiltro.getText();
+					listaProdutos = p.pesquisarProdutos(filtro);
+					ptm = new ProdutoTableModel(listaProdutos);
+					tableProdutos.setModel(ptm);
+					
+				}
+				
+				else {
+					listaProdutos = p.selecionarProdutos();
+					ptm = new ProdutoTableModel(listaProdutos);
+					tableProdutos.setModel(ptm);
+				}
+				
+				
+			}
+		});
+		panelComponentes.add(btnPesquisa, "cell 4 0,alignx center,aligny center");
+		btnPesquisa.setBackground(new Color(243, 244, 240));
+		btnPesquisa.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		btnPesquisa.setMinimumSize(new Dimension(150, 30));
+		btnPesquisa.setMaximumSize(new Dimension(150, 30));
+		btnPesquisa.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
 	}
 
 	private void theader() {

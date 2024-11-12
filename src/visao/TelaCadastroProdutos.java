@@ -18,12 +18,14 @@ import javax.swing.border.MatteBorder;
 import controle.ProdutoDAO;
 import modelo.Categoria;
 import modelo.Cor;
+import modelo.Funcionario;
 import modelo.Marca;
 import modelo.Produto;
 import modelo.Tamanho;
 
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.imageio.ImageIO;
@@ -63,30 +65,21 @@ public class TelaCadastroProdutos extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaCadastroProdutos frame = new TelaCadastroProdutos();
-					frame.setVisible(true);
-					frame.setSize(657, 425);
-					frame.setLocationRelativeTo(null);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the frame.
 	 */
-	public TelaCadastroProdutos() {
+	
+	public TelaCadastroProdutos(Funcionario func) {
 		produto = new Produto();
 		setTitle("Cadastro de Produtos");
 		contentPane = new ImagePanel("src/img/bgCadastroProdutos.png");
 		setContentPane(contentPane);
 		contentPane.setLayout(new MigLayout("", "[grow]", "[70px][100px][100px][200px]"));
+		
+		
+		
 		
 		JPanel vazio = new JPanel();
 		vazio.setBackground(new Color(255, 0, 0));
@@ -106,7 +99,7 @@ public class TelaCadastroProdutos extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				TelaProdutos tela;
-				tela = new TelaProdutos();
+				tela = new TelaProdutos(func);
 				dispose();
 				tela.setSize(1215, 850);
 				tela.setLocationRelativeTo(null);
@@ -334,18 +327,12 @@ public class TelaCadastroProdutos extends JFrame {
 				
 				
 				//testes
-				System.out.println(produto.getCategoria());
-				System.out.println(produto.getFoto());
-				System.out.println(produto.getMarca());
-				System.out.println(produto.getQuantidade());
-				System.out.println(produto.getId());
-				System.out.println(produto.getPreco());
-				System.out.println(produto.getTamanho());
+				
 				ProdutoDAO dao = new ProdutoDAO();
 				int res1=dao.cadastrarProduto(produto);
 				
 				TelaProdutos tela;
-				tela = new TelaProdutos();
+				tela = new TelaProdutos(func);
 				tela.setVisible(true);
 				tela.setSize(1215, 850);
 				dispose();
@@ -353,9 +340,6 @@ public class TelaCadastroProdutos extends JFrame {
 			}
 		});
 		inferior.add(btnNewButton, "flowx,cell 0 5,alignx center");
-		
-		JButton btnNewButton_1 = new JButton("New button");
-		inferior.add(btnNewButton_1, "cell 0 5,alignx center");
 		
 		
 
