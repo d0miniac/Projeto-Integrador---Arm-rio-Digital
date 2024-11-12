@@ -116,7 +116,7 @@ public class TelaMenu extends JFrame {
 		lblNewLabel_1.setForeground(Color.WHITE);
 		topPanel.add(lblNewLabel_1, "cell 1 2,alignx left");
 		mainPanel.add(buttonPanel, BorderLayout.CENTER);
-
+		
 		getContentPane().add(mainPanel);
 
 		setVisible(true);
