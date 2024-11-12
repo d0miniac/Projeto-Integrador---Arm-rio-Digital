@@ -12,7 +12,7 @@ public class FuncionarioController {
 	
 	}
 	
-	public ArrayList<Funcionario> listarFuncionarios() throws SQLException {
+	public ArrayList<Funcionario> listarFuncionarios()  {
 		FuncionarioDAO dao = new FuncionarioDAO();
 		return dao.selecionarFuncionarios();
 	}

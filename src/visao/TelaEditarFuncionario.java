@@ -62,7 +62,6 @@ public class TelaEditarFuncionario extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new MigLayout("", "[grow]", "[70px][][grow][][100px][150px][150px][100px]"));
 
-		// Cabeçalho com botão de voltar
 		JPanel vazio = new JPanel();
 		vazio.setOpaque(false);
 		contentPane.add(vazio, "cell 0 0,alignx left,growy");
@@ -70,26 +69,26 @@ public class TelaEditarFuncionario extends JFrame {
 		JLabel lblVoltar = new JLabel("");
 		lblVoltar.setHorizontalAlignment(SwingConstants.LEFT);
 		lblVoltar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		ImageIcon seta = new ImageIcon(TelaEditarFornecedores.class.getResource("/img/de-volta.png"));
+		ImageIcon seta = new ImageIcon(TelaEditarFuncionario.class.getResource("/img/de-volta.png"));
 		Image voltar = seta.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
 		lblVoltar.setIcon(new ImageIcon(voltar));
 		vazio.add(lblVoltar);
 		lblVoltar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				TelaFornecedores tela = new TelaFornecedores();
+				TelaFuncionarios tela = new TelaFuncionarios();
 				dispose();
 				tela.setVisible(true);
 			}
 		});
 
-		// Título da tela
+	
 		JLabel lblTitulo = new JLabel("Alteração das informações do funcionário");
 		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblTitulo.setForeground(new Color(153, 162, 209));
 		contentPane.add(lblTitulo, "cell 0 3");
 
-		// Painel superior com campos de edição
+	
 		JPanel topo = new JPanel();
 		topo.setBorder(new MatteBorder(0, 0, 5, 0, new Color(32, 60, 115, 124)));
 		topo.setOpaque(false);
@@ -104,8 +103,8 @@ public class TelaEditarFuncionario extends JFrame {
 		topo.add(txtID, "cell 1 2,alignx center");
 		txtID.setColumns(10);
 
-		JLabel lblNomeFornecedor = new JLabel("Nome");
-		topo.add(lblNomeFornecedor, "cell 2 2,alignx center");
+		JLabel lblNomeFuncionario = new JLabel("Nome");
+		topo.add(lblNomeFuncionario, "cell 2 2,alignx center");
 
 		txtNome = new JTextField(funcionario.getNome());
 		topo.add(txtNome, "cell 3 2,alignx center");
@@ -136,8 +135,7 @@ public class TelaEditarFuncionario extends JFrame {
 		txtCpf = new JTextField(funcionario.getCpf());
 		topo_1.add(txtCpf, "cell 5 1,alignx center");
 		txtCpf.setColumns(10);
-
-		// Painel inferior com botão de alteração
+		
 		JPanel inferior = new JPanel();
 		inferior.setOpaque(false);
 		contentPane.add(inferior, "cell 0 7,grow");

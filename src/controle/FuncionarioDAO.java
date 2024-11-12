@@ -73,7 +73,7 @@ public class FuncionarioDAO {
         return null;
     }
 
-    public ArrayList<Funcionario> selecionarFuncionarios() throws SQLException {
+    public ArrayList<Funcionario> selecionarFuncionarios() {
         ArrayList<Funcionario> funcionarios = new ArrayList<>();
         String sql = "SELECT * FROM funcionarios";
         try (Connection conn = ConexaoBD.getConexaoMySQL();

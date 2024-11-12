@@ -72,7 +72,7 @@ public class TelaEditarProdutos extends JFrame {
 	public TelaEditarProdutos(Produto prod) {
 		produto = new Produto();
 		setTitle("Alteração de Produtos");
-		contentPane = new ImagePanel("src/img/bgCadastroProdutos.png");
+		contentPane = new ImagePanel("src/img/bgEditarProduto.png");
 		setContentPane(contentPane);
 		contentPane.setLayout(new MigLayout("", "[grow]", "[70px][100px][100px][200px]"));
 

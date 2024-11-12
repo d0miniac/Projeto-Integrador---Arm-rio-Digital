@@ -61,17 +61,12 @@ public class TelaFuncionarios extends JFrame {
 		});
 	}
 
-	public TelaFuncionarios() throws SQLException {
+	public TelaFuncionarios()  {
 		setTitle("Funcionarios");
 
 		listarFuncionarios = new ArrayList<>();
 		FuncionarioDAO fu = new FuncionarioDAO();
-		try {
-			listarFuncionarios = fu.selecionarFuncionarios();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		listarFuncionarios = fu.selecionarFuncionarios();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		contentPane = new ImagePanel("src/img/bgFuncionarios.png");
