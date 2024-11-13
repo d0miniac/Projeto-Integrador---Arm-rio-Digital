@@ -111,25 +111,6 @@ public class TelaProdutos extends JFrame {
         txtFiltro.setPreferredSize(new Dimension(450, 45));
 
 
-        // Botão de adicionar produto
-        JButton btnAdd = new JButton("Adicionar");
-        btnAdd.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                TelaCadastroProdutos tela = new TelaCadastroProdutos();
-                tela.setVisible(true);
-                tela.setSize(657, 425);
-                tela.setLocationRelativeTo(null);
-            }
-        });
-        btnAdd.setBackground(new Color(243, 244, 240));
-        btnAdd.setFont(new Font("Tahoma", Font.PLAIN, 24));
-        btnAdd.setMinimumSize(new Dimension(150, 30));
-        btnAdd.setMaximumSize(new Dimension(150, 30));
-        btnAdd.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
-        panelComponentes.add(btnAdd, "cell 1 1,alignx left,aligny center");
-
-
         // Scroll para a tabela
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
@@ -169,58 +150,77 @@ public class TelaProdutos extends JFrame {
         tableProdutos.setModel(ptm);
         theader();
         scrollPane.setViewportView(tableProdutos);
+        
+        
+                // Botão de adicionar produto
+                JButton btnAdd = new JButton("Adicionar");
+                btnAdd.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        dispose();
+                        TelaCadastroProdutos tela = new TelaCadastroProdutos();
+                        tela.setVisible(true);
+                        tela.setSize(657, 425);
+                        tela.setLocationRelativeTo(null);
+                    }
+                });
+                btnAdd.setBackground(new Color(243, 244, 240));
+                btnAdd.setFont(new Font("Tahoma", Font.PLAIN, 24));
+                btnAdd.setMinimumSize(new Dimension(150, 30));
+                btnAdd.setMaximumSize(new Dimension(150, 30));
+                btnAdd.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
+                panelComponentes.add(btnAdd, "flowx,cell 0 1,alignx left,aligny center");
+                
+                
+                        // Botão de deletar produto
+                        JButton btnDelete = new JButton("Deletar");
+                        btnDelete.addActionListener(new ActionListener() {
+                            public void actionPerformed(ActionEvent e) {
+                                int i = tableProdutos.getSelectedRow();
+                                Long id = (Long) tableProdutos.getModel().getValueAt(i, 0);
 
 
-        // Botão de alterar produto
-        JButton btnUpdate = new JButton("Alterar");
-        btnUpdate.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                int i = tableProdutos.getSelectedRow();
-                Long id = (Long) tableProdutos.getModel().getValueAt(i, 0);
-                Produto pdt = listaProdutos.get(i);
+                                try {
+                                    p.excluirProdutos(id);
+                                    listaProdutos = p.selecionarProdutos();
+                                    ptm = new ProdutoTableModel(listaProdutos);
+                                    tableProdutos.setModel(ptm);
 
 
-                TelaEditarProdutos tela = new TelaEditarProdutos(pdt);
-                tela.setVisible(true);
-                tela.setSize(657, 425);
-                tela.setLocationRelativeTo(null);
-                dispose();
-            }
-        });
-        btnUpdate.setBackground(new Color(243, 244, 240));
-        btnUpdate.setFont(new Font("Tahoma", Font.PLAIN, 24));
-        btnUpdate.setMinimumSize(new Dimension(150, 30));
-        btnUpdate.setMaximumSize(new Dimension(150, 30));
-        btnUpdate.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
-        panelComponentes.add(btnUpdate, "cell 0 1");
+                                } catch (SQLException e1) {
+                                    e1.printStackTrace();
+                                }
+                            }
+                        });
+                        
+                        
+                                // Botão de alterar produto
+                                JButton btnUpdate = new JButton("Alterar");
+                                btnUpdate.addActionListener(new ActionListener() {
+                                    public void actionPerformed(ActionEvent e) {
+                                        int i = tableProdutos.getSelectedRow();
+                                        Long id = (Long) tableProdutos.getModel().getValueAt(i, 0);
+                                        Produto pdt = listaProdutos.get(i);
 
 
-        // Botão de deletar produto
-        JButton btnDelete = new JButton("Deletar");
-        btnDelete.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                int i = tableProdutos.getSelectedRow();
-                Long id = (Long) tableProdutos.getModel().getValueAt(i, 0);
-
-
-                try {
-                    p.excluirProdutos(id);
-                    listaProdutos = p.selecionarProdutos();
-                    ptm = new ProdutoTableModel(listaProdutos);
-                    tableProdutos.setModel(ptm);
-
-
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
-                }
-            }
-        });
-        btnDelete.setBackground(new Color(243, 244, 240));
-        btnDelete.setFont(new Font("Tahoma", Font.PLAIN, 24));
-        btnDelete.setMinimumSize(new Dimension(150, 30));
-        btnDelete.setMaximumSize(new Dimension(150, 30));
-        btnDelete.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
-        panelComponentes.add(btnDelete, "cell 2 1");
+                                        TelaEditarProdutos tela = new TelaEditarProdutos(pdt);
+                                        tela.setVisible(true);
+                                        tela.setSize(657, 425);
+                                        tela.setLocationRelativeTo(null);
+                                        dispose();
+                                    }
+                                });
+                                btnUpdate.setBackground(new Color(243, 244, 240));
+                                btnUpdate.setFont(new Font("Tahoma", Font.PLAIN, 24));
+                                btnUpdate.setMinimumSize(new Dimension(150, 30));
+                                btnUpdate.setMaximumSize(new Dimension(150, 30));
+                                btnUpdate.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
+                                panelComponentes.add(btnUpdate, "cell 0 1");
+                        btnDelete.setBackground(new Color(243, 244, 240));
+                        btnDelete.setFont(new Font("Tahoma", Font.PLAIN, 24));
+                        btnDelete.setMinimumSize(new Dimension(150, 30));
+                        btnDelete.setMaximumSize(new Dimension(150, 30));
+                        btnDelete.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
+                        panelComponentes.add(btnDelete, "cell 0 1");
     }
 
 

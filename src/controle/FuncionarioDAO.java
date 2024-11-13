@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 public class FuncionarioDAO {
 
     public int cadastrarFuncionario(Funcionario f) {
-        String sql = "INSERT INTO funcionarios (CPF, NomeFuncionario, Email, Senha, Perfil) VALUES (?,?, ?, ?, ?)";
+        String sql = "INSERT INTO funcionarios (CPF, NomeFuncionario, Email, Senha) VALUES (?, ?, ?, ?)";
         try (Connection conn = ConexaoBD.getConexaoMySQL();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -19,7 +19,6 @@ public class FuncionarioDAO {
             stmt.setString(2, f.getNome());
             stmt.setString(3, f.getEmail());
             stmt.setString(4, f.getSenha());
-            stmt.setString(5,f.getPerfil());
 
             return stmt.executeUpdate();
         } catch (SQLException e) {
@@ -41,7 +40,6 @@ public class FuncionarioDAO {
                     f.setId(rs.getInt("idFuncionario"));
                     f.setCpf(rs.getString("CPF"));
                     f.setNome(rs.getString("NomeFuncionario"));
-                    f.setPerfil(rs.getString("Perfil"));
                     return f;
                 }
             }
@@ -131,3 +129,4 @@ public class FuncionarioDAO {
         }
     }
 }
+

@@ -44,7 +44,9 @@ public class TelaEsqueciSenhaEmail extends JFrame {
 	public TelaEsqueciSenhaEmail() {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 824, 695);
+		setSize(1215, 850);
+		setLocationRelativeTo(null);
+		setResizable(false);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		
