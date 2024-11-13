@@ -1,3 +1,4 @@
+
 package visao;
 
 import java.awt.EventQueue;
@@ -19,7 +20,6 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import modelo.Fornecedor;
-import modelo.Funcionario;
 import controle.FornecedorDAO;
 import javax.swing.SwingConstants;
 
@@ -33,9 +33,23 @@ public class TelaEditarFornecedores extends JFrame {
 	private JTextField txtTelefone;
 	private Fornecedor fornecedor;
 
-	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Fornecedor fornecedor = new Fornecedor();
+					TelaEditarFornecedores frame = new TelaEditarFornecedores(fornecedor);
+					frame.setVisible(true);
+					frame.setSize(657, 425);
+					frame.setLocationRelativeTo(null);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
-	public TelaEditarFornecedores(Fornecedor fornecedor,Funcionario func) {
+	public TelaEditarFornecedores(Fornecedor fornecedor) {
 		this.fornecedor = fornecedor;
 		setSize(657, 425);
 		setLocationRelativeTo(null);
@@ -62,7 +76,7 @@ public class TelaEditarFornecedores extends JFrame {
 		lblVoltar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				TelaFornecedores tela = new TelaFornecedores(func);
+				TelaFornecedores tela = new TelaFornecedores();
 				dispose();
 				tela.setVisible(true);
 			}
@@ -163,23 +177,9 @@ public class TelaEditarFornecedores extends JFrame {
 				btnCancelar.setForeground(Color.WHITE);
 				btnCancelar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						// Atualizando informações
-						fornecedor.setNomeFornecedor(txtNomeFornecedor.getText());
-						fornecedor.setNomeCtt(txtNomeContato.getText());
-						fornecedor.setEmail(txtEmail.getText());
-						fornecedor.setTelefone(txtTelefone.getText());
-
-						FornecedorDAO dao = new FornecedorDAO();
-						try {
-							dao.alterarFornecedor(fornecedor);
-							JOptionPane.showMessageDialog(null, "Fornecedor alterado com sucesso!");
-							TelaFornecedores tela = new TelaFornecedores(func);
-							dispose();
-							tela.setVisible(true);
-						} catch (Exception ex) {
-							JOptionPane.showMessageDialog(null, "Erro ao alterar fornecedor: " + ex.getMessage(), "Erro",
-									JOptionPane.ERROR_MESSAGE);
-						}
+						TelaFornecedores tela = new TelaFornecedores();
+						dispose();
+						tela.setVisible(true);
 					}
 				});
 				inferior.add(btnCancelar, "cell 1 4,grow");

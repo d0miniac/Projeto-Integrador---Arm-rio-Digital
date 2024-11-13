@@ -12,7 +12,6 @@ import controle.FornecedorDAO;
 import controle.ProdutoDAO;
 import modelo.Fornecedor;
 import modelo.FornecedorTableModel;
-import modelo.Funcionario;
 import modelo.ProdutoTableModel;
 import net.miginfocom.swing.MigLayout;
 
@@ -24,9 +23,21 @@ public class TelaFornecedores extends JFrame {
     private FornecedorTableModel ftm;
     private ArrayList<Fornecedor> listaFornecedores;
 
-   
+    public static void main(String[] args) {
+        EventQueue.invokeLater(() -> {
+            try {
+                TelaFornecedores telaFornecedores = new TelaFornecedores();
+                telaFornecedores.setVisible(true);
+                telaFornecedores.setSize(1215, 850);
+                telaFornecedores.setLocationRelativeTo(null);
+                telaFornecedores.setResizable(false);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
 
-    public TelaFornecedores(Funcionario func) {
+    public TelaFornecedores() {
         listaFornecedores = new ArrayList<>();
 		FornecedorDAO f = new FornecedorDAO();
 		try {
@@ -68,7 +79,7 @@ public class TelaFornecedores extends JFrame {
         btnAdd.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                TelaCadastroFornecedores tela = new TelaCadastroFornecedores(TelaFornecedores.this,func);
+                TelaCadastroFornecedores tela = new TelaCadastroFornecedores(TelaFornecedores.this);
                 tela.setVisible(true);
                 tela.setSize(657, 425);
                 tela.setLocationRelativeTo(null);
@@ -84,7 +95,7 @@ public class TelaFornecedores extends JFrame {
                 
                 Fornecedor fornecedor = listaFornecedores.get(i);
                
-                TelaEditarFornecedores tela = new TelaEditarFornecedores(fornecedor,func);
+                TelaEditarFornecedores tela = new TelaEditarFornecedores(fornecedor);
                 dispose();
                 tela.setVisible(true);
                 tela.setSize(657, 425);
@@ -160,7 +171,7 @@ public class TelaFornecedores extends JFrame {
         lblSeta.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                TelaMenu tela = new TelaMenu(func);
+                TelaMenu tela = new TelaMenu();
                 dispose();
                 tela.setVisible(true);
             }

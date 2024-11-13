@@ -45,9 +45,23 @@ public class TelaFuncionarios extends JFrame {
 	private FuncionarioTableModel futm;
 	private ArrayList<Funcionario> listarFuncionarios;
 
-	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					TelaFuncionarios frame = new TelaFuncionarios();
+					frame.setVisible(true);
+					frame.setSize(1215, 850);
+					frame.setLocationRelativeTo(null);
+					frame.setResizable(false);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
-	public TelaFuncionarios(Funcionario func) throws SQLException {
+	public TelaFuncionarios() throws SQLException {
 		setTitle("Funcionarios");
 
 		listarFuncionarios = new ArrayList<>();
@@ -113,7 +127,7 @@ public class TelaFuncionarios extends JFrame {
 				int i = table.getSelectedRow();
 				if (i != -1) {
 					Funcionario funcionario = listarFuncionarios.get(i);
-					TelaEditarFuncionario telaEditar = new TelaEditarFuncionario(funcionario,func);
+					TelaEditarFuncionario telaEditar = new TelaEditarFuncionario(funcionario);
 					dispose();
 					telaEditar.setVisible(true);
 					telaEditar.setSize(657, 425);
@@ -195,7 +209,7 @@ public class TelaFuncionarios extends JFrame {
 		lblSeta.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				TelaMenu tela = new TelaMenu(func);
+				TelaMenu tela = new TelaMenu();
 				dispose();
 				tela.setVisible(true);
 			}

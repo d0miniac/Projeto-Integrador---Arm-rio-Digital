@@ -18,7 +18,6 @@ import javax.swing.border.MatteBorder;
 import controle.ProdutoDAO;
 import modelo.Categoria;
 import modelo.Cor;
-import modelo.Funcionario;
 import modelo.Marca;
 import modelo.Produto;
 import modelo.Tamanho;
@@ -70,7 +69,7 @@ public class TelaEditarProdutos extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaEditarProdutos(Produto prod,Funcionario func) {
+	public TelaEditarProdutos(Produto prod) {
 		produto = new Produto();
 		setTitle("Alteração de Produtos");
 		contentPane = new ImagePanel("src/img/bgCadastroProdutos.png");
@@ -95,7 +94,7 @@ public class TelaEditarProdutos extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				TelaProdutos tela;
-				tela = new TelaProdutos(func);
+				tela = new TelaProdutos();
 				dispose();
 				tela.setSize(1215, 850);
 				tela.setLocationRelativeTo(null);
@@ -341,7 +340,7 @@ public class TelaEditarProdutos extends JFrame {
 				}
 
 				TelaProdutos tela;
-				tela = new TelaProdutos(func);
+				tela = new TelaProdutos();
 				tela.setVisible(true);
 				tela.setSize(1215, 850);
 				dispose();
@@ -349,6 +348,9 @@ public class TelaEditarProdutos extends JFrame {
 			}
 		});
 		inferior.add(btnNewButton, "flowx,cell 0 5,alignx center");
+
+		JButton btnNewButton_1 = new JButton("New button");
+		inferior.add(btnNewButton_1, "cell 0 5,alignx center");
 
 	}
 }
