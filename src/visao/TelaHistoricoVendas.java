@@ -83,7 +83,6 @@ public class TelaHistoricoVendas extends JFrame {
         contentPane.setLayout(new MigLayout("", "[183px][276px][4px][422px][4px][292px]", "[120px][][][][25px][523px]"));
 
 <<<<<<< HEAD
-<<<<<<< HEAD
 =======
 =======
     private JPanel contentPane;
@@ -117,9 +116,6 @@ public class TelaHistoricoVendas extends JFrame {
         contentPane.setLayout(new MigLayout("", "[183px][276px][4px][422px][4px][292px]", "[120px][][][][25px][523px]"));
 
 >>>>>>> origin/ajustetelahistorico
-=======
-        // Painel vazio para o botão de voltar
->>>>>>> ajustees
         JPanel panelVazio = new JPanel();
         panelVazio.setOpaque(false);
         contentPane.add(panelVazio, "cell 0 0,grow");
@@ -245,7 +241,6 @@ public class TelaHistoricoVendas extends JFrame {
 
 >>>>>>> origin/ajustetelahistorico
 
-        // Atualiza a tabela inicialmente
         atualizarTabela(vendas);
         theader();
     }
@@ -289,16 +284,12 @@ public class TelaHistoricoVendas extends JFrame {
         thead.setFont(new Font("Tahoma", Font.PLAIN, 20));
     }
 
-<<<<<<< HEAD
 =======
         thead.setBackground(new Color(255, 255, 255));
         thead.setFont(new Font("Tahoma", Font.PLAIN, 20));
     }
     
 >>>>>>> origin/ajustetelahistorico
-=======
-    // Classe para garantir que as células da tabela não sejam editáveis
->>>>>>> ajustees
     private class NonEditableTableModel extends DefaultTableModel {
         public NonEditableTableModel(Object[][] data, String[] columnNames) {
             super(data, columnNames);
