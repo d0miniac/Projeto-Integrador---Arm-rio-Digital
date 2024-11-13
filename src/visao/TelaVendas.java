@@ -1,17 +1,18 @@
 package visao;
 
+<<<<<<< HEAD
 
+=======
+import java.awt.*;
+import java.awt.event.*;
+>>>>>>> ajustees
 import javax.swing.*;
 import javax.swing.border.LineBorder;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
+import net.miginfocom.swing.MigLayout;
 import controle.ProdutoDAO;
 import modelo.Produto;
 
+<<<<<<< HEAD
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -20,6 +21,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 
 import net.miginfocom.swing.MigLayout;
+=======
+import java.util.ArrayList;
+>>>>>>> ajustees
 
 public class TelaVendas extends JFrame {
 
@@ -40,12 +44,14 @@ public class TelaVendas extends JFrame {
         contentPane = new JPanel(new BorderLayout());
         contentPane.setBackground(new Color(243, 244, 240));
         setContentPane(contentPane);
-        
+
+        // Painel vazio para o botão de voltar
         JPanel panelVazio = new JPanel();
         panelVazio.setBackground(new Color(0, 0, 0));
         panelVazio.setOpaque(false);
         contentPane.add(panelVazio, BorderLayout.NORTH);
-        
+
+        // Adicionando o botão de voltar
         JLabel lblSeta = new JLabel("");
         lblSeta.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         lblSeta.setIcon(new ImageIcon(TelaCadastroProdutos.class.getResource("/img/de-volta.png")));
@@ -60,9 +66,11 @@ public class TelaVendas extends JFrame {
             }
         });
 
+        // Painel para exibir os produtos
         JPanel panelProdutos = new JPanel();
         panelProdutos.setBackground(new Color(243, 244, 240));
-        
+
+        // ScrollPane para a lista de produtos
         JScrollPane scrollPane = new JScrollPane(panelProdutos);
         panelProdutos.setLayout(new MigLayout("", "[grow, fill]", "[]"));
         scrollPane.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
@@ -71,7 +79,6 @@ public class TelaVendas extends JFrame {
         // Adicionar os produtos como botões com imagens e nomes
         for (Produto produto : listaProdutos) {
             JButton btnProduto = new JButton();
-            
             btnProduto.setPreferredSize(new Dimension(200, 250));
             btnProduto.setLayout(new BorderLayout());
 
@@ -97,14 +104,13 @@ public class TelaVendas extends JFrame {
 
             panelProdutos.add(btnProduto);
             btnProduto.setBackground(new Color(243, 244, 240));
-            
         }
     }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             try {
-            	TelaVendas frame = new TelaVendas();
+                TelaVendas frame = new TelaVendas();
                 frame.setVisible(true);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -135,9 +141,26 @@ class TelaDetalhesProduto extends JFrame {
 
         lblNome.setFont(new Font("Tahoma", Font.BOLD, 16));
         lblPreco.setFont(new Font("Tahoma", Font.BOLD, 16));
-        
+
         panelInfo.add(lblNome);
         panelInfo.add(lblPreco);
         add(panelInfo, BorderLayout.CENTER);
+<<<<<<< HEAD
+=======
+
+        // Exibir o botão de "Voltar"
+        JPanel panelBotao = new JPanel();
+        JButton btnVoltar = new JButton("Voltar");
+        btnVoltar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // Fecha a tela de detalhes
+            }
+        });
+        panelBotao.add(btnVoltar);
+        add(panelBotao, BorderLayout.SOUTH);
+
+        setVisible(true);
+>>>>>>> ajustees
     }
 }
