@@ -34,7 +34,6 @@ public class ProdutoDAO {
 			
 			stmt1.close();
 			conn.close();
-			System.out.println("Produto Cadastrado");
 		} catch (Exception e) {
 			e.printStackTrace();
 			// TODO: handle exception
@@ -49,7 +48,7 @@ public class ProdutoDAO {
 		ResultSet rs = null;
 		Connection conn = ConexaoBD.getConexaoMySQL();
 		try {
-			stmt1= conn.prepareStatement("SELECT * FROM Produtos;");
+			stmt1= conn.prepareStatement("SELECT * FROM armariodigital.Produtos;");
 			rs = stmt1.executeQuery();
 		while(rs.next()) {
 			Produto p = new Produto();
@@ -93,6 +92,7 @@ public class ProdutoDAO {
 		}
 		
 	}
+
 	
 	public void alterarProdutos(Produto p) throws SQLException {
 		PreparedStatement stmt1 = null;
@@ -116,6 +116,43 @@ public class ProdutoDAO {
 			e.printStackTrace();
 		}
 		
+		
+	}
+	public ArrayList<Produto> pesquisarProdutos(String filtro) {
+		ArrayList<Produto> listaProdutos = new ArrayList<>();
+		String sql = "SELECT * FROM Produtos;";
+		PreparedStatement stmt1 = null;
+		ResultSet rs = null;
+		Connection conn = ConexaoBD.getConexaoMySQL();
+		try {
+			stmt1= conn.prepareStatement("SELECT * FROM armariodigital.Produtos WHERE Categoria like ? OR Cor like ? OR Tamanho like? OR Marca like ?;");
+			stmt1.setString(1,filtro);
+			stmt1.setString(2,filtro);
+			stmt1.setString(3,filtro);
+			stmt1.setString(4,filtro);
+			rs = stmt1.executeQuery();
+		while(rs.next()) {
+			Produto p = new Produto();
+			p.setId(rs.getLong("idProduto"));
+			p.setCategoria(Categoria.getCategoriaPorDescricao(rs.getString("Categoria")));
+			p.setCor(Cor.getCorPorDescicao(rs.getString("Cor")));
+			p.setTamanho(Tamanho.getTamanhoPorDescricao(rs.getString("Tamanho")));
+			p.setPreco(rs.getFloat("Preco"));
+			p.setQuantidade(rs.getInt("QT_Estoque"));
+			p.setMarca(Marca.getMarcaPorDescricao(rs.getString("Marca")));
+			p.setFornecedor(rs.getInt("Fornecedor_idFornecedor"));
+			p.setFoto(rs.getString("Imagem"));
+			listaProdutos.add(p);
+			
+			
+		}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return listaProdutos;
 		
 	}
 }

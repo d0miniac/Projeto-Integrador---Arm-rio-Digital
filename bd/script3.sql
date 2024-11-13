@@ -3,6 +3,11 @@
 -- Host: localhost    Database: armariodigital
 -- ------------------------------------------------------
 -- Server version	8.0.15
+DROP SCHEMA IF EXISTS armariodigital;
+CREATE SCHEMA IF NOT EXISTS armariodigital;
+USE armariodigital;
+ 
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
