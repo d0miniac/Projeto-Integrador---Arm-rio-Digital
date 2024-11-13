@@ -47,33 +47,27 @@ public class TelaHistoricoVendas extends JFrame {
     }
 
     public TelaHistoricoVendas() {
+        // Configuração básica da janela
         setTitle("Histórico de Vendas");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1215, 850);
         setLocationRelativeTo(null);
         setResizable(false);
 
-<<<<<<< Updated upstream
-        contentPane = new ImagePanel("src/img/bgTelaHistorico.png");
-=======
         // Painel de fundo com imagem
-        contentPane = new ImagePanel("src/img/bg.TelaHistoricoVendas.png");
->>>>>>> Stashed changes
+        contentPane = new ImagePanel("src/img/bgTelaHistorico.png");
         contentPane.setBackground(new Color(243, 244, 240));
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(new MigLayout("", "[183px][276px][4px][422px][4px][292px]", "[120px][][][][25px][523px]"));
 
+        // Painel vazio para o botão de voltar
         JPanel panelVazio = new JPanel();
         panelVazio.setOpaque(false);
         contentPane.add(panelVazio, "cell 0 0,grow");
         panelVazio.setLayout(null);
 
-<<<<<<< Updated upstream
-        
-=======
-        // Botão Voltar com imagem e ação
->>>>>>> Stashed changes
+        // Configuração do botão de voltar com ícone
         JLabel lblSeta = new JLabel();
         lblSeta.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         lblSeta.setIcon(new ImageIcon(new ImageIcon(TelaCadastroProdutos.class.getResource("/img/de-volta.png"))
@@ -81,6 +75,7 @@ public class TelaHistoricoVendas extends JFrame {
         lblSeta.setBounds(0, 0, 110, 100);
         panelVazio.add(lblSeta);
 
+        // Ação de clique para voltar ao menu principal
         lblSeta.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -90,11 +85,7 @@ public class TelaHistoricoVendas extends JFrame {
             }
         });
 
-<<<<<<< Updated upstream
-        
-=======
-        // Label e ComboBox para o filtro
->>>>>>> Stashed changes
+        // Adicionando o filtro de categoria
         JLabel lblNewLabel = new JLabel("Filtrar");
         lblNewLabel.setForeground(new Color(30, 62, 115));
         lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 25));
@@ -113,11 +104,7 @@ public class TelaHistoricoVendas extends JFrame {
         comboFiltrar.addItem("Bermudas/Shorts");
         comboFiltrar.addItem("Roupa Íntima");
 
-<<<<<<< Updated upstream
-       
-=======
-        // Botão Buscar estilizado
->>>>>>> Stashed changes
+        // Botão de busca com evento de filtro
         JButton btnBuscar = new JButton("Buscar");
         btnBuscar.setForeground(Color.WHITE);
         btnBuscar.setBackground(new Color(32, 60, 115));
@@ -130,23 +117,16 @@ public class TelaHistoricoVendas extends JFrame {
             }
         });
 
-<<<<<<< Updated upstream
-        
-=======
-        // Configuração da Tabela com cabeçalho estilizado
->>>>>>> Stashed changes
+        // Configuração da tabela
         JScrollPane scrollPane = new JScrollPane();
         contentPane.add(scrollPane, "cell 0 5 6 1,grow");
 
         table = new JTable();
-<<<<<<< Updated upstream
-        table.setBackground(new Color(123, 150, 212));
-=======
         table.setBackground(new Color(243, 244, 240));
->>>>>>> Stashed changes
         table.setFont(new Font("Tahoma", Font.PLAIN, 16));
         scrollPane.setViewportView(table);
 
+        // Inicialização de dados fictícios
         vendas = new ArrayList<>();
         vendas.add(new Object[]{"1", "Camisa", "Nike", "Azul", "M", "100", "R$ 150,00"});
         vendas.add(new Object[]{"2", "Calça", "Adidas", "Preta", "38", "200", "R$ 200,00"});
@@ -154,10 +134,12 @@ public class TelaHistoricoVendas extends JFrame {
         vendas.add(new Object[]{"4", "Jaqueta", "Puma", "Preta", "M", "50", "R$ 250,00"});
         vendas.add(new Object[]{"5", "Calça", "Nike", "Azul", "40", "100", "R$ 100,00"});
 
+        // Atualiza a tabela inicialmente
         atualizarTabela(vendas);
         theader();
     }
 
+    // Método que filtra as vendas com base na categoria selecionada
     protected void buscarVendas() {
         String categoriaSelecionada = (String) comboFiltrar.getSelectedItem();
         List<Object[]> vendasFiltradas = new ArrayList<>();
@@ -169,9 +151,11 @@ public class TelaHistoricoVendas extends JFrame {
             }
         }
 
+        // Atualiza a tabela com as vendas filtradas
         atualizarTabela(vendasFiltradas);
     }
 
+    // Atualiza a tabela com os dados fornecidos
     private void atualizarTabela(List<Object[]> dados) {
         NonEditableTableModel modelo = new NonEditableTableModel(
                 dados.toArray(new Object[0][0]),
@@ -179,6 +163,7 @@ public class TelaHistoricoVendas extends JFrame {
         table.setModel(modelo);
     }
 
+    // Configuração de estilização do cabeçalho da tabela
     private void theader() {
         JTableHeader thead = table.getTableHeader();
         thead.setForeground(new Color(123, 150, 212));
@@ -186,6 +171,7 @@ public class TelaHistoricoVendas extends JFrame {
         thead.setFont(new Font("Tahoma", Font.PLAIN, 20));
     }
 
+    // Classe para garantir que as células da tabela não sejam editáveis
     private class NonEditableTableModel extends DefaultTableModel {
         public NonEditableTableModel(Object[][] data, String[] columnNames) {
             super(data, columnNames);

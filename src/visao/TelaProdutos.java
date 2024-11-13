@@ -32,209 +32,178 @@ import net.miginfocom.swing.MigLayout;
 
 public class TelaProdutos extends JFrame {
 
-	private JPanel contentPane;
-	private JTextField txtFiltro;
-	private JTable tableProdutos;
-	private ArrayList<Produto> listaProdutos;
-	private ProdutoTableModel ptm;
+    private JPanel contentPane;
+    private JTextField txtFiltro;
+    private JTable tableProdutos;
+    private ArrayList<Produto> listaProdutos;
+    private ProdutoTableModel ptm;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaProdutos frame = new TelaProdutos();
-					frame.setVisible(true);
-					frame.setSize(1215, 850);
-					frame.setLocationRelativeTo(null);
-					frame.setResizable(false);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+    /**
+     * Launch the application.
+     */
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    TelaProdutos frame = new TelaProdutos();
+                    frame.setVisible(true);
+                    frame.setSize(1215, 850);
+                    frame.setLocationRelativeTo(null);
+                    frame.setResizable(false);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
 
-	/**
-	 * Create the frame.
-	 * 
-	 * @throws SQLException
-	 */
-	public TelaProdutos() {
-		listaProdutos = new ArrayList<>();
-		ProdutoDAO p = new ProdutoDAO();
-		listaProdutos = p.selecionarProdutos();
+    /**
+     * Create the frame.
+     * 
+     * @throws SQLException
+     */
+    public TelaProdutos() {
+        listaProdutos = new ArrayList<>();
+        ProdutoDAO p = new ProdutoDAO();
+        listaProdutos = p.selecionarProdutos();
 
-		setTitle("Produtos");
+        setTitle("Produtos");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        contentPane = new ImagePanel("src/img/bgProdutos.png");
+        contentPane.setBackground(new Color(243, 244, 240));
+        setContentPane(contentPane);
+        setSize(1215, 850);
+        setLocationRelativeTo(null);
+        setResizable(false);
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		contentPane = new ImagePanel("src/img/bgProdutos.png");
-		contentPane.setBackground(new Color(243, 244, 240));
-		setContentPane(contentPane);
-		setSize(1215, 850);
-		setLocationRelativeTo(null);
-		setResizable(false);
+        contentPane.setLayout(new MigLayout("", "[grow,fill]", "[120px][grow]"));
 
-		contentPane.setLayout(new MigLayout("", "[grow,fill]", "[120px][grow]"));
+        JPanel panelVazio = new JPanel();
+        panelVazio.setBackground(new Color(0, 0, 0));
+        panelVazio.setOpaque(false);
+        contentPane.add(panelVazio, "cell 0 0,grow");
+        panelVazio.setLayout(null);
 
-		JPanel panelVazio = new JPanel();
-		panelVazio.setBackground(new Color(0, 0, 0));
-		panelVazio.setOpaque(false);
-		contentPane.add(panelVazio, "cell 0 0,grow");
-		panelVazio.setLayout(null);
+        JPanel panelComponentes = new JPanel();
+        panelComponentes.setOpaque(false);
+        contentPane.add(panelComponentes, "cell 0 1,grow");
+        panelComponentes.setLayout(new MigLayout("", "[grow][][grow]", "[][][grow]"));
 
-		JPanel panelComponentes = new JPanel();
-		panelComponentes.setBackground(new Color(255, 0, 0));
-		panelComponentes.setOpaque(false);
-		contentPane.add(panelComponentes, "cell 0 1,grow");
-<<<<<<< Updated upstream
-		panelComponentes.setLayout(new MigLayout("", "[][][][][grow][]", "[][][grow]"));
+        // Filtro de pesquisa
+        txtFiltro = new JTextField();
+        txtFiltro.setUI(new HintTextFieldUI("Pesquisa"));
+        txtFiltro.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        txtFiltro.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
+        panelComponentes.add(txtFiltro, "cell 0 0,alignx left");
+        txtFiltro.setColumns(90);
+        txtFiltro.setPreferredSize(new Dimension(450, 45));
 
-=======
-		panelComponentes.setLayout(new MigLayout("", "[][grow][]", "[][][grow]"));
-		
-		
->>>>>>> Stashed changes
-		txtFiltro = new JTextField();
-		txtFiltro.setUI(new HintTextFieldUI("Pesquisa"));
-		txtFiltro.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		txtFiltro.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
-		panelComponentes.add(txtFiltro, "cell 1 0,alignx left");
-		txtFiltro.setColumns(90);
-		txtFiltro.setPreferredSize(new Dimension(450, 45));
+        // Botão de adicionar produto
+        JButton btnAdd = new JButton("Adicionar");
+        btnAdd.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                TelaCadastroProdutos tela = new TelaCadastroProdutos();
+                tela.setVisible(true);
+                tela.setSize(657, 425);
+                tela.setLocationRelativeTo(null);
+            }
+        });
+        btnAdd.setBackground(new Color(243, 244, 240));
+        btnAdd.setFont(new Font("Tahoma", Font.PLAIN, 24));
+        btnAdd.setMinimumSize(new Dimension(150, 30));
+        btnAdd.setMaximumSize(new Dimension(150, 30));
+        btnAdd.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
+        panelComponentes.add(btnAdd, "cell 1 1,alignx left,aligny center");
 
-		JButton btnAdd = new JButton("Adicionar");
-		btnAdd.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				TelaCadastroProdutos tela = new TelaCadastroProdutos();
-				tela.setVisible(true);
-				tela.setSize(657, 425);
-				tela.setLocationRelativeTo(null);
+        // Scroll para a tabela
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
+        panelComponentes.add(scrollPane, "cell 0 2 3 1,grow");
 
-			}
-		});
-		btnAdd.setBackground(new Color(243, 244, 240));
-		btnAdd.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		btnAdd.setMinimumSize(new Dimension(150, 30));
-		btnAdd.setMaximumSize(new Dimension(150, 30));
-		btnAdd.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
-<<<<<<< Updated upstream
-		panelComponentes.add(btnAdd, "flowx,cell 4 1,alignx left,aligny center");
+        // Botão de voltar para a tela anterior
+        JLabel lblSeta = new JLabel("");
+        lblSeta.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        lblSeta.setIcon(new ImageIcon(TelaCadastroProdutos.class.getResource("/img/de-volta.png")));
+        lblSeta.setBounds(0, 0, 110, 100);
+        ImageIcon seta = new ImageIcon(TelaCadastroProdutos.class.getResource("/img/de-volta.png"));
+        Image voltar = seta.getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
+        lblSeta.setIcon(new ImageIcon(voltar));
+        panelVazio.add(lblSeta);
 
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
-		panelComponentes.add(scrollPane, "cell 4 2,grow");
+        lblSeta.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                TelaMenu tela = new TelaMenu();
+                dispose();
+                tela.setVisible(true);
+            }
+        });
 
-=======
-		panelComponentes.add(btnAdd, "flowx,cell 1 1,alignx left,aligny center");
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
-		panelComponentes.add(scrollPane, "cell 1 2,grow");
-		
->>>>>>> Stashed changes
-		JLabel lblSeta = new JLabel("");
-		lblSeta.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		lblSeta.setIcon(new ImageIcon(TelaCadastroProdutos.class.getResource("/img/de-volta.png")));
-		lblSeta.setBounds(0, 0, 110, 100);
-		ImageIcon seta = new ImageIcon(TelaCadastroProdutos.class.getResource("/img/de-volta.png"));
-		Image voltar = seta.getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
-		lblSeta.setIcon(new ImageIcon(voltar));
-		panelVazio.add(lblSeta);
-		lblSeta.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				TelaMenu tela = new TelaMenu();
-				dispose();
-				tela.setVisible(true);
-				TelaMenu telaMenu = new TelaMenu();
-				dispose();
-				tela.setVisible(true);
-			}
-		});
-		tableProdutos = new JTable();
-		tableProdutos.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		tableProdutos.setGridColor(new Color(0, 0, 0));
-		tableProdutos.setBackground(new Color(123, 150, 212));
-		tableProdutos.setForeground(new Color(255, 255, 255));
+        // Tabela de produtos
+        tableProdutos = new JTable();
+        tableProdutos.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        tableProdutos.setGridColor(new Color(0, 0, 0));
+        tableProdutos.setBackground(new Color(123, 150, 212));
+        tableProdutos.setForeground(new Color(255, 255, 255));
 
-		ptm = new ProdutoTableModel(listaProdutos);
-		tableProdutos.setModel(ptm);
+        ptm = new ProdutoTableModel(listaProdutos);
+        tableProdutos.setModel(ptm);
+        theader();
+        scrollPane.setViewportView(tableProdutos);
 
-		theader();
+        // Botão de alterar produto
+        JButton btnUpdate = new JButton("Alterar");
+        btnUpdate.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int i = tableProdutos.getSelectedRow();
+                Long id = (Long) tableProdutos.getModel().getValueAt(i, 0);
+                Produto pdt = listaProdutos.get(i);
 
-		scrollPane.setViewportView(tableProdutos);
+                TelaEditarProdutos tela = new TelaEditarProdutos(pdt);
+                tela.setVisible(true);
+                tela.setSize(657, 425);
+                tela.setLocationRelativeTo(null);
+                dispose();
+            }
+        });
+        btnUpdate.setBackground(new Color(243, 244, 240));
+        btnUpdate.setFont(new Font("Tahoma", Font.PLAIN, 24));
+        btnUpdate.setMinimumSize(new Dimension(150, 30));
+        btnUpdate.setMaximumSize(new Dimension(150, 30));
+        btnUpdate.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
+        panelComponentes.add(btnUpdate, "cell 0 1");
 
-		JButton btnUpdate = new JButton("Alterar");
-		btnUpdate.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int i = tableProdutos.getSelectedRow();
-				Long id = (Long) tableProdutos.getModel().getValueAt(i, 0);
-				Produto pdt = listaProdutos.get(i);// Produto();
-				/*
-				 * for (Produto produto : listaProdutos) { if(produto.getId()==id) {
-				 * pdt.setId(produto.getId()); pdt.setCategoria(produto.getCategoria());
-				 * pdt.setCor(produto.getCor()); pdt.setFornecedor(produto.getFornecedor());
-				 * pdt.setFoto(produto.getFoto()); pdt.setMarca(produto.getMarca());
-				 * pdt.setPreco(produto.getPreco()); pdt.setQuantidade(produto.getQuantidade());
-				 * pdt.setTamanho(produto.getTamanho()); } }
-				 */
+        // Botão de deletar produto
+        JButton btnDelete = new JButton("Deletar");
+        btnDelete.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int i = tableProdutos.getSelectedRow();
+                Long id = (Long) tableProdutos.getModel().getValueAt(i, 0);
 
-				TelaEditarProdutos tela = new TelaEditarProdutos(pdt);
-				tela.setVisible(true);
-				tela.setSize(657, 425);
-				tela.setLocationRelativeTo(null);
-				dispose();
-			}
-		});
-		btnUpdate.setBackground(new Color(243, 244, 240));
-		btnUpdate.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		btnUpdate.setMinimumSize(new Dimension(150, 30));
-		btnUpdate.setMaximumSize(new Dimension(150, 30));
-		btnUpdate.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
-<<<<<<< Updated upstream
-		panelComponentes.add(btnUpdate, "cell 4 1");
+                try {
+                    p.excluirProdutos(id);
+                    listaProdutos = p.selecionarProdutos();
+                    ptm = new ProdutoTableModel(listaProdutos);
+                    tableProdutos.setModel(ptm);
 
-=======
-		panelComponentes.add(btnUpdate, "cell 1 1");
-		
->>>>>>> Stashed changes
-		JButton btnDelete = new JButton("Deletar");
-		btnDelete.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
+        btnDelete.setBackground(new Color(243, 244, 240));
+        btnDelete.setFont(new Font("Tahoma", Font.PLAIN, 24));
+        btnDelete.setMinimumSize(new Dimension(150, 30));
+        btnDelete.setMaximumSize(new Dimension(150, 30));
+        btnDelete.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
+        panelComponentes.add(btnDelete, "cell 2 1");
+    }
 
-				int i = tableProdutos.getSelectedRow();
-				Long id = (Long) tableProdutos.getModel().getValueAt(i, 0);
-
-				try {
-					p.excluirProdutos(id);
-					listaProdutos = p.selecionarProdutos();
-					ptm = new ProdutoTableModel(listaProdutos);
-					tableProdutos.setModel(ptm);
-
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-		});
-		btnDelete.setBackground(new Color(243, 244, 240));
-		btnDelete.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		btnDelete.setMinimumSize(new Dimension(150, 30));
-		btnDelete.setMaximumSize(new Dimension(150, 30));
-		btnDelete.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
-		panelComponentes.add(btnDelete, "cell 1 1");
-	}
-
-	private void theader() {
-		JTableHeader thead = tableProdutos.getTableHeader();
-		thead.setForeground(new Color(123, 150, 212));
-		thead.setBackground(new Color(255, 255, 255));
-		thead.setFont(new Font("Tahoma", Font.PLAIN, 20));
-
-	}
-
+    private void theader() {
+        JTableHeader thead = tableProdutos.getTableHeader();
+        thead.setForeground(new Color(123, 150, 212));
+        thead.setBackground(new Color(255, 255, 255));
+        thead.setFont(new Font("Tahoma", Font.PLAIN, 20));
+    }
 }
