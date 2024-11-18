@@ -18,7 +18,7 @@ public class TelaVendas extends JFrame {
 
 	public TelaVendas() {
 		produtoDAO = new ProdutoDAO();
-		listaProdutos = produtoDAO.selecionarProdutos(); // Carregar produtos do banco de dados
+		listaProdutos = produtoDAO.selecionarProdutos(); 
 
 		setTitle("Catálogo de Produtos");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -27,15 +27,18 @@ public class TelaVendas extends JFrame {
 		setResizable(false);
 
 		contentPane = new JPanel(new BorderLayout());
+		contentPane = new ImagePanel("src/img/bgVendas.png");
 		contentPane.setBackground(new Color(243, 244, 240));
 		setContentPane(contentPane);
 
 		JPanel panelVazio = new JPanel();
 		panelVazio.setBackground(new Color(0, 0, 0));
 		panelVazio.setOpaque(false);
-		contentPane.add(panelVazio, BorderLayout.NORTH);
+		contentPane.add(panelVazio, "cell 0 0,grow");
+		panelVazio.setLayout(null);
 
-		JLabel lblSeta = new JLabel("");
+		JLabel lblSeta = new JLabel((String) null);
+		lblSeta.setHorizontalAlignment(SwingConstants.LEFT);
 		lblSeta.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblSeta.setIcon(new ImageIcon(TelaCadastroProdutos.class.getResource("/img/de-volta.png")));
 		lblSeta.setBounds(0, 0, 110, 100);
@@ -52,35 +55,30 @@ public class TelaVendas extends JFrame {
 		JPanel panelProdutos = new JPanel();
 		panelProdutos.setBackground(new Color(243, 244, 240));
 
-		// ScrollPane para a lista de produtos
 		JScrollPane scrollPane = new JScrollPane(panelProdutos);
 		panelProdutos.setLayout(new MigLayout("", "[grow, fill]", "[]"));
 		scrollPane.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
-		contentPane.add(scrollPane, BorderLayout.CENTER);
+		contentPane.add(scrollPane, BorderLayout.SOUTH);
 
-		// Adicionar os produtos como botões com imagens e nomes
 		for (Produto produto : listaProdutos) {
 			JButton btnProduto = new JButton();
 			btnProduto.setPreferredSize(new Dimension(200, 250));
 			btnProduto.setLayout(new BorderLayout());
 
-			// Adicionar imagem do produto ao botão
 			ImageIcon imageIcon = new ImageIcon(produto.getFoto());
 			Image image = imageIcon.getImage().getScaledInstance(180, 180, Image.SCALE_SMOOTH);
 			JLabel lblImage = new JLabel(new ImageIcon(image));
 			btnProduto.add(lblImage, BorderLayout.CENTER);
 
-			// Adicionar título do produto
-			JLabel lblNome = new JLabel(produto.getFoto(), SwingConstants.CENTER); // Corrigido para usar getNome()
+			JLabel lblNome = new JLabel(produto.getFoto(), SwingConstants.CENTER);
 			lblNome.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			btnProduto.add(lblNome, BorderLayout.SOUTH); // Corrigido para adicionar lblNome
+			btnProduto.add(lblNome, BorderLayout.SOUTH);
 
-			// Configurar ação do botão para abrir a tela de detalhes
 			btnProduto.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					TelaDetalhesProduto telaDetalhes = new TelaDetalhesProduto(produto); // Cria a tela de detalhes
-					telaDetalhes.setVisible(true); // Exibe a tela
+					TelaDetalhesProduto telaDetalhes = new TelaDetalhesProduto(produto); 
+					telaDetalhes.setVisible(true); 
 				}
 			});
 
@@ -110,15 +108,13 @@ class TelaDetalhesProduto extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLayout(new BorderLayout());
 
-		// Exibir a imagem do produto
 		ImageIcon imageIcon = new ImageIcon(produto.getFoto());
 		Image image = imageIcon.getImage().getScaledInstance(350, 350, Image.SCALE_SMOOTH);
 		JLabel lblImage = new JLabel(new ImageIcon(image));
 		add(lblImage, BorderLayout.NORTH);
 
-		// Exibir nome e preço do produto
 		JPanel panelInfo = new JPanel(new GridLayout(0, 1));
-		JLabel lblNome = new JLabel("Nome: " + produto.getFoto()); // Corrigido para usar getNome()
+		JLabel lblNome = new JLabel("Nome: " + produto.getFoto()); 
 		JLabel lblPreco = new JLabel("Preço: R$" + produto.getPreco());
 
 		lblNome.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -128,13 +124,13 @@ class TelaDetalhesProduto extends JFrame {
 		panelInfo.add(lblPreco);
 		add(panelInfo, BorderLayout.CENTER);
 
-		// Exibir o botão de "Voltar"
+
 		JPanel panelBotao = new JPanel();
 		JButton btnVoltar = new JButton("Voltar");
 		btnVoltar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				dispose(); // Fecha a tela de detalhes
+				dispose(); 
 			}
 		});
 		panelBotao.add(btnVoltar);
