@@ -138,8 +138,8 @@ public class TelaLogin extends JFrame {
 				}
 
 				if (!isValidEmail(email)) {
-					mostrarMensagemErro("O formato do email está incorreto. Por favor, insira um email válido.");
-					return;
+					TelaErro frame = new TelaErro("Algo está errado");
+					frame.setVisible(true);
 				}
 
 				Funcionario login = new Funcionario();
@@ -194,12 +194,13 @@ public class TelaLogin extends JFrame {
 		setLocationRelativeTo(null);
 	}
 
-	// Método para exibir a mensagem de erro
+	
 	private void mostrarMensagemErro(String mensagem) {
-		JOptionPane.showMessageDialog(null, mensagem, "Erro", JOptionPane.ERROR_MESSAGE);
+		TelaErro frame = new TelaErro("Email ou senha inválidos.");
+		frame.setVisible(true);
 	}
 
-	// Método para validação simples de email
+	
 	private boolean isValidEmail(String email) {
 		return email.contains("@") && email.contains(".");
 	}

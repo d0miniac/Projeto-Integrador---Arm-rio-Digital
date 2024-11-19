@@ -122,7 +122,6 @@ public class TelaFornecedores extends JFrame {
         scrollPane.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
         panelComponentes.add(scrollPane, "cell 1 2,grow");
 
-        // Inicializa a tabela
         try {
             carregarFornecedores();
         } catch (Exception e) {

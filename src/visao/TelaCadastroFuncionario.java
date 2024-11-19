@@ -176,6 +176,11 @@ public class TelaCadastroFuncionario extends JFrame {
 												try {
 													String strCpf = txtCpf.getText();
 													strCpf = strCpf.replaceAll("[^0-9]", "");
+													if (strCpf.isEmpty()) {
+														TelaErro erroTela = new TelaErro("Cpf inválido");
+														erroTela.setVisible(true);
+														return;
+													}
 													Long longCpf = Long.parseLong(strCpf);
 													strCpf = strCpf.replaceAll("(\\d{3})(\\d{3})(\\d{3})(\\d{2})", "$1.$2.$3-$4");
 													
@@ -183,7 +188,7 @@ public class TelaCadastroFuncionario extends JFrame {
 												} catch (NumberFormatException e1) {
 													// TODO Auto-generated catch block
 													e1.printStackTrace();
-													TelaErro erro = new TelaErro();
+													TelaErro erro = new TelaErro("Cpf inválido");
 													erro.setVisible(true);
 													return;
 												}
@@ -191,8 +196,9 @@ public class TelaCadastroFuncionario extends JFrame {
 												if (txtSenha.getText().equals(txtConfirma.getText())) {
 													novo.setSenha(txtConfirma.getText());
 												} else {
-													TelaErro erroTela = new TelaErro();
+													TelaErro erroTela = new TelaErro("As senhas devem ser iguais!");
 													erroTela.setVisible(true);
+													return;
 
 												}
 												FuncionarioDAO dao = new FuncionarioDAO();
