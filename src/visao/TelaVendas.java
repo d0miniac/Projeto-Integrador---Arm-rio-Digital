@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class TelaVendas extends JFrame {
 
 	private JPanel contentPane;
+	private JPanel contentPane_1;
 	private ArrayList<Produto> listaProdutos;
 	private ProdutoDAO produtoDAO;
 
@@ -27,14 +28,14 @@ public class TelaVendas extends JFrame {
 		setResizable(false);
 
 		contentPane = new JPanel(new BorderLayout());
-		contentPane = new ImagePanel("src/img/bgVendas.png");
-		contentPane.setBackground(new Color(243, 244, 240));
-		setContentPane(contentPane);
+		contentPane_1 = new ImagePanel("src/img/bgVendas.png");
+		contentPane_1.setBackground(new Color(243, 244, 240));
+		setContentPane(contentPane_1);
 
 		JPanel panelVazio = new JPanel();
 		panelVazio.setBackground(new Color(0, 0, 0));
 		panelVazio.setOpaque(false);
-		contentPane.add(panelVazio, "cell 0 0,grow");
+		contentPane_1.add(panelVazio, "cell 0 0,grow");
 		panelVazio.setLayout(null);
 
 		JLabel lblSeta = new JLabel((String) null);
@@ -49,16 +50,19 @@ public class TelaVendas extends JFrame {
 				TelaMenu tela = new TelaMenu();
 				dispose();
 				tela.setVisible(true);
+				
+				
 			}
 		});
 
-		JPanel panelProdutos = new JPanel();
-		panelProdutos.setBackground(new Color(243, 244, 240));
-
-		JScrollPane scrollPane = new JScrollPane(panelProdutos);
-		panelProdutos.setLayout(new MigLayout("", "[grow, fill]", "[]"));
+		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
-		contentPane.add(scrollPane, BorderLayout.SOUTH);
+		contentPane_1.add(scrollPane, BorderLayout.SOUTH);
+		
+				JPanel panelProdutos = new JPanel();
+				contentPane_1.add(panelProdutos);
+				panelProdutos.setBackground(new Color(243, 244, 240));
+				panelProdutos.setLayout(new MigLayout("", "[grow, fill]", "[]"));
 
 		for (Produto produto : listaProdutos) {
 			JButton btnProduto = new JButton();
