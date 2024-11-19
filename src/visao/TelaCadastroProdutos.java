@@ -238,6 +238,8 @@ public class TelaCadastroProdutos extends JFrame {
 		
 		
 		JButton btnLoad = new JButton("Selecionar Imagem");
+		btnLoad.setForeground(new Color(255, 255, 255));
+		btnLoad.setBackground(new Color(32, 60, 115));
 		inferior.add(btnLoad, "cell 2 5,alignx center");
 		btnLoad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -293,6 +295,8 @@ public class TelaCadastroProdutos extends JFrame {
 			}
 		});
 		JButton btnNewButton = new JButton("Salvar");
+		btnNewButton.setForeground(new Color(255, 255, 255));
+		btnNewButton.setBackground(new Color(32, 60, 115));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Float preco = Float.parseFloat(txtPreco.getText());
@@ -352,10 +356,24 @@ public class TelaCadastroProdutos extends JFrame {
 				
 			}
 		});
-		inferior.add(btnNewButton, "flowx,cell 0 5,alignx center");
-		
-		JButton btnNewButton_1 = new JButton("New button");
-		inferior.add(btnNewButton_1, "cell 0 5,alignx center");
+		inferior.add(btnNewButton, "flowx,cell 0 5,alignx center,growy");
+	        
+	           JButton btnCancelar = new JButton("CANCELAR");
+	           btnCancelar.setBackground(new Color(255, 0, 0));
+	           btnCancelar.setForeground(Color.WHITE);
+	           btnCancelar.addActionListener(new ActionListener() {
+	               public void actionPerformed(ActionEvent e) {
+	               	TelaFuncionarios tela = null;
+					try {
+						tela = new TelaFuncionarios();
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+					dispose();
+					tela.setVisible(true);
+	               }
+	           });
+	           inferior.add(btnCancelar, "cell 0 5,alignx center");
 		
 		
 

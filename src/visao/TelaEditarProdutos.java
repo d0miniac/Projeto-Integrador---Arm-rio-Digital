@@ -1,6 +1,7 @@
 package visao;
 
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.Image;
 
 import javax.swing.JFrame;
@@ -72,7 +73,7 @@ public class TelaEditarProdutos extends JFrame {
 	public TelaEditarProdutos(Produto prod) {
 		produto = new Produto();
 		setTitle("Alteração de Produtos");
-		contentPane = new ImagePanel("src/img/bgCadastroProdutos.png");
+		contentPane = new ImagePanel("src/img/bgEditarProduto.png");
 		setContentPane(contentPane);
 		contentPane.setLayout(new MigLayout("", "[grow]", "[70px][100px][100px][200px]"));
 
@@ -293,6 +294,9 @@ public class TelaEditarProdutos extends JFrame {
 			}
 		});
 		JButton btnNewButton = new JButton("Alterar");
+		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnNewButton.setBackground(new Color(32, 60, 115));
+		btnNewButton.setForeground(Color.WHITE);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Float preco = Float.parseFloat(txtPreco.getText());
@@ -349,8 +353,17 @@ public class TelaEditarProdutos extends JFrame {
 		});
 		inferior.add(btnNewButton, "flowx,cell 0 5,alignx center");
 
-		JButton btnNewButton_1 = new JButton("New button");
-		inferior.add(btnNewButton_1, "cell 0 5,alignx center");
+		 JButton btnCancelar = new JButton("CANCELAR");
+         btnCancelar.setBackground(new Color(255, 0, 0));
+         btnCancelar.setForeground(Color.WHITE);
+         btnCancelar.addActionListener(new ActionListener() {
+             public void actionPerformed(ActionEvent e) {
+             	TelaProdutos tela = new TelaProdutos();
+				dispose();
+				tela.setVisible(true);
+             }
+         });
+         inferior.add(btnCancelar, "cell 0 5,alignx center");
 
 	}
 }

@@ -14,6 +14,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
+
 import net.miginfocom.swing.MigLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -137,7 +139,6 @@ public class TelaEditarFuncionario extends JFrame {
 		topo_1.add(txtCpf, "cell 5 1,alignx center");
 		txtCpf.setColumns(10);
 
-		// Painel inferior com botão de alteração
 		JPanel inferior = new JPanel();
 		inferior.setOpaque(false);
 		contentPane.add(inferior, "cell 0 7,grow");
@@ -168,6 +169,20 @@ public class TelaEditarFuncionario extends JFrame {
 			}
 		});
 		inferior.add(btnAlterar, "cell 0 4,growx");
+        
+
+        JButton btnCancelar = new JButton("CANCELAR");
+        btnCancelar.setBackground(new Color(255, 0, 0));
+        btnCancelar.setForeground(Color.WHITE);
+        btnCancelar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	TelaFuncionarios tela = new TelaFuncionarios();
+				dispose();
+				tela.setVisible(true);
+            }
+        });
+        inferior.add(btnCancelar, "cell 1 4,grow");
+    
 
 		setSize(800, 600);
 		setLocationRelativeTo(null);
