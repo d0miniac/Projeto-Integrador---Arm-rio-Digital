@@ -1,4 +1,3 @@
-
 package visao;
 
 import java.awt.EventQueue;
@@ -12,6 +11,8 @@ import java.awt.Cursor;
 import javax.swing.border.MatteBorder;
 import controle.FornecedorDAO;
 import modelo.Fornecedor;
+import modelo.Funcionario;
+
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
@@ -34,24 +35,9 @@ public class TelaCadastroFornecedores extends JFrame {
     private JTextField textTELEFONE;
     private TelaFornecedores telaFornecedores;  
 
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    TelaFornecedores telaFornecedores = new TelaFornecedores();
+   
 
-                    TelaCadastroFornecedores frame = new TelaCadastroFornecedores(telaFornecedores);
-                    frame.setVisible(true);
-                    frame.setSize(657, 425);
-                    frame.setLocationRelativeTo(null);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
-    public TelaCadastroFornecedores(TelaFornecedores telaFornecedores) {
+    public TelaCadastroFornecedores(TelaFornecedores telaFornecedores, Funcionario func) {
         this.telaFornecedores = telaFornecedores;
         setResizable(false);
         setTitle("Cadastro de Fornecedores");
@@ -76,7 +62,7 @@ public class TelaCadastroFornecedores extends JFrame {
         lblNewLabel_7.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-            	TelaFornecedores telaFornecedores = new TelaFornecedores();
+            	TelaFornecedores telaFornecedores = new TelaFornecedores(func);
                 dispose();
                 telaFornecedores.setSize(1215, 850);
                 telaFornecedores.setLocationRelativeTo(null);
@@ -176,7 +162,7 @@ public class TelaCadastroFornecedores extends JFrame {
         btnCancelar.setForeground(Color.WHITE);
         btnCancelar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	TelaFornecedores tela = new TelaFornecedores();
+            	TelaFornecedores tela = new TelaFornecedores(func);
                 dispose();
                 tela.setVisible(true);
             }
@@ -192,4 +178,3 @@ public class TelaCadastroFornecedores extends JFrame {
         textTELEFONE.setText("");
     }
 }
-

@@ -45,23 +45,9 @@ public class TelaFuncionarios extends JFrame {
 	private FuncionarioTableModel futm;
 	private ArrayList<Funcionario> listarFuncionarios;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaFuncionarios frame = new TelaFuncionarios();
-					frame.setVisible(true);
-					frame.setSize(1215, 850);
-					frame.setLocationRelativeTo(null);
-					frame.setResizable(false);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
-	public TelaFuncionarios() throws SQLException {
+	public TelaFuncionarios(Funcionario func) throws SQLException {
 		setTitle("Funcionarios");
 
 		listarFuncionarios = new ArrayList<>();
@@ -94,13 +80,13 @@ public class TelaFuncionarios extends JFrame {
 		panelComponentes.setBackground(new Color(255, 0, 0));
 		panelComponentes.setOpaque(false);
 		contentPane.add(panelComponentes, "cell 0 1,grow");
-		panelComponentes.setLayout(new MigLayout("", "[][grow][]", "[][][grow]"));
+		panelComponentes.setLayout(new MigLayout("", "[][][][][grow][]", "[][][grow]"));
 
 		txtFiltro = new JTextField();
 		txtFiltro.setUI(new HintTextFieldUI("Pesquisa"));
 		txtFiltro.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtFiltro.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
-		panelComponentes.add(txtFiltro, "cell 1 0,alignx left");
+		panelComponentes.add(txtFiltro, "cell 4 0,alignx left");
 		txtFiltro.setColumns(90);
 		txtFiltro.setPreferredSize(new Dimension(450, 45));
 
@@ -118,7 +104,7 @@ public class TelaFuncionarios extends JFrame {
 		btnAdd.setMinimumSize(new Dimension(150, 30));
 		btnAdd.setMaximumSize(new Dimension(150, 30));
 		btnAdd.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
-		panelComponentes.add(btnAdd, "cell 1 1,alignx left,growy");
+		panelComponentes.add(btnAdd, "cell 4 1,alignx left,growy");
 
 		// Botão Alterar
 		JButton btnUpdate = new JButton("Alterar");
@@ -127,7 +113,7 @@ public class TelaFuncionarios extends JFrame {
 				int i = table.getSelectedRow();
 				if (i != -1) {
 					Funcionario funcionario = listarFuncionarios.get(i);
-					TelaEditarFuncionario telaEditar = new TelaEditarFuncionario(funcionario);
+					TelaEditarFuncionario telaEditar = new TelaEditarFuncionario(funcionario,func);
 					dispose();
 					telaEditar.setVisible(true);
 					telaEditar.setSize(657, 425);
@@ -142,11 +128,11 @@ public class TelaFuncionarios extends JFrame {
 		btnUpdate.setMinimumSize(new Dimension(150, 30));
 		btnUpdate.setMaximumSize(new Dimension(150, 30));
 		btnUpdate.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
-		panelComponentes.add(btnUpdate, "cell 1 1,alignx left,growy");
+		panelComponentes.add(btnUpdate, "cell 4 1,alignx left,growy");
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
-		panelComponentes.add(scrollPane, "cell 1 2,grow");
+		panelComponentes.add(scrollPane, "cell 4 2,grow");
 		// Inicializa a tabela
 		try {
 			carregarFuncionarios();
@@ -198,7 +184,7 @@ public class TelaFuncionarios extends JFrame {
 		btnDelete.setMinimumSize(new Dimension(150, 30));
 		btnDelete.setMaximumSize(new Dimension(150, 30));
 		btnDelete.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
-		panelComponentes.add(btnDelete, "cell 1 1");
+		panelComponentes.add(btnDelete, "cell 4 1");
 
 		JLabel lblSeta = new JLabel();
 		lblSeta.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -209,7 +195,7 @@ public class TelaFuncionarios extends JFrame {
 		lblSeta.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				TelaMenu tela = new TelaMenu();
+				TelaMenu tela = new TelaMenu(func);
 				dispose();
 				tela.setVisible(true);
 			}

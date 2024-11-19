@@ -18,6 +18,7 @@ import javax.swing.border.MatteBorder;
 import controle.ProdutoDAO;
 import modelo.Categoria;
 import modelo.Cor;
+import modelo.Funcionario;
 import modelo.Marca;
 import modelo.Produto;
 import modelo.Tamanho;
@@ -58,9 +59,8 @@ public class TelaEditarProdutos extends JFrame {
 	private JTextField txtPreco;
 	private JTextField txtQuantidade;
 	JLabel lblimagem;
-	Produto produto;
 	private JTextField txtFornecedor;
-	private String caminhoDestino;
+	private String novoCaminho;
 	
 	/**
 	 * Launch the application.
@@ -69,8 +69,8 @@ public class TelaEditarProdutos extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaEditarProdutos(Produto prod) {
-		produto = new Produto();
+	public TelaEditarProdutos(Produto prod,Funcionario func) {
+		
 		setTitle("Alteração de Produtos");
 		contentPane = new ImagePanel("src/img/bgCadastroProdutos.png");
 		setContentPane(contentPane);
@@ -94,7 +94,7 @@ public class TelaEditarProdutos extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				TelaProdutos tela;
-				tela = new TelaProdutos();
+				tela = new TelaProdutos(func);
 				dispose();
 				tela.setSize(1215, 850);
 				tela.setLocationRelativeTo(null);
@@ -240,7 +240,7 @@ public class TelaEditarProdutos extends JFrame {
 				JFileChooser file = new JFileChooser("C://Users//Aluno//Pictures");
 				file.setFileSelectionMode(JFileChooser.FILES_ONLY);
 				int i = file.showSaveDialog(null);
-				System.out.println(i);
+				
 
 		        if (i==1){
 		           // JtextFieldLocal.setText("");
@@ -252,20 +252,29 @@ public class TelaEditarProdutos extends JFrame {
 		            Date now = new Date();
 		            String nome_imagem = "ImagensProdutos/prod_"+now.getTime()+".png";
 		            Path f = Paths.get(nome_imagem);
-		            caminhoDestino = f.toString();
+		            novoCaminho = f.toString();
 		            InputStream is = null;
 		            OutputStream os = null;
 		            try {
-		                is = new FileInputStream(caminhoOrigem);
-		                os = new FileOutputStream(caminhoDestino);
-		                byte[] buffer = new byte[1024];
-		                int length;
-		                while ((length = is.read(buffer)) > 0) {
-		                    os.write(buffer, 0, length);
-		                }
-		                is.close();
-		                os.close();
-		                prod.setFoto(caminhoDestino);
+		            	if(novoCaminho!=prod.getFoto()) {
+		            		is = new FileInputStream(caminhoOrigem);
+			                os = new FileOutputStream(novoCaminho);
+			                byte[] buffer = new byte[1024];
+			                int length;
+			                while ((length = is.read(buffer)) > 0) {
+			                    os.write(buffer, 0, length);
+			                }
+			                is.close();
+			                os.close();
+			                if(novoCaminho!=null) {
+			                	 prod.setFoto(novoCaminho);
+			                }
+			                else {
+			                	novoCaminho=prod.getFoto();
+			                }
+		            	}
+		                
+		               
 		            } catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -273,19 +282,19 @@ public class TelaEditarProdutos extends JFrame {
 					} finally {
 
 		            
-		            produto.setFoto(nome_imagem);
+		            prod.setFoto(nome_imagem);
 
-		            ImageIcon imagem = new ImageIcon(caminhoDestino);
+		            ImageIcon imagem = new ImageIcon(novoCaminho);
 		            Image img = imagem.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-		            System.out.println(arquivo);
+		            
 		            
 		            lblimagem.setIcon(new ImageIcon(img));
 		            
 		        }
 
-					ImageIcon imagem = new ImageIcon(caminhoDestino);
+					ImageIcon imagem = new ImageIcon(novoCaminho);
 					Image img = imagem.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-					System.out.println(arquivo);
+					
 					lblimagem.setIcon(new ImageIcon(img));
 
 				}
@@ -319,8 +328,8 @@ public class TelaEditarProdutos extends JFrame {
 				
 				
 				
-				produto.setCategoria(categoriaSelecionada);
-				produto.setFoto(caminhoDestino);
+				prod.setCategoria(categoriaSelecionada);
+				
 				//produto.setId(id);
 				prod.setFornecedor(idF);
 				prod.setMarca(marcaselecionada);
@@ -328,6 +337,7 @@ public class TelaEditarProdutos extends JFrame {
 				prod.setQuantidade(quantidade);
 				prod.setCor(corselecionada);
 				prod.setTamanho(tamanhoselecionado);
+				
 
 				// testes
 
@@ -340,7 +350,7 @@ public class TelaEditarProdutos extends JFrame {
 				}
 
 				TelaProdutos tela;
-				tela = new TelaProdutos();
+				tela = new TelaProdutos(func);
 				tela.setVisible(true);
 				tela.setSize(1215, 850);
 				dispose();
@@ -348,9 +358,6 @@ public class TelaEditarProdutos extends JFrame {
 			}
 		});
 		inferior.add(btnNewButton, "flowx,cell 0 5,alignx center");
-
-		JButton btnNewButton_1 = new JButton("New button");
-		inferior.add(btnNewButton_1, "cell 0 5,alignx center");
 
 	}
 }
