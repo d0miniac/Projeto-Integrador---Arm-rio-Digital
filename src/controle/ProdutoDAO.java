@@ -100,16 +100,33 @@ public class ProdutoDAO {
 		Connection conn = ConexaoBD.getConexaoMySQL();
 		try {
 			stmt1 = conn.prepareStatement("update armariodigital.produtos set Tamanho =?, Categoria = ?, Preco = ?, QT_Estoque = ?, Cor=?, Marca = ?, Fornecedor_idFornecedor=?,Imagem=? where idProduto = ?;");
-			System.out.println(p.getTamanho());
+			
 			stmt1.setString(1, p.getTamanho().getDescricao());
+			
+			
 			stmt1.setString(2, p.getCategoria().getDescricao());
+			
+			
 			stmt1.setFloat(3, p.getPreco());
+			
+			
 			stmt1.setInt(4, p.getQuantidade());
+			
+			
 			stmt1.setString(5, p.getCor().getDescricao());
+			
+			
 			stmt1.setString(6, p.getMarca().getDescricao());
+			
+			
 			stmt1.setLong(7, p.getFornecedor());
+			
+			
 			stmt1.setString(8,p.getFoto());
+			
+			
 			stmt1.setLong(9, p.getId());
+			
 			stmt1.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

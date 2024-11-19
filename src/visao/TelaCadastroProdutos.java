@@ -15,15 +15,19 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.MatteBorder;
 
+import controle.FornecedorDAO;
 import controle.ProdutoDAO;
 import modelo.Categoria;
 import modelo.Cor;
+import modelo.Fornecedor;
+import modelo.Funcionario;
 import modelo.Marca;
 import modelo.Produto;
 import modelo.Tamanho;
 
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.imageio.ImageIO;
@@ -45,6 +49,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
@@ -53,40 +58,33 @@ import java.awt.event.MouseEvent;
 public class TelaCadastroProdutos extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField txtID;
 	private JTextField txtPreco;
 	private JTextField txtQuantidade;
 	JLabel lblimagem;
 	Produto produto;
-	private JTextField txtFornecedor;
+	ProdutoDAO dao;
+	FornecedorDAO fdao;
+	ArrayList<Fornecedor> listaFornecedores;
 	
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaCadastroProdutos frame = new TelaCadastroProdutos();
-					frame.setVisible(true);
-					frame.setSize(657, 425);
-					frame.setLocationRelativeTo(null);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the frame.
+	 * @throws SQLException 
 	 */
-	public TelaCadastroProdutos() {
+	
+	public TelaCadastroProdutos(Funcionario func) throws SQLException {
 		produto = new Produto();
 		setTitle("Cadastro de Produtos");
 		contentPane = new ImagePanel("src/img/bgCadastroProdutos.png");
 		setContentPane(contentPane);
 		contentPane.setLayout(new MigLayout("", "[grow]", "[70px][100px][100px][200px]"));
+		
+		
+		
 		
 		JPanel vazio = new JPanel();
 		vazio.setBackground(new Color(255, 0, 0));
@@ -106,7 +104,7 @@ public class TelaCadastroProdutos extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				TelaProdutos tela;
-				tela = new TelaProdutos();
+				tela = new TelaProdutos(func);
 				dispose();
 				tela.setSize(1215, 850);
 				tela.setLocationRelativeTo(null);
@@ -122,15 +120,6 @@ public class TelaCadastroProdutos extends JFrame {
 		contentPane.add(topo, "cell 0 1,grow");
 		topo.setOpaque(false);
 		topo.setLayout(new MigLayout("", "[grow][grow][grow][grow][grow]", "[][]"));
-		
-		JLabel lblNewLabel = new JLabel("ID Produto");
-		lblNewLabel.setEnabled(false);
-		topo.add(lblNewLabel, "flowx,cell 0 0,alignx center");
-		
-		txtID = new JTextField();
-		txtID.setEnabled(false);
-		topo.add(txtID, "cell 0 0,alignx center");
-		txtID.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("PREÇO");
 		topo.add(lblNewLabel_1, "flowx,cell 2 0,alignx center");
@@ -154,9 +143,18 @@ public class TelaCadastroProdutos extends JFrame {
 		JLabel lblNewLabel_9 = new JLabel("ID Fornecedor");
 		topo.add(lblNewLabel_9, "flowx,cell 0 1,alignx center");
 		
-		txtFornecedor = new JTextField();
-		topo.add(txtFornecedor, "cell 0 1,alignx center");
-		txtFornecedor.setColumns(10);
+		JComboBox<String> cbxFornecedor = new JComboBox<String>();
+		listaFornecedores = new ArrayList<>();
+		fdao = new FornecedorDAO();
+		listaFornecedores = fdao.selecionarFornecedores();
+		for (Fornecedor fornecedor : listaFornecedores) {
+			cbxFornecedor.addItem(fornecedor.getNomeFornecedor());
+		}
+		
+		
+		
+		
+		topo.add(cbxFornecedor, "cell 0 1");
 		
 		JPanel meio = new JPanel();
 		meio.setBorder(new MatteBorder(0, 0, 5, 0, (Color) new Color(32, 60, 115,124)));
@@ -217,7 +215,9 @@ public class TelaCadastroProdutos extends JFrame {
 		JLabel lblNewLabel_5 = new JLabel("CATEGORIA");
 		inferior.add(lblNewLabel_5, "flowx,cell 0 0,alignx center");
 		
-		JComboBox cbxCategoria = new JComboBox();
+		
+		
+		JComboBox<Categoria> cbxCategoria = new JComboBox<Categoria>();
 		cbxCategoria.addItem(Categoria.BLUSA);
 		cbxCategoria.addItem(Categoria.CALÇA);
 		cbxCategoria.addItem(Categoria.CAMISA);
@@ -298,8 +298,8 @@ public class TelaCadastroProdutos extends JFrame {
 				Float preco = Float.parseFloat(txtPreco.getText());
 				int quantidade = Integer.parseInt(txtQuantidade.getText());
 				//Long id = Long.parseLong(txtID.getText());
-				int idF = Integer.parseInt(txtFornecedor.getText());
-				
+				//int idF = Integer.parseInt(txtFornecedor.getText());
+				//Long idF = cbxFornecedor.getSelectedItem()btnLoad.getIdFornecedor();
 				
 				String cor;
 				Cor corselecionada = (Cor)cbxCor.getSelectedItem();
@@ -322,7 +322,7 @@ public class TelaCadastroProdutos extends JFrame {
 				produto.setCategoria(categoriaSelecionada);
 				//produto.setFoto(caminhoDestino);
 				//produto.setId(id);
-				produto.setFornecedor(idF);
+				//produto.setFornecedor(idF);
 				produto.setMarca(marcaselecionada);
 				produto.setPreco(preco);
 				produto.setQuantidade(quantidade);
@@ -334,18 +334,12 @@ public class TelaCadastroProdutos extends JFrame {
 				
 				
 				//testes
-				System.out.println(produto.getCategoria());
-				System.out.println(produto.getFoto());
-				System.out.println(produto.getMarca());
-				System.out.println(produto.getQuantidade());
-				System.out.println(produto.getId());
-				System.out.println(produto.getPreco());
-				System.out.println(produto.getTamanho());
-				ProdutoDAO dao = new ProdutoDAO();
+				
+				dao = new ProdutoDAO();
 				int res1=dao.cadastrarProduto(produto);
 				
 				TelaProdutos tela;
-				tela = new TelaProdutos();
+				tela = new TelaProdutos(func);
 				tela.setVisible(true);
 				tela.setSize(1215, 850);
 				dispose();
@@ -353,9 +347,6 @@ public class TelaCadastroProdutos extends JFrame {
 			}
 		});
 		inferior.add(btnNewButton, "flowx,cell 0 5,alignx center");
-		
-		JButton btnNewButton_1 = new JButton("New button");
-		inferior.add(btnNewButton_1, "cell 0 5,alignx center");
 		
 		
 

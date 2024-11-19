@@ -6,7 +6,15 @@ public class Funcionario {
 	public String email;
 	public String cpf;
 	public String senha;
-
+	public String perfil;
+	
+	
+	public String getPerfil() {
+		return perfil;
+	}
+	public void setPerfil(String perfil) {
+		this.perfil = perfil;
+	}
 	public int getId() {
 		return id;
 	}

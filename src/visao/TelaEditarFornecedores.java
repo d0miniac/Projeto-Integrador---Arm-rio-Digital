@@ -1,4 +1,3 @@
-
 package visao;
 
 import java.awt.EventQueue;
@@ -20,6 +19,7 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import modelo.Fornecedor;
+import modelo.Funcionario;
 import controle.FornecedorDAO;
 import javax.swing.SwingConstants;
 
@@ -33,23 +33,9 @@ public class TelaEditarFornecedores extends JFrame {
 	private JTextField txtTelefone;
 	private Fornecedor fornecedor;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Fornecedor fornecedor = new Fornecedor();
-					TelaEditarFornecedores frame = new TelaEditarFornecedores(fornecedor);
-					frame.setVisible(true);
-					frame.setSize(657, 425);
-					frame.setLocationRelativeTo(null);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
-	public TelaEditarFornecedores(Fornecedor fornecedor) {
+	public TelaEditarFornecedores(Fornecedor fornecedor,Funcionario func) {
 		this.fornecedor = fornecedor;
 		setSize(657, 425);
 		setLocationRelativeTo(null);
@@ -76,7 +62,7 @@ public class TelaEditarFornecedores extends JFrame {
 		lblVoltar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				TelaFornecedores tela = new TelaFornecedores();
+				TelaFornecedores tela = new TelaFornecedores(func);
 				dispose();
 				tela.setVisible(true);
 			}
@@ -143,48 +129,35 @@ public class TelaEditarFornecedores extends JFrame {
 		inferior.setOpaque(false);
 		contentPane.add(inferior, "cell 0 7,grow");
 		inferior.setLayout(new MigLayout("", "[100px][100px][grow][grow][]", "[][][][][][][]"));
-
-		JButton btnAlterar = new JButton("Alterar");
-		btnAlterar.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnAlterar.setBackground(new Color(32, 60, 115));
-		btnAlterar.setForeground(Color.WHITE);
-		btnAlterar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// Atualizando informações
-				fornecedor.setNomeFornecedor(txtNomeFornecedor.getText());
-				fornecedor.setNomeCtt(txtNomeContato.getText());
-				fornecedor.setEmail(txtEmail.getText());
-				fornecedor.setTelefone(txtTelefone.getText());
-
-				FornecedorDAO dao = new FornecedorDAO();
-				try {
-					dao.alterarFornecedor(fornecedor);
-					JOptionPane.showMessageDialog(null, "Fornecedor alterado com sucesso!");
-					TelaFornecedores tela = new TelaFornecedores();
-					dispose();
-					tela.setVisible(true);
-				} catch (Exception ex) {
-					JOptionPane.showMessageDialog(null, "Erro ao alterar fornecedor: " + ex.getMessage(), "Erro",
-							JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		});
-
-		inferior.add(btnAlterar, "cell 0 4,growx");
 		
-				JButton btnCancelar = new JButton("CANCELAR");
-				btnCancelar.setBackground(new Color(255, 0, 0));
-				btnCancelar.setForeground(Color.WHITE);
-				btnCancelar.addActionListener(new ActionListener() {
+				JButton btnAlterar = new JButton("Alterar");
+				btnAlterar.setFont(new Font("Tahoma", Font.BOLD, 16));
+				btnAlterar.setBackground(new Color(32, 60, 115));
+				btnAlterar.setForeground(Color.WHITE);
+				btnAlterar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						TelaFornecedores tela = new TelaFornecedores();
-						dispose();
-						tela.setVisible(true);
+						// Atualizando informações
+						fornecedor.setNomeFornecedor(txtNomeFornecedor.getText());
+						fornecedor.setNomeCtt(txtNomeContato.getText());
+						fornecedor.setEmail(txtEmail.getText());
+						fornecedor.setTelefone(txtTelefone.getText());
+
+						FornecedorDAO dao = new FornecedorDAO();
+						try {
+							dao.alterarFornecedor(fornecedor);
+							JOptionPane.showMessageDialog(null, "Fornecedor alterado com sucesso!");
+							TelaFornecedores tela = new TelaFornecedores(func);
+							dispose();
+							tela.setVisible(true);
+						} catch (Exception ex) {
+							JOptionPane.showMessageDialog(null, "Erro ao alterar fornecedor: " + ex.getMessage(), "Erro",
+									JOptionPane.ERROR_MESSAGE);
+						}
 					}
 				});
-				inferior.add(btnCancelar, "cell 1 4,grow");
+				inferior.add(btnAlterar, "cell 0 4,growx");
 
-		setSize(657, 425);
+		setSize(800, 600);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}

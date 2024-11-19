@@ -11,16 +11,20 @@ import java.sql.SQLException;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.border.TitledBorder;
 
-public class TelaMenu extends JFrame {
+import modelo.Funcionario;
 
-	public TelaMenu() {
+public class TelaMenu extends JFrame {
+	public JButton btnFuncionarios;
+	public TelaMenu(Funcionario func) {
 
 		setTitle("MENU");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1215, 850);
 		setLocationRelativeTo(null);
 		setResizable(false);
-
+		
+		
+		
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new BorderLayout());
 		mainPanel.setBackground(new Color(230, 230, 230));
@@ -46,7 +50,7 @@ public class TelaMenu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				TelaProdutos telaProdutos;
-				telaProdutos = new TelaProdutos();
+				telaProdutos = new TelaProdutos(func);
 				telaProdutos.setVisible(true);
 				telaProdutos.setSize(1215, 850);
 				telaProdutos.setLocationRelativeTo(null);
@@ -58,23 +62,28 @@ public class TelaMenu extends JFrame {
 		btnFornecedores.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				TelaFornecedores telaFornecedores = new TelaFornecedores();
+				TelaFornecedores telaFornecedores = new TelaFornecedores(func);
 				telaFornecedores.setVisible(true);
 			}
 		});
 
-		JButton btnFuncionarios = new ImageButton("src/img/icone_funcionarios.png");
+		btnFuncionarios = new ImageButton("src/img/icone_funcionarios.png");
+		if(!func.getPerfil().equals("Admin")) {
+			btnFuncionarios.setEnabled(false);
+		}
 		btnFuncionarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dispose();
-				TelaFuncionarios telaFuncionarios = null;
-				try {
-					telaFuncionarios = new TelaFuncionarios();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				telaFuncionarios.setVisible(true);
+				
+					dispose();
+					TelaFuncionarios telaFuncionarios = null;
+					try {
+						telaFuncionarios = new TelaFuncionarios(func);
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					telaFuncionarios.setVisible(true);
+				
 			}
 		});
 		JButton btnHistorico = new ImageButton("src/img/icone_historico.png");
@@ -110,20 +119,17 @@ public class TelaMenu extends JFrame {
 
 		topPanel.add(msg1, "cell 1 1");
 
-		JLabel lblNewLabel_1 = new JLabel("Nome de Usuário");
+		JLabel lblNewLabel_1 = new JLabel(func.getNome());
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_1.setForeground(Color.WHITE);
 		topPanel.add(lblNewLabel_1, "cell 1 2,alignx left");
 		mainPanel.add(buttonPanel, BorderLayout.CENTER);
-		
+
 		getContentPane().add(mainPanel);
 
 		setVisible(true);
 	}
 
-	public static void main(String[] args) {
-
-		new TelaMenu();
-	}
+	
 
 }

@@ -145,12 +145,13 @@ public class TelaLogin extends JFrame {
 				Funcionario login = new Funcionario();
 				login.setEmail(email);
 				login.setSenha(senha);
+				
 				FuncionarioDAO dao = new FuncionarioDAO();
 				Funcionario f = dao.logarFuncionario(login);
 
 				if (f != null) {
 					dispose();
-					TelaMenu tela = new TelaMenu();
+					TelaMenu tela = new TelaMenu(f);
 					tela.setVisible(true);
 				} else {
 					mostrarMensagemErro("Usuário ou senha inválidos.");
@@ -175,9 +176,13 @@ public class TelaLogin extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				btnCadastrese.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						dispose();
-						TelaCadastroFuncionario telaCadastroFuncionario = new TelaCadastroFuncionario();
-						telaCadastroFuncionario.setVisible(true);
+						
+							dispose();
+							TelaCadastroFuncionario telaCadastroFuncionario = new TelaCadastroFuncionario();
+							telaCadastroFuncionario.setVisible(true);
+						
+						
+						
 					}
 
 				});
