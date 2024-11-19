@@ -72,7 +72,7 @@ public class TelaEditarProdutos extends JFrame {
 	public TelaEditarProdutos(Produto prod) {
 		produto = new Produto();
 		setTitle("Alteração de Produtos");
-		contentPane = new ImagePanel("src/img/bgCadastroProdutos.png");
+		contentPane = new ImagePanel("src/img/bgEditarProduto.png");
 		setContentPane(contentPane);
 		contentPane.setLayout(new MigLayout("", "[grow]", "[70px][100px][100px][200px]"));
 
@@ -132,7 +132,6 @@ public class TelaEditarProdutos extends JFrame {
 		topo.add(lblNewLabel_2, "flowx,cell 4 0,alignx center");
 
 		JComboBox<Marca> cbxMarca = new JComboBox<Marca>();
-//		cbxMarca.setModel(new DefaultComboBoxModel(new String[] {"NIKE", "ADIDAS", "LACOSTE", "GUCCI", "PUMA"}));
 		cbxMarca.addItem(Marca.NIKE);
 		cbxMarca.addItem(Marca.ADIDAS);
 		cbxMarca.addItem(Marca.PUMA);
@@ -243,7 +242,6 @@ public class TelaEditarProdutos extends JFrame {
 				System.out.println(i);
 
 		        if (i==1){
-		           // JtextFieldLocal.setText("");
 		        } else {
 		            File arquivo = file.getSelectedFile();
 		
@@ -297,7 +295,6 @@ public class TelaEditarProdutos extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Float preco = Float.parseFloat(txtPreco.getText());
 				int quantidade = Integer.parseInt(txtQuantidade.getText());
-				// Long id = Long.parseLong(txtID.getText());
 				int idF = Integer.parseInt(txtFornecedor.getText());
 				
 				
@@ -321,7 +318,6 @@ public class TelaEditarProdutos extends JFrame {
 				
 				produto.setCategoria(categoriaSelecionada);
 				produto.setFoto(caminhoDestino);
-				//produto.setId(id);
 				prod.setFornecedor(idF);
 				prod.setMarca(marcaselecionada);
 				prod.setPreco(preco);
@@ -329,7 +325,6 @@ public class TelaEditarProdutos extends JFrame {
 				prod.setCor(corselecionada);
 				prod.setTamanho(tamanhoselecionado);
 
-				// testes
 
 				ProdutoDAO dao = new ProdutoDAO();
 				try {

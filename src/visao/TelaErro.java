@@ -29,7 +29,7 @@ public class TelaErro extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaErro frame = new TelaErro();
+					TelaErro frame = new TelaErro("Algo está errado");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -41,18 +41,18 @@ public class TelaErro extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaErro() {
+	public TelaErro(String mensagem) {
 		setTitle("Tela de Erro");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 292, 158);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(243, 244, 240));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(new EmptyBorder(5, 5, 5,   5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(new MigLayout("", "[][][][]", "[73px][73px]"));
 		
-		JLabel lblNewLabel = new JLabel("Erro, algo está errado");
+		JLabel lblNewLabel = new JLabel(mensagem);
 		lblNewLabel.setBackground(new Color(243, 244, 240));
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblNewLabel.setForeground(new Color(255, 0, 0));

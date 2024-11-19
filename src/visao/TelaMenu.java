@@ -39,8 +39,7 @@ public class TelaMenu extends JFrame {
 		buttonPanel.setBackground(new Color(230, 230, 230));
 
 		buttonPanel
-				.setLayout(new MigLayout("", "[173px,grow][173px,grow][173px,grow][173px,grow][173px,grow][173px,grow]",
-						"[100px,grow][100px,grow]"));
+				.setLayout(new MigLayout("", "[][173px][173px][173px][173px][173px][173px]", "[100px,grow][100px,grow]"));
 
 		JButton btnProdutos = new ImageButton("src/img/icone_produtos.png");
 		btnProdutos.addActionListener(new ActionListener() {
@@ -96,11 +95,11 @@ public class TelaMenu extends JFrame {
 			}
 		});
 
-		buttonPanel.add(btnFornecedores, "cell 2 0 2 1,grow");
-		buttonPanel.add(btnHistorico, "cell 4 0 2 1,grow");
-		buttonPanel.add(btnFuncionarios, "cell 1 1 2 1,grow");
-		buttonPanel.add(btnProdutos, "cell 0 0 2 1,grow");
-		buttonPanel.add(btnVendas, "cell 3 1 2 1,grow");
+		buttonPanel.add(btnFornecedores, "cell 3 0 2 1,grow");
+		buttonPanel.add(btnHistorico, "cell 5 0 2 1,grow");
+		buttonPanel.add(btnFuncionarios, "cell 2 1 2 1,grow");
+		buttonPanel.add(btnProdutos, "cell 1 0 2 1,grow");
+		buttonPanel.add(btnVendas, "cell 4 1 2 1,grow");
 
 		mainPanel.add(topPanel, BorderLayout.NORTH);
 

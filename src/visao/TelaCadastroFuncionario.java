@@ -82,21 +82,35 @@ public class TelaCadastroFuncionario extends JFrame {
 		PainelComponentes.setBackground(new Color(243, 244, 240));
 		contentPane.add(PainelComponentes);
 		PainelComponentes
-				.setLayout(new MigLayout("", "[46px,grow]", "[40px][14px][][100px][][][][][][][][][][][][][]"));
+				.setLayout(new MigLayout("", "[46px,grow]", "[40px][14px][][100px][][][][][][][][][][][80px][][][][][][][][][][]"));
 
 		JLabel lblNewLabel = new JLabel("<html>Cadastre um <br>novo funcionário");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 60));
 		PainelComponentes.add(lblNewLabel, "cell 0 1,alignx left,aligny top");
 		
-		JPanel panelAleatorio = new JPanel();
-		PainelComponentes.add(panelAleatorio, "flowx,cell 0 2");
-		panelAleatorio.setOpaque(false);
+				JLabel lblNewLabel_6 = new JLabel("Já tem uma conta?");
+				lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 20));
+				PainelComponentes.add(lblNewLabel_6, "flowx,cell 0 2");
+		
+				JLabel lblNewLabel_7 = new JLabel("<html><u>Login</u></html>");
+				lblNewLabel_7.setForeground(new Color(32, 60, 115));
+				lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 18));
+				lblNewLabel_7.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				lblNewLabel_7.addMouseListener(new MouseAdapter() {
+					@Override
 
-		JLabel lblNewLabel_6 = new JLabel("Já tem uma conta?");
-		lblNewLabel_6.setVisible(false);
-		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		PainelComponentes.add(lblNewLabel_6, "cell 0 2");
+					public void mouseClicked(MouseEvent e) {
+						dispose();
+						TelaLogin tela = new TelaLogin();
+						tela.setVisible(true);
+					}
+				});
+				PainelComponentes.add(lblNewLabel_7, "cell 0 2");
+		
+		JPanel panelAleatorio = new JPanel();
+		PainelComponentes.add(panelAleatorio, "cell 0 2");
+		panelAleatorio.setOpaque(false);
 
 		JLabel lblNewLabel_1 = new JLabel("Nome Completo:");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 30));
@@ -152,64 +166,55 @@ public class TelaCadastroFuncionario extends JFrame {
 		txtConfirma.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		PainelComponentes.add(txtConfirma, "cell 0 13,alignx left");
 		txtConfirma.setColumns(25);
+								
+										JButton btnCadastro = new JButton("Cadastrar");
+										btnCadastro.addActionListener(new ActionListener() {
+											public void actionPerformed(ActionEvent e) {
+												Funcionario novo = new Funcionario();
+												novo.setNome(txtNome.getText());
+												novo.setEmail(txtEmail.getText());
+												try {
+													String strCpf = txtCpf.getText();
+													strCpf = strCpf.replaceAll("[^0-9]", "");
+													if (strCpf.isEmpty()) {
+														TelaErro erroTela = new TelaErro("Cpf inválido");
+														erroTela.setVisible(true);
+														return;
+													}
+													Long longCpf = Long.parseLong(strCpf);
+													strCpf = strCpf.replaceAll("(\\d{3})(\\d{3})(\\d{3})(\\d{2})", "$1.$2.$3-$4");
+													
+													novo.setCpf(strCpf);
+												} catch (NumberFormatException e1) {
+													// TODO Auto-generated catch block
+													e1.printStackTrace();
+													TelaErro erro = new TelaErro("Cpf inválido");
+													erro.setVisible(true);
+													return;
+												}
 
-		JButton btnCadastro = new JButton("Cadastrar");
-		btnCadastro.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Funcionario novo = new Funcionario();
-				novo.setNome(txtNome.getText());
-				novo.setEmail(txtEmail.getText());
-				try {
-					String strCpf = txtCpf.getText();
-					strCpf = strCpf.replaceAll("[^0-9]", "");
-					Long longCpf = Long.parseLong(strCpf);
-					strCpf = strCpf.replaceAll("(\\d{3})(\\d{3})(\\d{3})(\\d{2})", "$1.$2.$3-$4");
-					
-					novo.setCpf(strCpf);
-				} catch (NumberFormatException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-					TelaErro erro = new TelaErro();
-					erro.setVisible(true);
-					return;
-				}
+												if (txtSenha.getText().equals(txtConfirma.getText())) {
+													novo.setSenha(txtConfirma.getText());
+												} else {
+													TelaErro erroTela = new TelaErro("As senhas devem ser iguais!");
+													erroTela.setVisible(true);
+													return;
 
-				if (txtSenha.getText().equals(txtConfirma.getText())) {
-					novo.setSenha(txtConfirma.getText());
-				} else {
-					TelaErro erroTela = new TelaErro();
-					erroTela.setVisible(true);
-
-				}
-				FuncionarioDAO dao = new FuncionarioDAO();
-				
-				
-				int res1=dao.cadastrarFuncionario(novo);
-				
-				dispose();
-				TelaLogin tela = new TelaLogin();
-				tela.setVisible(true);
-			}
-		});
-		btnCadastro.setForeground(new Color(243, 244, 240));
-		btnCadastro.setBackground(new Color(65, 82, 179));
-		btnCadastro.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		PainelComponentes.add(btnCadastro, "cell 0 15,alignx left");
-
-		JLabel lblNewLabel_7 = new JLabel("<html><u>Login</u></html>");
-		lblNewLabel_7.setVisible(false);
-		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNewLabel_7.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		lblNewLabel_7.addMouseListener(new MouseAdapter() {
-			@Override
-
-			public void mouseClicked(MouseEvent e) {
-				dispose();
-				TelaLogin tela = new TelaLogin();
-				tela.setVisible(true);
-			}
-		});
-		PainelComponentes.add(lblNewLabel_7, "cell 0 2");
+												}
+												FuncionarioDAO dao = new FuncionarioDAO();
+												
+												
+												int res1=dao.cadastrarFuncionario(novo);
+												
+												dispose();
+												TelaLogin tela = new TelaLogin();
+												tela.setVisible(true);
+											}
+										});
+										btnCadastro.setForeground(new Color(243, 244, 240));
+										btnCadastro.setBackground(new Color(32, 60, 115));
+										btnCadastro.setFont(new Font("Tahoma", Font.PLAIN, 30));
+										PainelComponentes.add(btnCadastro, "cell 0 15,alignx left");
 
 		 //public static String formatarCPF(String cpf) {
 		    //  cpf = cpf.replaceAll("[^0-9]", ""); // Remover caracteres não numéricos
