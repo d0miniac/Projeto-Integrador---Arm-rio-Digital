@@ -99,26 +99,25 @@ public class TelaEsqueciSenha extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String emailUsuario = txtEmail.getText();
 
-                // Busca o funcionário pelo e-mail
+               
                 FuncionarioDAO dao = new FuncionarioDAO();
                 Funcionario funcionario = dao.buscarPorEmail(emailUsuario);
 
                 if (funcionario != null) {
-                    String senhaUsuario = funcionario.getSenha(); // Assume que a senha é armazenada diretamente
-                    enviarEmail(emailUsuario, senhaUsuario); // Envia o e-mail com a senha
+                    String senhaUsuario = funcionario.getSenha();
+                    enviarEmail(emailUsuario, senhaUsuario); 
                     JOptionPane.showMessageDialog(null, "E-mail enviado com sucesso!");
                 } else {
                     JOptionPane.showMessageDialog(null, "E-mail não encontrado!");
                 }
             }
 
-            // Método para enviar e-mail com a senha
+            
             private void enviarEmail(String emailDestino, String senhaUsuario) {
                 Properties properties = new Properties();
                 String host = "smtp.gmail.com";
-                final String emailRemetente = "leticiagehrke714@gmail.com"; // Altere para seu e-mail
-                final String senhaRemetente = "10022007"; // Altere para sua senha
-
+                final String emailRemetente = "leticiagehrke714@gmail.com"; 
+                final String senhaRemetente = "10022007"; 
                 properties.put("mail.smtp.host", host);
                 properties.put("mail.smtp.port", "465");
                 properties.put("mail.smtp.auth", "true");

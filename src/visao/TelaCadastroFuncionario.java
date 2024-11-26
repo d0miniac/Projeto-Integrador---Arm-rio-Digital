@@ -75,10 +75,7 @@ public class TelaCadastroFuncionario extends JFrame {
 
 		contentPane.setLayout(new GridLayout(0, 2, 0, 0));
 		
-		
-		
-		
-		
+
 
 		JPanel PainelVazio = new JPanel();
 		PainelVazio.setBackground(new Color(0, 0, 0, 0));
