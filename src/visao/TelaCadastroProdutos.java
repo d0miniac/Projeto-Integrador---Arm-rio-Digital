@@ -123,7 +123,10 @@ public class TelaCadastroProdutos extends JFrame {
 		contentPane.add(topo, "cell 0 1,grow");
 		topo.setOpaque(false);
 		topo.setLayout(new MigLayout("", "[grow][grow][grow][grow][grow]", "[][]"));
-
+		
+		JLabel lblNewLabel_9 = new JLabel("Fornecedor");
+		topo.add(lblNewLabel_9, "flowx,cell 0 0,alignx center");
+		
 		JLabel lblNewLabel_1 = new JLabel("PREÇO");
 		topo.add(lblNewLabel_1, "flowx,cell 2 0,alignx center");
 
@@ -142,20 +145,31 @@ public class TelaCadastroProdutos extends JFrame {
 		cbxMarca.addItem(Marca.PUMA);
 
 		topo.add(cbxMarca, "cell 4 0,alignx center");
-
-		JLabel lblNewLabel_9 = new JLabel("ID Fornecedor");
-		topo.add(lblNewLabel_9, "flowx,cell 0 1,alignx center");
-
-		JComboBox<String> cbxFornecedor = new JComboBox<String>();
+		
+		/*JComboBox<String> cbxFornecedor = new JComboBox<String>();
 		listaFornecedores = new ArrayList<>();
 		fdao = new FornecedorDAO();
 		listaFornecedores = fdao.selecionarFornecedores();
 		for (Fornecedor fornecedor : listaFornecedores) {
 			cbxFornecedor.addItem(fornecedor.getNomeFornecedor());
+		}*/
+		JComboBox<Fornecedor> cbxFornecedor = new JComboBox<Fornecedor>();
+		listaFornecedores = new ArrayList<>();
+		fdao = new FornecedorDAO();
+		listaFornecedores = fdao.selecionarFornecedores();
+		for (Fornecedor fornecedor : listaFornecedores) {
+			cbxFornecedor.addItem(fornecedor);
 		}
-
-		topo.add(cbxFornecedor, "cell 0 1");
-
+		
+		
+		
+		
+		
+		
+		
+		
+		topo.add(cbxFornecedor, "cell 0 0");
+		
 		JPanel meio = new JPanel();
 		meio.setBorder(new MatteBorder(0, 0, 5, 0, (Color) new Color(32, 60, 115, 124)));
 		meio.setBackground(new Color(0, 255, 0));
@@ -288,6 +302,9 @@ public class TelaCadastroProdutos extends JFrame {
 		JButton btnNewButton = new JButton("Salvar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Fornecedor fnc = (Fornecedor) cbxFornecedor.getSelectedItem();
+				produto.setFornecedor(fnc.getIdFornecedor());
+				
 				Float preco = Float.parseFloat(txtPreco.getText());
 				int quantidade = Integer.parseInt(txtQuantidade.getText());
 				// Long id = Long.parseLong(txtID.getText());
@@ -309,7 +326,11 @@ public class TelaCadastroProdutos extends JFrame {
 				String categoria;
 				Categoria categoriaSelecionada = (Categoria) cbxCategoria.getSelectedItem();
 				categoria = categoriaSelecionada.getDescricao();
-
+				
+				Long idF;
+				
+				
+				
 				produto.setCategoria(categoriaSelecionada);
 				// produto.setFoto(caminhoDestino);
 				// produto.setId(id);

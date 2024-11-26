@@ -181,9 +181,16 @@ public class TelaProdutos extends JFrame {
 					}
 				}*/
 				
-				TelaEditarProdutos tela = new TelaEditarProdutos(pdt,func, mensagem);
-				dispose();
-				tela.setVisible(true);
+				TelaEditarProdutos tela;
+				try {
+					tela = new TelaEditarProdutos(pdt,func);
+					dispose();
+					tela.setVisible(true);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 			}
 		});
 		btnUpdate.setBackground(new Color(243, 244, 240));

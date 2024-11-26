@@ -59,7 +59,7 @@ public class ProdutoDAO {
 			p.setPreco(rs.getFloat("Preco"));
 			p.setQuantidade(rs.getInt("QT_Estoque"));
 			p.setMarca(Marca.getMarcaPorDescricao(rs.getString("Marca")));
-			p.setFornecedor(rs.getInt("Fornecedor_idFornecedor"));
+			p.setFornecedor(rs.getLong("Fornecedor_idFornecedor"));
 			p.setFoto(rs.getString("Imagem"));
 			listaProdutos.add(p);
 			
@@ -157,7 +157,7 @@ public class ProdutoDAO {
 			p.setPreco(rs.getFloat("Preco"));
 			p.setQuantidade(rs.getInt("QT_Estoque"));
 			p.setMarca(Marca.getMarcaPorDescricao(rs.getString("Marca")));
-			p.setFornecedor(rs.getInt("Fornecedor_idFornecedor"));
+			p.setFornecedor(rs.getLong("Fornecedor_idFornecedor"));
 			p.setFoto(rs.getString("Imagem"));
 			listaProdutos.add(p);
 			

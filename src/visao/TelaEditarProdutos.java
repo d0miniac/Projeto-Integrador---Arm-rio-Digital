@@ -15,9 +15,11 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.MatteBorder;
 
+import controle.FornecedorDAO;
 import controle.ProdutoDAO;
 import modelo.Categoria;
 import modelo.Cor;
+import modelo.Fornecedor;
 import modelo.Funcionario;
 import modelo.Marca;
 import modelo.Produto;
@@ -47,6 +49,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
@@ -55,13 +58,10 @@ import java.awt.event.MouseEvent;
 public class TelaEditarProdutos extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField txtID;
 	private JTextField txtPreco;
 	private JTextField txtQuantidade;
 	JLabel lblimagem;
-	private JTextField txtFornecedor;
 	private String novoCaminho;
-	private static Produto produto;
 	
 	public static void main(String[] args) {
 	    EventQueue.invokeLater(() -> {
@@ -120,15 +120,9 @@ public class TelaEditarProdutos extends JFrame {
 		contentPane.add(topo, "cell 0 1,grow");
 		topo.setOpaque(false);
 		topo.setLayout(new MigLayout("", "[grow][grow][grow][grow][grow]", "[][]"));
-
-		JLabel lblNewLabel = new JLabel("ID Produto");
-		lblNewLabel.setEnabled(false);
-		topo.add(lblNewLabel, "flowx,cell 0 0,alignx center");
-
-		txtID = new JTextField();
-		txtID.setEnabled(false);
-		topo.add(txtID, "cell 0 0,alignx center");
-		txtID.setColumns(10);
+		
+				JLabel lblNewLabel_9 = new JLabel("Fornecedor");
+				topo.add(lblNewLabel_9, "flowx,cell 0 0,alignx center");
 
 		JLabel lblNewLabel_1 = new JLabel("PREÇO");
 		topo.add(lblNewLabel_1, "flowx,cell 2 0,alignx center");
@@ -148,14 +142,24 @@ public class TelaEditarProdutos extends JFrame {
 		cbxMarca.addItem(Marca.PUMA);
 		cbxMarca.setSelectedItem(prod.getMarca());
 		topo.add(cbxMarca, "cell 4 0,alignx center");
-
-		JLabel lblNewLabel_9 = new JLabel("ID Fornecedor");
-		topo.add(lblNewLabel_9, "flowx,cell 0 1,alignx center");
-
-		txtFornecedor = new JTextField();
-		txtFornecedor.setText(String.valueOf(prod.getFornecedor()));
-		topo.add(txtFornecedor, "cell 0 1,alignx center");
-		txtFornecedor.setColumns(10);
+		
+		listaFornecedores = new ArrayList<>();
+		fdao = new FornecedorDAO();
+		listaFornecedores = fdao.selecionarFornecedores();
+		JComboBox<Fornecedor> cbxFornecedor = new JComboBox<Fornecedor>();
+		for (Fornecedor fornecedor : listaFornecedores) {
+			cbxFornecedor.addItem(fornecedor);
+			
+		}
+		for (Fornecedor fornecedor : listaFornecedores) {
+			if(fornecedor.getIdFornecedor()==prod.getFornecedor()) {
+				cbxFornecedor.setSelectedItem(fornecedor);
+			}
+		}
+		
+		
+		
+			topo.add(cbxFornecedor, "cell 0 0");
 
 		JPanel meio = new JPanel();
 		meio.setBorder(new MatteBorder(0, 0, 5, 0, (Color) new Color(32, 60, 115, 124)));
@@ -313,9 +317,11 @@ public class TelaEditarProdutos extends JFrame {
 		JButton btnNewButton = new JButton("Alterar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Fornecedor fnc = (Fornecedor) cbxFornecedor.getSelectedItem();
+				prod.setFornecedor(fnc.getIdFornecedor());
 				Float preco = Float.parseFloat(txtPreco.getText());
 				int quantidade = Integer.parseInt(txtQuantidade.getText());
-				int idF = Integer.parseInt(txtFornecedor.getText());
+				
 				
 				
 				
@@ -339,7 +345,7 @@ public class TelaEditarProdutos extends JFrame {
 				prod.setCategoria(categoriaSelecionada);
 				
 				//produto.setId(id);
-				prod.setFornecedor(idF);
+				
 				prod.setMarca(marcaselecionada);
 				prod.setPreco(preco);
 				prod.setQuantidade(quantidade);
