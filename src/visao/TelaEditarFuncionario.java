@@ -14,6 +14,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
+
 import net.miginfocom.swing.MigLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -34,9 +36,7 @@ public class TelaEditarFuncionario extends JFrame {
 	private JTextField txtCpf;
 	private Funcionario funcionario;
 
-	
-
-	public TelaEditarFuncionario(Funcionario funcionario,Funcionario func) {
+	public TelaEditarFuncionario(Funcionario funcionario, Funcionario func) {
 		this.funcionario = funcionario;
 		setSize(657, 425);
 		setLocationRelativeTo(null);
@@ -154,21 +154,24 @@ public class TelaEditarFuncionario extends JFrame {
 			}
 		});
 		inferior.add(btnAlterar, "cell 0 4,growx");
-		
-	     
 
-        JButton btnCancelar = new JButton("CANCELAR");
-        btnCancelar.setBackground(new Color(255, 0, 0));
-        btnCancelar.setForeground(Color.WHITE);
-        btnCancelar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	TelaFuncionarios tela = new TelaFuncionarios(func);
+		JButton btnCancelar = new JButton("CANCELAR");
+		btnCancelar.setBackground(new Color(255, 0, 0));
+		btnCancelar.setForeground(Color.WHITE);
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaFuncionarios tela;
+				try {
+					tela = new TelaFuncionarios(func);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				dispose();
-				tela.setVisible(true);
-            }
-        });
-        inferior.add(btnCancelar, "cell 1 4,grow");
-    
+				setVisible(true);
+			}
+		});
+		inferior.add(btnCancelar, "cell 1 4,grow");
 
 		setSize(800, 600);
 		setLocationRelativeTo(null);

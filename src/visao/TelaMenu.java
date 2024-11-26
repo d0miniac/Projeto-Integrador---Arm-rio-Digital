@@ -90,7 +90,7 @@ public class TelaMenu extends JFrame {
 		btnHistorico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				TelaHistoricoVendas telaHistoricoVendas = new TelaHistoricoVendas();
+				TelaHistoricoVendas telaHistoricoVendas = new TelaHistoricoVendas(func);
 				telaHistoricoVendas.setVisible(true);
 			}
 		});
