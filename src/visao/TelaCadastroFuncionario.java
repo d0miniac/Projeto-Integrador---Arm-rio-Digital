@@ -39,24 +39,29 @@ public class TelaCadastroFuncionario extends JFrame {
 	private JTextField txtEmail;
 	private JTextField txtSenha;
 	private JTextField txtConfirma;
-	
-	public static void main(String[] args) {
-	    EventQueue.invokeLater(() -> {
-	        try {
-	            Funcionario funcionario = new Funcionario(); 
-	            String mensagem = "Bem-vindo ao sistema!";
-	            TelaCadastroFuncionario frame = new TelaCadastroFuncionario(mensagem);
-	            frame.setVisible(true);
-	            frame.setSize(657, 425);
-	            frame.setLocationRelativeTo(null);
-	        } catch (Exception e) {
 
-	            TelaErro telaErro = new TelaErro("Erro crítico: " + e.getMessage());
-	            telaErro.setVisible(true);
-	        }
-	    });
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					String mensagem = "Bem-vindo ao sistema!";
+					TelaCadastroFuncionario frame = new TelaCadastroFuncionario(mensagem);
+					frame.setVisible(true);
+					frame.setSize(1215, 850);
+					frame.setLocationRelativeTo(null);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
+	/**
+	 * Create the frame.
+	 */
 	public TelaCadastroFuncionario(String mensagem) {
 
 		setTitle("Cadastro de Funcionários");
@@ -70,7 +75,6 @@ public class TelaCadastroFuncionario extends JFrame {
 		setResizable(false);
 
 		contentPane.setLayout(new GridLayout(0, 2, 0, 0));
-
 
 		JPanel PainelVazio = new JPanel();
 		PainelVazio.setBackground(new Color(0, 0, 0, 0));
@@ -100,6 +104,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		lblNewLabel_7.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblNewLabel_7.addMouseListener(new MouseAdapter() {
 			@Override
+
 			public void mouseClicked(MouseEvent e) {
 				dispose();
 				TelaLogin tela = new TelaLogin(mensagem);
@@ -166,65 +171,78 @@ public class TelaCadastroFuncionario extends JFrame {
 		txtConfirma.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		PainelComponentes.add(txtConfirma, "cell 0 13,alignx left");
 		txtConfirma.setColumns(25);
-								
-										
-		/*JLabel lblNewLabel_7 = new JLabel("<html><u>Login</u></html>");
-		lblNewLabel_7.setVisible(false);
-		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNewLabel_7.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		lblNewLabel_7.addMouseListener(new MouseAdapter() {
-			@Override
 
-			public void mouseClicked(MouseEvent e) {
-				dispose();
-				TelaLogin tela = new TelaLogin();
-				tela.setVisible(true);
-			}
-		});/*/
+		/*
+		 * JLabel lblNewLabel_7 = new JLabel("<html><u>Login</u></html>");
+		 * lblNewLabel_7.setVisible(false); lblNewLabel_7.setFont(new Font("Tahoma",
+		 * Font.PLAIN, 18));
+		 * lblNewLabel_7.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		 * lblNewLabel_7.addMouseListener(new MouseAdapter() {
+		 * 
+		 * @Override
+		 * 
+		 * public void mouseClicked(MouseEvent e) { dispose(); TelaLogin tela = new
+		 * TelaLogin(); tela.setVisible(true); } });/
+		 */
 		PainelComponentes.add(lblNewLabel_7, "cell 0 2");
-		
+
 		JCheckBox checkBox = new JCheckBox("Administrador?");
 		checkBox.setBackground(new Color(243, 244, 240));
 		checkBox.setFont(new Font("Tahoma", Font.PLAIN, 28));
 		PainelComponentes.add(checkBox, "flowx,cell 0 15,alignx left");
-								
-										JButton btnCadastro = new JButton("Cadastrar");
-										btnCadastro.addActionListener(new ActionListener() {
-											public void actionPerformed(ActionEvent e) {
-												Funcionario novo = new Funcionario();
-												novo.setNome(txtNome.getText());
-												novo.setEmail(txtEmail.getText());
-												try {
-													String strCpf = txtCpf.getText();
-													strCpf = strCpf.replaceAll("[^0-9]", "");
-													Long longCpf = Long.parseLong(strCpf);
-													strCpf = strCpf.replaceAll("(\\d{3})(\\d{3})(\\d{3})(\\d{2})", "$1.$2.$3-$4");
-													
-													novo.setCpf(strCpf);
-												} catch (NumberFormatException e1) {
-													// TODO Auto-generated catch block
-													e1.printStackTrace();
-													//TelaErro erro = new TelaErro();
-													//erro.setVisible(true);
-													return;
-												}
 
-												if (txtSenha.getText().equals(txtConfirma.getText())) {
-													novo.setSenha(txtConfirma.getText());
-												} else {
-													//TelaErro erroTela = new TelaErro();
-													//erroTela.setVisible(true);
+		JButton btnCadastro = new JButton("Cadastrar");
+		btnCadastro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Funcionario novo = new Funcionario();
+				novo.setNome(txtNome.getText());
+				novo.setEmail(txtEmail.getText());
+				try {
+					String strCpf = txtCpf.getText();
+					strCpf = strCpf.replaceAll("[^0-9]", "");
+					Long longCpf = Long.parseLong(strCpf);
+					strCpf = strCpf.replaceAll("(\\d{3})(\\d{3})(\\d{3})(\\d{2})", "$1.$2.$3-$4");
 
 					novo.setCpf(strCpf);
 				} catch (NumberFormatException e1) {
-					TelaErro erro = new TelaErro(mensagem);
-					erro.setVisible(true);
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					// TelaErro erro = new TelaErro();
+					// erro.setVisible(true);
 					return;
 				}
 
-		 //public static String formatarCPF(String cpf) {
-		    //  cpf = cpf.replaceAll("[^0-9]", ""); // Remover caracteres não numéricos
-		      //return cpf.replaceAll("(\\d{3})(\\d{3})(\\d{3})(\\d{2})", "$1.$2.$3-$4");
-		 // }
-		
-	}}
+				if (txtSenha.getText().equals(txtConfirma.getText())) {
+					novo.setSenha(txtConfirma.getText());
+				} else {
+					// TelaErro erroTela = new TelaErro();
+					// erroTela.setVisible(true);
+
+				}
+
+				if (checkBox.isSelected() == true) {
+					novo.setPerfil("Admin");
+				} else {
+					novo.setPerfil("Comum");
+				}
+				FuncionarioDAO dao = new FuncionarioDAO();
+
+				int res1 = dao.cadastrarFuncionario(novo);
+
+				dispose();
+				TelaLogin tela = new TelaLogin(mensagem);
+				tela.setVisible(true);
+			}
+		});
+		btnCadastro.setForeground(new Color(243, 244, 240));
+		btnCadastro.setBackground(new Color(65, 82, 179));
+		btnCadastro.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		PainelComponentes.add(btnCadastro, "cell 0 16,alignx left");
+
+		// public static String formatarCPF(String cpf) {
+		// cpf = cpf.replaceAll("[^0-9]", ""); // Remover caracteres não numéricos
+		// return cpf.replaceAll("(\\d{3})(\\d{3})(\\d{3})(\\d{2})", "$1.$2.$3-$4");
+		// }
+
+	}
+}

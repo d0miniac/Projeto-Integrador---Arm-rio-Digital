@@ -52,7 +52,7 @@ public class TelaFuncionarios extends JFrame {
 		            String mensagem = "Bem-vindo ao sistema!";
 		            TelaFuncionarios frame = new  TelaFuncionarios(funcionario, mensagem);
 		            frame.setVisible(true);
-		            frame.setSize(657, 425);
+		            frame.setSize(1215, 850);
 		            frame.setLocationRelativeTo(null);
 		        } catch (Exception e) {
 

@@ -45,7 +45,6 @@ public class TelaErro extends JFrame {
 		setTitle("Tela de Erro");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(664, 213);
-		setResizable(false);
 
 		setLocationRelativeTo(null);
 		

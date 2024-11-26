@@ -6,6 +6,7 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import net.miginfocom.swing.MigLayout;
 import controle.ProdutoDAO;
+import modelo.Funcionario;
 import modelo.Produto;
 
 import java.util.ArrayList;
@@ -20,7 +21,9 @@ public class TelaVendas extends JFrame {
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(() -> {
 			try {
-				TelaVendas frame = new TelaVendas();
+				Funcionario funcionario = new Funcionario(); 
+	            String mensagem = "Bem-vindo ao sistema!";
+				TelaVendas frame = new TelaVendas(funcionario, mensagem);
 				frame.setVisible(true);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -28,10 +31,10 @@ public class TelaVendas extends JFrame {
 		});
 	}
 
-	public TelaVendas() {
+	public TelaVendas(Funcionario func, String mensagem) {
 		produtoDAO = new ProdutoDAO();
 		listaProdutos = produtoDAO.selecionarProdutos();
-
+		
 		setTitle("Catálogo de Produtos");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1215, 850);
@@ -50,11 +53,24 @@ public class TelaVendas extends JFrame {
 		panelVazio.setBackground(Color.BLACK);
 		contentPane_1.add(panelVazio, "cell 0 0,grow");
 
-		JLabel lblSeta = new JLabel();
-		lblSeta.setIcon(new ImageIcon(new ImageIcon(TelaCadastroProdutos.class.getResource("/img/de-volta.png"))
-				.getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH)));
+
+		JLabel lblSeta = new JLabel("");
+		lblSeta.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		lblSeta.setIcon(new ImageIcon(TelaCadastroProdutos.class.getResource("/img/de-volta.png")));
 		lblSeta.setBounds(0, 0, 110, 100);
+		ImageIcon seta = new ImageIcon(TelaCadastroProdutos.class.getResource("/img/de-volta.png"));
+		Image voltar = seta.getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
+		lblSeta.setIcon(new ImageIcon(voltar));
 		panelVazio.add(lblSeta);
+		lblSeta.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				TelaMenu tela = new TelaMenu(func, mensagem);
+				dispose();
+				tela.setVisible(true);
+				
+			}
+		});
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));

@@ -31,23 +31,6 @@ public class TelaLogin extends JFrame {
 	private JLabel backgroundLabel;
 	private JPasswordField passwordField;
 	
-	public static void main(String[] args) {
-	    EventQueue.invokeLater(() -> {
-	        try {
-	            Funcionario funcionario = new Funcionario(); 
-	            String mensagem = "Bem-vindo ao sistema!";
-	            TelaLogin frame = new TelaLogin(mensagem);
-	            frame.setVisible(true);
-	            frame.setSize(657, 425);
-	            frame.setLocationRelativeTo(null);
-	        } catch (Exception e) {
-
-	            TelaErro telaErro = new TelaErro("Erro crítico: " + e.getMessage());
-	            telaErro.setVisible(true);
-	        }
-	    });
-	}
-
 	public TelaLogin(String mensagem) {
 		setTitle("Login");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -184,8 +167,6 @@ public class TelaLogin extends JFrame {
 							dispose();
 							TelaCadastroFuncionario telaCadastroFuncionario = new TelaCadastroFuncionario(mensagem);
 							telaCadastroFuncionario.setVisible(true);
-						
-						
 						
 					}
 
