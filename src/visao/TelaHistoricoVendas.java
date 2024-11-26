@@ -27,7 +27,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
-
+import modelo.Funcionario;
 import net.miginfocom.swing.MigLayout;
 
 
@@ -38,23 +38,25 @@ public class TelaHistoricoVendas extends JFrame {
     private JTable table;
     private JComboBox<String> comboFiltrar;
     private List<Object[]> vendas;
-
-
+    
     public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    TelaHistoricoVendas frame = new TelaHistoricoVendas();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+	    EventQueue.invokeLater(() -> {
+	        try {
+	            Funcionario funcionario = new Funcionario(); 
+	            String mensagem = "Bem-vindo ao sistema!";
+	            TelaHistoricoVendas frame = new TelaHistoricoVendas(funcionario, mensagem);
+	            frame.setVisible(true);
+	            frame.setSize(657, 425);
+	            frame.setLocationRelativeTo(null);
+	        } catch (Exception e) {
 
+	            TelaErro telaErro = new TelaErro("Erro crítico: " + e.getMessage());
+	            telaErro.setVisible(true);
+	        }
+	    });
+	}
 
-    public TelaHistoricoVendas() {
+    public TelaHistoricoVendas(Funcionario func , String mensagem) {
      
         setTitle("Histórico de Vendas");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -85,17 +87,14 @@ public class TelaHistoricoVendas extends JFrame {
                 .getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH)));
         lblSeta.setBounds(0, 0, 110, 100);
         panelVazio.add(lblSeta);
-
-
-       
-        lblSeta.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                TelaMenu tela = new TelaMenu();
-                dispose();
-                tela.setVisible(true);
-            }
-        });
+		lblSeta.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				TelaMenu tela = new TelaMenu(func, mensagem);
+				dispose();
+				tela.setVisible(true);
+			}
+		});
 
 
 

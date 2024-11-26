@@ -39,51 +39,43 @@ public class TelaCadastroFuncionario extends JFrame {
 	private JTextField txtEmail;
 	private JTextField txtSenha;
 	private JTextField txtConfirma;
-
-	/**
-	 * Launch the application.
-	 */
+	
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaCadastroFuncionario frame = new TelaCadastroFuncionario();
-					frame.setVisible(true);
-					frame.setSize(1215, 850);
-					frame.setLocationRelativeTo(null);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	    EventQueue.invokeLater(() -> {
+	        try {
+	            Funcionario funcionario = new Funcionario(); 
+	            String mensagem = "Bem-vindo ao sistema!";
+	            TelaCadastroFuncionario frame = new TelaCadastroFuncionario(mensagem);
+	            frame.setVisible(true);
+	            frame.setSize(657, 425);
+	            frame.setLocationRelativeTo(null);
+	        } catch (Exception e) {
+
+	            TelaErro telaErro = new TelaErro("Erro crítico: " + e.getMessage());
+	            telaErro.setVisible(true);
+	        }
+	    });
 	}
 
-	/**
-	 * Create the frame.
-	 */
-	public TelaCadastroFuncionario() {
-		
+	public TelaCadastroFuncionario(String mensagem) {
+
 		setTitle("Cadastro de Funcionários");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		contentPane = new ImagePanel("src/img/background3.png");
 		setContentPane(contentPane);
-		
+
 		setSize(1215, 850);
 		setLocationRelativeTo(null);
 		setResizable(false);
 
 		contentPane.setLayout(new GridLayout(0, 2, 0, 0));
-		
-		
-		
-		
-		
+
 
 		JPanel PainelVazio = new JPanel();
 		PainelVazio.setBackground(new Color(0, 0, 0, 0));
 		contentPane.add(PainelVazio);
-		
+
 		JLabel label_1 = new JLabel("New label");
 		PainelVazio.add(label_1);
 
@@ -97,26 +89,25 @@ public class TelaCadastroFuncionario extends JFrame {
 		lblNewLabel.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 60));
 		PainelComponentes.add(lblNewLabel, "cell 0 1,alignx left,aligny top");
-		
-				JLabel lblNewLabel_6 = new JLabel("Já tem uma conta?");
-				lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 20));
-				PainelComponentes.add(lblNewLabel_6, "flowx,cell 0 2");
-		
-				JLabel lblNewLabel_7 = new JLabel("<html><u>Login</u></html>");
-				lblNewLabel_7.setForeground(new Color(32, 60, 115));
-				lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 18));
-				lblNewLabel_7.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-				lblNewLabel_7.addMouseListener(new MouseAdapter() {
-					@Override
 
-					public void mouseClicked(MouseEvent e) {
-						dispose();
-						TelaLogin tela = new TelaLogin();
-						tela.setVisible(true);
-					}
-				});
-				PainelComponentes.add(lblNewLabel_7, "cell 0 2");
-		
+		JLabel lblNewLabel_6 = new JLabel("Já tem uma conta?");
+		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		PainelComponentes.add(lblNewLabel_6, "flowx,cell 0 2");
+
+		JLabel lblNewLabel_7 = new JLabel("<html><u>Login</u></html>");
+		lblNewLabel_7.setForeground(new Color(32, 60, 115));
+		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblNewLabel_7.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		lblNewLabel_7.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dispose();
+				TelaLogin tela = new TelaLogin(mensagem);
+				tela.setVisible(true);
+			}
+		});
+		PainelComponentes.add(lblNewLabel_7, "cell 0 2");
+
 		JPanel panelAleatorio = new JPanel();
 		PainelComponentes.add(panelAleatorio, "cell 0 2");
 		panelAleatorio.setOpaque(false);
@@ -224,28 +215,12 @@ public class TelaCadastroFuncionario extends JFrame {
 													//TelaErro erroTela = new TelaErro();
 													//erroTela.setVisible(true);
 
-												}
-												
-												if(checkBox.isSelected()==true) {
-													novo.setPerfil("Admin");
-												}
-												else {
-													novo.setPerfil("Comum");
-												}
-												FuncionarioDAO dao = new FuncionarioDAO();
-												
-												
-												int res1=dao.cadastrarFuncionario(novo);
-												
-												dispose();
-												TelaLogin tela = new TelaLogin();
-												tela.setVisible(true);
-											}
-										});
-										btnCadastro.setForeground(new Color(243, 244, 240));
-										btnCadastro.setBackground(new Color(65, 82, 179));
-										btnCadastro.setFont(new Font("Tahoma", Font.PLAIN, 30));
-										PainelComponentes.add(btnCadastro, "cell 0 16,alignx left");
+					novo.setCpf(strCpf);
+				} catch (NumberFormatException e1) {
+					TelaErro erro = new TelaErro(mensagem);
+					erro.setVisible(true);
+					return;
+				}
 
 		 //public static String formatarCPF(String cpf) {
 		    //  cpf = cpf.replaceAll("[^0-9]", ""); // Remover caracteres não numéricos

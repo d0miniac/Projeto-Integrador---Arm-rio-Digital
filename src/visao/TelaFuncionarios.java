@@ -45,9 +45,24 @@ public class TelaFuncionarios extends JFrame {
 	private FuncionarioTableModel futm;
 	private ArrayList<Funcionario> listarFuncionarios;
 
-	
+	 public static void main(String[] args) {
+		    EventQueue.invokeLater(() -> {
+		        try {
+		            Funcionario funcionario = new Funcionario(); 
+		            String mensagem = "Bem-vindo ao sistema!";
+		            TelaFuncionarios frame = new  TelaFuncionarios(funcionario, mensagem);
+		            frame.setVisible(true);
+		            frame.setSize(657, 425);
+		            frame.setLocationRelativeTo(null);
+		        } catch (Exception e) {
 
-	public TelaFuncionarios(Funcionario func) throws SQLException {
+		            TelaErro telaErro = new TelaErro("Erro crítico: " + e.getMessage());
+		            telaErro.setVisible(true);
+		        }
+		    });
+		}
+
+	public TelaFuncionarios(Funcionario func, String mensagem) throws SQLException {
 		setTitle("Funcionarios");
 
 		listarFuncionarios = new ArrayList<>();
@@ -94,7 +109,7 @@ public class TelaFuncionarios extends JFrame {
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				TelaCadastroFuncionario tela = new TelaCadastroFuncionario();
+				TelaCadastroFuncionario tela = new TelaCadastroFuncionario(mensagem);
 				tela.setVisible(true);
 				tela.setLocationRelativeTo(null);
 			}
@@ -106,14 +121,13 @@ public class TelaFuncionarios extends JFrame {
 		btnAdd.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
 		panelComponentes.add(btnAdd, "cell 4 1,alignx left,growy");
 
-		// Botão Alterar
 		JButton btnUpdate = new JButton("Alterar");
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int i = table.getSelectedRow();
 				if (i != -1) {
 					Funcionario funcionario = listarFuncionarios.get(i);
-					TelaEditarFuncionario telaEditar = new TelaEditarFuncionario(funcionario,func);
+					TelaEditarFuncionario telaEditar = new TelaEditarFuncionario(funcionario,func, mensagem);
 					dispose();
 					telaEditar.setVisible(true);
 					telaEditar.setSize(657, 425);
@@ -133,7 +147,6 @@ public class TelaFuncionarios extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
 		panelComponentes.add(scrollPane, "cell 4 2,grow");
-		// Inicializa a tabela
 		try {
 			carregarFuncionarios();
 		} catch (Exception e) {
@@ -155,12 +168,12 @@ public class TelaFuncionarios extends JFrame {
 		            return;
 		        }
 
-		        Object idObj = table.getModel().getValueAt(i, 0); // Obtém o ID da tabela
+		        Object idObj = table.getModel().getValueAt(i, 0); 
 		        Long id;
 
-		        // Verifica se o ID é Integer ou Long e faz a conversão
+		      
 		        if (idObj instanceof Integer) {
-		            id = ((Integer) idObj).longValue(); // Converte Integer para Long
+		            id = ((Integer) idObj).longValue(); 
 		        } else if (idObj instanceof Long) {
 		            id = (Long) idObj;
 		        } else {
@@ -195,7 +208,7 @@ public class TelaFuncionarios extends JFrame {
 		lblSeta.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				TelaMenu tela = new TelaMenu(func);
+				TelaMenu tela = new TelaMenu(func, mensagem);
 				dispose();
 				tela.setVisible(true);
 			}

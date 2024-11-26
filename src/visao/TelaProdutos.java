@@ -41,16 +41,24 @@ public class TelaProdutos extends JFrame {
 	private ArrayList<Produto> listaProdutos;
 	private ProdutoTableModel ptm;
 
-	/**
-	 * Launch the application.
-	 */
-	
+	 public static void main(String[] args) {
+		    EventQueue.invokeLater(() -> {
+		        try {
+		            Funcionario funcionario = new Funcionario(); 
+		            String mensagem = "Bem-vindo ao sistema!";
+		            TelaProdutos frame = new  TelaProdutos(funcionario, mensagem);
+		            frame.setVisible(true);
+		            frame.setSize(657, 425);
+		            frame.setLocationRelativeTo(null);
+		        } catch (Exception e) {
 
-	/**
-	 * Create the frame.
-	 * @throws SQLException 
-	 */
-	public TelaProdutos(Funcionario func)  {
+		            TelaErro telaErro = new TelaErro("Erro crítico: " + e.getMessage());
+		            telaErro.setVisible(true);
+		        }
+		    });
+		}
+	
+	public TelaProdutos(Funcionario func, String mensagem)  {
 		listaProdutos = new ArrayList<>();
 		ProdutoDAO p = new ProdutoDAO();
 		listaProdutos = p.selecionarProdutos();
@@ -96,7 +104,7 @@ public class TelaProdutos extends JFrame {
 				dispose();
 				TelaCadastroProdutos tela;
 				try {
-					tela = new TelaCadastroProdutos(func);
+					tela = new TelaCadastroProdutos(func, mensagem);
 					tela.setVisible(true);
 					tela.setSize(657, 425);
 					tela.setLocationRelativeTo(null);
@@ -130,7 +138,7 @@ public class TelaProdutos extends JFrame {
 		lblSeta.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				TelaMenu tela = new TelaMenu(func);
+				TelaMenu tela = new TelaMenu(func, mensagem);
 				dispose();
 				tela.setVisible(true);
 				

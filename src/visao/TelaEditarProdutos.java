@@ -62,18 +62,25 @@ public class TelaEditarProdutos extends JFrame {
 	private JTextField txtQuantidade;
 	JLabel lblimagem;
 	private String novoCaminho;
-	ArrayList<Fornecedor> listaFornecedores;
-	FornecedorDAO fdao;
 	
-	/**
-	 * Launch the application.
-	 */
+	public static void main(String[] args) {
+	    EventQueue.invokeLater(() -> {
+	        try {
+	            Funcionario funcionario = new Funcionario(); 
+	            String mensagem = "Bem-vindo ao sistema!";
+	            TelaEditarProdutos frame = new TelaEditarProdutos (produto, funcionario, mensagem);
+	            frame.setVisible(true);
+	            frame.setSize(657, 425);
+	            frame.setLocationRelativeTo(null);
+	        } catch (Exception e) {
 
-	/**
-	 * Create the frame.
-	 * @throws SQLException 
-	 */
-	public TelaEditarProdutos(Produto prod,Funcionario func) throws SQLException {
+	            TelaErro telaErro = new TelaErro("Erro crítico: " + e.getMessage());
+	            telaErro.setVisible(true);
+	        }
+	    });
+	}
+
+	public TelaEditarProdutos(Produto prod,Funcionario func,  String mensagem) {
 		
 		setTitle("Alteração de Produtos");
 		contentPane = new ImagePanel("src/img/bgEditarProduto.png");
@@ -98,7 +105,7 @@ public class TelaEditarProdutos extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				TelaProdutos tela;
-				tela = new TelaProdutos(func);
+				tela = new TelaProdutos(func, mensagem);
 				dispose();
 				tela.setSize(1215, 850);
 				tela.setLocationRelativeTo(null);
@@ -356,7 +363,7 @@ public class TelaEditarProdutos extends JFrame {
 				}
 
 				TelaProdutos tela;
-				tela = new TelaProdutos(func);
+				tela = new TelaProdutos(func, mensagem);
 				tela.setVisible(true);
 				tela.setSize(1215, 850);
 				dispose();

@@ -14,6 +14,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
+
 import net.miginfocom.swing.MigLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -33,10 +35,25 @@ public class TelaEditarFuncionario extends JFrame {
 	private JTextField txtEmail;
 	private JTextField txtCpf;
 	private Funcionario funcionario;
-
 	
+	public static void main(String[] args) {
+	    EventQueue.invokeLater(() -> {
+	        try {
+	            Funcionario funcionario = new Funcionario(); 
+	            String mensagem = "Bem-vindo ao sistema!";
+	            TelaEditarFuncionario frame = new TelaEditarFuncionario(funcionario, funcionario, mensagem);
+	            frame.setVisible(true);
+	            frame.setSize(657, 425);
+	            frame.setLocationRelativeTo(null);
+	        } catch (Exception e) {
 
-	public TelaEditarFuncionario(Funcionario funcionario,Funcionario func) {
+	            TelaErro telaErro = new TelaErro("Erro crítico: " + e.getMessage());
+	            telaErro.setVisible(true);
+	        }
+	    });
+	}
+
+	public TelaEditarFuncionario(Funcionario funcionario, Funcionario func, String mensagem) {
 		this.funcionario = funcionario;
 		setSize(657, 425);
 		setLocationRelativeTo(null);
@@ -47,8 +64,6 @@ public class TelaEditarFuncionario extends JFrame {
 		contentPane = new ImagePanel("src/img/bgEditarFuncionarios.png");
 		setContentPane(contentPane);
 		contentPane.setLayout(new MigLayout("", "[grow]", "[70px][][grow][][100px][150px][150px][100px]"));
-
-		// Cabeçalho com botão de voltar
 		JPanel vazio = new JPanel();
 		vazio.setOpaque(false);
 		contentPane.add(vazio, "cell 0 0,alignx left,growy");
@@ -63,19 +78,19 @@ public class TelaEditarFuncionario extends JFrame {
 		lblVoltar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				TelaFornecedores tela = new TelaFornecedores(func);
+				TelaFornecedores tela = new TelaFornecedores(func, mensagem);
 				dispose();
 				tela.setVisible(true);
 			}
 		});
 
-		// Título da tela
+
 		JLabel lblTitulo = new JLabel("Alteração das informações do funcionário");
 		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblTitulo.setForeground(new Color(153, 162, 209));
 		contentPane.add(lblTitulo, "cell 0 3");
 
-		// Painel superior com campos de edição
+		
 		JPanel topo = new JPanel();
 		topo.setBorder(new MatteBorder(0, 0, 5, 0, new Color(32, 60, 115, 124)));
 		topo.setOpaque(false);
@@ -123,7 +138,7 @@ public class TelaEditarFuncionario extends JFrame {
 		topo_1.add(txtCpf, "cell 5 1,alignx center");
 		txtCpf.setColumns(10);
 
-		// Painel inferior com botão de alteração
+		
 		JPanel inferior = new JPanel();
 		inferior.setOpaque(false);
 		contentPane.add(inferior, "cell 0 7,grow");
@@ -144,7 +159,7 @@ public class TelaEditarFuncionario extends JFrame {
 				try {
 					dao.alterarFuncionario(funcionario);
 					JOptionPane.showMessageDialog(null, "Funcionario alterado com sucesso!");
-					TelaFuncionarios tela = new TelaFuncionarios(func);
+					TelaFuncionarios tela = new TelaFuncionarios(func, mensagem);
 					dispose();
 					tela.setVisible(true);
 				} catch (Exception ex) {
@@ -154,6 +169,24 @@ public class TelaEditarFuncionario extends JFrame {
 			}
 		});
 		inferior.add(btnAlterar, "cell 0 4,growx");
+
+		JButton btnCancelar = new JButton("CANCELAR");
+		btnCancelar.setBackground(new Color(255, 0, 0));
+		btnCancelar.setForeground(Color.WHITE);
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaFuncionarios tela;
+				try {
+					tela = new TelaFuncionarios(func,mensagem);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				dispose();
+				setVisible(true);
+			}
+		});
+		inferior.add(btnCancelar, "cell 1 4,grow");
 
 		setSize(800, 600);
 		setLocationRelativeTo(null);
