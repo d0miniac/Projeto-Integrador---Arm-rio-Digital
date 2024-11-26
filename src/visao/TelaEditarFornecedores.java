@@ -47,7 +47,7 @@ public class TelaEditarFornecedores extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new MigLayout("", "[grow]", "[70px][][grow][][100px][150px][150px][100px]"));
 
-		// Cabeçalho com botão de voltar
+	
 		JPanel vazio = new JPanel();
 		vazio.setOpaque(false);
 		contentPane.add(vazio, "cell 0 0,alignx left,growy");
@@ -68,13 +68,13 @@ public class TelaEditarFornecedores extends JFrame {
 			}
 		});
 
-		// Título da tela
+
 		JLabel lblTitulo = new JLabel("Alteração das informações do fornecedor");
 		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblTitulo.setForeground(new Color(153, 162, 209));
 		contentPane.add(lblTitulo, "cell 0 3");
 
-		// Painel superior com campos de edição
+		
 		JPanel topo = new JPanel();
 		topo.setBorder(new MatteBorder(0, 0, 5, 0, new Color(32, 60, 115, 124)));
 		topo.setOpaque(false);
@@ -96,7 +96,7 @@ public class TelaEditarFornecedores extends JFrame {
 		topo.add(txtNomeFornecedor, "cell 3 2,alignx center");
 		txtNomeFornecedor.setColumns(10);
 
-		// Painel inferior com campos adicionais
+		
 		JPanel topo_1 = new JPanel();
 		topo_1.setOpaque(false);
 		topo_1.setBorder(new MatteBorder(0, 0, 5, 0, new Color(32, 60, 115, 124)));
@@ -124,7 +124,7 @@ public class TelaEditarFornecedores extends JFrame {
 		topo_1.add(txtTelefone, "cell 5 1,alignx center");
 		txtTelefone.setColumns(10);
 
-		// Painel inferior com botão de alteração
+	
 		JPanel inferior = new JPanel();
 		inferior.setOpaque(false);
 		contentPane.add(inferior, "cell 0 7,grow");
@@ -136,7 +136,6 @@ public class TelaEditarFornecedores extends JFrame {
 				btnAlterar.setForeground(Color.WHITE);
 				btnAlterar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						// Atualizando informações
 						fornecedor.setNomeFornecedor(txtNomeFornecedor.getText());
 						fornecedor.setNomeCtt(txtNomeContato.getText());
 						fornecedor.setEmail(txtEmail.getText());

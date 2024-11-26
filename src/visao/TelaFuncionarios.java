@@ -106,7 +106,6 @@ public class TelaFuncionarios extends JFrame {
 		btnAdd.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
 		panelComponentes.add(btnAdd, "cell 4 1,alignx left,growy");
 
-		// Botão Alterar
 		JButton btnUpdate = new JButton("Alterar");
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -133,7 +132,6 @@ public class TelaFuncionarios extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
 		panelComponentes.add(scrollPane, "cell 4 2,grow");
-		// Inicializa a tabela
 		try {
 			carregarFuncionarios();
 		} catch (Exception e) {
@@ -155,12 +153,12 @@ public class TelaFuncionarios extends JFrame {
 		            return;
 		        }
 
-		        Object idObj = table.getModel().getValueAt(i, 0); // Obtém o ID da tabela
+		        Object idObj = table.getModel().getValueAt(i, 0); 
 		        Long id;
 
-		        // Verifica se o ID é Integer ou Long e faz a conversão
+		      
 		        if (idObj instanceof Integer) {
-		            id = ((Integer) idObj).longValue(); // Converte Integer para Long
+		            id = ((Integer) idObj).longValue(); 
 		        } else if (idObj instanceof Long) {
 		            id = (Long) idObj;
 		        } else {
