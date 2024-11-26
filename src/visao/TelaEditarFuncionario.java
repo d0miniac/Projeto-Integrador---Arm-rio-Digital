@@ -154,6 +154,21 @@ public class TelaEditarFuncionario extends JFrame {
 			}
 		});
 		inferior.add(btnAlterar, "cell 0 4,growx");
+		
+	     
+
+        JButton btnCancelar = new JButton("CANCELAR");
+        btnCancelar.setBackground(new Color(255, 0, 0));
+        btnCancelar.setForeground(Color.WHITE);
+        btnCancelar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	TelaFuncionarios tela = new TelaFuncionarios(func);
+				dispose();
+				tela.setVisible(true);
+            }
+        });
+        inferior.add(btnCancelar, "cell 1 4,grow");
+    
 
 		setSize(800, 600);
 		setLocationRelativeTo(null);
