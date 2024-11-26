@@ -47,7 +47,7 @@ public class TelaEditarFornecedores extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new MigLayout("", "[grow]", "[70px][][grow][][100px][150px][150px][100px]"));
 
-		// Cabeçalho com botão de voltar
+	
 		JPanel vazio = new JPanel();
 		vazio.setOpaque(false);
 		contentPane.add(vazio, "cell 0 0,alignx left,growy");
@@ -136,7 +136,6 @@ public class TelaEditarFornecedores extends JFrame {
 				btnAlterar.setForeground(Color.WHITE);
 				btnAlterar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						// Atualizando informações
 						fornecedor.setNomeFornecedor(txtNomeFornecedor.getText());
 						fornecedor.setNomeCtt(txtNomeContato.getText());
 						fornecedor.setEmail(txtEmail.getText());
