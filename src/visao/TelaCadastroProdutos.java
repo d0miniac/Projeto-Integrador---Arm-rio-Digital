@@ -76,7 +76,7 @@ public class TelaCadastroProdutos extends JFrame {
 	 * @throws SQLException
 	 */
 
-	public TelaCadastroProdutos(Funcionario func) throws SQLException {
+	public TelaCadastroProdutos(Funcionario func, String mensagem) throws SQLException {
 		produto = new Produto();
 		setTitle("Cadastro de Produtos");
 		contentPane = new ImagePanel("src/img/bgCadastroProdutos.png");
@@ -101,7 +101,7 @@ public class TelaCadastroProdutos extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				TelaProdutos tela;
-				tela = new TelaProdutos(func);
+				tela = new TelaProdutos(func, mensagem);
 				dispose();
 				tela.setSize(1215, 850);
 				tela.setLocationRelativeTo(null);
@@ -319,7 +319,7 @@ public class TelaCadastroProdutos extends JFrame {
 				int res1 = dao.cadastrarProduto(produto);
 
 				TelaProdutos tela;
-				tela = new TelaProdutos(func);
+				tela = new TelaProdutos(func, mensagem);
 				tela.setVisible(true);
 				tela.setSize(1215, 850);
 				dispose();
@@ -335,7 +335,7 @@ public class TelaCadastroProdutos extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				TelaFuncionarios tela = null;
 				try {
-					tela = new TelaFuncionarios(func);
+					tela = new TelaFuncionarios(func, mensagem);
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}

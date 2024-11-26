@@ -50,7 +50,7 @@ public class TelaProdutos extends JFrame {
 	 * Create the frame.
 	 * @throws SQLException 
 	 */
-	public TelaProdutos(Funcionario func)  {
+	public TelaProdutos(Funcionario func, String mensagem)  {
 		listaProdutos = new ArrayList<>();
 		ProdutoDAO p = new ProdutoDAO();
 		listaProdutos = p.selecionarProdutos();
@@ -96,7 +96,7 @@ public class TelaProdutos extends JFrame {
 				dispose();
 				TelaCadastroProdutos tela;
 				try {
-					tela = new TelaCadastroProdutos(func);
+					tela = new TelaCadastroProdutos(func, mensagem);
 					tela.setVisible(true);
 					tela.setSize(657, 425);
 					tela.setLocationRelativeTo(null);
@@ -130,7 +130,7 @@ public class TelaProdutos extends JFrame {
 		lblSeta.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				TelaMenu tela = new TelaMenu(func);
+				TelaMenu tela = new TelaMenu(func, mensagem);
 				dispose();
 				tela.setVisible(true);
 				
@@ -173,7 +173,7 @@ public class TelaProdutos extends JFrame {
 					}
 				}*/
 				
-				TelaEditarProdutos tela = new TelaEditarProdutos(pdt,func);
+				TelaEditarProdutos tela = new TelaEditarProdutos(pdt,func, mensagem);
 				dispose();
 				tela.setVisible(true);
 			}

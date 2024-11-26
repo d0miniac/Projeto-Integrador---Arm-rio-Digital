@@ -31,20 +31,7 @@ public class TelaLogin extends JFrame {
 	private JLabel backgroundLabel;
 	private JPasswordField passwordField;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaLogin frame = new TelaLogin();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	public TelaLogin() {
+	public TelaLogin(String mensagem) {
 		setTitle("Login");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1526, 1313);
@@ -151,7 +138,7 @@ public class TelaLogin extends JFrame {
 
 				if (f != null) {
 					dispose();
-					TelaMenu tela = new TelaMenu(f);
+					TelaMenu tela = new TelaMenu(f, mensagem);
 					tela.setVisible(true);
 				} else {
 					mostrarMensagemErro("Usuário ou senha inválidos.");
@@ -178,7 +165,7 @@ public class TelaLogin extends JFrame {
 					public void actionPerformed(ActionEvent e) {
 						
 							dispose();
-							TelaCadastroFuncionario telaCadastroFuncionario = new TelaCadastroFuncionario();
+							TelaCadastroFuncionario telaCadastroFuncionario = new TelaCadastroFuncionario(mensagem);
 							telaCadastroFuncionario.setVisible(true);
 						
 						
