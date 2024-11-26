@@ -44,7 +44,8 @@ public class TelaErro extends JFrame {
 	public TelaErro(String mensagem) {
 		setTitle("Tela de Erro");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 292, 158);
+		setSize(664, 213);
+		setResizable(false);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(243, 244, 240));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5,   5));
