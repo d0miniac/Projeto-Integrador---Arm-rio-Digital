@@ -26,7 +26,7 @@ public class TelaFornecedores extends JFrame {
 
    
 
-    public TelaFornecedores(Funcionario func) {
+    public TelaFornecedores(Funcionario func, String mensagem) {
         listaFornecedores = new ArrayList<>();
 		FornecedorDAO f = new FornecedorDAO();
 		try {
@@ -68,7 +68,7 @@ public class TelaFornecedores extends JFrame {
         btnAdd.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                TelaCadastroFornecedores tela = new TelaCadastroFornecedores(TelaFornecedores.this,func);
+                TelaCadastroFornecedores tela = new TelaCadastroFornecedores(TelaFornecedores.this,func, mensagem);
                 tela.setVisible(true);
                 tela.setSize(657, 425);
                 tela.setLocationRelativeTo(null);
@@ -84,7 +84,7 @@ public class TelaFornecedores extends JFrame {
                 
                 Fornecedor fornecedor = listaFornecedores.get(i);
                
-                TelaEditarFornecedores tela = new TelaEditarFornecedores(fornecedor,func);
+                TelaEditarFornecedores tela = new TelaEditarFornecedores(fornecedor,func, mensagem);
                 dispose();
                 tela.setVisible(true);
                 tela.setSize(657, 425);
@@ -159,7 +159,7 @@ public class TelaFornecedores extends JFrame {
         lblSeta.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                TelaMenu tela = new TelaMenu(func);
+                TelaMenu tela = new TelaMenu(func, mensagem);
                 dispose();
                 tela.setVisible(true);
             }

@@ -35,7 +35,7 @@ public class TelaEditarFornecedores extends JFrame {
 
 	
 
-	public TelaEditarFornecedores(Fornecedor fornecedor,Funcionario func) {
+	public TelaEditarFornecedores(Fornecedor fornecedor,Funcionario func, String mensagem) {
 		this.fornecedor = fornecedor;
 		setSize(657, 425);
 		setLocationRelativeTo(null);
@@ -62,7 +62,7 @@ public class TelaEditarFornecedores extends JFrame {
 		lblVoltar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				TelaFornecedores tela = new TelaFornecedores(func);
+				TelaFornecedores tela = new TelaFornecedores(func, mensagem);
 				dispose();
 				tela.setVisible(true);
 			}
@@ -146,7 +146,7 @@ public class TelaEditarFornecedores extends JFrame {
 						try {
 							dao.alterarFornecedor(fornecedor);
 							JOptionPane.showMessageDialog(null, "Fornecedor alterado com sucesso!");
-							TelaFornecedores tela = new TelaFornecedores(func);
+							TelaFornecedores tela = new TelaFornecedores(func, mensagem);
 							dispose();
 							tela.setVisible(true);
 						} catch (Exception ex) {

@@ -39,7 +39,7 @@ public class TelaHistoricoVendas extends JFrame {
     private JComboBox<String> comboFiltrar;
     private List<Object[]> vendas;
 
-    public TelaHistoricoVendas(Funcionario func) {
+    public TelaHistoricoVendas(Funcionario func , String mensagem) {
      
         setTitle("Histórico de Vendas");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -73,7 +73,7 @@ public class TelaHistoricoVendas extends JFrame {
 		lblSeta.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				TelaMenu tela = new TelaMenu(func);
+				TelaMenu tela = new TelaMenu(func, mensagem);
 				dispose();
 				tela.setVisible(true);
 			}

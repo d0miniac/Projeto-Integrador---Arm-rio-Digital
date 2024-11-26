@@ -15,16 +15,15 @@ import modelo.Funcionario;
 
 public class TelaMenu extends JFrame {
 	public JButton btnFuncionarios;
-	public TelaMenu(Funcionario func) {
+
+	public TelaMenu(Funcionario func, String mensagem) {
 
 		setTitle("MENU");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1215, 850);
 		setLocationRelativeTo(null);
 		setResizable(false);
-		
-		
-		
+
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new BorderLayout());
 		mainPanel.setBackground(new Color(230, 230, 230));
@@ -42,15 +41,15 @@ public class TelaMenu extends JFrame {
 		buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 		buttonPanel.setBackground(new Color(230, 230, 230));
 
-		buttonPanel
-				.setLayout(new MigLayout("", "[][173px][173px][173px][173px][173px][173px]", "[100px,grow][100px,grow]"));
+		buttonPanel.setLayout(
+				new MigLayout("", "[][173px][173px][173px][173px][173px][173px]", "[100px,grow][100px,grow]"));
 
 		JButton btnProdutos = new ImageButton("src/img/icone_produtos.png");
 		btnProdutos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				TelaProdutos telaProdutos;
-				telaProdutos = new TelaProdutos(func);
+				telaProdutos = new TelaProdutos(func, mensagem);
 				telaProdutos.setVisible(true);
 				telaProdutos.setSize(1215, 850);
 				telaProdutos.setLocationRelativeTo(null);
@@ -62,35 +61,35 @@ public class TelaMenu extends JFrame {
 		btnFornecedores.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				TelaFornecedores telaFornecedores = new TelaFornecedores(func);
+				TelaFornecedores telaFornecedores = new TelaFornecedores(func, mensagem);
 				telaFornecedores.setVisible(true);
 			}
 		});
 
 		btnFuncionarios = new ImageButton("src/img/icone_funcionarios.png");
-		if(!func.getPerfil().equals("Admin")) {
+		if (!func.getPerfil().equals("Admin")) {
 			btnFuncionarios.setEnabled(false);
 		}
 		btnFuncionarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-					dispose();
-					TelaFuncionarios telaFuncionarios = null;
-					try {
-						telaFuncionarios = new TelaFuncionarios(func);
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					telaFuncionarios.setVisible(true);
-				
+
+				dispose();
+				TelaFuncionarios telaFuncionarios = null;
+				try {
+					telaFuncionarios = new TelaFuncionarios(func, mensagem);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				telaFuncionarios.setVisible(true);
+
 			}
 		});
 		JButton btnHistorico = new ImageButton("src/img/icone_historico.png");
 		btnHistorico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				TelaHistoricoVendas telaHistoricoVendas = new TelaHistoricoVendas(func);
+				TelaHistoricoVendas telaHistoricoVendas = new TelaHistoricoVendas(func, mensagem);
 				telaHistoricoVendas.setVisible(true);
 			}
 		});
@@ -129,7 +128,5 @@ public class TelaMenu extends JFrame {
 
 		setVisible(true);
 	}
-
-	
 
 }

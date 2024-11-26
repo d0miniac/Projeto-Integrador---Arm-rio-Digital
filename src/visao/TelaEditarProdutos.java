@@ -69,7 +69,7 @@ public class TelaEditarProdutos extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaEditarProdutos(Produto prod,Funcionario func) {
+	public TelaEditarProdutos(Produto prod,Funcionario func,  String mensagem) {
 		
 		setTitle("Alteração de Produtos");
 		contentPane = new ImagePanel("src/img/bgEditarProduto.png");
@@ -94,7 +94,7 @@ public class TelaEditarProdutos extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				TelaProdutos tela;
-				tela = new TelaProdutos(func);
+				tela = new TelaProdutos(func, mensagem);
 				dispose();
 				tela.setSize(1215, 850);
 				tela.setLocationRelativeTo(null);
@@ -346,7 +346,7 @@ public class TelaEditarProdutos extends JFrame {
 				}
 
 				TelaProdutos tela;
-				tela = new TelaProdutos(func);
+				tela = new TelaProdutos(func, mensagem);
 				tela.setVisible(true);
 				tela.setSize(1215, 850);
 				dispose();

@@ -37,7 +37,7 @@ public class TelaCadastroFornecedores extends JFrame {
 
    
 
-    public TelaCadastroFornecedores(TelaFornecedores telaFornecedores, Funcionario func) {
+    public TelaCadastroFornecedores(TelaFornecedores telaFornecedores, Funcionario func, String mensagem) {
         this.telaFornecedores = telaFornecedores;
         setResizable(false);
         setTitle("Cadastro de Fornecedores");
@@ -62,7 +62,7 @@ public class TelaCadastroFornecedores extends JFrame {
         lblNewLabel_7.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-            	TelaFornecedores telaFornecedores = new TelaFornecedores(func);
+            	TelaFornecedores telaFornecedores = new TelaFornecedores(func, mensagem);
                 dispose();
                 telaFornecedores.setSize(1215, 850);
                 telaFornecedores.setLocationRelativeTo(null);
@@ -162,7 +162,7 @@ public class TelaCadastroFornecedores extends JFrame {
         btnCancelar.setForeground(Color.WHITE);
         btnCancelar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	TelaFornecedores tela = new TelaFornecedores(func);
+            	TelaFornecedores tela = new TelaFornecedores(func, mensagem);
                 dispose();
                 tela.setVisible(true);
             }
