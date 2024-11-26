@@ -176,33 +176,8 @@ public class TelaCadastroFuncionario extends JFrame {
 		PainelComponentes.add(txtConfirma, "cell 0 13,alignx left");
 		txtConfirma.setColumns(25);
 								
-										JButton btnCadastro = new JButton("Cadastrar");
-										btnCadastro.addActionListener(new ActionListener() {
-											public void actionPerformed(ActionEvent e) {
-												Funcionario novo = new Funcionario();
-												novo.setNome(txtNome.getText());
-												novo.setEmail(txtEmail.getText());
-												try {
-													String strCpf = txtCpf.getText();
-													strCpf = strCpf.replaceAll("[^0-9]", "");
-													if (strCpf.isEmpty()) {
-														TelaErro erroTela = new TelaErro("Cpf inválido");
-														erroTela.setVisible(true);
-														return;
-													}
-													Long longCpf = Long.parseLong(strCpf);
-													strCpf = strCpf.replaceAll("(\\d{3})(\\d{3})(\\d{3})(\\d{2})", "$1.$2.$3-$4");
-													
-													novo.setCpf(strCpf);
-												} catch (NumberFormatException e1) {
-													// TODO Auto-generated catch block
-													e1.printStackTrace();
-													TelaErro erro = new TelaErro("Cpf inválido");
-													erro.setVisible(true);
-													return;
-												}
-
-		JLabel lblNewLabel_7 = new JLabel("<html><u>Login</u></html>");
+										
+		/*JLabel lblNewLabel_7 = new JLabel("<html><u>Login</u></html>");
 		lblNewLabel_7.setVisible(false);
 		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblNewLabel_7.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -214,7 +189,7 @@ public class TelaCadastroFuncionario extends JFrame {
 				TelaLogin tela = new TelaLogin();
 				tela.setVisible(true);
 			}
-		});
+		});/*/
 		PainelComponentes.add(lblNewLabel_7, "cell 0 2");
 		
 		JCheckBox checkBox = new JCheckBox("Administrador?");
@@ -238,16 +213,16 @@ public class TelaCadastroFuncionario extends JFrame {
 												} catch (NumberFormatException e1) {
 													// TODO Auto-generated catch block
 													e1.printStackTrace();
-													TelaErro erro = new TelaErro();
-													erro.setVisible(true);
+													//TelaErro erro = new TelaErro();
+													//erro.setVisible(true);
 													return;
 												}
 
 												if (txtSenha.getText().equals(txtConfirma.getText())) {
 													novo.setSenha(txtConfirma.getText());
 												} else {
-													TelaErro erroTela = new TelaErro();
-													erroTela.setVisible(true);
+													//TelaErro erroTela = new TelaErro();
+													//erroTela.setVisible(true);
 
 												}
 												
@@ -277,5 +252,4 @@ public class TelaCadastroFuncionario extends JFrame {
 		      //return cpf.replaceAll("(\\d{3})(\\d{3})(\\d{3})(\\d{2})", "$1.$2.$3-$4");
 		 // }
 		
-	}
-}
+	}}
