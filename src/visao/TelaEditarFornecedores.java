@@ -31,11 +31,26 @@ public class TelaEditarFornecedores extends JFrame {
 	private JTextField txtNomeContato;
 	private JTextField txtEmail;
 	private JTextField txtTelefone;
-	private Fornecedor fornecedor;
-
+	private static Fornecedor fornecedor;
 	
+	public static void main(String[] args) {
+	    EventQueue.invokeLater(() -> {
+	        try {
+	            Funcionario funcionario = new Funcionario(); 
+	            String mensagem = "Bem-vindo ao sistema!";
+	            TelaEditarFornecedores frame = new TelaEditarFornecedores(fornecedor, funcionario, mensagem);
+	            frame.setVisible(true);
+	            frame.setSize(657, 425);
+	            frame.setLocationRelativeTo(null);
+	        } catch (Exception e) {
 
-	public TelaEditarFornecedores(Fornecedor fornecedor,Funcionario func, String mensagem) {
+	            TelaErro telaErro = new TelaErro("Erro crítico: " + e.getMessage());
+	            telaErro.setVisible(true);
+	        }
+	    });
+	}
+	
+	public TelaEditarFornecedores(Fornecedor fornecedor, Funcionario func, String mensagem) {
 		this.fornecedor = fornecedor;
 		setSize(657, 425);
 		setLocationRelativeTo(null);
@@ -47,7 +62,6 @@ public class TelaEditarFornecedores extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new MigLayout("", "[grow]", "[70px][][grow][][100px][150px][150px][100px]"));
 
-	
 		JPanel vazio = new JPanel();
 		vazio.setOpaque(false);
 		contentPane.add(vazio, "cell 0 0,alignx left,growy");
@@ -68,13 +82,11 @@ public class TelaEditarFornecedores extends JFrame {
 			}
 		});
 
-
 		JLabel lblTitulo = new JLabel("Alteração das informações do fornecedor");
 		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblTitulo.setForeground(new Color(153, 162, 209));
 		contentPane.add(lblTitulo, "cell 0 3");
 
-		
 		JPanel topo = new JPanel();
 		topo.setBorder(new MatteBorder(0, 0, 5, 0, new Color(32, 60, 115, 124)));
 		topo.setOpaque(false);
@@ -96,7 +108,6 @@ public class TelaEditarFornecedores extends JFrame {
 		topo.add(txtNomeFornecedor, "cell 3 2,alignx center");
 		txtNomeFornecedor.setColumns(10);
 
-		
 		JPanel topo_1 = new JPanel();
 		topo_1.setOpaque(false);
 		topo_1.setBorder(new MatteBorder(0, 0, 5, 0, new Color(32, 60, 115, 124)));
@@ -124,37 +135,36 @@ public class TelaEditarFornecedores extends JFrame {
 		topo_1.add(txtTelefone, "cell 5 1,alignx center");
 		txtTelefone.setColumns(10);
 
-	
 		JPanel inferior = new JPanel();
 		inferior.setOpaque(false);
 		contentPane.add(inferior, "cell 0 7,grow");
 		inferior.setLayout(new MigLayout("", "[100px][100px][grow][grow][]", "[][][][][][][]"));
-		
-				JButton btnAlterar = new JButton("Alterar");
-				btnAlterar.setFont(new Font("Tahoma", Font.BOLD, 16));
-				btnAlterar.setBackground(new Color(32, 60, 115));
-				btnAlterar.setForeground(Color.WHITE);
-				btnAlterar.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						fornecedor.setNomeFornecedor(txtNomeFornecedor.getText());
-						fornecedor.setNomeCtt(txtNomeContato.getText());
-						fornecedor.setEmail(txtEmail.getText());
-						fornecedor.setTelefone(txtTelefone.getText());
 
-						FornecedorDAO dao = new FornecedorDAO();
-						try {
-							dao.alterarFornecedor(fornecedor);
-							JOptionPane.showMessageDialog(null, "Fornecedor alterado com sucesso!");
-							TelaFornecedores tela = new TelaFornecedores(func, mensagem);
-							dispose();
-							tela.setVisible(true);
-						} catch (Exception ex) {
-							JOptionPane.showMessageDialog(null, "Erro ao alterar fornecedor: " + ex.getMessage(), "Erro",
-									JOptionPane.ERROR_MESSAGE);
-						}
-					}
-				});
-				inferior.add(btnAlterar, "cell 0 4,growx");
+		JButton btnAlterar = new JButton("Alterar");
+		btnAlterar.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnAlterar.setBackground(new Color(32, 60, 115));
+		btnAlterar.setForeground(Color.WHITE);
+		btnAlterar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				fornecedor.setNomeFornecedor(txtNomeFornecedor.getText());
+				fornecedor.setNomeCtt(txtNomeContato.getText());
+				fornecedor.setEmail(txtEmail.getText());
+				fornecedor.setTelefone(txtTelefone.getText());
+
+				FornecedorDAO dao = new FornecedorDAO();
+				try {
+					dao.alterarFornecedor(fornecedor);
+					JOptionPane.showMessageDialog(null, "Fornecedor alterado com sucesso!");
+					TelaFornecedores tela = new TelaFornecedores(func, mensagem);
+					dispose();
+					tela.setVisible(true);
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(null, "Erro ao alterar fornecedor: " + ex.getMessage(), "Erro",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		inferior.add(btnAlterar, "cell 0 4,growx");
 
 		setSize(800, 600);
 		setLocationRelativeTo(null);

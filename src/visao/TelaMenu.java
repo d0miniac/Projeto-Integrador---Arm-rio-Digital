@@ -15,6 +15,23 @@ import modelo.Funcionario;
 
 public class TelaMenu extends JFrame {
 	public JButton btnFuncionarios;
+	
+	public static void main(String[] args) {
+	    EventQueue.invokeLater(() -> {
+	        try {
+	            Funcionario funcionario = new Funcionario(); 
+	            String mensagem = "Bem-vindo ao sistema!";
+	            TelaMenu frame = new TelaMenu(funcionario, mensagem);
+	            frame.setVisible(true);
+	            frame.setSize(657, 425);
+	            frame.setLocationRelativeTo(null);
+	        } catch (Exception e) {
+
+	            TelaErro telaErro = new TelaErro("Erro crítico: " + e.getMessage());
+	            telaErro.setVisible(true);
+	        }
+	    });
+	}
 
 	public TelaMenu(Funcionario func, String mensagem) {
 

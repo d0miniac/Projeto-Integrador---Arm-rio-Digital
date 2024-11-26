@@ -35,6 +35,23 @@ public class TelaEditarFuncionario extends JFrame {
 	private JTextField txtEmail;
 	private JTextField txtCpf;
 	private Funcionario funcionario;
+	
+	public static void main(String[] args) {
+	    EventQueue.invokeLater(() -> {
+	        try {
+	            Funcionario funcionario = new Funcionario(); 
+	            String mensagem = "Bem-vindo ao sistema!";
+	            TelaEditarFuncionario frame = new TelaEditarFuncionario(funcionario, funcionario, mensagem);
+	            frame.setVisible(true);
+	            frame.setSize(657, 425);
+	            frame.setLocationRelativeTo(null);
+	        } catch (Exception e) {
+
+	            TelaErro telaErro = new TelaErro("Erro crítico: " + e.getMessage());
+	            telaErro.setVisible(true);
+	        }
+	    });
+	}
 
 	public TelaEditarFuncionario(Funcionario funcionario, Funcionario func, String mensagem) {
 		this.funcionario = funcionario;

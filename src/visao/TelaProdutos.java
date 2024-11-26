@@ -41,15 +41,23 @@ public class TelaProdutos extends JFrame {
 	private ArrayList<Produto> listaProdutos;
 	private ProdutoTableModel ptm;
 
-	/**
-	 * Launch the application.
-	 */
-	
+	 public static void main(String[] args) {
+		    EventQueue.invokeLater(() -> {
+		        try {
+		            Funcionario funcionario = new Funcionario(); 
+		            String mensagem = "Bem-vindo ao sistema!";
+		            TelaProdutos frame = new  TelaProdutos(funcionario, mensagem);
+		            frame.setVisible(true);
+		            frame.setSize(657, 425);
+		            frame.setLocationRelativeTo(null);
+		        } catch (Exception e) {
 
-	/**
-	 * Create the frame.
-	 * @throws SQLException 
-	 */
+		            TelaErro telaErro = new TelaErro("Erro crítico: " + e.getMessage());
+		            telaErro.setVisible(true);
+		        }
+		    });
+		}
+	
 	public TelaProdutos(Funcionario func, String mensagem)  {
 		listaProdutos = new ArrayList<>();
 		ProdutoDAO p = new ProdutoDAO();

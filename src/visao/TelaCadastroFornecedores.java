@@ -33,9 +33,24 @@ public class TelaCadastroFornecedores extends JFrame {
     private JTextField textNOMECONTATO;
     private JTextField textNOME_FORNECEDOR; 
     private JTextField textTELEFONE;
-    private TelaFornecedores telaFornecedores;  
+    private static TelaFornecedores telaFornecedores;  
 
-   
+    public static void main(String[] args) {
+	    EventQueue.invokeLater(() -> {
+	        try {
+	            Funcionario funcionario = new Funcionario(); 
+	            String mensagem = "Bem-vindo ao sistema!";
+	            TelaCadastroFornecedores frame = new TelaCadastroFornecedores(telaFornecedores, funcionario, mensagem);
+	            frame.setVisible(true);
+	            frame.setSize(657, 425);
+	            frame.setLocationRelativeTo(null);
+	        } catch (Exception e) {
+
+	            TelaErro telaErro = new TelaErro("Erro crítico: " + e.getMessage());
+	            telaErro.setVisible(true);
+	        }
+	    });
+	}
 
     public TelaCadastroFornecedores(TelaFornecedores telaFornecedores, Funcionario func, String mensagem) {
         this.telaFornecedores = telaFornecedores;

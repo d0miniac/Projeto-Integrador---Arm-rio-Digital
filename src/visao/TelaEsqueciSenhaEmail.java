@@ -21,6 +21,20 @@ import java.awt.Dimension;
 public class TelaEsqueciSenhaEmail extends JFrame {
 
 	private JPanel contentPane;
+	
+	 public static void main(String[] args) {
+	        EventQueue.invokeLater(new Runnable() {
+	            public void run() {
+	                try {
+	                	String mensagem = "Bem-vindo ao sistema!";
+	                    TelaEsqueciSenhaEmail frame = new TelaEsqueciSenhaEmail(mensagem);
+	                    frame.setVisible(true);
+	                } catch (Exception e) {
+	                    e.printStackTrace();
+	                }
+	            }
+	        });
+	    }
 
 	public TelaEsqueciSenhaEmail(String mensagem) {
 		

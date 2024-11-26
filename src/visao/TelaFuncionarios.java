@@ -45,7 +45,22 @@ public class TelaFuncionarios extends JFrame {
 	private FuncionarioTableModel futm;
 	private ArrayList<Funcionario> listarFuncionarios;
 
-	
+	 public static void main(String[] args) {
+		    EventQueue.invokeLater(() -> {
+		        try {
+		            Funcionario funcionario = new Funcionario(); 
+		            String mensagem = "Bem-vindo ao sistema!";
+		            TelaFuncionarios frame = new  TelaFuncionarios(funcionario, mensagem);
+		            frame.setVisible(true);
+		            frame.setSize(657, 425);
+		            frame.setLocationRelativeTo(null);
+		        } catch (Exception e) {
+
+		            TelaErro telaErro = new TelaErro("Erro crítico: " + e.getMessage());
+		            telaErro.setVisible(true);
+		        }
+		    });
+		}
 
 	public TelaFuncionarios(Funcionario func, String mensagem) throws SQLException {
 		setTitle("Funcionarios");

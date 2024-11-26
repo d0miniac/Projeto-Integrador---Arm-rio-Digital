@@ -39,6 +39,23 @@ public class TelaCadastroFuncionario extends JFrame {
 	private JTextField txtEmail;
 	private JTextField txtSenha;
 	private JTextField txtConfirma;
+	
+	public static void main(String[] args) {
+	    EventQueue.invokeLater(() -> {
+	        try {
+	            Funcionario funcionario = new Funcionario(); 
+	            String mensagem = "Bem-vindo ao sistema!";
+	            TelaCadastroFuncionario frame = new TelaCadastroFuncionario(mensagem);
+	            frame.setVisible(true);
+	            frame.setSize(657, 425);
+	            frame.setLocationRelativeTo(null);
+	        } catch (Exception e) {
+
+	            TelaErro telaErro = new TelaErro("Erro crítico: " + e.getMessage());
+	            telaErro.setVisible(true);
+	        }
+	    });
+	}
 
 	public TelaCadastroFuncionario(String mensagem) {
 

@@ -38,6 +38,23 @@ public class TelaHistoricoVendas extends JFrame {
     private JTable table;
     private JComboBox<String> comboFiltrar;
     private List<Object[]> vendas;
+    
+    public static void main(String[] args) {
+	    EventQueue.invokeLater(() -> {
+	        try {
+	            Funcionario funcionario = new Funcionario(); 
+	            String mensagem = "Bem-vindo ao sistema!";
+	            TelaHistoricoVendas frame = new TelaHistoricoVendas(funcionario, mensagem);
+	            frame.setVisible(true);
+	            frame.setSize(657, 425);
+	            frame.setLocationRelativeTo(null);
+	        } catch (Exception e) {
+
+	            TelaErro telaErro = new TelaErro("Erro crítico: " + e.getMessage());
+	            telaErro.setVisible(true);
+	        }
+	    });
+	}
 
     public TelaHistoricoVendas(Funcionario func , String mensagem) {
      

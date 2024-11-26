@@ -66,15 +66,22 @@ public class TelaCadastroProdutos extends JFrame {
 	FornecedorDAO fdao;
 	ArrayList<Fornecedor> listaFornecedores;
 
-	/**
-	 * Launch the application.
-	 */
+	public static void main(String[] args) {
+	    EventQueue.invokeLater(() -> {
+	        try {
+	            Funcionario funcionario = new Funcionario(); 
+	            String mensagem = "Bem-vindo ao sistema!";
+	            TelaCadastroProdutos frame = new TelaCadastroProdutos(funcionario, mensagem);
+	            frame.setVisible(true);
+	            frame.setSize(657, 425);
+	            frame.setLocationRelativeTo(null);
+	        } catch (Exception e) {
 
-	/**
-	 * Create the frame.
-	 * 
-	 * @throws SQLException
-	 */
+	            TelaErro telaErro = new TelaErro("Erro crítico: " + e.getMessage());
+	            telaErro.setVisible(true);
+	        }
+	    });
+	}
 
 	public TelaCadastroProdutos(Funcionario func, String mensagem) throws SQLException {
 		produto = new Produto();
