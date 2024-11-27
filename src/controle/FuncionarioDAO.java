@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import modelo.Funcionario;
-import javax.swing.JOptionPane;
 
 public class FuncionarioDAO {
 
@@ -19,7 +18,7 @@ public class FuncionarioDAO {
             stmt.setString(2, f.getNome());
             stmt.setString(3, f.getEmail());
             stmt.setString(4, f.getSenha());
-            stmt.setString(5,f.getPerfil());
+            stmt.setString(5, f.getPerfil());
 
             return stmt.executeUpdate();
         } catch (SQLException e) {
@@ -46,7 +45,6 @@ public class FuncionarioDAO {
                 }
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao tentar fazer login.");
             e.printStackTrace();
         }
         return null;
@@ -75,7 +73,7 @@ public class FuncionarioDAO {
         return null;
     }
 
-    public ArrayList<Funcionario> selecionarFuncionarios() throws SQLException {
+    public ArrayList<Funcionario> selecionarFuncionarios() {
         ArrayList<Funcionario> funcionarios = new ArrayList<>();
         String sql = "SELECT * FROM funcionarios";
         try (Connection conn = ConexaoBD.getConexaoMySQL();
@@ -97,6 +95,34 @@ public class FuncionarioDAO {
         return funcionarios;
     }
 
+    public ArrayList<Funcionario> pesquisarFuncionarios(String filtro) {
+        ArrayList<Funcionario> listaFuncionarios = new ArrayList<>();
+        String sql = "SELECT * FROM funcionarios WHERE NomeFuncionario LIKE ? OR CPF LIKE ? OR Email LIKE ? OR idFuncionario LIKE ?";
+        try (Connection conn = ConexaoBD.getConexaoMySQL();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, "%" + filtro + "%");
+            stmt.setString(2, "%" + filtro + "%");
+            stmt.setString(3, "%" + filtro + "%");
+            stmt.setString(4, "%" + filtro + "%");
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Funcionario f = new Funcionario();
+                    f.setId(rs.getInt("idFuncionario"));
+                    f.setCpf(rs.getString("CPF"));
+                    f.setNome(rs.getString("NomeFuncionario"));
+                    f.setEmail(rs.getString("Email"));
+                    f.setSenha(rs.getString("Senha"));
+                    f.setPerfil(rs.getString("Perfil"));
+                    listaFuncionarios.add(f);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listaFuncionarios;
+    }
 
     public void alterarFuncionario(Funcionario funcionario) throws SQLException {
         String sql = "UPDATE funcionarios SET CPF = ?, NomeFuncionario = ?, Email = ?, Senha = ? WHERE idFuncionario = ?";
@@ -113,7 +139,6 @@ public class FuncionarioDAO {
             System.out.println("Funcionário atualizado com sucesso: " + funcionario.getId());
         } catch (SQLException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Erro ao atualizar o funcionário.");
         }
     }
 
@@ -127,7 +152,6 @@ public class FuncionarioDAO {
             System.out.println("Funcionário excluído com sucesso: " + idFuncionario);
         } catch (SQLException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Erro ao excluir o funcionário.");
         }
     }
 }

@@ -349,7 +349,7 @@ public class TelaCadastroProdutos extends JFrame {
 		});
 		
 		
-		inferior.add(btnNewButton, "flowx,cell 0 5,alignx center");
+		inferior.add(btnNewButton, "flowx,cell 0 5,alignx left,growy");
 
 		JButton btnCancelar = new JButton("CANCELAR");
 		btnCancelar.setBackground(new Color(255, 0, 0));
@@ -366,7 +366,7 @@ public class TelaCadastroProdutos extends JFrame {
 				tela.setVisible(true);
 			}
 		});
-		inferior.add(btnCancelar, "cell 0 5,alignx center");
+		inferior.add(btnCancelar, "cell 0 5,alignx left,growy");
 
 	}
 }

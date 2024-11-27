@@ -186,6 +186,8 @@ public class TelaProdutos extends JFrame {
 					tela = new TelaEditarProdutos(pdt,func);
 					dispose();
 					tela.setVisible(true);
+					tela.setSize(657, 425);
+					tela.setResizable(false);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -241,22 +243,21 @@ public class TelaProdutos extends JFrame {
 		JButton btnPesquisa = new JButton("PESQUISAR");
 		btnPesquisa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				if(!txtFiltro.getText().trim().isEmpty()) {
+
+				if (!txtFiltro.getText().trim().isEmpty()) {
 					String filtro = txtFiltro.getText();
 					listaProdutos = p.pesquisarProdutos(filtro);
 					ptm = new ProdutoTableModel(listaProdutos);
 					tableProdutos.setModel(ptm);
-					
+
 				}
-				
+
 				else {
 					listaProdutos = p.selecionarProdutos();
 					ptm = new ProdutoTableModel(listaProdutos);
 					tableProdutos.setModel(ptm);
 				}
-				
-				
+
 			}
 		});
 		panelComponentes.add(btnPesquisa, "cell 4 0,alignx center,aligny center");
