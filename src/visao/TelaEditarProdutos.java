@@ -217,7 +217,7 @@ public class TelaEditarProdutos extends JFrame {
 		JLabel lblNewLabel_5 = new JLabel("CATEGORIA");
 		inferior.add(lblNewLabel_5, "flowx,cell 0 0,alignx center");
 
-		JComboBox cbxCategoria = new JComboBox();
+		JComboBox<Categoria> cbxCategoria = new JComboBox();
 		cbxCategoria.addItem(Categoria.BLUSA);
 		cbxCategoria.addItem(Categoria.CALÇA);
 		cbxCategoria.addItem(Categoria.CAMISA);
@@ -308,6 +308,8 @@ public class TelaEditarProdutos extends JFrame {
 			}
 		});
 		JButton btnNewButton = new JButton("Alterar");
+		btnNewButton.setForeground(new Color(255, 255, 255));
+		btnNewButton.setBackground(new Color(32, 60, 115));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Fornecedor fnc = (Fornecedor) cbxFornecedor.getSelectedItem();
@@ -363,7 +365,7 @@ public class TelaEditarProdutos extends JFrame {
 
 			}
 		});
-		inferior.add(btnNewButton, "flowx,cell 0 5,alignx center");
+		inferior.add(btnNewButton, "flowx,cell 0 5,alignx left,growy");
 
 	}
 }

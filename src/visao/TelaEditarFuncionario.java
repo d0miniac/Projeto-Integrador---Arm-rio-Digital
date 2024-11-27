@@ -2,6 +2,8 @@ package visao;
 
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.border.MatteBorder;
+
 import java.awt.event.*;
 import java.sql.SQLException;
 
@@ -18,26 +20,91 @@ public class TelaEditarFuncionario extends JFrame {
     private JTextField txtEmail;
     private JTextField txtCpf;
     private Funcionario funcionario;
-    
-    
-    
 
     public TelaEditarFuncionario(Funcionario funcionario, Funcionario func, String mensagem) {
-        this.funcionario = funcionario;
-        setSize(657, 425);
-        setLocationRelativeTo(null);
-        setResizable(false);
-        setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.funcionario = funcionario;
+		setSize(657, 425);
+		setLocationRelativeTo(null);
+		setResizable(false);
+		setVisible(true);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        contentPane = new ImagePanel("src/img/bgEditarFuncionarios.png");
-        setContentPane(contentPane);
-        contentPane.setLayout(new MigLayout("", "[grow]", "[70px][][grow][][100px][150px][150px][100px]"));
-        JPanel vazio = new JPanel();
-        vazio.setOpaque(false);
-        contentPane.add(vazio, "cell 0 0,alignx left,growy");
+		contentPane = new ImagePanel("src/img/bgEditarFuncionarios.png");
+		setContentPane(contentPane);
+		contentPane.setLayout(new MigLayout("", "[grow]", "[70px][][grow][][100px][150px][150px][100px]"));
+		JPanel vazio = new JPanel();
+		vazio.setOpaque(false);
+		contentPane.add(vazio, "cell 0 0,alignx left,growy");
 
-        // ... (Outros componentes da interface)
+		JLabel lblVoltar = new JLabel("");
+		lblVoltar.setHorizontalAlignment(SwingConstants.LEFT);
+		lblVoltar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		ImageIcon seta = new ImageIcon(TelaEditarFornecedores.class.getResource("/img/de-volta.png"));
+		Image voltar = seta.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+		lblVoltar.setIcon(new ImageIcon(voltar));
+		vazio.add(lblVoltar);
+		lblVoltar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				TelaFornecedores tela = new TelaFornecedores(func, mensagem);
+				dispose();
+				tela.setVisible(true);
+			}
+		});
+
+
+		JLabel lblTitulo = new JLabel("Alteração das informações do funcionário");
+		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblTitulo.setForeground(new Color(153, 162, 209));
+		contentPane.add(lblTitulo, "cell 0 3");
+
+		
+		JPanel topo = new JPanel();
+		topo.setBorder(new MatteBorder(0, 0, 5, 0, new Color(32, 60, 115, 124)));
+		topo.setOpaque(false);
+		contentPane.add(topo, "cell 0 5,grow");
+		topo.setLayout(new MigLayout("", "[grow][grow][grow][grow][grow]", "[][][]"));
+
+		JLabel lblID = new JLabel("ID Funcionario");
+		topo.add(lblID, "cell 0 2,alignx center");
+
+		txtID = new JTextField(String.valueOf(funcionario.getId()));
+		txtID.setEnabled(false);
+		topo.add(txtID, "cell 1 2,alignx center");
+		txtID.setColumns(10);
+
+		JLabel lblNomeFornecedor = new JLabel("Nome");
+		topo.add(lblNomeFornecedor, "cell 2 2,alignx center");
+
+		txtNome = new JTextField(funcionario.getNome());
+		topo.add(txtNome, "cell 3 2,alignx center");
+		txtNome.setColumns(10);
+
+		JPanel topo_1 = new JPanel();
+		topo_1.setOpaque(false);
+		topo_1.setBorder(new MatteBorder(0, 0, 5, 0, new Color(32, 60, 115, 124)));
+		contentPane.add(topo_1, "cell 0 6,grow");
+		topo_1.setLayout(new MigLayout("", "[grow][grow][grow][grow][grow][grow]", "[][]"));
+
+		JLabel lblSenha = new JLabel("Senha");
+		topo_1.add(lblSenha, "cell 0 1,alignx center");
+		txtSenha = new JTextField(funcionario.getSenha());
+		topo_1.add(txtSenha, "cell 1 1,alignx center");
+		txtSenha.setColumns(10);
+
+		JLabel lblEmail = new JLabel("E-mail");
+		topo_1.add(lblEmail, "flowx,cell 2 1,alignx center");
+
+		txtEmail = new JTextField(funcionario.getEmail());
+		topo_1.add(txtEmail, "cell 3 1,alignx center");
+		txtEmail.setColumns(10);
+
+		JLabel lblCpf = new JLabel("Cpf");
+		topo_1.add(lblCpf, "flowx,cell 4 1,alignx center");
+
+		txtCpf = new JTextField(funcionario.getCpf());
+		topo_1.add(txtCpf, "cell 5 1,alignx center");
+		txtCpf.setColumns(10);
 
         JPanel inferior = new JPanel();
         inferior.setOpaque(false);
@@ -50,14 +117,12 @@ public class TelaEditarFuncionario extends JFrame {
         btnAlterar.setForeground(Color.WHITE);
         btnAlterar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Verificar se algum campo está vazio
                 if (txtNome.getText().isEmpty() || txtEmail.getText().isEmpty() ||
                     txtSenha.getText().isEmpty() || txtCpf.getText().isEmpty()) {
                     mostrarMensagemErro("Todos os campos devem ser preenchidos.");
-                    return;  // Não prosseguir com a alteração se algum campo estiver vazio
+                    return;  
                 }
 
-                // Atualiza as informações do funcionário
                 funcionario.setNome(txtNome.getText());
                 funcionario.setEmail(txtEmail.getText());
                 funcionario.setSenha(txtSenha.getText());
@@ -77,7 +142,6 @@ public class TelaEditarFuncionario extends JFrame {
         });
         inferior.add(btnAlterar, "cell 0 4,growx");
 
-        // Botão de cancelar
         JButton btnCancelar = new JButton("CANCELAR");
         btnCancelar.setBackground(new Color(255, 0, 0));
         btnCancelar.setForeground(Color.WHITE);
@@ -100,7 +164,6 @@ public class TelaEditarFuncionario extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    // Função para exibir a tela de erro
     private void mostrarMensagemErro(String mensagem) {
         TelaErro telaErro = new TelaErro(mensagem);
         telaErro.setVisible(true);

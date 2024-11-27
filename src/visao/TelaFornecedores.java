@@ -45,12 +45,7 @@ public class TelaFornecedores extends JFrame {
     public TelaFornecedores(Funcionario func, String mensagem) {
         listaFornecedores = new ArrayList<>();
 		FornecedorDAO f = new FornecedorDAO();
-		try {
-			listaFornecedores = f.selecionarFornecedores();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		listaFornecedores = f.selecionarFornecedores();
 		
         setTitle("Fornecedores");
         setSize(1215, 850);
@@ -73,7 +68,7 @@ public class TelaFornecedores extends JFrame {
         panelComponentes.setLayout(new MigLayout("", "[][][][][grow][]", "[][][grow]"));
 
         txtFiltro = new JTextField();
-        txtFiltro.setUI(new HintTextFieldUI("Pesquisa"));
+        txtFiltro.setUI(new HintTextFieldUI("Pesquise por Nome Fornecedor, Nome_Ctt, Email, Telefone ou ID"));
         txtFiltro.setFont(new Font("Tahoma", Font.PLAIN, 18));
         txtFiltro.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
         panelComponentes.add(txtFiltro, "cell 4 0,alignx left");
@@ -180,6 +175,33 @@ public class TelaFornecedores extends JFrame {
                 tela.setVisible(true);
             }
         });
+        
+        JButton btnPesquisa = new JButton("PESQUISAR");
+		btnPesquisa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				if (!txtFiltro.getText().trim().isEmpty()) {
+					String filtro = txtFiltro.getText();
+					listaFornecedores = f.pesquisarFornecedores(filtro);
+					ftm = new FornecedorTableModel(listaFornecedores);
+					tableFornecedores.setModel(ftm);
+
+				}
+
+				else {
+					listaFornecedores = f.selecionarFornecedores();
+					ftm = new FornecedorTableModel(listaFornecedores);
+					tableFornecedores.setModel(ftm);
+				}
+
+			}
+		});
+		panelComponentes.add(btnPesquisa, "cell 4 0,alignx center,aligny center");
+		btnPesquisa.setBackground(new Color(243, 244, 240));
+		btnPesquisa.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		btnPesquisa.setMinimumSize(new Dimension(150, 30));
+		btnPesquisa.setMaximumSize(new Dimension(150, 30));
+		btnPesquisa.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
 
         theader();
     }

@@ -33,6 +33,7 @@ import controle.FuncionarioDAO;
 import modelo.FornecedorTableModel;
 import modelo.Funcionario;
 import modelo.FuncionarioTableModel;
+import modelo.ProdutoTableModel;
 import net.miginfocom.swing.MigLayout;
 
 public class TelaFuncionarios extends JFrame {
@@ -67,12 +68,7 @@ public class TelaFuncionarios extends JFrame {
 
 		listarFuncionarios = new ArrayList<>();
 		FuncionarioDAO fu = new FuncionarioDAO();
-		try {
-			listarFuncionarios = fu.selecionarFuncionarios();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		listarFuncionarios = fu.selecionarFuncionarios();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		contentPane = new ImagePanel("src/img/bgFuncionarios.png");
@@ -98,7 +94,7 @@ public class TelaFuncionarios extends JFrame {
 		panelComponentes.setLayout(new MigLayout("", "[][][][][grow][]", "[][][grow]"));
 
 		txtFiltro = new JTextField();
-		txtFiltro.setUI(new HintTextFieldUI("Pesquisa"));
+		txtFiltro.setUI(new HintTextFieldUI("Pesquise por Nome Funcionario, CPF, Email, ou ID"));
 		txtFiltro.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtFiltro.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
 		panelComponentes.add(txtFiltro, "cell 4 0,alignx left");
@@ -214,6 +210,35 @@ public class TelaFuncionarios extends JFrame {
 			}
 		});
 
+
+		JButton btnPesquisa = new JButton("PESQUISAR");
+		btnPesquisa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				if (!txtFiltro.getText().trim().isEmpty()) {
+					String filtro = txtFiltro.getText();
+					listarFuncionarios = fu.pesquisarFuncionarios(filtro);
+					futm = new FuncionarioTableModel(listarFuncionarios);
+					table.setModel(futm);
+
+				}
+
+				else {
+					listarFuncionarios = fu.selecionarFuncionarios();
+					futm = new FuncionarioTableModel(listarFuncionarios);
+					table.setModel(futm);
+				}
+
+			}
+		});
+		panelComponentes.add(btnPesquisa, "cell 4 0,alignx center,aligny center");
+		btnPesquisa.setBackground(new Color(243, 244, 240));
+		btnPesquisa.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		btnPesquisa.setMinimumSize(new Dimension(150, 30));
+		btnPesquisa.setMaximumSize(new Dimension(150, 30));
+		btnPesquisa.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
+	
+		
 		FuncionarioController funcionarioController = new FuncionarioController();
 		listarFuncionarios = funcionarioController.listarFuncionarios();
 
