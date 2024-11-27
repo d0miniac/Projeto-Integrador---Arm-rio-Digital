@@ -195,4 +195,5 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
+INSERT INTO funcionarios (CPF,NomeFuncionario,Email,Senha,Perfil) VALUES ("123.456.789-01","Isaque Padilha","a@a","123","Admin");
 -- Dump completed on 2024-11-12 12:03:17
