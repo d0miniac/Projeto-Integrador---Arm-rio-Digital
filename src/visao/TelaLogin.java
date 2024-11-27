@@ -31,6 +31,23 @@ public class TelaLogin extends JFrame {
 	private JLabel backgroundLabel;
 	private JPasswordField passwordField;
 	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					String mensagem = "Bem-vindo ao sistema!";
+					TelaLogin frame = new TelaLogin(mensagem);
+					frame.setVisible(true);
+					frame.setSize(1500, 1000);
+					frame.setResizable(false); 
+					frame.setLocationRelativeTo(null);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
 	public TelaLogin(String mensagem) {
 		setTitle("Login");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

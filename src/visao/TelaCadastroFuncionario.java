@@ -80,14 +80,11 @@ public class TelaCadastroFuncionario extends JFrame {
 		PainelVazio.setBackground(new Color(0, 0, 0, 0));
 		contentPane.add(PainelVazio);
 
-		JLabel label_1 = new JLabel("New label");
-		PainelVazio.add(label_1);
-
 		JPanel PainelComponentes = new JPanel();
 		PainelComponentes.setBackground(new Color(243, 244, 240));
 		contentPane.add(PainelComponentes);
 		PainelComponentes
-				.setLayout(new MigLayout("", "[46px,grow]", "[40px][14px][][100px][][][][][][][][][][][][][][]"));
+				.setLayout(new MigLayout("", "[46px,grow]", "[20px][14px][][30px][][][][][][][][][][][][][][]"));
 
 		JLabel lblNewLabel = new JLabel("<html>Cadastre um <br>novo funcionário");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.TRAILING);
@@ -108,6 +105,8 @@ public class TelaCadastroFuncionario extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				dispose();
 				TelaLogin tela = new TelaLogin(mensagem);
+				tela.setSize(1500, 1000);
+				tela.setResizable(false); 
 				tela.setVisible(true);
 			}
 		});
@@ -215,9 +214,8 @@ public class TelaCadastroFuncionario extends JFrame {
 				if (txtSenha.getText().equals(txtConfirma.getText())) {
 					novo.setSenha(txtConfirma.getText());
 				} else {
-					// TelaErro erroTela = new TelaErro();
-					// erroTela.setVisible(true);
-
+					TelaErro erroTela = new TelaErro(mensagem);
+					erroTela.setVisible(true);
 				}
 
 				if (checkBox.isSelected() == true) {

@@ -53,7 +53,7 @@ public class TelaErro extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5,   5));
 
 		setContentPane(contentPane);
-		contentPane.setLayout(new MigLayout("", "[]", "[73px][73px]"));
+		contentPane.setLayout(new MigLayout("", "[grow]", "[73px][73px]"));
 		
 		JLabel lblNewLabel = new JLabel(mensagem);
 		lblNewLabel.setBackground(new Color(243, 244, 240));
