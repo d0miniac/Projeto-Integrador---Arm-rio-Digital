@@ -12,7 +12,6 @@ import javax.swing.border.MatteBorder;
 import controle.FornecedorDAO;
 import modelo.Fornecedor;
 import modelo.Funcionario;
-
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
@@ -36,21 +35,21 @@ public class TelaCadastroFornecedores extends JFrame {
     private static TelaFornecedores telaFornecedores;  
 
     public static void main(String[] args) {
-	    EventQueue.invokeLater(() -> {
-	        try {
-	            Funcionario funcionario = new Funcionario(); 
-	            String mensagem = "Bem-vindo ao sistema!";
-	            TelaCadastroFornecedores frame = new TelaCadastroFornecedores(telaFornecedores, funcionario, mensagem);
-	            frame.setVisible(true);
-	            frame.setSize(657, 425);
-	            frame.setLocationRelativeTo(null);
-	        } catch (Exception e) {
+        EventQueue.invokeLater(() -> {
+            try {
+                Funcionario funcionario = new Funcionario(); 
+                String mensagem = "Bem-vindo ao sistema!";
+                TelaCadastroFornecedores frame = new TelaCadastroFornecedores(telaFornecedores, funcionario, mensagem);
+                frame.setVisible(true);
+                frame.setSize(657, 425);
+                frame.setLocationRelativeTo(null);
+            } catch (Exception e) {
 
-	            TelaErro telaErro = new TelaErro("Erro crítico: " + e.getMessage());
-	            telaErro.setVisible(true);
-	        }
-	    });
-	}
+                TelaErro telaErro = new TelaErro("Erro crítico: " + e.getMessage());
+                telaErro.setVisible(true);
+            }
+        });
+    }
 
     public TelaCadastroFornecedores(TelaFornecedores telaFornecedores, Funcionario func, String mensagem) {
         this.telaFornecedores = telaFornecedores;
@@ -151,22 +150,30 @@ public class TelaCadastroFornecedores extends JFrame {
         btnCadastrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-            	Fornecedor fornecedor = new Fornecedor();
-            	fornecedor.setEmail(textEMAIL.getText());
-            	fornecedor.setNomeFornecedor(textNOME_FORNECEDOR.getText());
-            	fornecedor.setNomeCtt(textNOMECONTATO.getText()); 
-            	fornecedor.setTelefone(textTELEFONE.getText());
-                
-                FornecedorDAO dao = new FornecedorDAO();
-                int resultado = dao.cadastrarFornecedor(fornecedor);
-                if (resultado == 1) {
-                    System.out.println("Fornecedor cadastrado com sucesso!");
-
-                    telaFornecedores.adicionarFornecedor(fornecedor);
-
-                    limparCampos();
+            
+                if (textEMAIL.getText().isEmpty() || textNOME_FORNECEDOR.getText().isEmpty() ||
+                    textNOMECONTATO.getText().isEmpty() || textTELEFONE.getText().isEmpty()) {
+                    
+                    TelaErro telaErro = new TelaErro("Preencha todos os campos obrigatórios!");
+                    telaErro.setVisible(true);
                 } else {
-                    System.out.println("Erro ao cadastrar fornecedor.");
+              
+                    Fornecedor fornecedor = new Fornecedor();
+                    fornecedor.setEmail(textEMAIL.getText());
+                    fornecedor.setNomeFornecedor(textNOME_FORNECEDOR.getText());
+                    fornecedor.setNomeCtt(textNOMECONTATO.getText()); 
+                    fornecedor.setTelefone(textTELEFONE.getText());
+
+                    FornecedorDAO dao = new FornecedorDAO();
+                    int resultado = dao.cadastrarFornecedor(fornecedor);
+                    if (resultado == 1) {
+                        System.out.println("Fornecedor cadastrado com sucesso!");
+
+                        telaFornecedores.adicionarFornecedor(fornecedor);
+                        limparCampos();
+                    } else {
+                        System.out.println("Erro ao cadastrar fornecedor.");
+                    }
                 }
             }
         });
@@ -177,7 +184,7 @@ public class TelaCadastroFornecedores extends JFrame {
         btnCancelar.setForeground(Color.WHITE);
         btnCancelar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	TelaFornecedores tela = new TelaFornecedores(func, mensagem);
+                TelaFornecedores tela = new TelaFornecedores(func, mensagem);
                 dispose();
                 tela.setVisible(true);
             }
