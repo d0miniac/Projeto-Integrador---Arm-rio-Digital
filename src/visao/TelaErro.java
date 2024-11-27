@@ -44,7 +44,9 @@ public class TelaErro extends JFrame {
 	public TelaErro(String mensagem) {
 		setTitle("Tela de Erro");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(664, 213);
+		setSize(374, 220);
+		setResizable(false);
+		
 
 		setLocationRelativeTo(null);
 		
@@ -53,14 +55,14 @@ public class TelaErro extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5,   5));
 
 		setContentPane(contentPane);
-		contentPane.setLayout(new MigLayout("", "[]", "[73px][73px]"));
+		contentPane.setLayout(new MigLayout("", "[50px][]", "[73px][][73px]"));
 		
 		JLabel lblNewLabel = new JLabel(mensagem);
 		lblNewLabel.setBackground(new Color(243, 244, 240));
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblNewLabel.setForeground(new Color(255, 0, 0));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		contentPane.add(lblNewLabel, "cell 0 0,grow");
+		contentPane.add(lblNewLabel, "cell 1 0,grow");
 		
 		JButton btnNewButton = new JButton("Tentar Novamente");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -70,7 +72,7 @@ public class TelaErro extends JFrame {
 		});
 		btnNewButton.setForeground(new Color(243, 244, 240));
 		btnNewButton.setBackground(new Color(0, 151, 178));
-		contentPane.add(btnNewButton, "cell 0 1,alignx center");
+		contentPane.add(btnNewButton, "cell 1 1,alignx center");
 	}
 
 }
