@@ -34,6 +34,7 @@ public class ProdutoDAO {
 
 			stmt1.close();
 			conn.close();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			// TODO: handle exception

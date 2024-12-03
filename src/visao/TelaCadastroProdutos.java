@@ -66,6 +66,7 @@ public class TelaCadastroProdutos extends JFrame {
 	ProdutoDAO dao;
 	FornecedorDAO fdao;
 	ArrayList<Fornecedor> listaFornecedores;
+	private static final long serialVersionUID = 1L;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(() -> {
@@ -78,13 +79,14 @@ public class TelaCadastroProdutos extends JFrame {
 				frame.setLocationRelativeTo(null);
 			} catch (Exception e) {
 
-				TelaErro telaErro = new TelaErro("Erro crítico: " + e.getMessage());
+				TelaErro telaErro = new TelaErro("Algo está errado " + e.getMessage());
 				telaErro.setVisible(true);
 			}
 		});
 	}
 
 	public TelaCadastroProdutos(Funcionario func, String mensagem) throws SQLException {
+		
 		produto = new Produto();
 		setTitle("Cadastro de Produtos");
 		contentPane = new ImagePanel("src/img/bgCadastroProdutos.png");
@@ -183,7 +185,7 @@ public class TelaCadastroProdutos extends JFrame {
 		JLabel lblNewLabel_4 = new JLabel("COR");
 		meio.add(lblNewLabel_4, "flowx,cell 2 0,alignx center");
 
-		JComboBox cbxCor = new JComboBox();
+		JComboBox<Cor> cbxCor = new JComboBox<Cor>();
 		cbxCor.addItem(Cor.AMARELO);
 		cbxCor.addItem(Cor.AZUL);
 		cbxCor.addItem(Cor.BRANCO);
@@ -198,7 +200,7 @@ public class TelaCadastroProdutos extends JFrame {
 
 		meio.add(cbxCor, "cell 2 0,alignx center");
 
-		JComboBox cbxTamanho = new JComboBox();
+		JComboBox<Tamanho> cbxTamanho = new JComboBox<Tamanho>();
 		cbxTamanho.addItem(Tamanho.PP);
 		cbxTamanho.addItem(Tamanho.P);
 		cbxTamanho.addItem(Tamanho.M);
@@ -277,15 +279,13 @@ public class TelaCadastroProdutos extends JFrame {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 						produto.setFoto(null);
-					} finally {
-
-					}
+					} 
 
 					produto.setFoto(nome_imagem);
 
 					ImageIcon imagem = new ImageIcon(caminhoDestino);
 					Image img = imagem.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-					System.out.println(arquivo);
+					//System.out.println(arquivo);
 					lblimagem.setIcon(new ImageIcon(img));
 
 				}
@@ -297,44 +297,129 @@ public class TelaCadastroProdutos extends JFrame {
 		btnNewButton.setBackground(new Color(32, 60, 115));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Fornecedor fnc = (Fornecedor) cbxFornecedor.getSelectedItem();
-				produto.setFornecedor(fnc.getIdFornecedor());
+				if(txtPreco.getText().isEmpty()||txtQuantidade.getText().isEmpty()) {
+					TelaErro erro = new TelaErro("Preencha todos os campos");
+					erro.setVisible(true);
+					return;
+				}
+				
+					Fornecedor fnc = (Fornecedor) cbxFornecedor.getSelectedItem();
+					produto.setFornecedor(fnc.getIdFornecedor());
+					Float preco = Float.parseFloat(txtPreco.getText());
+					int quantidade = Integer.parseInt(txtQuantidade.getText());
+					// Long id = Long.parseLong(txtID.getText());
+					// int idF = Integer.parseInt(txtFornecedor.getText());
+					// Long idF = cbxFornecedor.getSelectedItem()btnLoad.getIdFornecedor();
 
-				Float preco = Float.parseFloat(txtPreco.getText());
-				int quantidade = Integer.parseInt(txtQuantidade.getText());
+				btnNewButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						try {
+
+							if (txtPreco.getText().isEmpty() || txtQuantidade.getText().isEmpty()) {
+								throw new IllegalArgumentException(
+										"Os campos 'Preço' e 'Quantidade' são obrigatórios.");
+							}
+
+							Float preco;
+							int quantidade;
+
+							try {
+								preco = Float.parseFloat(txtPreco.getText());
+								if (preco <= 0) {
+									throw new IllegalArgumentException("O preço deve ser maior que zero.");
+								}
+							} catch (NumberFormatException ex) {
+								throw new IllegalArgumentException("O preço deve ser um número válido.");
+							}
+
+							try {
+								quantidade = Integer.parseInt(txtQuantidade.getText());
+								if (quantidade < 0) {
+									throw new IllegalArgumentException("A quantidade não pode ser negativa.");
+								}
+							} catch (NumberFormatException ex) {
+								throw new IllegalArgumentException("A quantidade deve ser um número válido.");
+							}
+
+							Fornecedor fnc = (Fornecedor) cbxFornecedor.getSelectedItem();
+							produto.setFornecedor(fnc.getIdFornecedor());
+
+							Cor corSelecionada = (Cor) cbxCor.getSelectedItem();
+							Marca marcaSelecionada = (Marca) cbxMarca.getSelectedItem();
+							Tamanho tamanhoSelecionado = (Tamanho) cbxTamanho.getSelectedItem();
+							Categoria categoriaSelecionada = (Categoria) cbxCategoria.getSelectedItem();
+
+							produto.setCategoria(categoriaSelecionada);
+							produto.setMarca(marcaSelecionada);
+							produto.setPreco(preco);
+							produto.setQuantidade(quantidade);
+							produto.setCor(corSelecionada);
+							produto.setTamanho(tamanhoSelecionado);
+
+							dao = new ProdutoDAO();
+							int res1 = dao.cadastrarProduto(produto);
+
+							TelaProdutos tela = new TelaProdutos(func, mensagem);
+							tela.setVisible(true);
+							tela.setSize(1215, 850);
+							dispose();
+						} catch (IllegalArgumentException ex) {
+
+							TelaErroValidacao telaErro = new TelaErroValidacao(ex.getMessage());
+							telaErro.setVisible(true);
+						}
+					}
+				});
+				float preco = 0;
+				try {
+					preco = Float.parseFloat(txtPreco.getText());
+
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+
+				int quantidade = 0;
+				try {
+					quantidade = Integer.parseInt(txtQuantidade.getText());
+
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+
 				// Long id = Long.parseLong(txtID.getText());
 				// int idF = Integer.parseInt(txtFornecedor.getText());
 				// Long idF = cbxFornecedor.getSelectedItem()btnLoad.getIdFornecedor();
 
-				String cor;
-				Cor corselecionada = (Cor) cbxCor.getSelectedItem();
-				cor = corselecionada.getDescricao();
+					String marca;
+					Marca marcaselecionada = (Marca) cbxMarca.getSelectedItem();
+					marca = marcaselecionada.getDescricao();
 
-				String marca;
-				Marca marcaselecionada = (Marca) cbxMarca.getSelectedItem();
-				marca = marcaselecionada.getDescricao();
+					String tamanho;
+					Tamanho tamanhoselecionado = (Tamanho) cbxTamanho.getSelectedItem();
+					tamanho = tamanhoselecionado.getDescricao();
 
-				String tamanho;
-				Tamanho tamanhoselecionado = (Tamanho) cbxTamanho.getSelectedItem();
-				tamanho = tamanhoselecionado.getDescricao();
+					String categoria;
+					Categoria categoriaSelecionada = (Categoria) cbxCategoria.getSelectedItem();
+					categoria = categoriaSelecionada.getDescricao();
 
-				String categoria;
-				Categoria categoriaSelecionada = (Categoria) cbxCategoria.getSelectedItem();
-				categoria = categoriaSelecionada.getDescricao();
+					Long idF;
+					
+					
+					produto.setCategoria(categoriaSelecionada);
+					// produto.setFoto(caminhoDestino);
+					// produto.setId(id);
+					// produto.setFornecedor(idF);
+					produto.setMarca(marcaselecionada);
+					produto.setPreco(preco);
+					produto.setQuantidade(quantidade);
+					produto.setCor(corselecionada);
+					produto.setTamanho(tamanhoselecionado);
 
-				Long idF;
+					// testes
 
-				produto.setCategoria(categoriaSelecionada);
-				// produto.setFoto(caminhoDestino);
-				// produto.setId(id);
-				// produto.setFornecedor(idF);
-				produto.setMarca(marcaselecionada);
-				produto.setPreco(preco);
-				produto.setQuantidade(quantidade);
-				produto.setCor(corselecionada);
-				produto.setTamanho(tamanhoselecionado);
-
-				// testes
+					dao = new ProdutoDAO();
+					int res1 = dao.cadastrarProduto(produto);
+					
 
 				dao = new ProdutoDAO();
 				int res1 = dao.cadastrarProduto(produto);
@@ -347,8 +432,7 @@ public class TelaCadastroProdutos extends JFrame {
 
 			}
 		});
-		
-		
+
 		inferior.add(btnNewButton, "flowx,cell 0 5,alignx left,growy");
 
 		JButton btnCancelar = new JButton("CANCELAR");
