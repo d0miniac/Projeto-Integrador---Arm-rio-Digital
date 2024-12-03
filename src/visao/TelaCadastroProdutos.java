@@ -66,6 +66,7 @@ public class TelaCadastroProdutos extends JFrame {
 	ProdutoDAO dao;
 	FornecedorDAO fdao;
 	ArrayList<Fornecedor> listaFornecedores;
+	private static final long serialVersionUID = 1L;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(() -> {
@@ -85,6 +86,7 @@ public class TelaCadastroProdutos extends JFrame {
 	}
 
 	public TelaCadastroProdutos(Funcionario func, String mensagem) throws SQLException {
+		
 		produto = new Produto();
 		setTitle("Cadastro de Produtos");
 		contentPane = new ImagePanel("src/img/bgCadastroProdutos.png");
@@ -277,15 +279,13 @@ public class TelaCadastroProdutos extends JFrame {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 						produto.setFoto(null);
-					} finally {
-
-					}
+					} 
 
 					produto.setFoto(nome_imagem);
 
 					ImageIcon imagem = new ImageIcon(caminhoDestino);
 					Image img = imagem.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-					System.out.println(arquivo);
+					//System.out.println(arquivo);
 					lblimagem.setIcon(new ImageIcon(img));
 
 				}
@@ -297,53 +297,61 @@ public class TelaCadastroProdutos extends JFrame {
 		btnNewButton.setBackground(new Color(32, 60, 115));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Fornecedor fnc = (Fornecedor) cbxFornecedor.getSelectedItem();
-				produto.setFornecedor(fnc.getIdFornecedor());
+				if(txtPreco.getText().isEmpty()||txtQuantidade.getText().isEmpty()) {
+					TelaErro erro = new TelaErro("Preencha todos os campos");
+					erro.setVisible(true);
+					return;
+				}
+				
+					Fornecedor fnc = (Fornecedor) cbxFornecedor.getSelectedItem();
+					produto.setFornecedor(fnc.getIdFornecedor());
+					Float preco = Float.parseFloat(txtPreco.getText());
+					int quantidade = Integer.parseInt(txtQuantidade.getText());
+					// Long id = Long.parseLong(txtID.getText());
+					// int idF = Integer.parseInt(txtFornecedor.getText());
+					// Long idF = cbxFornecedor.getSelectedItem()btnLoad.getIdFornecedor();
 
-				Float preco = Float.parseFloat(txtPreco.getText());
-				int quantidade = Integer.parseInt(txtQuantidade.getText());
-				// Long id = Long.parseLong(txtID.getText());
-				// int idF = Integer.parseInt(txtFornecedor.getText());
-				// Long idF = cbxFornecedor.getSelectedItem()btnLoad.getIdFornecedor();
+					String cor;
+					Cor corselecionada = (Cor) cbxCor.getSelectedItem();
+					cor = corselecionada.getDescricao();
 
-				String cor;
-				Cor corselecionada = (Cor) cbxCor.getSelectedItem();
-				cor = corselecionada.getDescricao();
+					String marca;
+					Marca marcaselecionada = (Marca) cbxMarca.getSelectedItem();
+					marca = marcaselecionada.getDescricao();
 
-				String marca;
-				Marca marcaselecionada = (Marca) cbxMarca.getSelectedItem();
-				marca = marcaselecionada.getDescricao();
+					String tamanho;
+					Tamanho tamanhoselecionado = (Tamanho) cbxTamanho.getSelectedItem();
+					tamanho = tamanhoselecionado.getDescricao();
 
-				String tamanho;
-				Tamanho tamanhoselecionado = (Tamanho) cbxTamanho.getSelectedItem();
-				tamanho = tamanhoselecionado.getDescricao();
+					String categoria;
+					Categoria categoriaSelecionada = (Categoria) cbxCategoria.getSelectedItem();
+					categoria = categoriaSelecionada.getDescricao();
 
-				String categoria;
-				Categoria categoriaSelecionada = (Categoria) cbxCategoria.getSelectedItem();
-				categoria = categoriaSelecionada.getDescricao();
+					Long idF;
+					
+					
+					produto.setCategoria(categoriaSelecionada);
+					// produto.setFoto(caminhoDestino);
+					// produto.setId(id);
+					// produto.setFornecedor(idF);
+					produto.setMarca(marcaselecionada);
+					produto.setPreco(preco);
+					produto.setQuantidade(quantidade);
+					produto.setCor(corselecionada);
+					produto.setTamanho(tamanhoselecionado);
 
-				Long idF;
+					// testes
 
-				produto.setCategoria(categoriaSelecionada);
-				// produto.setFoto(caminhoDestino);
-				// produto.setId(id);
-				// produto.setFornecedor(idF);
-				produto.setMarca(marcaselecionada);
-				produto.setPreco(preco);
-				produto.setQuantidade(quantidade);
-				produto.setCor(corselecionada);
-				produto.setTamanho(tamanhoselecionado);
+					dao = new ProdutoDAO();
+					int res1 = dao.cadastrarProduto(produto);
+					
 
-				// testes
-
-				dao = new ProdutoDAO();
-				int res1 = dao.cadastrarProduto(produto);
-
-				TelaProdutos tela;
-				tela = new TelaProdutos(func, mensagem);
-				tela.setVisible(true);
-				tela.setSize(1215, 850);
-				dispose();
+					TelaProdutos tela;
+					tela = new TelaProdutos(func, mensagem);
+					tela.setVisible(true);
+					tela.setSize(1215, 850);
+					dispose();
+				
 
 			}
 		});

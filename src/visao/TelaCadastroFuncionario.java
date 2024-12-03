@@ -25,6 +25,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.awt.Toolkit;
 import controle.FuncionarioDAO;
 import javax.swing.border.LineBorder;
@@ -193,44 +194,67 @@ public class TelaCadastroFuncionario extends JFrame {
 		JButton btnCadastro = new JButton("Cadastrar");
 		btnCadastro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Funcionario novo = new Funcionario();
-				novo.setNome(txtNome.getText());
-				novo.setEmail(txtEmail.getText());
-				try {
-					String strCpf = txtCpf.getText();
-					strCpf = strCpf.replaceAll("[^0-9]", "");
-					Long longCpf = Long.parseLong(strCpf);
-					strCpf = strCpf.replaceAll("(\\d{3})(\\d{3})(\\d{3})(\\d{2})", "$1.$2.$3-$4");
-
-					novo.setCpf(strCpf);
-				} catch (NumberFormatException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-					// TelaErro erro = new TelaErro();
-					// erro.setVisible(true);
+				if(txtNome.getText().isEmpty()||txtEmail.getText().isEmpty()||txtSenha.getText().isEmpty()) {
+					TelaErro erro = new TelaErro("Preencha todos os campos");
+					erro.setVisible(true);
 					return;
 				}
+					String strCpf;
+					Funcionario novo = new Funcionario();
+					novo.setNome(txtNome.getText());
+					novo.setEmail(txtEmail.getText());
+					strCpf = txtCpf.getText();
+					strCpf = strCpf.replaceAll("[^0-9]", "");
+					
+					
+					
+					if(strCpf.isEmpty()) {
+						TelaErro erro = new TelaErro("CPF Inválido");
+						erro.setVisible(true);
+						return;
+					}
+					else {
+						strCpf = strCpf.replaceAll("(\\d{3})(\\d{3})(\\d{3})(\\d{2})", "$1.$2.$3-$4");
 
-				if (txtSenha.getText().equals(txtConfirma.getText())) {
-					novo.setSenha(txtConfirma.getText());
-				} else {
-					TelaErro erroTela = new TelaErro(mensagem);
-					erroTela.setVisible(true);
+						novo.setCpf(strCpf);
+					}
+					
+							
+					
+
+					if (txtSenha.getText().equals(txtConfirma.getText())) {
+						novo.setSenha(txtConfirma.getText());
+					} else {
+						TelaErro erroTela = new TelaErro("As senhas não coincidem");
+						erroTela.setVisible(true);
+						return;
+					}
+
+					if (checkBox.isSelected() == true) {
+						novo.setPerfil("Admin");
+					} else {
+						novo.setPerfil("Comum");
+					}
+					
+					
+					FuncionarioDAO dao = new FuncionarioDAO();
+					ArrayList<Funcionario> listaF = new ArrayList<>();
+					listaF = dao.selecionarFuncionarios();
+					for (Funcionario funcionario : listaF) {
+						if (funcionario.getEmail().equals(novo.getEmail())){
+							TelaErro erro = new TelaErro("Esse email já está cadastrado");
+							erro.setVisible(true);
+							return;
+						}
+					}
+					int res1 = dao.cadastrarFuncionario(novo);
+
+					dispose();
+					TelaLogin tela = new TelaLogin(mensagem);
+					tela.setVisible(true);
+					
 				}
-
-				if (checkBox.isSelected() == true) {
-					novo.setPerfil("Admin");
-				} else {
-					novo.setPerfil("Comum");
-				}
-				FuncionarioDAO dao = new FuncionarioDAO();
-
-				int res1 = dao.cadastrarFuncionario(novo);
-
-				dispose();
-				TelaLogin tela = new TelaLogin(mensagem);
-				tela.setVisible(true);
-			}
+				
 		});
 		btnCadastro.setForeground(new Color(243, 244, 240));
 		btnCadastro.setBackground(new Color(65, 82, 179));

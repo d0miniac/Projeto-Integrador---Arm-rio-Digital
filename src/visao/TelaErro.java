@@ -13,12 +13,17 @@ import javax.swing.SwingConstants;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JButton;
+import javax.swing.JDialog;
+
 import java.awt.BorderLayout;
 import net.miginfocom.swing.MigLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
-public class TelaErro extends JFrame {
+public class TelaErro extends JDialog {
 
 	private JPanel contentPane;
 
@@ -43,7 +48,7 @@ public class TelaErro extends JFrame {
 	 */
 	public TelaErro(String mensagem) {
 		setTitle("Tela de Erro");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setSize(374, 220);
 		setResizable(false);
 		
@@ -55,16 +60,14 @@ public class TelaErro extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5,   5));
 
 		setContentPane(contentPane);
-		contentPane.setLayout(new MigLayout("", "[50px][]", "[73px][][73px]"));
 		
 		JLabel lblNewLabel = new JLabel(mensagem);
 		lblNewLabel.setBackground(new Color(243, 244, 240));
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblNewLabel.setForeground(new Color(255, 0, 0));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		contentPane.add(lblNewLabel, "cell 1 0,grow");
 		
-		JButton btnNewButton = new JButton("Tentar Novamente");
+		JButton btnNewButton = new JButton("Ok");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -72,7 +75,30 @@ public class TelaErro extends JFrame {
 		});
 		btnNewButton.setForeground(new Color(243, 244, 240));
 		btnNewButton.setBackground(new Color(0, 151, 178));
-		contentPane.add(btnNewButton, "cell 1 1,alignx center");
+		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(146)
+							.addComponent(btnNewButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addGap(32))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(117)
+							.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+					.addGap(125))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(53)
+					.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(btnNewButton)
+					.addContainerGap())
+		);
+		contentPane.setLayout(gl_contentPane);
 	}
 
 }
