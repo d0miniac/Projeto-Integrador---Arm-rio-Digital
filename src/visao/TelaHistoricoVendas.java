@@ -147,11 +147,12 @@ public class TelaHistoricoVendas extends JFrame {
 
      
         vendas = new ArrayList<>();
-        vendas.add(new Object[]{"1", "Camisa", "Nike", "Azul", "M", "100", "R$ 150,00"});
-        vendas.add(new Object[]{"2", "Calça", "Adidas", "Preta", "38", "200", "R$ 200,00"});
-        vendas.add(new Object[]{"3", "Blusa", "Puma", "Vermelha", "P", "50", "R$ 180,00"});
-        vendas.add(new Object[]{"4", "Jaqueta", "Puma", "Preta", "M", "50", "R$ 250,00"});
-        vendas.add(new Object[]{"5", "Calça", "Nike", "Azul", "40", "100", "R$ 100,00"});
+        vendas.add(new Object[]{"1", "Camisa Estampada", "Camisa", "Nike", "Azul", "M", "100", "R$ 150,00"});
+        vendas.add(new Object[]{"2","Camisa Flamengo",  "Camisa", "Nike", "Azul", "M", "100", "R$ 150,00"});
+        vendas.add(new Object[]{"3", "Calça Jeans", "Calça", "Adidas", "Preta", "38", "200", "R$ 200,00"});
+        vendas.add(new Object[]{"4", "Blusa Estampada", "Blusa", "Puma", "Vermelha", "P", "50", "R$ 180,00"});
+        vendas.add(new Object[]{"5", "Jaqueta Bomber", "Jaqueta", "Puma", "Preta", "M", "50", "R$ 250,00"});
+        vendas.add(new Object[]{"6", "Calça Destroyed", "Calça", "Nike", "Azul", "40", "100", "R$ 100,00"});
 
 
        
@@ -183,7 +184,7 @@ public class TelaHistoricoVendas extends JFrame {
     private void atualizarTabela(List<Object[]> dados) {
         NonEditableTableModel modelo = new NonEditableTableModel(
                 dados.toArray(new Object[0][0]),
-                new String[]{"ID", "Categoria", "Marca", "Cor", "Tamanho", "Quantidade", "Preço"});
+                new String[]{"ID", "Título", "Categoria", "Marca", "Cor", "Tamanho", "Quantidade", "Preço"});
         table.setModel(modelo);
     }
 

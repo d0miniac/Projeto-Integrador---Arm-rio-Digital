@@ -30,7 +30,7 @@ public class TelaLogin extends JFrame {
 	private JTextField txtEmail;
 	private JLabel backgroundLabel;
 	private JPasswordField passwordField;
-	
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -39,7 +39,7 @@ public class TelaLogin extends JFrame {
 					TelaLogin frame = new TelaLogin(mensagem);
 					frame.setVisible(true);
 					frame.setSize(1500, 1000);
-					frame.setResizable(false); 
+					frame.setResizable(false);
 					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -47,7 +47,7 @@ public class TelaLogin extends JFrame {
 			}
 		});
 	}
-	
+
 	public TelaLogin(String mensagem) {
 		setTitle("Login");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -149,7 +149,7 @@ public class TelaLogin extends JFrame {
 				Funcionario login = new Funcionario();
 				login.setEmail(email);
 				login.setSenha(senha);
-				
+
 				FuncionarioDAO dao = new FuncionarioDAO();
 				Funcionario f = dao.logarFuncionario(login);
 
@@ -167,16 +167,45 @@ public class TelaLogin extends JFrame {
 		btnLogin.setBackground(new Color(103, 203, 239));
 		panelDireito.add(btnLogin, "cell 1 47 2 1,alignx right,grow");
 
+		JLabel lblNovaConta = new JLabel("Ainda não tem uma conta?");
+		lblNovaConta.setForeground(new Color(255, 255, 255));
+		lblNovaConta.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		panelDireito.add
+
+		(lblNovaConta, "cell 1 48,alignx left");
+
+		JButton btnCadastrese = new JButton("Cadastre-se");
+		btnCadastrese.setHorizontalAlignment(SwingConstants.RIGHT);
+		btnCadastrese.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnCadastrese.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+
+						dispose();
+						TelaCadastroFuncionario telaCadastroFuncionario = new TelaCadastroFuncionario(mensagem);
+						telaCadastroFuncionario.setVisible(true);
+
+					}
+
+				});
+
+			}
+		});
+		btnCadastrese.setForeground(new Color(255, 255, 255));
+		btnCadastrese.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		btnCadastrese.setFocusPainted(false);
+		btnCadastrese.setBorderPainted(false);
+		btnCadastrese.setBackground(new Color(32, 60, 115));
+		panelDireito.add(btnCadastrese, "cell 2 48,alignx right");
+
 		setLocationRelativeTo(null);
 	}
 
-	
 	private void mostrarMensagemErro(String mensagem) {
 		TelaErro frame = new TelaErro("Email ou senha inválidos.");
 		frame.setVisible(true);
 	}
 
-	
 	private boolean isValidEmail(String email) {
 		return email.contains("@") && email.contains(".");
 	}

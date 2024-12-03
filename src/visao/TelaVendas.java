@@ -78,17 +78,23 @@ public class TelaVendas extends JFrame {
 		panelProdutos.setLayout(new MigLayout("wrap 3", "[grow]", "[]"));
 		for (Produto produto : listaProdutos) {
 			JButton btnProduto = new JButton();
-			btnProduto.setPreferredSize(new Dimension(200, 250));
-			btnProduto.setLayout(new BorderLayout());
+			  btnProduto.setPreferredSize(new Dimension(350, 400));
+		        btnProduto.setMaximumSize(new Dimension(350, 400));
+		        btnProduto.setMinimumSize(new Dimension(350, 400));
+		        // Definindo layout para ocupar todo o botão com a imagem
+		        btnProduto.setLayout(new BorderLayout());
 
-			ImageIcon imageIcon = new ImageIcon(produto.getFoto());
-			Image image = imageIcon.getImage().getScaledInstance(180, 180, Image.SCALE_SMOOTH);
-			JLabel lblImage = new JLabel(new ImageIcon(image));
-			btnProduto.add(lblImage, BorderLayout.CENTER);
+		        // Carregando a imagem e ajustando para preencher todo o botão
+		        ImageIcon imageIcon = new ImageIcon(produto.getFoto());
+		        Image image = imageIcon.getImage().getScaledInstance(350, 350, Image.SCALE_SMOOTH);
+		        JLabel lblImage = new JLabel(new ImageIcon(image));
+		        btnProduto.add(lblImage, BorderLayout.CENTER); // Imagem ocupa o centro do botão
 
-			JLabel lblNome = new JLabel(produto.getFoto(), SwingConstants.CENTER);
-			lblNome.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			btnProduto.add(lblNome, BorderLayout.SOUTH);
+		        // Definindo o título do produto abaixo da imagem
+		        JLabel lblNome = new JLabel(produto.getTitulo(), SwingConstants.CENTER);
+		        lblNome.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		        lblNome.setPreferredSize(new Dimension(350, 50)); // Espaço fixo para o título
+		        btnProduto.add(lblNome, BorderLayout.SOUTH);
 
 			btnProduto.addActionListener(new ActionListener() {
 				@Override
@@ -137,10 +143,11 @@ public class TelaVendas extends JFrame {
 			add(lblImage, BorderLayout.NORTH);
 
 			JPanel panelInfo = new JPanel(new GridLayout(0, 1));
-			JLabel lblNome = new JLabel("Nome: " + produto.getFoto());
+			JLabel lblNome = new JLabel("Título: " + produto.getTitulo());
 			JLabel lblPreco = new JLabel("Preço: R$" + produto.getPreco());
 
 			lblNome.setFont(new Font("Tahoma", Font.BOLD, 16));
+			lblNome.setPreferredSize(new Dimension(200, 40));
 			lblPreco.setFont(new Font("Tahoma", Font.BOLD, 16));
 
 			panelInfo.add(lblNome);
