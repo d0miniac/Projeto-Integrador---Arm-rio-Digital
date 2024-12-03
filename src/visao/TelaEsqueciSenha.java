@@ -1,39 +1,26 @@
 package visao;
 
+import java.awt.Color;
 import java.awt.EventQueue;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import controle.FuncionarioDAO;
-import modelo.Funcionario;
-import net.miginfocom.swing.MigLayout;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.UnsupportedEncodingException;
-
-import javax.mail.Authenticator;
-import javax.mail.PasswordAuthentication;
-import java.awt.Color;
-import java.util.Properties;
-
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JOptionPane;
+import controle.FuncionarioDAO;
+import modelo.Funcionario;
+import net.miginfocom.swing.MigLayout;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
 import java.util.Properties;
-
 
 public class TelaEsqueciSenha extends JFrame {
 
@@ -53,24 +40,22 @@ public class TelaEsqueciSenha extends JFrame {
         });
     }
 
-	public TelaEsqueciSenha() {
-		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(1215, 850);
-		setLocationRelativeTo(null);
-		setResizable(false);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		
-		contentPane = new ImagePanel("src/img/bgSenha.png");
-		setContentPane(contentPane);
+    public TelaEsqueciSenha() {
+        setTitle("Recuperação de Senha");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(1215, 850);
+        setLocationRelativeTo(null);
+        setResizable(false);
+        contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        contentPane = new ImagePanel("src/img/bgSenha.png");  
+        setContentPane(contentPane);
 
         contentPane.setLayout(new MigLayout("", "[200px,grow][grow][grow]", "[50px][100px][100px][][][][][][][][][][][][][][50px][][][]"));
 
         JLabel lblEqueceuSenha = new JLabel("Esqueceu sua Senha?");
         lblEqueceuSenha.setFont(new Font("Tahoma", Font.BOLD, 50));
         contentPane.add(lblEqueceuSenha, "cell 1 5 2 1");
-
 
         JLabel lblRedefinir1 = new JLabel("Para redefinir sua senha, precisamos do");
         lblRedefinir1.setFont(new Font("Tahoma", Font.PLAIN, 30));
@@ -99,7 +84,7 @@ public class TelaEsqueciSenha extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String emailUsuario = txtEmail.getText();
 
-               
+                
                 FuncionarioDAO dao = new FuncionarioDAO();
                 Funcionario funcionario = dao.buscarPorEmail(emailUsuario);
 
@@ -108,11 +93,11 @@ public class TelaEsqueciSenha extends JFrame {
                     enviarEmail(emailUsuario, senhaUsuario); 
                     JOptionPane.showMessageDialog(null, "E-mail enviado com sucesso!");
                 } else {
-                    JOptionPane.showMessageDialog(null, "E-mail não encontrado!");
+                   
+                    exibirMensagemErro("O e-mail informado não foi encontrado.", "Erro");
                 }
             }
 
-            
             private void enviarEmail(String emailDestino, String senhaUsuario) {
                 Properties properties = new Properties();
                 String host = "smtp.gmail.com";
@@ -132,7 +117,7 @@ public class TelaEsqueciSenha extends JFrame {
 
                 try {
                     MimeMessage message = new MimeMessage(session);
-                    message.setFrom(new InternetAddress(emailRemetente, "Nome Remetente")); // Personalize o nome
+                    message.setFrom(new InternetAddress(emailRemetente, "Nome Remetente"));
                     message.addRecipient(Message.RecipientType.TO, new InternetAddress(emailDestino));
                     message.setSubject("Recuperação de Senha");
                     message.setText("Sua senha é: " + senhaUsuario);
@@ -140,11 +125,40 @@ public class TelaEsqueciSenha extends JFrame {
                     Transport.send(message);
                     System.out.println("Email enviado com sucesso...");
                 } catch (MessagingException mex) {
+                    
+                    exibirMensagemErro("Erro ao enviar o e-mail. Tente novamente mais tarde.", "Erro ao Enviar E-mail");
                     mex.printStackTrace();
                 } catch (UnsupportedEncodingException e) {
                     throw new RuntimeException(e);
                 }
             }
         });
+    }
+
+    private void exibirMensagemErro(String mensagem, String titulo) {
+       
+        JFrame erroFrame = new JFrame(titulo);
+        erroFrame.setSize(400, 200);
+        erroFrame.setLocationRelativeTo(this);
+        erroFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        erroFrame.setLayout(new MigLayout("", "[grow]", "[][grow]"));
+
+        JLabel lblErro = new JLabel(mensagem);
+        lblErro.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        lblErro.setForeground(Color.RED);
+        erroFrame.add(lblErro, "cell 0 0,alignx center");
+
+        JButton btnFechar = new JButton("Tentar novamente");
+        btnFechar.setBackground(new Color(32, 60, 115)); 
+        btnFechar.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        btnFechar.setForeground(Color.WHITE); 
+        btnFechar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                erroFrame.dispose();
+            }
+        });
+        erroFrame.add(btnFechar, "cell 0 1,alignx center");
+
+        erroFrame.setVisible(true);
     }
 }

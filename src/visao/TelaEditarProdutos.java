@@ -64,17 +64,19 @@ public class TelaEditarProdutos extends JFrame {
 	private String novoCaminho;
 	ArrayList<Fornecedor> listaFornecedores;
 	FornecedorDAO fdao;
-	
+	private JTextField txtTitulo;
+
 	/**
 	 * Launch the application.
 	 */
 
 	/**
 	 * Create the frame.
-	 * @throws SQLException 
+	 * 
+	 * @throws SQLException
 	 */
-	public TelaEditarProdutos(Produto prod,Funcionario func) throws SQLException {
-		
+	public TelaEditarProdutos(Produto prod, Funcionario func) throws SQLException {
+
 		setTitle("Alteração de Produtos");
 		contentPane = new ImagePanel("src/img/bgEditarProduto.png");
 		setContentPane(contentPane);
@@ -113,10 +115,18 @@ public class TelaEditarProdutos extends JFrame {
 		contentPane.add(topo, "cell 0 1,grow");
 		topo.setOpaque(false);
 		topo.setLayout(new MigLayout("", "[grow][grow][grow][grow][grow]", "[][]"));
-		
-				JLabel lblNewLabel_9 = new JLabel("Fornecedor");
-				topo.add(lblNewLabel_9, "flowx,cell 0 0,alignx center");
 
+		JLabel lblNewLabel_9 = new JLabel("FORNECEDOR");
+		topo.add(lblNewLabel_9, "flowx,cell 0 0,alignx left,growy");
+
+		JLabel lblTitulo = new JLabel("TÍTULO");
+		topo.add(lblTitulo, "flowx,cell 1 0");
+
+		txtTitulo = new JTextField();
+		txtTitulo.setText(String.valueOf(prod.getTitulo()));
+		topo.add(txtTitulo, "cell 1 0");
+		txtTitulo.setColumns(10);
+		
 		JLabel lblNewLabel_1 = new JLabel("PREÇO");
 		topo.add(lblNewLabel_1, "flowx,cell 2 0,alignx center");
 
@@ -135,24 +145,22 @@ public class TelaEditarProdutos extends JFrame {
 		cbxMarca.addItem(Marca.PUMA);
 		cbxMarca.setSelectedItem(prod.getMarca());
 		topo.add(cbxMarca, "cell 4 0,alignx center");
-		
+
 		listaFornecedores = new ArrayList<>();
 		fdao = new FornecedorDAO();
 		listaFornecedores = fdao.selecionarFornecedores();
 		JComboBox<Fornecedor> cbxFornecedor = new JComboBox<Fornecedor>();
 		for (Fornecedor fornecedor : listaFornecedores) {
 			cbxFornecedor.addItem(fornecedor);
-			
+
 		}
 		for (Fornecedor fornecedor : listaFornecedores) {
-			if(fornecedor.getIdFornecedor()==prod.getFornecedor()) {
+			if (fornecedor.getIdFornecedor() == prod.getFornecedor()) {
 				cbxFornecedor.setSelectedItem(fornecedor);
 			}
 		}
-		
-		
-		
-			topo.add(cbxFornecedor, "cell 0 0");
+
+		topo.add(cbxFornecedor, "cell 0 0,alignx left");
 
 		JPanel meio = new JPanel();
 		meio.setBorder(new MatteBorder(0, 0, 5, 0, (Color) new Color(32, 60, 115, 124)));
@@ -170,7 +178,7 @@ public class TelaEditarProdutos extends JFrame {
 		meio.add(txtQuantidade, "cell 0 0,alignx center");
 		txtQuantidade.setColumns(10);
 
-		JLabel lblNewLabel_8 = new JLabel("Tamanho");
+		JLabel lblNewLabel_8 = new JLabel("TAMANHO");
 		meio.add(lblNewLabel_8, "flowx,cell 1 0,alignx center");
 
 		JLabel lblNewLabel_4 = new JLabel("COR");
@@ -233,9 +241,9 @@ public class TelaEditarProdutos extends JFrame {
 
 		lblimagem = new JLabel("");
 		lblimagem.setIcon(new ImageIcon(TelaEditarProdutos.class.getResource("/img/user.png")));
-		if(prod.getFoto()!=null) {
+		if (prod.getFoto() != null) {
 			ImageIcon imagem = new ImageIcon(prod.getFoto());
-            Image img = imagem.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+			Image img = imagem.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
 			lblimagem.setIcon(new ImageIcon(img));
 		}
 		inferior.add(lblimagem, "cell 2 3 1 2");
@@ -247,60 +255,55 @@ public class TelaEditarProdutos extends JFrame {
 				JFileChooser file = new JFileChooser("C://Users//Aluno//Pictures");
 				file.setFileSelectionMode(JFileChooser.FILES_ONLY);
 				int i = file.showSaveDialog(null);
-				
 
-		        if (i==1){
-		        } else {
-		            File arquivo = file.getSelectedFile();
-		
-		            String caminhoOrigem = arquivo.getAbsolutePath();
-		            
-		            Date now = new Date();
-		            String nome_imagem = "ImagensProdutos/prod_"+now.getTime()+".png";
-		            Path f = Paths.get(nome_imagem);
-		            novoCaminho = f.toString();
-		            InputStream is = null;
-		            OutputStream os = null;
-		            try {
-		            	if(novoCaminho!=prod.getFoto()) {
-		            		is = new FileInputStream(caminhoOrigem);
-			                os = new FileOutputStream(novoCaminho);
-			                byte[] buffer = new byte[1024];
-			                int length;
-			                while ((length = is.read(buffer)) > 0) {
-			                    os.write(buffer, 0, length);
-			                }
-			                is.close();
-			                os.close();
-			                if(novoCaminho!=null) {
-			                	 prod.setFoto(novoCaminho);
-			                }
-			                else {
-			                	novoCaminho=prod.getFoto();
-			                }
-		            	}
-		                
-		               
-		            } catch (IOException e1) {
+				if (i == 1) {
+				} else {
+					File arquivo = file.getSelectedFile();
+
+					String caminhoOrigem = arquivo.getAbsolutePath();
+
+					Date now = new Date();
+					String nome_imagem = "ImagensProdutos/prod_" + now.getTime() + ".png";
+					Path f = Paths.get(nome_imagem);
+					novoCaminho = f.toString();
+					InputStream is = null;
+					OutputStream os = null;
+					try {
+						if (novoCaminho != prod.getFoto()) {
+							is = new FileInputStream(caminhoOrigem);
+							os = new FileOutputStream(novoCaminho);
+							byte[] buffer = new byte[1024];
+							int length;
+							while ((length = is.read(buffer)) > 0) {
+								os.write(buffer, 0, length);
+							}
+							is.close();
+							os.close();
+							if (novoCaminho != null) {
+								prod.setFoto(novoCaminho);
+							} else {
+								novoCaminho = prod.getFoto();
+							}
+						}
+
+					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 						prod.setFoto(null);
 					} finally {
 
-		            
-		            prod.setFoto(nome_imagem);
+						prod.setFoto(nome_imagem);
 
-		            ImageIcon imagem = new ImageIcon(novoCaminho);
-		            Image img = imagem.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-		            
-		            
-		            lblimagem.setIcon(new ImageIcon(img));
-		            
-		        }
+						ImageIcon imagem = new ImageIcon(novoCaminho);
+						Image img = imagem.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+
+						lblimagem.setIcon(new ImageIcon(img));
+
+					}
 
 					ImageIcon imagem = new ImageIcon(novoCaminho);
 					Image img = imagem.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-					
+
 					lblimagem.setIcon(new ImageIcon(img));
 
 				}
@@ -312,42 +315,32 @@ public class TelaEditarProdutos extends JFrame {
 		btnNewButton.setBackground(new Color(32, 60, 115));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				Fornecedor fnc = (Fornecedor) cbxFornecedor.getSelectedItem();
 				prod.setFornecedor(fnc.getIdFornecedor());
+				
+				String titulo = txtTitulo.getText();
+				prod.setTitulo(titulo);
+				
 				Float preco = Float.parseFloat(txtPreco.getText());
+				
 				int quantidade = Integer.parseInt(txtQuantidade.getText());
-				
-				
-				
-				
-				Cor corselecionada = (Cor)cbxCor.getSelectedItem();
-				
-				
-				
+
+				Cor corselecionada = (Cor) cbxCor.getSelectedItem();
+
 				Marca marcaselecionada = (Marca) cbxMarca.getSelectedItem();
-				
-				
-				
-				
+
 				Tamanho tamanhoselecionado = (Tamanho) cbxTamanho.getSelectedItem();
-				
-				
-				
+
 				Categoria categoriaSelecionada = (Categoria) cbxCategoria.getSelectedItem();
-				
-				
-				
+
 				prod.setCategoria(categoriaSelecionada);
-				
-				//produto.setId(id);
-				
+
 				prod.setMarca(marcaselecionada);
 				prod.setPreco(preco);
 				prod.setQuantidade(quantidade);
 				prod.setCor(corselecionada);
 				prod.setTamanho(tamanhoselecionado);
-				
-
 
 				ProdutoDAO dao = new ProdutoDAO();
 				try {

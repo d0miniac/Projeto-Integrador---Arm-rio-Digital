@@ -127,8 +127,11 @@ public class TelaCadastroProdutos extends JFrame {
 		topo.setOpaque(false);
 		topo.setLayout(new MigLayout("", "[grow][grow][grow][grow][grow]", "[][]"));
 
-		JLabel lblNewLabel_9 = new JLabel("Fornecedor");
-		topo.add(lblNewLabel_9, "flowx,cell 0 0,alignx center");
+		JLabel lblNewLabel_9 = new JLabel("FORNECEDOR");
+		topo.add(lblNewLabel_9, "flowx,cell 0 0,alignx left");
+		
+		JLabel lblNewLabel = new JLabel("TÍTULO");
+		topo.add(lblNewLabel, "flowx,cell 1 0,alignx center");
 
 		JLabel lblNewLabel_1 = new JLabel("PREÇO");
 		topo.add(lblNewLabel_1, "flowx,cell 2 0,alignx center");
@@ -164,6 +167,10 @@ public class TelaCadastroProdutos extends JFrame {
 		}
 
 		topo.add(cbxFornecedor, "cell 0 0");
+		
+		txtTitulo = new JTextField();
+		topo.add(txtTitulo, "cell 1 0,aligny center");
+		txtTitulo.setColumns(10);
 
 		JPanel meio = new JPanel();
 		meio.setBorder(new MatteBorder(0, 0, 5, 0, (Color) new Color(32, 60, 115, 124)));
@@ -179,7 +186,7 @@ public class TelaCadastroProdutos extends JFrame {
 		meio.add(txtQuantidade, "cell 0 0,alignx center");
 		txtQuantidade.setColumns(10);
 
-		JLabel lblNewLabel_8 = new JLabel("Tamanho");
+		JLabel lblNewLabel_8 = new JLabel("TAMANHO");
 		meio.add(lblNewLabel_8, "flowx,cell 1 0,alignx center");
 
 		JLabel lblNewLabel_4 = new JLabel("COR");

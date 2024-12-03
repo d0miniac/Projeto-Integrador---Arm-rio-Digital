@@ -10,7 +10,14 @@ public class Produto {
 	public Cor cor;
 	public Tamanho tamanho;
 	public Long fornecedor;
+	public String titulo;
 	
+	public String getTitulo() {
+		return titulo;
+	}
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
 	public Long getFornecedor() {
 		return fornecedor;
 	}

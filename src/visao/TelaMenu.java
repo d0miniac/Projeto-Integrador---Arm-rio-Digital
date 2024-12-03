@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 
 import net.miginfocom.swing.MigLayout;
@@ -48,11 +50,11 @@ public class TelaMenu extends JFrame {
 		JPanel topPanel = new JPanel();
 		topPanel.setBackground(new Color(33, 64, 154));
 		topPanel.setPreferredSize(new Dimension(600, 100));
-		topPanel.setLayout(new MigLayout("", "[87px][][160px]", "[][][][][][][]"));
+		topPanel.setLayout(new MigLayout("", "[87px][][::1000px,grow][160px]", "[][][][][][][][]"));
 
 		JLabel lblIconeUser = new JLabel("");
 		lblIconeUser.setIcon(new ImageIcon(TelaMenu.class.getResource("/img/user.png")));
-		topPanel.add(lblIconeUser, "cell 0 0 1 5,alignx left,aligny top");
+		topPanel.add(lblIconeUser, "cell 0 0 1 6,alignx left,aligny top");
 
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -60,6 +62,7 @@ public class TelaMenu extends JFrame {
 
 		buttonPanel.setLayout(
 				new MigLayout("", "[][173px][173px][173px][173px][173px][173px]", "[100px,grow][100px,grow]"));
+		
 
 		JButton btnProdutos = new ImageButton("src/img/icone_produtos.png");
 		btnProdutos.addActionListener(new ActionListener() {
@@ -73,6 +76,8 @@ public class TelaMenu extends JFrame {
 
 			}
 		});
+		
+	
 
 		JButton btnFornecedores = new ImageButton("src/img/icone_fornecedores.png");
 		btnFornecedores.addActionListener(new ActionListener() {
@@ -119,6 +124,29 @@ public class TelaMenu extends JFrame {
 				telaVendas.setVisible(true);
 			}
 		});
+		
+				JLabel msg1 = new JLabel("Bem vindo!", SwingConstants.CENTER);
+				msg1.setForeground(Color.WHITE);
+				msg1.setFont(new Font("Arial", Font.BOLD, 30));
+				msg1.setBorder(null);
+				
+						topPanel.add(msg1, "cell 1 0");
+		
+		JLabel lblSeta = new JLabel();
+		lblSeta.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		lblSeta.setIcon(new ImageIcon(new ImageIcon(TelaCadastroProdutos.class.getResource("/img/icone_logout.png"))
+		        .getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH)));
+		topPanel.add(lblSeta, "cell 3 0 1 2,alignx right");
+		lblSeta.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				TelaLogin tela = new TelaLogin(mensagem);
+				dispose();
+				tela.setVisible(true);
+				tela.setSize(1500, 1000);
+				tela.setResizable(false); 
+			}
+		});
 
 		buttonPanel.add(btnFornecedores, "cell 3 0 2 1,grow");
 		buttonPanel.add(btnHistorico, "cell 5 0 2 1,grow");
@@ -127,18 +155,11 @@ public class TelaMenu extends JFrame {
 		buttonPanel.add(btnVendas, "cell 4 1 2 1,grow");
 
 		mainPanel.add(topPanel, BorderLayout.NORTH);
-
-		JLabel msg1 = new JLabel("Bem vindo!", SwingConstants.CENTER);
-		msg1.setForeground(Color.WHITE);
-		msg1.setFont(new Font("Arial", Font.BOLD, 30));
-		msg1.setBorder(null);
-
-		topPanel.add(msg1, "cell 1 1");
-
-		JLabel lblNewLabel_1 = new JLabel(func.getNome());
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_1.setForeground(Color.WHITE);
-		topPanel.add(lblNewLabel_1, "cell 1 2,alignx left");
+		
+				JLabel lblNewLabel_1 = new JLabel(func.getNome());
+				lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+				lblNewLabel_1.setForeground(Color.WHITE);
+				topPanel.add(lblNewLabel_1, "cell 1 1,alignx left");
 		mainPanel.add(buttonPanel, BorderLayout.CENTER);
 
 		getContentPane().add(mainPanel);

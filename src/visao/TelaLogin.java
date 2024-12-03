@@ -30,7 +30,7 @@ public class TelaLogin extends JFrame {
 	private JTextField txtEmail;
 	private JLabel backgroundLabel;
 	private JPasswordField passwordField;
-	
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -39,7 +39,7 @@ public class TelaLogin extends JFrame {
 					TelaLogin frame = new TelaLogin(mensagem);
 					frame.setVisible(true);
 					frame.setSize(1500, 1000);
-					frame.setResizable(false); 
+					frame.setResizable(false);
 					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -47,7 +47,7 @@ public class TelaLogin extends JFrame {
 			}
 		});
 	}
-	
+
 	public TelaLogin(String mensagem) {
 		setTitle("Login");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -149,7 +149,7 @@ public class TelaLogin extends JFrame {
 				Funcionario login = new Funcionario();
 				login.setEmail(email);
 				login.setSenha(senha);
-				
+
 				FuncionarioDAO dao = new FuncionarioDAO();
 				Funcionario f = dao.logarFuncionario(login);
 
@@ -180,11 +180,11 @@ public class TelaLogin extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				btnCadastrese.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						
-							dispose();
-							TelaCadastroFuncionario telaCadastroFuncionario = new TelaCadastroFuncionario(mensagem);
-							telaCadastroFuncionario.setVisible(true);
-						
+
+						dispose();
+						TelaCadastroFuncionario telaCadastroFuncionario = new TelaCadastroFuncionario(mensagem);
+						telaCadastroFuncionario.setVisible(true);
+
 					}
 
 				});
@@ -201,13 +201,11 @@ public class TelaLogin extends JFrame {
 		setLocationRelativeTo(null);
 	}
 
-	
 	private void mostrarMensagemErro(String mensagem) {
 		TelaErro frame = new TelaErro("Email ou senha inválidos.");
 		frame.setVisible(true);
 	}
 
-	
 	private boolean isValidEmail(String email) {
 		return email.contains("@") && email.contains(".");
 	}

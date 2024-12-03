@@ -52,6 +52,7 @@ public class TelaErro extends JDialog {
 		setSize(374, 220);
 		setResizable(false);
 		
+		
 
 		setLocationRelativeTo(null);
 		
