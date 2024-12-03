@@ -167,37 +167,6 @@ public class TelaLogin extends JFrame {
 		btnLogin.setBackground(new Color(103, 203, 239));
 		panelDireito.add(btnLogin, "cell 1 47 2 1,alignx right,grow");
 
-		JLabel lblNovaConta = new JLabel("Ainda não tem uma conta?");
-		lblNovaConta.setForeground(new Color(255, 255, 255));
-		lblNovaConta.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		panelDireito.add
-
-		(lblNovaConta, "cell 1 48,alignx left");
-
-		JButton btnCadastrese = new JButton("Cadastre-se");
-		btnCadastrese.setHorizontalAlignment(SwingConstants.RIGHT);
-		btnCadastrese.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				btnCadastrese.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						
-							dispose();
-							TelaCadastroFuncionario telaCadastroFuncionario = new TelaCadastroFuncionario(mensagem);
-							telaCadastroFuncionario.setVisible(true);
-						
-					}
-
-				});
-
-			}
-		});
-		btnCadastrese.setForeground(new Color(255, 255, 255));
-		btnCadastrese.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		btnCadastrese.setFocusPainted(false);
-		btnCadastrese.setBorderPainted(false);
-		btnCadastrese.setBackground(new Color(32, 60, 115));
-		panelDireito.add(btnCadastrese, "cell 2 48,alignx right");
-
 		setLocationRelativeTo(null);
 	}
 
