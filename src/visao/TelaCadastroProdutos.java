@@ -79,7 +79,7 @@ public class TelaCadastroProdutos extends JFrame {
 				frame.setLocationRelativeTo(null);
 			} catch (Exception e) {
 
-				TelaErro telaErro = new TelaErro("Erro crítico: " + e.getMessage());
+				TelaErro telaErro = new TelaErro("Algo está errado " + e.getMessage());
 				telaErro.setVisible(true);
 			}
 		});
@@ -185,7 +185,7 @@ public class TelaCadastroProdutos extends JFrame {
 		JLabel lblNewLabel_4 = new JLabel("COR");
 		meio.add(lblNewLabel_4, "flowx,cell 2 0,alignx center");
 
-		JComboBox cbxCor = new JComboBox();
+		JComboBox<Cor> cbxCor = new JComboBox<Cor>();
 		cbxCor.addItem(Cor.AMARELO);
 		cbxCor.addItem(Cor.AZUL);
 		cbxCor.addItem(Cor.BRANCO);
@@ -200,7 +200,7 @@ public class TelaCadastroProdutos extends JFrame {
 
 		meio.add(cbxCor, "cell 2 0,alignx center");
 
-		JComboBox cbxTamanho = new JComboBox();
+		JComboBox<Tamanho> cbxTamanho = new JComboBox<Tamanho>();
 		cbxTamanho.addItem(Tamanho.PP);
 		cbxTamanho.addItem(Tamanho.P);
 		cbxTamanho.addItem(Tamanho.M);
@@ -311,9 +311,84 @@ public class TelaCadastroProdutos extends JFrame {
 					// int idF = Integer.parseInt(txtFornecedor.getText());
 					// Long idF = cbxFornecedor.getSelectedItem()btnLoad.getIdFornecedor();
 
-					String cor;
-					Cor corselecionada = (Cor) cbxCor.getSelectedItem();
-					cor = corselecionada.getDescricao();
+				btnNewButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						try {
+
+							if (txtPreco.getText().isEmpty() || txtQuantidade.getText().isEmpty()) {
+								throw new IllegalArgumentException(
+										"Os campos 'Preço' e 'Quantidade' são obrigatórios.");
+							}
+
+							Float preco;
+							int quantidade;
+
+							try {
+								preco = Float.parseFloat(txtPreco.getText());
+								if (preco <= 0) {
+									throw new IllegalArgumentException("O preço deve ser maior que zero.");
+								}
+							} catch (NumberFormatException ex) {
+								throw new IllegalArgumentException("O preço deve ser um número válido.");
+							}
+
+							try {
+								quantidade = Integer.parseInt(txtQuantidade.getText());
+								if (quantidade < 0) {
+									throw new IllegalArgumentException("A quantidade não pode ser negativa.");
+								}
+							} catch (NumberFormatException ex) {
+								throw new IllegalArgumentException("A quantidade deve ser um número válido.");
+							}
+
+							Fornecedor fnc = (Fornecedor) cbxFornecedor.getSelectedItem();
+							produto.setFornecedor(fnc.getIdFornecedor());
+
+							Cor corSelecionada = (Cor) cbxCor.getSelectedItem();
+							Marca marcaSelecionada = (Marca) cbxMarca.getSelectedItem();
+							Tamanho tamanhoSelecionado = (Tamanho) cbxTamanho.getSelectedItem();
+							Categoria categoriaSelecionada = (Categoria) cbxCategoria.getSelectedItem();
+
+							produto.setCategoria(categoriaSelecionada);
+							produto.setMarca(marcaSelecionada);
+							produto.setPreco(preco);
+							produto.setQuantidade(quantidade);
+							produto.setCor(corSelecionada);
+							produto.setTamanho(tamanhoSelecionado);
+
+							dao = new ProdutoDAO();
+							int res1 = dao.cadastrarProduto(produto);
+
+							TelaProdutos tela = new TelaProdutos(func, mensagem);
+							tela.setVisible(true);
+							tela.setSize(1215, 850);
+							dispose();
+						} catch (IllegalArgumentException ex) {
+
+							TelaErroValidacao telaErro = new TelaErroValidacao(ex.getMessage());
+							telaErro.setVisible(true);
+						}
+					}
+				});
+				float preco = 0;
+				try {
+					preco = Float.parseFloat(txtPreco.getText());
+
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+
+				int quantidade = 0;
+				try {
+					quantidade = Integer.parseInt(txtQuantidade.getText());
+
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+
+				// Long id = Long.parseLong(txtID.getText());
+				// int idF = Integer.parseInt(txtFornecedor.getText());
+				// Long idF = cbxFornecedor.getSelectedItem()btnLoad.getIdFornecedor();
 
 					String marca;
 					Marca marcaselecionada = (Marca) cbxMarca.getSelectedItem();
@@ -346,17 +421,18 @@ public class TelaCadastroProdutos extends JFrame {
 					int res1 = dao.cadastrarProduto(produto);
 					
 
-					TelaProdutos tela;
-					tela = new TelaProdutos(func, mensagem);
-					tela.setVisible(true);
-					tela.setSize(1215, 850);
-					dispose();
-				
+				dao = new ProdutoDAO();
+				int res1 = dao.cadastrarProduto(produto);
+
+				TelaProdutos tela;
+				tela = new TelaProdutos(func, mensagem);
+				tela.setVisible(true);
+				tela.setSize(1215, 850);
+				dispose();
 
 			}
 		});
-		
-		
+
 		inferior.add(btnNewButton, "flowx,cell 0 5,alignx left,growy");
 
 		JButton btnCancelar = new JButton("CANCELAR");
