@@ -1,105 +1,126 @@
-
 package visao;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
-import javax.swing.JLabel;
-import java.awt.GridLayout;
-import javax.swing.SwingConstants;
-import java.awt.Color;
-import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-
-import java.awt.BorderLayout;
-import net.miginfocom.swing.MigLayout;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 public class TelaErro extends JDialog {
+	private static final long serialVersionUID = 1L;
+	int resposta;
 
-	private JPanel contentPane;
+	public TelaErro(String mensagem, int tipo) {
+		setTitle("Mensagem");
+		setModal(true);
+		setSize(350,200);
+		setLocationRelativeTo(null);
+		setResizable(false);
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaErro frame = new TelaErro("Algo está errado");
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		JPanel painel = new JPanel();
+		painel.setLayout(new BorderLayout());
+		add(painel);
+
+		JLabel lblMensagem = new JLabel(mensagem, SwingConstants.CENTER);
+		painel.add(lblMensagem, BorderLayout.CENTER);
+
+		String iconeURL;
+		switch (tipo) {
+		case 0:
+			iconeURL = "src/img/erro.png";
+			lblMensagem.setIcon(new ImageIcon(getClass().getResource(iconeURL)));
+			break;
+		case 1:
+			iconeURL = "/br/com/loja/assistec/icones/info.png";
+			lblMensagem.setIcon(new ImageIcon(getClass().getResource(iconeURL)));
+			break;
+		case 2:
+			iconeURL = "/br/com/loja/assistec/icones/alerta.png";
+			lblMensagem.setIcon(new ImageIcon(getClass().getResource(iconeURL)));
+			break;
+		case 3:
+			iconeURL = "/br/com/loja/assistec/icones/sucesso.png";
+			lblMensagem.setIcon(new ImageIcon(getClass().getResource(iconeURL)));
+			break;
+		case 10:
+			iconeURL = "/br/com/loja/assistec/icones/assistec.png";
+			lblMensagem.setIcon(new ImageIcon(getClass().getResource(iconeURL)));
+			break;
+		}
+		
+		JPanel painelSul = new JPanel(new FlowLayout(FlowLayout.CENTER,20,10));
+		painelSul.add(new JPanel());
+		JButton btOk = new JButton("Ok");
+		btOk.setPreferredSize(new Dimension(100,30));
+		btOk.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+			}});
+		
+		painelSul.add(btOk);
+		painelSul.add(new JPanel());
+		painelSul.setBorder(new EmptyBorder(10,10,10,10));
+		painel.add(painelSul,BorderLayout.SOUTH);
+		
+		getRootPane().setDefaultButton(btOk);
+		setVisible(true);
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public TelaErro(String mensagem) {
-		setTitle("Tela de Erro");
-		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setSize(374, 220);
-		setResizable(false);
-		
-		
-
+		setTitle("Mensagem");
+		setModal(true);
+		setSize(350,200);
 		setLocationRelativeTo(null);
-		
-		contentPane = new JPanel();
-		contentPane.setBackground(new Color(243, 244, 240));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5,   5));
+		setResizable(false);
 
-		setContentPane(contentPane);
+		JPanel painel = new JPanel();
+		painel.setLayout(new BorderLayout());
+		add(painel);
+
+		JLabel lblMensagem = new JLabel(mensagem, SwingConstants.CENTER);
+		painel.add(lblMensagem, BorderLayout.CENTER);
+
 		
-		JLabel lblNewLabel = new JLabel(mensagem);
-		lblNewLabel.setBackground(new Color(243, 244, 240));
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblNewLabel.setForeground(new Color(255, 0, 0));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		String iconeURL = "/br/com/loja/assistec/icones/alerta.png";
+		lblMensagem.setIcon(new ImageIcon(getClass().getResource(iconeURL)));
 		
-		JButton btnNewButton = new JButton("Ok");
-		btnNewButton.addActionListener(new ActionListener() {
+		JPanel painelSul = new JPanel(new FlowLayout(FlowLayout.CENTER,20,10));
+		painelSul.add(new JPanel());
+		
+		JButton btSim = new JButton("Sim");
+		btSim.setPreferredSize(new Dimension(100,30));
+		btSim.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dispose();
-			}
-		});
-		btnNewButton.setForeground(new Color(243, 244, 240));
-		btnNewButton.setBackground(new Color(0, 151, 178));
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(146)
-							.addComponent(btnNewButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addGap(32))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(117)
-							.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-					.addGap(125))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(53)
-					.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(btnNewButton)
-					.addContainerGap())
-		);
-		contentPane.setLayout(gl_contentPane);
+				setVisible(false);
+				resposta =0;
+			}});
+		
+		JButton btNao = new JButton("Não");
+		btNao.setPreferredSize(new Dimension(100,30));
+		btNao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				resposta =1;
+			}});
+		
+		painelSul.add(btSim);
+		painelSul.add(btNao);
+		painelSul.add(new JPanel());
+		painelSul.setBorder(new EmptyBorder(10,10,10,10));
+		painel.add(painelSul,BorderLayout.SOUTH);
+		
+		setVisible(true);
+	}
+	
+	public int getResposta() {
+		return resposta;
 	}
 
 }
