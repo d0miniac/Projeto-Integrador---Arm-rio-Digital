@@ -35,15 +35,14 @@ public class FornecedorDAO {
 	}
 
 	public void excluirFornecedor(Long idFornecedor) throws SQLException {
-		ProdutoDAO produtoDAO = new ProdutoDAO();
+	    ProdutoDAO produtoDAO = new ProdutoDAO();
+	    produtoDAO.excluirProdutosPorFornecedor(idFornecedor);  
 
-		produtoDAO.excluirProdutos(idFornecedor);
-
-		String sql = "DELETE FROM fornecedores WHERE idFornecedor = ?";
-		try (Connection conn = ConexaoBD.getConexaoMySQL(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-			stmt.setLong(1, idFornecedor);
-			stmt.executeUpdate();
-		}
+	    String sql = "DELETE FROM fornecedores WHERE idFornecedor = ?";
+	    try (Connection conn = ConexaoBD.getConexaoMySQL(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+	        stmt.setLong(1, idFornecedor);
+	        stmt.executeUpdate();
+	    }
 	}
 
 	public void alterarFornecedor(Fornecedor fornecedor) throws SQLException {

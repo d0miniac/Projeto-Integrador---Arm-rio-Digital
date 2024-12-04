@@ -34,23 +34,23 @@ public class TelaErro extends JDialog {
 		String iconeURL;
 		switch (tipo) {
 		case 0:
-			iconeURL = "src/img/erro.png";
+			iconeURL = "/img/erro.png";
 			lblMensagem.setIcon(new ImageIcon(getClass().getResource(iconeURL)));
 			break;
 		case 1:
-			iconeURL = "/br/com/loja/assistec/icones/info.png";
+			iconeURL = "/img/info.png";
 			lblMensagem.setIcon(new ImageIcon(getClass().getResource(iconeURL)));
 			break;
 		case 2:
-			iconeURL = "/br/com/loja/assistec/icones/alerta.png";
+			iconeURL = "/img/alerta.png";
 			lblMensagem.setIcon(new ImageIcon(getClass().getResource(iconeURL)));
 			break;
 		case 3:
-			iconeURL = "/br/com/loja/assistec/icones/sucesso.png";
+			iconeURL = "/img/sucesso.png";
 			lblMensagem.setIcon(new ImageIcon(getClass().getResource(iconeURL)));
 			break;
 		case 10:
-			iconeURL = "/br/com/loja/assistec/icones/assistec.png";
+			iconeURL = "/img/assistec.png";
 			lblMensagem.setIcon(new ImageIcon(getClass().getResource(iconeURL)));
 			break;
 		}
