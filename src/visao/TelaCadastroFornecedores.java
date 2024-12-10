@@ -167,12 +167,12 @@ public class TelaCadastroFornecedores extends JFrame {
                     FornecedorDAO dao = new FornecedorDAO();
                     int resultado = dao.cadastrarFornecedor(fornecedor);
                     if (resultado == 1) {
-                        System.out.println("Fornecedor cadastrado com sucesso!");
+                    	new TelaErro("Fornecedor cadastrado com sucesso!.", 3);
 
                         telaFornecedores.adicionarFornecedor(fornecedor);
                         limparCampos();
                     } else {
-                        System.out.println("Erro ao cadastrar fornecedor.");
+                    	new TelaErro("Erro ao cadastrar o fornecedor", 0);
                     }
                 }
             }
