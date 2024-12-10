@@ -119,7 +119,7 @@ public class TelaEditarFuncionario extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (txtNome.getText().isEmpty() || txtEmail.getText().isEmpty() ||
                     txtSenha.getText().isEmpty() || txtCpf.getText().isEmpty()) {
-                    mostrarMensagemErro("Todos os campos devem ser preenchidos.");
+                	new TelaErro("Todos os campos devem ser preenchidos!", 1);
                     return;  
                 }
 
@@ -130,13 +130,13 @@ public class TelaEditarFuncionario extends JFrame {
                 FuncionarioDAO dao = new FuncionarioDAO();
                 try {
                     dao.alterarFuncionario(funcionario);
-                    JOptionPane.showMessageDialog(null, "Funcionario alterado com sucesso!");
+                    new TelaErro("Funcionário alterado com sucesso!", 3);
                     TelaFuncionarios tela = new TelaFuncionarios(func, mensagem);
                     dispose();
                     tela.setVisible(true);
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "Erro ao alterar funcionario: " + ex.getMessage(), "Erro",
-                            JOptionPane.ERROR_MESSAGE);
+                	new TelaErro("Erro ao cadastrar ornecedore!", 0);
+                    
                 }
             }
         });

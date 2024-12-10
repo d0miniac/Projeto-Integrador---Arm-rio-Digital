@@ -88,7 +88,7 @@ public class TelaErro extends JDialog {
 		painel.add(lblMensagem, BorderLayout.CENTER);
 
 		
-		String iconeURL = "/br/com/loja/assistec/icones/alerta.png";
+		String iconeURL = "/img/alerta.png";
 		lblMensagem.setIcon(new ImageIcon(getClass().getResource(iconeURL)));
 		
 		JPanel painelSul = new JPanel(new FlowLayout(FlowLayout.CENTER,20,10));

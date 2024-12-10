@@ -305,59 +305,70 @@ public class TelaCadastroProdutos extends JFrame {
 		btnNewButton.setBackground(new Color(32, 60, 115));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Fornecedor fnc = (Fornecedor) cbxFornecedor.getSelectedItem();
-				produto.setFornecedor(fnc.getIdFornecedor());
-				
-				 String titulo = txtTitulo.getText();
-		         produto.setTitulo(titulo);
+                // Validação dos campos obrigatórios
+                if (txtTitulo.getText().isEmpty() || txtPreco.getText().isEmpty() ||
+                    txtQuantidade.getText().isEmpty()) {
+                    TelaErro telaErro = new TelaErro("Preencha todos os campos obrigatórios!", 1);
+                    
+                } else {
+                	Fornecedor fnc = (Fornecedor) cbxFornecedor.getSelectedItem();
+    				produto.setFornecedor(fnc.getIdFornecedor());
+    				
+    				 String titulo = txtTitulo.getText();
+    		         produto.setTitulo(titulo);
 
-				Float preco = Float.parseFloat(txtPreco.getText());
-				int quantidade = Integer.parseInt(txtQuantidade.getText());
-				// Long id = Long.parseLong(txtID.getText());
-				// int idF = Integer.parseInt(txtFornecedor.getText());
-				// Long idF = cbxFornecedor.getSelectedItem()btnLoad.getIdFornecedor();
+    				Float preco = Float.parseFloat(txtPreco.getText());
+    				int quantidade = Integer.parseInt(txtQuantidade.getText());
+    				// Long id = Long.parseLong(txtID.getText());
+    				// int idF = Integer.parseInt(txtFornecedor.getText());
+    				// Long idF = cbxFornecedor.getSelectedItem()btnLoad.getIdFornecedor();
 
-				String cor;
-				Cor corselecionada = (Cor) cbxCor.getSelectedItem();
-				cor = corselecionada.getDescricao();
+    				String cor;
+    				Cor corselecionada = (Cor) cbxCor.getSelectedItem();
+    				cor = corselecionada.getDescricao();
 
-				String marca;
-				Marca marcaselecionada = (Marca) cbxMarca.getSelectedItem();
-				marca = marcaselecionada.getDescricao();
+    				String marca;
+    				Marca marcaselecionada = (Marca) cbxMarca.getSelectedItem();
+    				marca = marcaselecionada.getDescricao();
 
-				String tamanho;
-				Tamanho tamanhoselecionado = (Tamanho) cbxTamanho.getSelectedItem();
-				tamanho = tamanhoselecionado.getDescricao();
+    				String tamanho;
+    				Tamanho tamanhoselecionado = (Tamanho) cbxTamanho.getSelectedItem();
+    				tamanho = tamanhoselecionado.getDescricao();
 
-				String categoria;
-				Categoria categoriaSelecionada = (Categoria) cbxCategoria.getSelectedItem();
-				categoria = categoriaSelecionada.getDescricao();
+    				String categoria;
+    				Categoria categoriaSelecionada = (Categoria) cbxCategoria.getSelectedItem();
+    				categoria = categoriaSelecionada.getDescricao();
 
-				Long idF;
+    				Long idF;
 
-				produto.setCategoria(categoriaSelecionada);
-				// produto.setFoto(caminhoDestino);
-				// produto.setId(id);
-				// produto.setFornecedor(idF);
-				produto.setMarca(marcaselecionada);
-				produto.setPreco(preco);
-				produto.setQuantidade(quantidade);
-				produto.setCor(corselecionada);
-				produto.setTamanho(tamanhoselecionado);
+    				produto.setCategoria(categoriaSelecionada);
+    				produto.setMarca(marcaselecionada);
+    				produto.setPreco(preco);
+    				produto.setQuantidade(quantidade);
+    				produto.setCor(corselecionada);
+    				produto.setTamanho(tamanhoselecionado);
 
-				// testes
 
-				dao = new ProdutoDAO();
-				int res1 = dao.cadastrarProduto(produto);
+    				dao = new ProdutoDAO();
+    				int res1 = dao.cadastrarProduto(produto);
 
-				TelaProdutos tela;
-				tela = new TelaProdutos(func, mensagem);
-				tela.setVisible(true);
-				tela.setSize(1215, 850);
-				dispose();
+    				TelaProdutos tela;
+    				tela = new TelaProdutos(func, mensagem);
+    			
+    				tela.setVisible(true);
+    				tela.setSize(1215, 850);
+    				dispose();
 
-			}
-		});
+                    if (res1 == 1) {
+                        TelaErro telaErro = new TelaErro("Produto cadastrado com sucesso!", 3);
+                        
+                    } else {
+                        TelaErro telaErro = new TelaErro("Erro ao cadastrar o produto", 0);
+                        
+                    }
+                }
+            }
+        });
 		
 		
 		inferior.add(btnNewButton, "flowx,cell 0 5,alignx left,growy");
