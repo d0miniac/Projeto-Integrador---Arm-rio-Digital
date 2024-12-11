@@ -167,9 +167,9 @@ public class TelaCadastroProdutos extends JFrame {
 
 		topo.add(cbxFornecedor, "cell 0 0");
 		
-		txtTitulo = new JTextField();
+		/*txtTitulo = new JTextField();
 		topo.add(txtTitulo, "cell 1 0,aligny center");
-		txtTitulo.setColumns(10);
+		txtTitulo.setColumns(10);*/
 
 		JPanel meio = new JPanel();
 		meio.setBorder(new MatteBorder(0, 0, 5, 0, (Color) new Color(32, 60, 115, 124)));
@@ -305,17 +305,11 @@ public class TelaCadastroProdutos extends JFrame {
 		btnNewButton.setBackground(new Color(32, 60, 115));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-                // Validação dos campos obrigatórios
-                if (txtTitulo.getText().isEmpty() || txtPreco.getText().isEmpty() ||
-                    txtQuantidade.getText().isEmpty()) {
-                    TelaErro telaErro = new TelaErro("Preencha todos os campos obrigatórios!", 1);
-                    
-                } else {
-                	Fornecedor fnc = (Fornecedor) cbxFornecedor.getSelectedItem();
-    				produto.setFornecedor(fnc.getIdFornecedor());
-    				
-    				 String titulo = txtTitulo.getText();
-    		         produto.setTitulo(titulo);
+				Fornecedor fnc = (Fornecedor) cbxFornecedor.getSelectedItem();
+				produto.setFornecedor(fnc.getIdFornecedor());
+				
+				 //String titulo = txtTitulo.getText();
+		         //produto.setTitulo(titulo);
 
     				Float preco = Float.parseFloat(txtPreco.getText());
     				int quantidade = Integer.parseInt(txtQuantidade.getText());
@@ -361,7 +355,9 @@ public class TelaCadastroProdutos extends JFrame {
 
                     if (res1 == 1) {
                         TelaErro telaErro = new TelaErro("Produto cadastrado com sucesso!", 3);
-                        
+                        TelaProdutos telaProdutos = new TelaProdutos(func, mensagem);
+                        dispose();
+                        tela.setVisible(true);
                     } else {
                         TelaErro telaErro = new TelaErro("Erro ao cadastrar o produto", 0);
                         
