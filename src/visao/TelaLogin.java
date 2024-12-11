@@ -137,13 +137,13 @@ public class TelaLogin extends JFrame {
 				String senha = new String(passwordField.getPassword());
 
 				if (email.isEmpty() || senha.isEmpty()) {
-					mostrarMensagemErro("Por favor, preencha todos os campos corretamente.");
+					TelaErro telaErro = new TelaErro("Preencha todos os campos!", 2);
 					return;
 				}
 
 				if (!isValidEmail(email)) {
-					TelaErro frame = new TelaErro("Algo está errado");
-					frame.setVisible(true);
+					TelaErro telaErro = new TelaErro("Email inválido!", 2);
+					
 				}
 
 				Funcionario login = new Funcionario();
@@ -158,7 +158,7 @@ public class TelaLogin extends JFrame {
 					TelaMenu tela = new TelaMenu(f, mensagem);
 					tela.setVisible(true);
 				} else {
-					mostrarMensagemErro("Usuário ou senha inválidos.");
+					TelaErro telaErro = new TelaErro("Usuário ou senha inválidos!", 2);
 				}
 			}
 		});
@@ -172,7 +172,6 @@ public class TelaLogin extends JFrame {
 
 	private void mostrarMensagemErro(String mensagem) {
 		TelaErro frame = new TelaErro("Email ou senha inválidos.");
-		frame.setVisible(true);
 	}
 
 	private boolean isValidEmail(String email) {

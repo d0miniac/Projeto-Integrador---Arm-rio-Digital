@@ -361,7 +361,9 @@ public class TelaCadastroProdutos extends JFrame {
 
                     if (res1 == 1) {
                         TelaErro telaErro = new TelaErro("Produto cadastrado com sucesso!", 3);
-                        
+                        TelaProdutos telaProdutos = new TelaProdutos(func, mensagem);
+                        dispose();
+                        tela.setVisible(true);
                     } else {
                         TelaErro telaErro = new TelaErro("Erro ao cadastrar o produto", 0);
                         
