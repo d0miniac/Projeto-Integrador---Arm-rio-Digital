@@ -91,7 +91,7 @@ public class TelaVendas extends JFrame {
 		        btnProduto.add(lblImage, BorderLayout.CENTER); // Imagem ocupa o centro do botão
 
 		        // Definindo o título do produto abaixo da imagem
-		        JLabel lblNome = new JLabel(produto.getTitulo(), SwingConstants.CENTER);
+		        JLabel lblNome = new JLabel(produto.getCategoria()+" "+produto.getMarca()+" "+produto.getCor()+" "+produto.getTamanho(), SwingConstants.CENTER);
 		        lblNome.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		        lblNome.setPreferredSize(new Dimension(350, 50)); // Espaço fixo para o título
 		        btnProduto.add(lblNome, BorderLayout.SOUTH);
@@ -128,44 +128,5 @@ public class TelaVendas extends JFrame {
 		}
 	}
 
-	class TelaDetalhesProduto extends JFrame {
-
-		public TelaDetalhesProduto(Produto produto) {
-			setTitle("Detalhes do Produto");
-			setSize(400, 500);
-			setLocationRelativeTo(null);
-			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			setLayout(new BorderLayout());
-
-			ImageIcon imageIcon = new ImageIcon(produto.getFoto());
-			Image image = imageIcon.getImage().getScaledInstance(350, 350, Image.SCALE_SMOOTH);
-			JLabel lblImage = new JLabel(new ImageIcon(image));
-			add(lblImage, BorderLayout.NORTH);
-
-			JPanel panelInfo = new JPanel(new GridLayout(0, 1));
-			JLabel lblNome = new JLabel("Título: " + produto.getTitulo());
-			JLabel lblPreco = new JLabel("Preço: R$" + produto.getPreco());
-
-			lblNome.setFont(new Font("Tahoma", Font.BOLD, 16));
-			lblNome.setPreferredSize(new Dimension(200, 40));
-			lblPreco.setFont(new Font("Tahoma", Font.BOLD, 16));
-
-			panelInfo.add(lblNome);
-			panelInfo.add(lblPreco);
-			add(panelInfo, BorderLayout.CENTER);
-
-			JPanel panelBotao = new JPanel();
-			JButton btnVoltar = new JButton("Voltar");
-			btnVoltar.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					dispose();
-				}
-			});
-			panelBotao.add(btnVoltar);
-			add(panelBotao, BorderLayout.SOUTH);
-
-			setVisible(true);
-		}
-	}
+	
 }
