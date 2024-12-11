@@ -167,9 +167,9 @@ public class TelaCadastroProdutos extends JFrame {
 
 		topo.add(cbxFornecedor, "cell 0 0");
 		
-		txtTitulo = new JTextField();
+		/*txtTitulo = new JTextField();
 		topo.add(txtTitulo, "cell 1 0,aligny center");
-		txtTitulo.setColumns(10);
+		txtTitulo.setColumns(10);*/
 
 		JPanel meio = new JPanel();
 		meio.setBorder(new MatteBorder(0, 0, 5, 0, (Color) new Color(32, 60, 115, 124)));
@@ -308,8 +308,8 @@ public class TelaCadastroProdutos extends JFrame {
 				Fornecedor fnc = (Fornecedor) cbxFornecedor.getSelectedItem();
 				produto.setFornecedor(fnc.getIdFornecedor());
 				
-				 String titulo = txtTitulo.getText();
-		         produto.setTitulo(titulo);
+				 //String titulo = txtTitulo.getText();
+		         //produto.setTitulo(titulo);
 
 				Float preco = Float.parseFloat(txtPreco.getText());
 				int quantidade = Integer.parseInt(txtQuantidade.getText());
