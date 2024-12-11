@@ -135,7 +135,7 @@ public class TelaEditarFuncionario extends JFrame {
                     dispose();
                     tela.setVisible(true);
                 } catch (Exception ex) {
-                	new TelaErro("Erro ao cadastrar ornecedore!", 0);
+                	new TelaErro("Erro ao cadastrar funcionario!", 0);
                     
                 }
             }
