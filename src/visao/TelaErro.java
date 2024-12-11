@@ -94,29 +94,6 @@ public class TelaErro extends JDialog {
 		JPanel painelSul = new JPanel(new FlowLayout(FlowLayout.CENTER,20,10));
 		painelSul.add(new JPanel());
 		
-		JButton btSim = new JButton("Sim");
-		btSim.setPreferredSize(new Dimension(100,30));
-		btSim.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-				resposta =0;
-			}});
-		
-		JButton btNao = new JButton("Não");
-		btNao.setPreferredSize(new Dimension(100,30));
-		btNao.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-				resposta =1;
-			}});
-		
-		painelSul.add(btSim);
-		painelSul.add(btNao);
-		painelSul.add(new JPanel());
-		painelSul.setBorder(new EmptyBorder(10,10,10,10));
-		painel.add(painelSul,BorderLayout.SOUTH);
-		
-		setVisible(true);
 	}
 	
 	public int getResposta() {

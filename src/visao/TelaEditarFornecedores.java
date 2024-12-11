@@ -25,150 +25,159 @@ import javax.swing.SwingConstants;
 
 public class TelaEditarFornecedores extends JFrame {
 
-	private JPanel contentPane;
-	private JTextField txtID;
-	private JTextField txtNomeFornecedor;
-	private JTextField txtNomeContato;
-	private JTextField txtEmail;
-	private JTextField txtTelefone;
-	private static Fornecedor fornecedor;
-	
-	public static void main(String[] args) {
-	    EventQueue.invokeLater(() -> {
-	        try {
-	            Funcionario funcionario = new Funcionario(); 
-	            String mensagem = "Bem-vindo ao sistema!";
-	            TelaEditarFornecedores frame = new TelaEditarFornecedores(fornecedor, funcionario, mensagem);
-	            frame.setVisible(true);
-	            frame.setSize(657, 425);
-	            frame.setLocationRelativeTo(null);
-	        } catch (Exception e) {
+    private JPanel contentPane;
+    private JTextField txtID;
+    private JTextField txtNomeFornecedor;
+    private JTextField txtNomeContato;
+    private JTextField txtEmail;
+    private JTextField txtTelefone;
+    private static Fornecedor fornecedor;
+    
+    public static void main(String[] args) {
+        EventQueue.invokeLater(() -> {
+            try {
+                Funcionario funcionario = new Funcionario(); 
+                String mensagem = "Bem-vindo ao sistema!";
+                TelaEditarFornecedores frame = new TelaEditarFornecedores(fornecedor, funcionario, mensagem);
+                frame.setVisible(true);
+                frame.setSize(657, 425);
+                frame.setLocationRelativeTo(null);
+            } catch (Exception e) {
+                TelaErro telaErro = new TelaErro("Erro crítico: " + e.getMessage());
+                telaErro.setVisible(true);
+            }
+        });
+    }
+    
+    public TelaEditarFornecedores(Fornecedor fornecedor, Funcionario func, String mensagem) {
+        this.fornecedor = fornecedor;
+        setSize(657, 425);
+        setLocationRelativeTo(null);
+        setResizable(false);
+        setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-	            TelaErro telaErro = new TelaErro("Erro crítico: " + e.getMessage());
-	            telaErro.setVisible(true);
-	        }
-	    });
-	}
-	
-	public TelaEditarFornecedores(Fornecedor fornecedor, Funcionario func, String mensagem) {
-		this.fornecedor = fornecedor;
-		setSize(657, 425);
-		setLocationRelativeTo(null);
-		setResizable(false);
-		setVisible(true);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        contentPane = new ImagePanel("src/img/bgEditarFornecedores.png");
+        setContentPane(contentPane);
+        contentPane.setLayout(new MigLayout("", "[grow]", "[70px][][grow][][100px][150px][150px][100px]"));
 
-		contentPane = new ImagePanel("src/img/bgEditarFornecedores.png");
-		setContentPane(contentPane);
-		contentPane.setLayout(new MigLayout("", "[grow]", "[70px][][grow][][100px][150px][150px][100px]"));
+        JPanel vazio = new JPanel();
+        vazio.setOpaque(false);
+        contentPane.add(vazio, "cell 0 0,alignx left,growy");
 
-		JPanel vazio = new JPanel();
-		vazio.setOpaque(false);
-		contentPane.add(vazio, "cell 0 0,alignx left,growy");
+        JLabel lblVoltar = new JLabel("");
+        lblVoltar.setHorizontalAlignment(SwingConstants.LEFT);
+        lblVoltar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        ImageIcon seta = new ImageIcon(TelaEditarFornecedores.class.getResource("/img/de-volta.png"));
+        Image voltar = seta.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+        lblVoltar.setIcon(new ImageIcon(voltar));
+        vazio.add(lblVoltar);
+        lblVoltar.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                TelaFornecedores tela = new TelaFornecedores(func, mensagem);
+                dispose();
+                tela.setVisible(true);
+            }
+        });
 
-		JLabel lblVoltar = new JLabel("");
-		lblVoltar.setHorizontalAlignment(SwingConstants.LEFT);
-		lblVoltar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		ImageIcon seta = new ImageIcon(TelaEditarFornecedores.class.getResource("/img/de-volta.png"));
-		Image voltar = seta.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
-		lblVoltar.setIcon(new ImageIcon(voltar));
-		vazio.add(lblVoltar);
-		lblVoltar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				TelaFornecedores tela = new TelaFornecedores(func, mensagem);
-				dispose();
-				tela.setVisible(true);
-			}
-		});
+        JLabel lblTitulo = new JLabel("Alteração das informações do fornecedor");
+        lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 16));
+        lblTitulo.setForeground(new Color(153, 162, 209));
+        contentPane.add(lblTitulo, "cell 0 3");
 
-		JLabel lblTitulo = new JLabel("Alteração das informações do fornecedor");
-		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblTitulo.setForeground(new Color(153, 162, 209));
-		contentPane.add(lblTitulo, "cell 0 3");
+        JPanel topo = new JPanel();
+        topo.setBorder(new MatteBorder(0, 0, 5, 0, new Color(32, 60, 115, 124)));
+        topo.setOpaque(false);
+        contentPane.add(topo, "cell 0 5,grow");
+        topo.setLayout(new MigLayout("", "[grow][grow][grow][grow][grow]", "[][][]"));
 
-		JPanel topo = new JPanel();
-		topo.setBorder(new MatteBorder(0, 0, 5, 0, new Color(32, 60, 115, 124)));
-		topo.setOpaque(false);
-		contentPane.add(topo, "cell 0 5,grow");
-		topo.setLayout(new MigLayout("", "[grow][grow][grow][grow][grow]", "[][][]"));
+        JLabel lblID = new JLabel("ID Fornecedor");
+        topo.add(lblID, "cell 0 2,alignx center");
 
-		JLabel lblID = new JLabel("ID Fornecedor");
-		topo.add(lblID, "cell 0 2,alignx center");
+        txtID = new JTextField(String.valueOf(fornecedor.getIdFornecedor()));
+        txtID.setEnabled(false);
+        topo.add(txtID, "cell 1 2,alignx center");
+        txtID.setColumns(10);
 
-		txtID = new JTextField(String.valueOf(fornecedor.getIdFornecedor()));
-		txtID.setEnabled(false);
-		topo.add(txtID, "cell 1 2,alignx center");
-		txtID.setColumns(10);
+        JLabel lblNomeFornecedor = new JLabel("Nome do Fornecedor");
+        topo.add(lblNomeFornecedor, "cell 2 2,alignx center");
 
-		JLabel lblNomeFornecedor = new JLabel("Nome do Fornecedor");
-		topo.add(lblNomeFornecedor, "cell 2 2,alignx center");
+        txtNomeFornecedor = new JTextField(fornecedor.getNomeFornecedor());
+        topo.add(txtNomeFornecedor, "cell 3 2,alignx center");
+        txtNomeFornecedor.setColumns(10);
 
-		txtNomeFornecedor = new JTextField(fornecedor.getNomeFornecedor());
-		topo.add(txtNomeFornecedor, "cell 3 2,alignx center");
-		txtNomeFornecedor.setColumns(10);
+        JPanel topo_1 = new JPanel();
+        topo_1.setOpaque(false);
+        topo_1.setBorder(new MatteBorder(0, 0, 5, 0, new Color(32, 60, 115, 124)));
+        contentPane.add(topo_1, "cell 0 6,grow");
+        topo_1.setLayout(new MigLayout("", "[grow][grow][grow][grow][grow][grow]", "[][]"));
 
-		JPanel topo_1 = new JPanel();
-		topo_1.setOpaque(false);
-		topo_1.setBorder(new MatteBorder(0, 0, 5, 0, new Color(32, 60, 115, 124)));
-		contentPane.add(topo_1, "cell 0 6,grow");
-		topo_1.setLayout(new MigLayout("", "[grow][grow][grow][grow][grow][grow]", "[][]"));
+        JLabel lblNomeContato = new JLabel("Nome do Contato");
+        topo_1.add(lblNomeContato, "cell 0 1,alignx center");
 
-		JLabel lblNomeContato = new JLabel("Nome do Contato");
-		topo_1.add(lblNomeContato, "cell 0 1,alignx center");
+        txtNomeContato = new JTextField(fornecedor.getNomeCtt());
+        topo_1.add(txtNomeContato, "cell 1 1,alignx center");
+        txtNomeContato.setColumns(10);
 
-		txtNomeContato = new JTextField(fornecedor.getNomeCtt());
-		topo_1.add(txtNomeContato, "cell 1 1,alignx center");
-		txtNomeContato.setColumns(10);
+        JLabel lblEmail = new JLabel("E-mail");
+        topo_1.add(lblEmail, "flowx,cell 2 1,alignx center");
 
-		JLabel lblEmail = new JLabel("E-mail");
-		topo_1.add(lblEmail, "flowx,cell 2 1,alignx center");
+        txtEmail = new JTextField(fornecedor.getEmail());
+        topo_1.add(txtEmail, "cell 3 1,alignx center");
+        txtEmail.setColumns(10);
 
-		txtEmail = new JTextField(fornecedor.getEmail());
-		topo_1.add(txtEmail, "cell 3 1,alignx center");
-		txtEmail.setColumns(10);
+        JLabel lblTelefone = new JLabel("Telefone");
+        topo_1.add(lblTelefone, "flowx,cell 4 1,alignx center");
 
-		JLabel lblTelefone = new JLabel("Telefone");
-		topo_1.add(lblTelefone, "flowx,cell 4 1,alignx center");
+        txtTelefone = new JTextField(fornecedor.getTelefone());
+        topo_1.add(txtTelefone, "cell 5 1,alignx center");
+        txtTelefone.setColumns(10);
 
-		txtTelefone = new JTextField(fornecedor.getTelefone());
-		topo_1.add(txtTelefone, "cell 5 1,alignx center");
-		txtTelefone.setColumns(10);
+        JPanel inferior = new JPanel();
+        inferior.setOpaque(false);
+        contentPane.add(inferior, "cell 0 7,grow");
+        inferior.setLayout(new MigLayout("", "[100px][100px][grow][grow][]", "[][][][][][][]"));
 
-		JPanel inferior = new JPanel();
-		inferior.setOpaque(false);
-		contentPane.add(inferior, "cell 0 7,grow");
-		inferior.setLayout(new MigLayout("", "[100px][100px][grow][grow][]", "[][][][][][][]"));
+        JButton btnAlterar = new JButton("Alterar");
+        btnAlterar.setFont(new Font("Tahoma", Font.BOLD, 16));
+        btnAlterar.setBackground(new Color(32, 60, 115));
+        btnAlterar.setForeground(Color.WHITE);
+        btnAlterar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Verifica se algum campo obrigatório está vazio
+                if (txtEmail.getText().isEmpty() || txtNomeFornecedor.getText().isEmpty() ||
+                    txtNomeContato.getText().isEmpty() || txtTelefone.getText().isEmpty()) {
+                    
+                    // Exibe a tela de erro se algum campo estiver vazio
+                    TelaErro telaErro = new TelaErro("Preencha todos os campos obrigatórios!");
+                    telaErro.setVisible(true);
+                } else {
+                    // Caso todos os campos estejam preenchidos, atualiza os dados do fornecedor
+                    fornecedor.setNomeFornecedor(txtNomeFornecedor.getText());
+                    fornecedor.setNomeCtt(txtNomeContato.getText());
+                    fornecedor.setEmail(txtEmail.getText());
+                    fornecedor.setTelefone(txtTelefone.getText());
 
-		JButton btnAlterar = new JButton("Alterar");
-		btnAlterar.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnAlterar.setBackground(new Color(32, 60, 115));
-		btnAlterar.setForeground(Color.WHITE);
-		btnAlterar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				fornecedor.setNomeFornecedor(txtNomeFornecedor.getText());
-				fornecedor.setNomeCtt(txtNomeContato.getText());
-				fornecedor.setEmail(txtEmail.getText());
-				fornecedor.setTelefone(txtTelefone.getText());
+                    // Chama o método da classe DAO para alterar os dados no banco de dados
+                    FornecedorDAO dao = new FornecedorDAO();
+                    try {
+                        dao.alterarFornecedor(fornecedor);  // Alterar o fornecedor no banco de dados
+                        TelaErro telaErro = new TelaErro("Fornecedor alterado com sucesso!", 3);  
+                        TelaFornecedores tela = new TelaFornecedores(func, mensagem);
+                        dispose();
+                        tela.setVisible(true);
+                        // Exibe mensagem de sucesso
+                    } catch (Exception ex) {
+                        TelaErro telaErro = new TelaErro("Erro ao alterar fornecedor!", 0);  // Exibe mensagem de erro em caso de falha
+                    }
+                }
+            }
+        });
+        inferior.add(btnAlterar, "cell 0 4,growx");
 
-				FornecedorDAO dao = new FornecedorDAO();
-				try {
-					dao.alterarFornecedor(fornecedor);
-					JOptionPane.showMessageDialog(null, "Fornecedor alterado com sucesso!");
-					TelaFornecedores tela = new TelaFornecedores(func, mensagem);
-					dispose();
-					tela.setVisible(true);
-				} catch (Exception ex) {
-					JOptionPane.showMessageDialog(null, "Erro ao alterar fornecedor: " + ex.getMessage(), "Erro",
-							JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		});
-		inferior.add(btnAlterar, "cell 0 4,growx");
-
-		setSize(800, 600);
-		setLocationRelativeTo(null);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
-
+        setSize(800, 600);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
 }
