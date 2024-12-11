@@ -195,8 +195,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		btnCadastro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(txtNome.getText().isEmpty()||txtEmail.getText().isEmpty()||txtSenha.getText().isEmpty()) {
-					TelaErro erro = new TelaErro("Preencha todos os campos");
-					erro.setVisible(true);
+					new TelaErro("Preencha todos os campos!", 2);
 					return;
 				}
 					String strCpf;
@@ -209,8 +208,7 @@ public class TelaCadastroFuncionario extends JFrame {
 					
 					
 					if(strCpf.isEmpty()) {
-						TelaErro erro = new TelaErro("CPF Inválido");
-						erro.setVisible(true);
+						new TelaErro("CPF inválido!", 1);
 						return;
 					}
 					else {
@@ -225,8 +223,7 @@ public class TelaCadastroFuncionario extends JFrame {
 					if (txtSenha.getText().equals(txtConfirma.getText())) {
 						novo.setSenha(txtConfirma.getText());
 					} else {
-						TelaErro erroTela = new TelaErro("As senhas não coincidem");
-						erroTela.setVisible(true);
+						new TelaErro("As senhas não coincidem!", 0);
 						return;
 					}
 
@@ -242,8 +239,7 @@ public class TelaCadastroFuncionario extends JFrame {
 					listaF = dao.selecionarFuncionarios();
 					for (Funcionario funcionario : listaF) {
 						if (funcionario.getEmail().equals(novo.getEmail())){
-							TelaErro erro = new TelaErro("Esse email já está cadastrado");
-							erro.setVisible(true);
+							new TelaErro("Esse email já está cadastrado!", 2);
 							return;
 						}
 					}
