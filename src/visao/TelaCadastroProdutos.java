@@ -363,7 +363,7 @@ public class TelaCadastroProdutos extends JFrame {
                         
                     }
                 }
-            }
+            
         });
 		
 		
@@ -372,19 +372,18 @@ public class TelaCadastroProdutos extends JFrame {
 		JButton btnCancelar = new JButton("CANCELAR");
 		btnCancelar.setBackground(new Color(255, 0, 0));
 		btnCancelar.setForeground(Color.WHITE);
-		btnCancelar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				TelaFuncionarios tela = null;
-				try {
-					tela = new TelaFuncionarios(func, mensagem);
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
-				dispose();
-				tela.setVisible(true);
-			}
-		});
+//		btnCancelar.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				TelaFuncionarios tela = null;
+//				try {
+//					tela = new TelaFuncionarios(func, mensagem);
+//				} catch (SQLException e1) {
+//					e1.printStackTrace();
+//				}
+//				dispose();
+//				tela.setVisible(true);
+//			}
+//		});
 		inferior.add(btnCancelar, "cell 0 5,alignx left,growy");
 
-	}
-}
+	}}

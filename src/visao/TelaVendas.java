@@ -56,6 +56,15 @@ public class TelaVendas extends JFrame {
 		panelVazio.setPreferredSize(dimVazio);
 
 		contentPane_1.add(panelVazio);
+		
+		JButton btnNewButton = new JButton("Carrinho");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaCarrinho carrinho = new TelaCarrinho();
+			}
+		});
+		btnNewButton.setBounds(1048, 36, 89, 23);
+		panelVazio.add(btnNewButton);
 
 		JPanel panelProdutosComScroll = new JPanel();
 		panelProdutosComScroll.setLayout(new BorderLayout());
@@ -127,6 +136,4 @@ public class TelaVendas extends JFrame {
 			btnProduto.setBackground(new Color(243, 244, 240));
 		}
 	}
-
-	
 }

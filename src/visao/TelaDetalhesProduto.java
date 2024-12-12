@@ -62,7 +62,8 @@ public class TelaDetalhesProduto extends JFrame {
 		JButton btnAdd = new JButton("Adicionar ao carrinho");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaQuantidade tela = new TelaQuantidade();
+				TelaQuantidade tela = new TelaQuantidade(produto);
+				tela.setVisible(true);
 			}
 		});
 		panelBotao.add(btnAdd);
