@@ -49,6 +49,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -128,9 +129,6 @@ public class TelaCadastroProdutos extends JFrame {
 
 		JLabel lblNewLabel_9 = new JLabel("FORNECEDOR");
 		topo.add(lblNewLabel_9, "flowx,cell 0 0,alignx left");
-		
-		JLabel lblNewLabel = new JLabel("TÍTULO");
-		topo.add(lblNewLabel, "flowx,cell 1 0,alignx center");
 
 		JLabel lblNewLabel_1 = new JLabel("PREÇO");
 		topo.add(lblNewLabel_1, "flowx,cell 2 0,alignx center");
@@ -312,6 +310,11 @@ public class TelaCadastroProdutos extends JFrame {
 		         //produto.setTitulo(titulo);
 
     				Float preco = Float.parseFloat(txtPreco.getText());
+    				
+    				
+    				
+    				
+    				
     				int quantidade = Integer.parseInt(txtQuantidade.getText());
     				// Long id = Long.parseLong(txtID.getText());
     				// int idF = Integer.parseInt(txtFornecedor.getText());

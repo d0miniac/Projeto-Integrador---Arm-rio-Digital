@@ -45,7 +45,6 @@ public class TelaEditarProdutos extends JFrame {
     private JPanel contentPane;
     private JTextField txtPreco;
     private JTextField txtQuantidade;
-    private JTextField txtTitulo;
     private JLabel lblimagem;
     private String novoCaminho;
     private ArrayList<Fornecedor> listaFornecedores;
@@ -92,14 +91,6 @@ public class TelaEditarProdutos extends JFrame {
 
         JLabel lblNewLabel_9 = new JLabel("FORNECEDOR");
         topo.add(lblNewLabel_9, "flowx,cell 0 0,alignx left,growy");
-
-        JLabel lblTitulo = new JLabel("TÍTULO");
-        topo.add(lblTitulo, "flowx,cell 1 0");
-
-        txtTitulo = new JTextField();
-        txtTitulo.setText(String.valueOf(prod.getTitulo()));
-        topo.add(txtTitulo, "cell 1 0");
-        txtTitulo.setColumns(10);
 
         JLabel lblNewLabel_1 = new JLabel("PREÇO");
         topo.add(lblNewLabel_1, "flowx,cell 2 0,alignx center");
@@ -254,7 +245,7 @@ public class TelaEditarProdutos extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 Fornecedor fornecedor = (Fornecedor) cbxFornecedor.getSelectedItem();
                 prod.setFornecedor(fornecedor.getIdFornecedor());
-                prod.setTitulo(txtTitulo.getText());
+               
                 prod.setPreco(Float.parseFloat(txtPreco.getText()));
                 prod.setQuantidade(Integer.parseInt(txtQuantidade.getText()));
                 prod.setCor((Cor) cbxCor.getSelectedItem());
