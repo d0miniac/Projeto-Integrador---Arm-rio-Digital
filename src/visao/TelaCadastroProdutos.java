@@ -79,8 +79,6 @@ public class TelaCadastroProdutos extends JFrame {
 				frame.setLocationRelativeTo(null);
 			} catch (Exception e) {
 
-				TelaErro telaErro = new TelaErro("Erro crítico: " + e.getMessage());
-				telaErro.setVisible(true);
 			}
 		});
 	}

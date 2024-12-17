@@ -223,7 +223,7 @@ public class TelaCadastroFuncionario extends JFrame {
 					if (txtSenha.getText().equals(txtConfirma.getText())) {
 						novo.setSenha(txtConfirma.getText());
 					} else {
-						new TelaErro("As senhas não coincidem!", 0);
+						new TelaErro("As senhas não coincidem!", 10);
 						return;
 					}
 

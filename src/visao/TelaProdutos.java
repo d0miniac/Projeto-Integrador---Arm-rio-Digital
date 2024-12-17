@@ -52,8 +52,7 @@ public class TelaProdutos extends JFrame {
 				frame.setLocationRelativeTo(null);
 			} catch (Exception e) {
 
-				TelaErro telaErro = new TelaErro("Erro crítico: " + e.getMessage());
-				telaErro.setVisible(true);
+				
 			}
 		});
 	}
@@ -194,28 +193,33 @@ public class TelaProdutos extends JFrame {
 
 		JButton btnDelete = new JButton("Deletar");
 		btnDelete.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		    public void actionPerformed(ActionEvent e) {
 
-				int r = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir esse produto?", "Exclusão",
-						JOptionPane.YES_NO_OPTION);
-				if (r == JOptionPane.YES_OPTION) {
-					int i = tableProdutos.getSelectedRow();
-					Long id = (Long) tableProdutos.getModel().getValueAt(i, 0);
+		        TelaErro telaErro = new TelaErro("Deseja realmente excluir esse produto?");
+		        int resposta = telaErro.getResposta(); 
 
-					try {
-						p.excluirProdutos(id);
-						listaProdutos = p.selecionarProdutos();
-						ptm = new ProdutoTableModel(listaProdutos);
-						tableProdutos.setModel(ptm);
+		        if (resposta == 0) {  
+		            int i = tableProdutos.getSelectedRow();
+		            if (i != -1) {  
+		                Long id = (Long) tableProdutos.getModel().getValueAt(i, 0);
 
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				}
+		                try {
+		                    p.excluirProdutos(id);  
+		                    listaProdutos = p.selecionarProdutos();  
+		                    ptm = new ProdutoTableModel(listaProdutos); 
+		                    tableProdutos.setModel(ptm);
 
-			}
+		                } catch (SQLException e1) {
+		                    e1.printStackTrace();
+		                    new TelaErro("Erro ao excluir produto!", 0);  
+		                }
+		            } else {
+		                new TelaErro("Selecione um produto para excluir!", 1); 
+		            }
+		        }
+		    }
 		});
+
 		btnDelete.setBackground(new Color(243, 244, 240));
 		btnDelete.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		btnDelete.setMinimumSize(new Dimension(150, 30));

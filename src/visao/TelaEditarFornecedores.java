@@ -43,8 +43,7 @@ public class TelaEditarFornecedores extends JFrame {
                 frame.setSize(657, 425);
                 frame.setLocationRelativeTo(null);
             } catch (Exception e) {
-                TelaErro telaErro = new TelaErro("Erro crítico: " + e.getMessage());
-                telaErro.setVisible(true);
+
             }
         });
     }
@@ -145,31 +144,28 @@ public class TelaEditarFornecedores extends JFrame {
         btnAlterar.setForeground(Color.WHITE);
         btnAlterar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Verifica se algum campo obrigatório está vazio
+
                 if (txtEmail.getText().isEmpty() || txtNomeFornecedor.getText().isEmpty() ||
                     txtNomeContato.getText().isEmpty() || txtTelefone.getText().isEmpty()) {
                     
-                    // Exibe a tela de erro se algum campo estiver vazio
-                    TelaErro telaErro = new TelaErro("Preencha todos os campos obrigatórios!");
+                    TelaErro telaErro = new TelaErro("Preencha todos os campos obrigatórios!", 0);
                     telaErro.setVisible(true);
                 } else {
-                    // Caso todos os campos estejam preenchidos, atualiza os dados do fornecedor
                     fornecedor.setNomeFornecedor(txtNomeFornecedor.getText());
                     fornecedor.setNomeCtt(txtNomeContato.getText());
                     fornecedor.setEmail(txtEmail.getText());
                     fornecedor.setTelefone(txtTelefone.getText());
 
-                    // Chama o método da classe DAO para alterar os dados no banco de dados
                     FornecedorDAO dao = new FornecedorDAO();
                     try {
-                        dao.alterarFornecedor(fornecedor);  // Alterar o fornecedor no banco de dados
+                        dao.alterarFornecedor(fornecedor); 
                         TelaErro telaErro = new TelaErro("Fornecedor alterado com sucesso!", 3);  
                         TelaFornecedores tela = new TelaFornecedores(func, mensagem);
                         dispose();
                         tela.setVisible(true);
-                        // Exibe mensagem de sucesso
+
                     } catch (Exception ex) {
-                        TelaErro telaErro = new TelaErro("Erro ao alterar fornecedor!", 0);  // Exibe mensagem de erro em caso de falha
+                        TelaErro telaErro = new TelaErro("Erro ao alterar fornecedor!", 0);  
                     }
                 }
             }

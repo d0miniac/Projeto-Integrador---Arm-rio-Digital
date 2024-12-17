@@ -45,8 +45,6 @@ public class TelaCadastroFornecedores extends JFrame {
                 frame.setLocationRelativeTo(null);
             } catch (Exception e) {
 
-                TelaErro telaErro = new TelaErro("Erro crítico: " + e.getMessage());
-                telaErro.setVisible(true);
             }
         });
     }
@@ -154,7 +152,7 @@ public class TelaCadastroFornecedores extends JFrame {
                 if (textEMAIL.getText().isEmpty() || textNOME_FORNECEDOR.getText().isEmpty() ||
                     textNOMECONTATO.getText().isEmpty() || textTELEFONE.getText().isEmpty()) {
                     
-                    TelaErro telaErro = new TelaErro("Preencha todos os campos obrigatórios!");
+                    TelaErro telaErro = new TelaErro("Preencha todos os campos obrigatórios!",0);
                     telaErro.setVisible(true);
                 } else {
               

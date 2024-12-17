@@ -171,7 +171,7 @@ public class TelaLogin extends JFrame {
 	}
 
 	private void mostrarMensagemErro(String mensagem) {
-		TelaErro frame = new TelaErro("Email ou senha inválidos.");
+		TelaErro frame = new TelaErro("Email ou senha inválidos.", 0);
 	}
 
 	private boolean isValidEmail(String email) {

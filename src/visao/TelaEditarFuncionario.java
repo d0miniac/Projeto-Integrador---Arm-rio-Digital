@@ -1,4 +1,4 @@
-package visao;
+	package visao;
 
 import java.awt.*;
 import javax.swing.*;
@@ -164,8 +164,8 @@ public class TelaEditarFuncionario extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    private void mostrarMensagemErro(String mensagem) {
-        TelaErro telaErro = new TelaErro(mensagem);
+    private void mostrarMensagemErro(String mensagem, int tipo) {
+        TelaErro telaErro = new TelaErro(mensagem, tipo);
         telaErro.setVisible(true);
     }
 }
