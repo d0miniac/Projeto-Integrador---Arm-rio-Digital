@@ -243,6 +243,7 @@ public class TelaProdutos extends JFrame {
 
 			}
 		});
+		
 		panelComponentes.add(btnPesquisa, "cell 4 0,alignx center,aligny center");
 		btnPesquisa.setBackground(new Color(243, 244, 240));
 		btnPesquisa.setFont(new Font("Tahoma", Font.PLAIN, 24));

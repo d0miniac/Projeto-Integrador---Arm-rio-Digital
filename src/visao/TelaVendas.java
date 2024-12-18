@@ -5,7 +5,9 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import controle.ProdutoDAO;
+import modelo.Carrinho;
 import modelo.Funcionario;
+import modelo.ItemVenda;
 import modelo.Produto;
 import net.miginfocom.swing.MigLayout;
 
@@ -18,20 +20,22 @@ public class TelaVendas extends JFrame {
 	private ArrayList<Produto> listaProdutos;
 	private ProdutoDAO produtoDAO;
 
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(() -> {
-			try {
-				Funcionario funcionario = new Funcionario();
-				String mensagem = "Bem-vindo ao sistema!";
-				TelaVendas frame = new TelaVendas(funcionario, mensagem);
-				frame.setVisible(true);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		SwingUtilities.invokeLater(() -> {
+//			try {
+//				Funcionario funcionario = new Funcionario();
+//				String mensagem = "Bem-vindo ao sistema!";
+//				TelaVendas frame = new TelaVendas(funcionario, mensagem);
+//				frame.setVisible(true);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		});
+//	}
 
 	public TelaVendas(Funcionario func, String mensagem) {
+		
+		//Carrinho carrinho = Carrinho.getInstancia();
 		produtoDAO = new ProdutoDAO();
 		listaProdutos = produtoDAO.selecionarProdutos();
 
@@ -57,14 +61,17 @@ public class TelaVendas extends JFrame {
 
 		contentPane_1.add(panelVazio);
 		
-		JButton btnNewButton = new JButton("Carrinho");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				TelaCarrinho carrinho = new TelaCarrinho();
-			}
-		});
-		btnNewButton.setBounds(1048, 36, 89, 23);
-		panelVazio.add(btnNewButton);
+//		JButton btnNewButton = new JButton("Carrinho");
+//		btnNewButton.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				Carrinho c;
+//				TelaCarrinho carrinho = new TelaCarrinho(c);
+//				carrinho.setVisible(true);
+//				
+//			}
+//		});
+//		btnNewButton.setBounds(1048, 36, 89, 23);
+//		panelVazio.add(btnNewButton);
 
 		JPanel panelProdutosComScroll = new JPanel();
 		panelProdutosComScroll.setLayout(new BorderLayout());

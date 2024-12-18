@@ -8,6 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import modelo.Carrinho;
+import modelo.ItemVenda;
 import modelo.Produto;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JTextField;
@@ -18,6 +20,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class TelaQuantidade extends JFrame {
@@ -26,6 +29,9 @@ public class TelaQuantidade extends JFrame {
 	private JPanel contentPane;
 	private int quantidade;
 	private JLabel lblQuantidade;
+	private Item item;
+	private Carrinho carrinho;
+	private ArrayList<ItemVenda> itens;
 
 	/**
 	 * Launch the application.
@@ -112,13 +118,31 @@ public class TelaQuantidade extends JFrame {
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-//				Item item = new Item();
-//				item.setNome(p.getCategoria()+" "+p.getMarca()+" "+p.getCor()+" "+p.getTamanho());
-//				item.setFoto(p.getFoto());
-//				item.setQuantidade(quantidade);
 				
-				TelaCarrinho carrinho = new TelaCarrinho();
-				carrinho.setVisible(true);
+				
+				ItemVenda item = new ItemVenda();
+				if(p.getFoto()==null) {
+					item.setFoto("abcd");
+				}
+				else {
+					item.setFoto(p.getFoto());
+				}
+				
+				
+				item.setNome(p.getCategoria()+" "+p.getMarca()+" "+p.getCor()+" "+p.getTamanho());
+				item.setQuantidade(quantidade);
+				if(carrinho==null  ) {
+					carrinho=new Carrinho();
+				}
+				
+				System.out.println(item.getNome());
+				System.out.println(item.getQuantidade());
+				System.out.println(item.getFoto());
+				carrinho.adicionar(item);
+				
+				
+				TelaCarrinho tela = new TelaCarrinho(carrinho);
+				tela.setVisible(true);
 				//c.adicionar(item);
 //				dao.adicionar(item);
 			}
