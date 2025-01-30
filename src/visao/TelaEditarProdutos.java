@@ -45,7 +45,6 @@ public class TelaEditarProdutos extends JFrame {
     private JPanel contentPane;
     private JTextField txtPreco;
     private JTextField txtQuantidade;
-    private JTextField txtTitulo;
     private JLabel lblimagem;
     private String novoCaminho;
     private ArrayList<Fornecedor> listaFornecedores;

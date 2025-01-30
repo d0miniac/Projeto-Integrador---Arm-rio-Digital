@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.border.TitledBorder;
 
+import modelo.Carrinho;
 import modelo.Funcionario;
 import modelo.Produto;
 

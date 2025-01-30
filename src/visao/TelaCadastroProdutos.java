@@ -49,6 +49,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -309,6 +310,11 @@ public class TelaCadastroProdutos extends JFrame {
 		         //produto.setTitulo(titulo);
 
     				Float preco = Float.parseFloat(txtPreco.getText());
+    				
+    				
+    				
+    				
+    				
     				int quantidade = Integer.parseInt(txtQuantidade.getText());
     				// Long id = Long.parseLong(txtID.getText());
     				// int idF = Integer.parseInt(txtFornecedor.getText());

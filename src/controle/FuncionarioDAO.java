@@ -37,7 +37,7 @@ public class FuncionarioDAO {
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    f.setId(rs.getInt("idFuncionario"));
+                    f.setId(rs.getLong("idFuncionario"));
                     f.setCpf(rs.getString("CPF"));
                     f.setNome(rs.getString("NomeFuncionario"));
                     f.setPerfil(rs.getString("Perfil"));
@@ -59,7 +59,7 @@ public class FuncionarioDAO {
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     Funcionario funcionario = new Funcionario();
-                    funcionario.setId(rs.getInt("idFuncionario"));
+                    funcionario.setId(rs.getLong("idFuncionario"));
                     funcionario.setCpf(rs.getString("CPF"));
                     funcionario.setNome(rs.getString("NomeFuncionario"));
                     funcionario.setEmail(rs.getString("Email"));
@@ -82,7 +82,7 @@ public class FuncionarioDAO {
 
             while (rs.next()) {
                 Funcionario funcionario = new Funcionario();
-                funcionario.setId(rs.getInt("idFuncionario"));
+                funcionario.setId(rs.getLong("idFuncionario"));
                 funcionario.setCpf(rs.getString("CPF"));
                 funcionario.setNome(rs.getString("NomeFuncionario"));
                 funcionario.setEmail(rs.getString("Email"));
@@ -109,7 +109,7 @@ public class FuncionarioDAO {
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     Funcionario f = new Funcionario();
-                    f.setId(rs.getInt("idFuncionario"));
+                    f.setId(rs.getLong("idFuncionario"));
                     f.setCpf(rs.getString("CPF"));
                     f.setNome(rs.getString("NomeFuncionario"));
                     f.setEmail(rs.getString("Email"));

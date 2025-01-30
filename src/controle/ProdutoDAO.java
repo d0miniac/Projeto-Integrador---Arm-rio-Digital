@@ -49,7 +49,7 @@ public class ProdutoDAO {
 		ResultSet rs = null;
 		Connection conn = ConexaoBD.getConexaoMySQL();
 		try {
-			stmt1 = conn.prepareStatement("SELECT * FROM armariodigital.Produtos;");
+			stmt1 = conn.prepareStatement("SELECT * FROM armariodigital.produtos;");
 			rs = stmt1.executeQuery();
 			while (rs.next()) {
 				Produto p = new Produto();
@@ -137,7 +137,6 @@ public class ProdutoDAO {
 
 	public ArrayList<Produto> pesquisarProdutos(String filtro) {
 		ArrayList<Produto> listaProdutos = new ArrayList<>();
-		String sql = "SELECT * FROM Produtos;";
 		PreparedStatement stmt1 = null;
 		ResultSet rs = null;
 		Connection conn = ConexaoBD.getConexaoMySQL();

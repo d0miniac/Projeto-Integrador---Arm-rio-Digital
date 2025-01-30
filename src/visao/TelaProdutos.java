@@ -97,7 +97,7 @@ public class TelaProdutos extends JFrame {
 		txtFiltro.setColumns(90);
 		txtFiltro.setPreferredSize(new Dimension(450, 45));
 
-		JButton btnAdd = new JButton("Adicionar");
+		JButton btnAdd = new JButton("Cadastrar");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -242,6 +242,7 @@ public class TelaProdutos extends JFrame {
 
 			}
 		});
+		
 		panelComponentes.add(btnPesquisa, "cell 4 0,alignx center,aligny center");
 		btnPesquisa.setBackground(new Color(243, 244, 240));
 		btnPesquisa.setFont(new Font("Tahoma", Font.PLAIN, 24));
