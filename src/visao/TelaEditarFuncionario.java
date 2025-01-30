@@ -9,6 +9,7 @@ import java.sql.SQLException;
 
 import controle.FuncionarioDAO;
 import modelo.Funcionario;
+import modelo.Produto;
 import net.miginfocom.swing.MigLayout;
 
 public class TelaEditarFuncionario extends JFrame {
@@ -21,7 +22,7 @@ public class TelaEditarFuncionario extends JFrame {
     private JTextField txtCpf;
     private Funcionario funcionario;
 
-    public TelaEditarFuncionario(Funcionario funcionario, Funcionario func, String mensagem) {
+    public TelaEditarFuncionario( Produto prod, Funcionario funcionario, Funcionario func, String mensagem) {
 		this.funcionario = funcionario;
 		setSize(657, 425);
 		setLocationRelativeTo(null);
@@ -46,7 +47,7 @@ public class TelaEditarFuncionario extends JFrame {
 		lblVoltar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				TelaFornecedores tela = new TelaFornecedores(func, mensagem);
+				TelaFornecedores tela = new TelaFornecedores(prod,func, mensagem);
 				dispose();
 				tela.setVisible(true);
 			}
@@ -131,7 +132,7 @@ public class TelaEditarFuncionario extends JFrame {
                 try {
                     dao.alterarFuncionario(funcionario);
                     new TelaErro("Funcionário alterado com sucesso!", 3);
-                    TelaFuncionarios tela = new TelaFuncionarios(func, mensagem);
+                    TelaFuncionarios tela = new TelaFuncionarios(prod,func, mensagem);
                     dispose();
                     tela.setVisible(true);
                 } catch (Exception ex) {
@@ -147,16 +148,17 @@ public class TelaEditarFuncionario extends JFrame {
         btnCancelar.setForeground(Color.WHITE);
         btnCancelar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                TelaFuncionarios tela;
                 try {
-                    tela = new TelaFuncionarios(func,mensagem);
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
+                    TelaFuncionarios tela = new TelaFuncionarios(prod,func, mensagem);
+                    dispose();
+                    tela.setVisible(true);
+                } catch (Exception ex) {
+                    ex.printStackTrace(); // Para depuração, imprime a exceção no console.
+                    new TelaErro("Erro ao abrir a tela de funcionários!", 0).setVisible(true);
                 }
-                dispose();
-                setVisible(true);
             }
         });
+    
         inferior.add(btnCancelar, "cell 1 4,grow");
 
         setSize(800, 600);

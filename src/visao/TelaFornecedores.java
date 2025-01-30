@@ -13,6 +13,7 @@ import controle.ProdutoDAO;
 import modelo.Fornecedor;
 import modelo.FornecedorTableModel;
 import modelo.Funcionario;
+import modelo.Produto;
 import modelo.ProdutoTableModel;
 import net.miginfocom.swing.MigLayout;
 
@@ -27,9 +28,10 @@ public class TelaFornecedores extends JFrame {
     public static void main(String[] args) {
 	    EventQueue.invokeLater(() -> {
 	        try {
+	        	Produto prod = new Produto();
 	            Funcionario funcionario = new Funcionario(); 
 	            String mensagem = "Bem-vindo ao sistema!";
-	            TelaFornecedores frame = new TelaFornecedores(funcionario, mensagem);
+	            TelaFornecedores frame = new TelaFornecedores(prod,funcionario, mensagem);
 	            frame.setVisible(true);
 	            frame.setSize(1215, 850);
 	            frame.setLocationRelativeTo(null);
@@ -40,7 +42,7 @@ public class TelaFornecedores extends JFrame {
 	}
 
 
-    public TelaFornecedores(Funcionario func, String mensagem) {
+    public TelaFornecedores(Produto prod, Funcionario func, String mensagem) {
         listaFornecedores = new ArrayList<>();
 		FornecedorDAO f = new FornecedorDAO();
 		listaFornecedores = f.selecionarFornecedores();
@@ -77,7 +79,7 @@ public class TelaFornecedores extends JFrame {
         btnAdd.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                TelaCadastroFornecedores tela = new TelaCadastroFornecedores(TelaFornecedores.this,func, mensagem);
+                TelaCadastroFornecedores tela = new TelaCadastroFornecedores(prod,TelaFornecedores.this,func, mensagem);
                 tela.setVisible(true);
                 tela.setSize(657, 425);
                 tela.setLocationRelativeTo(null);
@@ -87,19 +89,20 @@ public class TelaFornecedores extends JFrame {
         JButton btnUpdate = new JButton("Alterar");
         btnUpdate.setFont(new Font("Tahoma", Font.PLAIN, 24));
         btnUpdate.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                int i = tableFornecedores.getSelectedRow(); 
-                Long id = (Long) tableFornecedores.getModel().getValueAt(i, 0);
-                
-                Fornecedor fornecedor = listaFornecedores.get(i);
-               
-                TelaEditarFornecedores tela = new TelaEditarFornecedores(fornecedor,func, mensagem);
-                dispose();
-                tela.setVisible(true);
-                tela.setSize(657, 425);
-                tela.setLocationRelativeTo(null);
-            }
-        }); 
+        	public void actionPerformed(ActionEvent e) {
+				int i = tableFornecedores.getSelectedRow();
+				if (i != -1) {
+					Fornecedor fornecedor = listaFornecedores.get(i);
+					TelaEditarFornecedores telaEditar = new TelaEditarFornecedores(prod,fornecedor, func, mensagem);
+					dispose();
+					telaEditar.setVisible(true);
+					telaEditar.setSize(657, 425);
+					telaEditar.setLocationRelativeTo(null);
+				} else {
+					new TelaErro ("Selecione um fornecedor para alterar.", 0);
+				}
+			}
+		});
 
         btnAdd.setBackground(new Color(243, 244, 240));
         btnAdd.setFont(new Font("Tahoma", Font.PLAIN, 24));
@@ -128,6 +131,8 @@ public class TelaFornecedores extends JFrame {
 
         ftm = new FornecedorTableModel(listaFornecedores);
         tableFornecedores = new JTable(ftm);
+        tableFornecedores.setForeground(new Color(255, 255, 255));
+        tableFornecedores.setGridColor(new Color(0, 0, 0));
         tableFornecedores.setFont(new Font("Tahoma", Font.PLAIN, 16));
         tableFornecedores.setBackground(new Color(123, 150, 212));
         scrollPane.setViewportView(tableFornecedores);
@@ -135,22 +140,35 @@ public class TelaFornecedores extends JFrame {
    
         JButton btnDelete = new JButton("Deletar");
         btnDelete.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                int i = tableFornecedores.getSelectedRow();
-                Long id = (Long) tableFornecedores.getModel().getValueAt(i, 0);
-                try {
-                	f.excluirFornecedor(id);
-					listaFornecedores = f.selecionarFornecedores();
-					ftm = new FornecedorTableModel(listaFornecedores);
-					tableFornecedores.setModel(ftm);
-					
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
+        	public void actionPerformed(ActionEvent e) {
+
+		        TelaErro telaErro = new TelaErro("Deseja realmente excluir esse fornecedor?");
+		        int resposta = telaErro.getResposta(); 
+
+		        if (resposta == 0) {  
+		            int i = tableFornecedores.getSelectedRow();
+		            if (i != -1) {  
+		                Long id = (Long) tableFornecedores.getModel().getValueAt(i, 0);
+
+		                try {
+		                    f.excluirFornecedor(id);  
+		                    listaFornecedores = f.selecionarFornecedores();  
+		                    ftm = new FornecedorTableModel(listaFornecedores); 
+		                    tableFornecedores.setModel(ftm);
+		                    new TelaErro("Fornecedor excluído com sucesso!", 3);
+
+		                } catch (SQLException e1) {
+		                    e1.printStackTrace();
+		                    new TelaErro("Erro ao excluir fornecedor!", 0);  
+		                }
+		            } else {
+		                new TelaErro("Selecione um fornecedor para excluir!", 1); 
+		            }
+		        }
+		    }
 		});
         
+    
                 btnDelete.setBackground(new Color(243, 244, 240));
                 btnDelete.setFont(new Font("Tahoma", Font.PLAIN, 24));
                 btnDelete.setMinimumSize(new Dimension(150, 30));
@@ -168,7 +186,7 @@ public class TelaFornecedores extends JFrame {
         lblSeta.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                TelaMenu tela = new TelaMenu(func, mensagem);
+                TelaMenu tela = new TelaMenu(prod,func, mensagem);
                 dispose();
                 tela.setVisible(true);
             }

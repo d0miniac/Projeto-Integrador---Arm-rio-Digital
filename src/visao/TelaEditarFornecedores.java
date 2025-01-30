@@ -20,6 +20,7 @@ import java.awt.Cursor;
 import java.awt.Font;
 import modelo.Fornecedor;
 import modelo.Funcionario;
+import modelo.Produto;
 import controle.FornecedorDAO;
 import javax.swing.SwingConstants;
 
@@ -36,9 +37,10 @@ public class TelaEditarFornecedores extends JFrame {
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
             try {
+            	Produto prod = new Produto();
                 Funcionario funcionario = new Funcionario(); 
                 String mensagem = "Bem-vindo ao sistema!";
-                TelaEditarFornecedores frame = new TelaEditarFornecedores(fornecedor, funcionario, mensagem);
+                TelaEditarFornecedores frame = new TelaEditarFornecedores(prod,fornecedor, funcionario, mensagem);
                 frame.setVisible(true);
                 frame.setSize(657, 425);
                 frame.setLocationRelativeTo(null);
@@ -48,7 +50,7 @@ public class TelaEditarFornecedores extends JFrame {
         });
     }
     
-    public TelaEditarFornecedores(Fornecedor fornecedor, Funcionario func, String mensagem) {
+    public TelaEditarFornecedores(Produto prod,Fornecedor fornecedor, Funcionario func, String mensagem) {
         this.fornecedor = fornecedor;
         setSize(657, 425);
         setLocationRelativeTo(null);
@@ -74,7 +76,7 @@ public class TelaEditarFornecedores extends JFrame {
         lblVoltar.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                TelaFornecedores tela = new TelaFornecedores(func, mensagem);
+                TelaFornecedores tela = new TelaFornecedores(prod,func, mensagem);
                 dispose();
                 tela.setVisible(true);
             }
@@ -160,7 +162,7 @@ public class TelaEditarFornecedores extends JFrame {
                     try {
                         dao.alterarFornecedor(fornecedor); 
                         TelaErro telaErro = new TelaErro("Fornecedor alterado com sucesso!", 3);  
-                        TelaFornecedores tela = new TelaFornecedores(func, mensagem);
+                        TelaFornecedores tela = new TelaFornecedores(prod,func, mensagem);
                         dispose();
                         tela.setVisible(true);
 
@@ -175,5 +177,16 @@ public class TelaEditarFornecedores extends JFrame {
         setSize(800, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        JButton btnCancelar = new JButton("CANCELAR");
+        btnCancelar.setBackground(new Color(255, 0, 0));
+        btnCancelar.setForeground(Color.WHITE);
+        btnCancelar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                TelaFornecedores tela = new TelaFornecedores(prod,func, mensagem);
+                dispose();
+                tela.setVisible(true);
+            }
+        });
     }
 }

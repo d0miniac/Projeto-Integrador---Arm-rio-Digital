@@ -5,17 +5,25 @@ import java.awt.Image;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+
 import net.miginfocom.swing.MigLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import javax.swing.border.MatteBorder;
+import javax.swing.text.MaskFormatter;
+
 import controle.FornecedorDAO;
 import modelo.Fornecedor;
 import modelo.Funcionario;
+import modelo.Produto;
+
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
@@ -37,9 +45,10 @@ public class TelaCadastroFornecedores extends JFrame {
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
             try {
+            	Produto prod= new Produto();
                 Funcionario funcionario = new Funcionario(); 
                 String mensagem = "Bem-vindo ao sistema!";
-                TelaCadastroFornecedores frame = new TelaCadastroFornecedores(telaFornecedores, funcionario, mensagem);
+                TelaCadastroFornecedores frame = new TelaCadastroFornecedores(prod, telaFornecedores, funcionario, mensagem);
                 frame.setVisible(true);
                 frame.setSize(657, 425);
                 frame.setLocationRelativeTo(null);
@@ -49,7 +58,7 @@ public class TelaCadastroFornecedores extends JFrame {
         });
     }
 
-    public TelaCadastroFornecedores(TelaFornecedores telaFornecedores, Funcionario func, String mensagem) {
+    public TelaCadastroFornecedores(Produto prod,TelaFornecedores telaFornecedores, Funcionario func, String mensagem) {
         this.telaFornecedores = telaFornecedores;
         setResizable(false);
         setTitle("Cadastro de Fornecedores");
@@ -74,7 +83,7 @@ public class TelaCadastroFornecedores extends JFrame {
         lblNewLabel_7.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-            	TelaFornecedores telaFornecedores = new TelaFornecedores(func, mensagem);
+            	TelaFornecedores telaFornecedores = new TelaFornecedores(prod,func, mensagem);
                 dispose();
                 telaFornecedores.setSize(1215, 850);
                 telaFornecedores.setLocationRelativeTo(null);
@@ -131,10 +140,15 @@ public class TelaCadastroFornecedores extends JFrame {
 
         JLabel lblTELEFONE = new JLabel("TELEFONE");
         topo_1.add(lblTELEFONE, "cell 6 1");
-
-        textTELEFONE = new JTextField();
-        topo_1.add(textTELEFONE, "cell 7 1,alignx center");
-        textTELEFONE.setColumns(10);
+        
+        try {
+            MaskFormatter format_textFieldTelefone = new MaskFormatter("(##) #####-####");
+            textTELEFONE = new JFormattedTextField(format_textFieldTelefone);
+            topo_1.add(textTELEFONE, "cell 7 1,alignx center");
+            textTELEFONE.setColumns(10);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         JPanel inferior = new JPanel();
         inferior.setBackground(new Color(128, 0, 255));
@@ -169,6 +183,9 @@ public class TelaCadastroFornecedores extends JFrame {
 
                         telaFornecedores.adicionarFornecedor(fornecedor);
                         limparCampos();
+                        
+                        dispose();
+                        telaFornecedores.setVisible(true);
                     } else {
                     	new TelaErro("Erro ao cadastrar o fornecedor", 0);
                     }
@@ -182,7 +199,7 @@ public class TelaCadastroFornecedores extends JFrame {
         btnCancelar.setForeground(Color.WHITE);
         btnCancelar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                TelaFornecedores tela = new TelaFornecedores(func, mensagem);
+                TelaFornecedores tela = new TelaFornecedores(prod,func, mensagem);
                 dispose();
                 tela.setVisible(true);
             }

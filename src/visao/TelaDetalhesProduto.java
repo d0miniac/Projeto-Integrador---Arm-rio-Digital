@@ -16,26 +16,29 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import modelo.Carrinho;
+import modelo.Funcionario;
+import modelo.ItemVenda;
 import modelo.Produto;
 
 public class TelaDetalhesProduto extends JFrame {
 
-	public TelaDetalhesProduto(Produto produto) {
+	public TelaDetalhesProduto(ItemVenda item,Funcionario func,TelaVendas tv, String mensagem, Produto prod) {
 		setTitle("Detalhes do Produto");
 		setSize(400, 500);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout());
 
-		ImageIcon imageIcon = new ImageIcon(produto.getFoto());
+		ImageIcon imageIcon = new ImageIcon(item.getFoto());
 		Image image = imageIcon.getImage().getScaledInstance(350, 350, Image.SCALE_SMOOTH);
 		JLabel lblImage = new JLabel(new ImageIcon(image));
 		getContentPane().add(lblImage, BorderLayout.NORTH);
 
 		JPanel panelInfo = new JPanel(new GridLayout(0, 1));
-		JLabel lblNome = new JLabel("Título: " + produto.getCategoria()+" "+produto.getMarca()+" "+produto.getCor()+" "+produto.getTamanho());
-		JLabel lblPreco = new JLabel("Preço: R$" + produto.getPreco());
-		JLabel lblQuantidade = new JLabel("Quantidade no estoque: "+produto.getQuantidade());
+		JLabel lblNome = new JLabel("Título: " + item.getNome());
+		JLabel lblPreco = new JLabel("Preço: R$" + item.getPreco());
+		JLabel lblQuantidade = new JLabel("Quantidade: "+item.getQuantidade());
 
 		lblNome.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblNome.setPreferredSize(new Dimension(200, 40));
@@ -59,17 +62,26 @@ public class TelaDetalhesProduto extends JFrame {
 			}
 		});
 		
-		JButton btnAdd = new JButton("Adicionar ao carrinho");
-		btnAdd.addActionListener(new ActionListener() {
+		JButton btnRemove = new JButton("Remover");
+		btnRemove.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaQuantidade tela = new TelaQuantidade(produto);
+				Carrinho carrinho = Carrinho.getInstancia();
+				System.out.println("id"+item.getId());
+				carrinho.remover(item.getId());
+				dispose();
+				tv.dispose();
+				TelaVendas tela = new TelaVendas(func, mensagem, prod);
 				tela.setVisible(true);
+				
+				
+				
+				
 			}
 		});
-		panelBotao.add(btnAdd);
+		panelBotao.add(btnRemove);
 		panelBotao.add(btnVoltar);
 		getContentPane().add(panelBotao, BorderLayout.SOUTH);
 
-		setVisible(true);
+		
 	}
 }

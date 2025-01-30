@@ -33,6 +33,7 @@ import controle.FuncionarioDAO;
 import modelo.FornecedorTableModel;
 import modelo.Funcionario;
 import modelo.FuncionarioTableModel;
+import modelo.Produto;
 import modelo.ProdutoTableModel;
 import net.miginfocom.swing.MigLayout;
 
@@ -46,22 +47,23 @@ public class TelaFuncionarios extends JFrame {
 	private FuncionarioTableModel futm;
 	private ArrayList<Funcionario> listarFuncionarios;
 
-	 public static void main(String[] args) {
-		    EventQueue.invokeLater(() -> {
-		        try {
-		            Funcionario funcionario = new Funcionario(); 
-		            String mensagem = "Bem-vindo ao sistema!";
-		            TelaFuncionarios frame = new  TelaFuncionarios(funcionario, mensagem);
-		            frame.setVisible(true);
-		            frame.setSize(1215, 850);
-		            frame.setLocationRelativeTo(null);
-		        } catch (Exception e) {
+	public static void main(String[] args) {
+		EventQueue.invokeLater(() -> {
+			try {
+				Produto prod = new Produto();
+				Funcionario funcionario = new Funcionario();
+				String mensagem = "Bem-vindo ao sistema!";
+				TelaFuncionarios frame = new TelaFuncionarios(prod,funcionario, mensagem);
+				frame.setVisible(true);
+				frame.setSize(1215, 850);
+				frame.setLocationRelativeTo(null);
+			} catch (Exception e) {
 
-		        }
-		    });
-		}
+			}
+		});
+	}
 
-	public TelaFuncionarios(Funcionario func, String mensagem) throws SQLException {
+	public TelaFuncionarios(Produto prod,Funcionario func, String mensagem) throws SQLException {
 		setTitle("Funcionarios");
 
 		listarFuncionarios = new ArrayList<>();
@@ -103,7 +105,7 @@ public class TelaFuncionarios extends JFrame {
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				TelaCadastroFuncionario tela = new TelaCadastroFuncionario(mensagem);
+				TelaCadastroFuncionario tela = new TelaCadastroFuncionario(prod,mensagem, func);
 				tela.setVisible(true);
 				tela.setLocationRelativeTo(null);
 			}
@@ -121,7 +123,7 @@ public class TelaFuncionarios extends JFrame {
 				int i = table.getSelectedRow();
 				if (i != -1) {
 					Funcionario funcionario = listarFuncionarios.get(i);
-					TelaEditarFuncionario telaEditar = new TelaEditarFuncionario(funcionario,func, mensagem);
+					TelaEditarFuncionario telaEditar = new TelaEditarFuncionario(prod,funcionario, func, mensagem);
 					dispose();
 					telaEditar.setVisible(true);
 					telaEditar.setSize(657, 425);
@@ -151,39 +153,44 @@ public class TelaFuncionarios extends JFrame {
 		tableFuncionarios = new JTable(futm);
 		tableFuncionarios.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		tableFuncionarios.setBackground(new Color(123, 150, 212));
+		tableFuncionarios.setGridColor(new Color(0, 0, 0));
 		scrollPane.setViewportView(tableFuncionarios);
 
 		JButton btnDelete = new JButton("Deletar");
 		btnDelete.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        int i = table.getSelectedRow(); 
-		        if (i == -1) {
-		            JOptionPane.showMessageDialog(TelaFuncionarios.this, "Selecione um funcionário para deletar.", "Erro", JOptionPane.ERROR_MESSAGE);
-		            return;
-		        }
+			public void actionPerformed(ActionEvent e) {
+				TelaErro telaErro = new TelaErro("Deseja realmente excluir este funcionário?");
+				int resposta = telaErro.getResposta();
+				if (resposta == 0) {
+					int i = table.getSelectedRow();
+					if (i == -1) {
+						new TelaErro("Selecione um funcionário para excluir!", 1);
+						return;
+					}
 
-		        Object idObj = table.getModel().getValueAt(i, 0); 
-		        Long id;
+					Object idObj = table.getModel().getValueAt(i, 0);
+					Long id;
 
-		      
-		        if (idObj instanceof Integer) {
-		            id = ((Integer) idObj).longValue(); 
-		        } else if (idObj instanceof Long) {
-		            id = (Long) idObj;
-		        } else {
-		            JOptionPane.showMessageDialog(TelaFuncionarios.this, "Erro ao obter o ID do funcionário.", "Erro", JOptionPane.ERROR_MESSAGE);
-		            return;
-		        }
+					if (idObj instanceof Integer) {
+						id = ((Integer) idObj).longValue();
+					} else if (idObj instanceof Long) {
+						id = (Long) idObj;
+					} else {
+						new TelaErro("Erro ao excluir funcionário!", 0);
+						return;
+					}
 
-		        try {
-		            fu.excluirFuncionario(id); 
-		            listarFuncionarios = fu.selecionarFuncionarios(); 
-		            atualizarTabela(); 
-		        } catch (SQLException e1) {
-		            e1.printStackTrace();
-		            JOptionPane.showMessageDialog(TelaFuncionarios.this, "Erro ao deletar funcionário.", "Erro", JOptionPane.ERROR_MESSAGE);
-		        }
-		    }
+					try {
+						fu.excluirFuncionario(id);
+						listarFuncionarios = fu.selecionarFuncionarios();
+						atualizarTabela();
+
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+						new TelaErro("Erro ao excluir funcionário!", 0);
+					}
+				}
+			}
 		});
 
 		btnDelete.setBackground(new Color(243, 244, 240));
@@ -202,12 +209,11 @@ public class TelaFuncionarios extends JFrame {
 		lblSeta.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				TelaMenu tela = new TelaMenu(func, mensagem);
+				TelaMenu tela = new TelaMenu(prod, func, mensagem);
 				dispose();
 				tela.setVisible(true);
 			}
 		});
-
 
 		JButton btnPesquisa = new JButton("PESQUISAR");
 		btnPesquisa.addActionListener(new ActionListener() {
@@ -235,8 +241,7 @@ public class TelaFuncionarios extends JFrame {
 		btnPesquisa.setMinimumSize(new Dimension(150, 30));
 		btnPesquisa.setMaximumSize(new Dimension(150, 30));
 		btnPesquisa.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
-	
-		
+
 		FuncionarioController funcionarioController = new FuncionarioController();
 		listarFuncionarios = funcionarioController.listarFuncionarios();
 

@@ -28,6 +28,8 @@ import javax.swing.table.JTableHeader;
 import javax.swing.text.JTextComponent;
 
 import controle.ProdutoDAO;
+import modelo.Carrinho;
+import modelo.Fornecedor;
 import modelo.Funcionario;
 import modelo.Produto;
 import modelo.ProdutoTableModel;
@@ -44,9 +46,10 @@ public class TelaProdutos extends JFrame {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(() -> {
 			try {
+									Produto prod = new Produto();
 				Funcionario funcionario = new Funcionario();
 				String mensagem = "Bem-vindo ao sistema!";
-				TelaProdutos frame = new TelaProdutos(funcionario, mensagem);
+				TelaProdutos frame = new TelaProdutos(prod, funcionario, mensagem);
 				frame.setVisible(true);
 				frame.setSize(1215, 850);
 				frame.setLocationRelativeTo(null);
@@ -57,7 +60,7 @@ public class TelaProdutos extends JFrame {
 		});
 	}
 
-	public TelaProdutos(Funcionario func, String mensagem) {
+	public TelaProdutos(Produto prod,Funcionario func, String mensagem) {
 		listaProdutos = new ArrayList<>();
 		ProdutoDAO p = new ProdutoDAO();
 		listaProdutos = p.selecionarProdutos();
@@ -100,7 +103,7 @@ public class TelaProdutos extends JFrame {
 				dispose();
 				TelaCadastroProdutos tela;
 				try {
-					tela = new TelaCadastroProdutos(func, mensagem);
+					tela = new TelaCadastroProdutos(prod,func, mensagem);
 					tela.setVisible(true);
 					tela.setSize(657, 425);
 					tela.setLocationRelativeTo(null);
@@ -135,7 +138,7 @@ public class TelaProdutos extends JFrame {
 		lblSeta.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				TelaMenu tela = new TelaMenu(func, mensagem);
+				TelaMenu tela = new TelaMenu(prod,func, mensagem);
 				dispose();
 				tela.setVisible(true);
 
@@ -153,37 +156,28 @@ public class TelaProdutos extends JFrame {
 		theader();
 
 		scrollPane.setViewportView(tableProdutos);
-
 		JButton btnUpdate = new JButton("Alterar");
 		btnUpdate.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int i = tableProdutos.getSelectedRow();
-
-				Long id = (Long) tableProdutos.getModel().getValueAt(i, 0);
-				Produto pdt = listaProdutos.get(i);// Produto();
-				/*
-				 * for (Produto produto : listaProdutos) { if(produto.getId()==id) {
-				 * pdt.setId(produto.getId()); pdt.setCategoria(produto.getCategoria());
-				 * pdt.setCor(produto.getCor()); pdt.setFornecedor(produto.getFornecedor());
-				 * pdt.setFoto(produto.getFoto()); pdt.setMarca(produto.getMarca());
-				 * pdt.setPreco(produto.getPreco()); pdt.setQuantidade(produto.getQuantidade());
-				 * pdt.setTamanho(produto.getTamanho()); } }
-				 */
-
-				TelaEditarProdutos tela;
-				try {
-					tela = new TelaEditarProdutos(pdt, func);
-					dispose();
-					tela.setVisible(true);
-					tela.setSize(657, 425);
-					tela.setResizable(false);
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-
-			}
+		    public void actionPerformed(ActionEvent e) {
+		        try {
+		            int i = tableProdutos.getSelectedRow();
+		            if (i != -1) {
+		                Produto produto = listaProdutos.get(i);
+		                TelaEditarProdutos telaEditar = new TelaEditarProdutos(prod, func);
+		                dispose();
+		                telaEditar.setVisible(true);
+		                telaEditar.setSize(657, 425);
+		                telaEditar.setLocationRelativeTo(null);
+		            } else {
+		                new TelaErro("Selecione um produto para alterar.", 0).setVisible(true);
+		            }
+		        } catch (Exception ex) {
+		            ex.printStackTrace(); // Exibe o erro no console para depuração
+		            new TelaErro("Erro ao abrir a tela de edição do produto!", 0).setVisible(true);
+		        }
+		    }
 		});
+
 		btnUpdate.setBackground(new Color(243, 244, 240));
 		btnUpdate.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		btnUpdate.setMinimumSize(new Dimension(150, 30));
@@ -208,6 +202,7 @@ public class TelaProdutos extends JFrame {
 		                    listaProdutos = p.selecionarProdutos();  
 		                    ptm = new ProdutoTableModel(listaProdutos); 
 		                    tableProdutos.setModel(ptm);
+		                    new TelaErro("Produto excluído com sucesso!", 3);
 
 		                } catch (SQLException e1) {
 		                    e1.printStackTrace();
@@ -253,6 +248,33 @@ public class TelaProdutos extends JFrame {
 		btnPesquisa.setMinimumSize(new Dimension(150, 30));
 		btnPesquisa.setMaximumSize(new Dimension(150, 30));
 		btnPesquisa.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
+		
+		
+		JButton btnCarrinho = new JButton("Carrinho");
+		btnCarrinho.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int i = tableProdutos.getSelectedRow();
+				Long id = (Long) tableProdutos.getModel().getValueAt(i, 0);
+				Carrinho carrinho = Carrinho.getInstancia();
+				if(carrinho.verificar(id)==true) {
+					TelaErro erro = new TelaErro("Esse produto já está no carrinho!",2);
+				}
+				else {
+					Produto pdt = listaProdutos.get(i);
+					TelaQuantidade tela = new TelaQuantidade(func,pdt,TelaProdutos.this, mensagem);
+					tela.setVisible(true);
+				}
+				
+				
+			}
+		});
+		btnCarrinho.setBackground(new Color(243, 244, 240));
+		btnCarrinho.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		btnCarrinho.setMinimumSize(new Dimension(150, 30));
+		btnCarrinho.setMaximumSize(new Dimension(150, 30));
+		btnCarrinho.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
+		panelComponentes.add(btnCarrinho, "cell 4 1");
+		
 	}
 
 	private void theader() {

@@ -75,7 +75,7 @@ public class TelaEditarProdutos extends JFrame {
         lblNewLabel_7.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                TelaProdutos tela = new TelaProdutos(func, novoCaminho);
+                TelaProdutos tela = new TelaProdutos(prod,func, novoCaminho);
                 dispose();
                 tela.setSize(1215, 850);
                 tela.setLocationRelativeTo(null);
@@ -93,13 +93,6 @@ public class TelaEditarProdutos extends JFrame {
         JLabel lblNewLabel_9 = new JLabel("FORNECEDOR");
         topo.add(lblNewLabel_9, "flowx,cell 0 0,alignx left,growy");
 
-        JLabel lblTitulo = new JLabel("TÍTULO");
-        topo.add(lblTitulo, "flowx,cell 1 0");
-
-        txtTitulo = new JTextField();
-        txtTitulo.setText(String.valueOf(prod.getTitulo()));
-        topo.add(txtTitulo, "cell 1 0");
-        txtTitulo.setColumns(10);
 
         JLabel lblNewLabel_1 = new JLabel("PREÇO");
         topo.add(lblNewLabel_1, "flowx,cell 2 0,alignx center");
@@ -247,34 +240,54 @@ public class TelaEditarProdutos extends JFrame {
             }
         });
 
+        
         JButton btnAlterar = new JButton("Alterar");
         btnAlterar.setForeground(Color.WHITE);
         btnAlterar.setBackground(new Color(32, 60, 115));
         btnAlterar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                Fornecedor fornecedor = (Fornecedor) cbxFornecedor.getSelectedItem();
-                prod.setFornecedor(fornecedor.getIdFornecedor());
-                prod.setTitulo(txtTitulo.getText());
-                prod.setPreco(Float.parseFloat(txtPreco.getText()));
-                prod.setQuantidade(Integer.parseInt(txtQuantidade.getText()));
-                prod.setCor((Cor) cbxCor.getSelectedItem());
-                prod.setMarca((Marca) cbxMarca.getSelectedItem());
-                prod.setTamanho((Tamanho) cbxTamanho.getSelectedItem());
-                prod.setCategoria((Categoria) cbxCategoria.getSelectedItem());
+        	public void actionPerformed(ActionEvent e) {
 
-                ProdutoDAO dao = new ProdutoDAO();
-                try {
-                    dao.alterarProdutos(prod);
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
+                if (txtPreco.getText().isEmpty() || txtQuantidade.getText().isEmpty() || 
+                    cbxFornecedor.getSelectedItem() == null || cbxCor.getSelectedItem() == null || 
+                    cbxMarca.getSelectedItem() == null || cbxTamanho.getSelectedItem() == null || 
+                    cbxCategoria.getSelectedItem() == null) {
+                    
+                    TelaErro telaErro = new TelaErro("Preencha todos os campos obrigatórios!", 0);
+                    telaErro.setVisible(true);
+                } else {
+                    try {
+                        Fornecedor fornecedor = (Fornecedor) cbxFornecedor.getSelectedItem();
+                        prod.setFornecedor(fornecedor.getIdFornecedor());
+                        prod.setPreco(Float.parseFloat(txtPreco.getText().replace(",", ".")));
+                        prod.setQuantidade(Integer.parseInt(txtQuantidade.getText()));
+                        prod.setCor((Cor) cbxCor.getSelectedItem());
+                        prod.setMarca((Marca) cbxMarca.getSelectedItem());
+                        prod.setTamanho((Tamanho) cbxTamanho.getSelectedItem());
+                        prod.setCategoria((Categoria) cbxCategoria.getSelectedItem());
+
+                        ProdutoDAO dao = new ProdutoDAO();
+                        dao.alterarProdutos(prod);
+
+                        TelaErro telaErro = new TelaErro("Produto alterado com sucesso!", 3);
+                        telaErro.setVisible(true);
+                        dispose();
+
+                        TelaProdutos tela = new TelaProdutos(prod,func, novoCaminho);
+                        tela.setVisible(true);
+
+                    } catch (NumberFormatException ex) {
+                        TelaErro telaErro = new TelaErro("Erro: Preço ou Quantidade inválidos!", 0);
+                        telaErro.setVisible(true);
+
+                    } catch (SQLException e1) {
+                        TelaErro telaErro = new TelaErro("Erro ao alterar produto no banco de dados!", 0);
+                        telaErro.setVisible(true);
+                        e1.printStackTrace();
+                    }
                 }
-
-                TelaProdutos tela = new TelaProdutos(func, novoCaminho);
-                tela.setSize(1215, 850);
-                tela.setVisible(true);
-                dispose();
             }
         });
+        
         inferior.add(btnAlterar, "flowx,cell 0 5,alignx left,growy");
 
     }

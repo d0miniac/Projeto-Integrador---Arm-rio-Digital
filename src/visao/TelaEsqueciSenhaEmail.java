@@ -6,6 +6,9 @@ import java.awt.FlowLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import modelo.Funcionario;
+import modelo.Produto;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -26,8 +29,10 @@ public class TelaEsqueciSenhaEmail extends JFrame {
 	        EventQueue.invokeLater(new Runnable() {
 	            public void run() {
 	                try {
+	                	Produto prod = new Produto();
+	                	Funcionario funcionario = new Funcionario();
 	                	String mensagem = "Bem-vindo ao sistema!";
-	                    TelaEsqueciSenhaEmail frame = new TelaEsqueciSenhaEmail(mensagem);
+	                    TelaEsqueciSenhaEmail frame = new TelaEsqueciSenhaEmail(prod,mensagem, funcionario);
 	                    frame.setVisible(true);
 	                } catch (Exception e) {
 	                    e.printStackTrace();
@@ -36,7 +41,7 @@ public class TelaEsqueciSenhaEmail extends JFrame {
 	        });
 	    }
 
-	public TelaEsqueciSenhaEmail(String mensagem) {
+	public TelaEsqueciSenhaEmail(Produto prod,String mensagem, Funcionario func) {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1215, 850);
@@ -73,7 +78,7 @@ public class TelaEsqueciSenhaEmail extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 		 public void actionPerformed(ActionEvent e) {
 		 dispose();
-		 TelaLogin telaLogin = new TelaLogin(mensagem);
+		 TelaLogin telaLogin = new TelaLogin(prod,mensagem, func);
 		 telaLogin.setVisible(true);
 		 }
 		});

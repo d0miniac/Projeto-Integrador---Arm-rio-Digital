@@ -19,7 +19,7 @@ public class javamail {
 	        Properties properties = System.getProperties();
 
 	        String host = "smtp.gmail.com";
-	        String email = "leticiagehrke714@gmail.com";
+	        String email = "armariodigitalemail@gmail.com";
 	        String password = "10022007";
 
 

@@ -10,28 +10,39 @@ import modelo.Fornecedor;
 public class FornecedorDAO {
 
 	public int cadastrarFornecedor(Fornecedor fornecedor) {
-		String sql = "INSERT INTO fornecedores (Email, Nome_Fornecedor, Nome_Ctt, Telefone) VALUES (?, ?, ?, ?)";
-		try (Connection conn = ConexaoBD.getConexaoMySQL();
-				PreparedStatement stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
-
-			stmt.setString(1, fornecedor.getEmail());
-			stmt.setString(2, fornecedor.getNomeFornecedor());
-			stmt.setString(3, fornecedor.getNomeCtt());
-			stmt.setString(4, fornecedor.getTelefone());
-
-			int affectedRows = stmt.executeUpdate();
-			if (affectedRows > 0) {
-				try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
-					if (generatedKeys.next()) {
-						fornecedor.setIdFornecedor(generatedKeys.getLong(1));
-					}
-				}
-			}
-			return affectedRows;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return 0;
-		}
+	    PreparedStatement stmt = null;
+	    int resultado = 0;
+	    Connection conn = ConexaoBD.getConexaoMySQL();
+	    
+	    try {
+	        stmt = conn.prepareStatement(
+	            "INSERT INTO fornecedores (Email, Nome_Fornecedor, Nome_Ctt, Telefone) VALUES (?, ?, ?, ?)",
+	            PreparedStatement.RETURN_GENERATED_KEYS
+	        );
+	        
+	        stmt.setString(1, fornecedor.getEmail());
+	        stmt.setString(2, fornecedor.getNomeFornecedor());
+	        stmt.setString(3, fornecedor.getNomeCtt());
+	        stmt.setString(4, fornecedor.getTelefone());
+	        
+	        resultado = stmt.executeUpdate();
+	        
+	        if (resultado > 0) {
+	            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+	                if (generatedKeys.next()) {
+	                    fornecedor.setIdFornecedor(generatedKeys.getLong(1));
+	                }
+	            }
+	        }
+	        
+	        stmt.close();
+	        conn.close();
+	        
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    
+	    return resultado;
 	}
 
 	public void excluirFornecedor(Long idFornecedor) throws SQLException {

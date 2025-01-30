@@ -71,9 +71,10 @@ public class TelaCadastroProdutos extends JFrame {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(() -> {
 			try {
+				Produto prod = new Produto();
 				Funcionario funcionario = new Funcionario();
 				String mensagem = "Bem-vindo ao sistema!";
-				TelaCadastroProdutos frame = new TelaCadastroProdutos(funcionario, mensagem);
+				TelaCadastroProdutos frame = new TelaCadastroProdutos(prod,funcionario, mensagem);
 				frame.setVisible(true);
 				frame.setSize(657, 425);
 				frame.setLocationRelativeTo(null);
@@ -83,7 +84,7 @@ public class TelaCadastroProdutos extends JFrame {
 		});
 	}
 
-	public TelaCadastroProdutos(Funcionario func, String mensagem) throws SQLException {
+	public TelaCadastroProdutos(Produto prod,Funcionario func, String mensagem) throws SQLException {
 		produto = new Produto();
 		setTitle("Cadastro de Produtos");
 		contentPane = new ImagePanel("src/img/bgCadastroProdutos.png");
@@ -108,7 +109,7 @@ public class TelaCadastroProdutos extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				TelaProdutos tela;
-				tela = new TelaProdutos(func, mensagem);
+				tela = new TelaProdutos(prod, func, mensagem);
 				dispose();
 				tela.setSize(1215, 850);
 				tela.setLocationRelativeTo(null);
@@ -127,8 +128,6 @@ public class TelaCadastroProdutos extends JFrame {
 		JLabel lblNewLabel_9 = new JLabel("FORNECEDOR");
 		topo.add(lblNewLabel_9, "flowx,cell 0 0,alignx left");
 		
-		JLabel lblNewLabel = new JLabel("TÍTULO");
-		topo.add(lblNewLabel, "flowx,cell 1 0,alignx center");
 
 		JLabel lblNewLabel_1 = new JLabel("PREÇO");
 		topo.add(lblNewLabel_1, "flowx,cell 2 0,alignx center");
@@ -345,7 +344,7 @@ public class TelaCadastroProdutos extends JFrame {
     				int res1 = dao.cadastrarProduto(produto);
 
     				TelaProdutos tela;
-    				tela = new TelaProdutos(func, mensagem);
+    				tela = new TelaProdutos(prod,func, mensagem);
     			
     				tela.setVisible(true);
     				tela.setSize(1215, 850);
@@ -353,7 +352,7 @@ public class TelaCadastroProdutos extends JFrame {
 
                     if (res1 == 1) {
                         TelaErro telaErro = new TelaErro("Produto cadastrado com sucesso!", 3);
-                        TelaProdutos telaProdutos = new TelaProdutos(func, mensagem);
+                        TelaProdutos telaProdutos = new TelaProdutos(prod,func, mensagem);
                         dispose();
                         tela.setVisible(true);
                     } else {
@@ -366,22 +365,16 @@ public class TelaCadastroProdutos extends JFrame {
 		
 		
 		inferior.add(btnNewButton, "flowx,cell 0 5,alignx left,growy");
-
-		JButton btnCancelar = new JButton("CANCELAR");
-		btnCancelar.setBackground(new Color(255, 0, 0));
-		btnCancelar.setForeground(Color.WHITE);
-//		btnCancelar.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				TelaFuncionarios tela = null;
-//				try {
-//					tela = new TelaFuncionarios(func, mensagem);
-//				} catch (SQLException e1) {
-//					e1.printStackTrace();
-//				}
-//				dispose();
-//				tela.setVisible(true);
-//			}
-//		});
-		inferior.add(btnCancelar, "cell 0 5,alignx left,growy");
-
-	}}
+        
+        		JButton btnCancelar = new JButton("CANCELAR");
+        		btnCancelar.setBackground(new Color(255, 0, 0));
+        		btnCancelar.setForeground(Color.WHITE);
+        		btnCancelar.addActionListener(new ActionListener() {
+        		    public void actionPerformed(ActionEvent e) {
+        		        TelaProdutos tela = new TelaProdutos(prod, func, mensagem);
+        		        dispose();
+        		        tela.setVisible(true);
+        		    }
+        		});
+        		inferior.add(btnCancelar, "cell 0 5");
+    }}
