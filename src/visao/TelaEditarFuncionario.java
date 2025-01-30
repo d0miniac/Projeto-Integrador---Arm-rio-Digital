@@ -21,7 +21,7 @@ public class TelaEditarFuncionario extends JFrame {
     private JTextField txtCpf;
     private Funcionario funcionario;
 
-    public TelaEditarFuncionario(Funcionario funcionario, Funcionario func, String mensagem) {
+    public TelaEditarFuncionario(Funcionario funcionario, Funcionario func) {
 		this.funcionario = funcionario;
 		setSize(657, 425);
 		setLocationRelativeTo(null);
@@ -46,9 +46,16 @@ public class TelaEditarFuncionario extends JFrame {
 		lblVoltar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				TelaFornecedores tela = new TelaFornecedores(func, mensagem);
-				dispose();
-				tela.setVisible(true);
+				TelaFuncionarios tela;
+				try {
+					tela = new TelaFuncionarios(func);
+					dispose();
+					tela.setVisible(true);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 			}
 		});
 
@@ -131,7 +138,7 @@ public class TelaEditarFuncionario extends JFrame {
                 try {
                     dao.alterarFuncionario(funcionario);
                     new TelaErro("Funcionário alterado com sucesso!", 3);
-                    TelaFuncionarios tela = new TelaFuncionarios(func, mensagem);
+                    TelaFuncionarios tela = new TelaFuncionarios(func);
                     dispose();
                     tela.setVisible(true);
                 } catch (Exception ex) {
@@ -149,7 +156,7 @@ public class TelaEditarFuncionario extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 TelaFuncionarios tela;
                 try {
-                    tela = new TelaFuncionarios(func,mensagem);
+                    tela = new TelaFuncionarios(func);
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                 }

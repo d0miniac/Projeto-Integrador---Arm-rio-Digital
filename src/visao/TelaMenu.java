@@ -13,30 +13,33 @@ import java.sql.SQLException;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.border.TitledBorder;
 
+import modelo.Carrinho;
 import modelo.Funcionario;
 
 public class TelaMenu extends JFrame {
 	public JButton btnFuncionarios;
 	
-	public static void main(String[] args) {
-	    EventQueue.invokeLater(() -> {
-	        try {
-	            Funcionario funcionario = new Funcionario(); 
-	            String mensagem = "Bem-vindo ao sistema!";
-	            TelaMenu frame = new TelaMenu(funcionario, mensagem);
-	            frame.setVisible(true);
-	            frame.setSize(657, 425);
-	            frame.setLocationRelativeTo(null);
-	        } catch (Exception e) {
+	
+//	public static void main(String[] args) {
+//	    EventQueue.invokeLater(() -> {
+//	        try {
+//	            Funcionario funcionario = new Funcionario(); 
+//	            String mensagem = "Bem-vindo ao sistema!";
+//	            TelaMenu frame = new TelaMenu(funcionario, mensagem);
+//	            frame.setVisible(true);
+//	            frame.setSize(657, 425);
+//	            frame.setLocationRelativeTo(null);
+//	        } catch (Exception e) {
+//
+//	            TelaErro telaErro = new TelaErro("Erro crítico: " + e.getMessage());
+//	            telaErro.setVisible(true);
+//	        }
+//	    });
+//	}
 
-	            TelaErro telaErro = new TelaErro("Erro crítico: " + e.getMessage());
-	            telaErro.setVisible(true);
-	        }
-	    });
-	}
-
-	public TelaMenu(Funcionario func, String mensagem) {
-
+	public TelaMenu(Funcionario func) {
+		
+		
 		setTitle("MENU");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1215, 850);
@@ -69,7 +72,7 @@ public class TelaMenu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				TelaProdutos telaProdutos;
-				telaProdutos = new TelaProdutos(func, mensagem);
+				telaProdutos = new TelaProdutos(func);
 				telaProdutos.setVisible(true);
 				telaProdutos.setSize(1215, 850);
 				telaProdutos.setLocationRelativeTo(null);
@@ -83,7 +86,7 @@ public class TelaMenu extends JFrame {
 		btnFornecedores.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				TelaFornecedores telaFornecedores = new TelaFornecedores(func, mensagem);
+				TelaFornecedores telaFornecedores = new TelaFornecedores(func);
 				telaFornecedores.setVisible(true);
 			}
 		});
@@ -98,7 +101,7 @@ public class TelaMenu extends JFrame {
 				dispose();
 				TelaFuncionarios telaFuncionarios = null;
 				try {
-					telaFuncionarios = new TelaFuncionarios(func, mensagem);
+					telaFuncionarios = new TelaFuncionarios(func);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -111,7 +114,7 @@ public class TelaMenu extends JFrame {
 		btnHistorico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				TelaHistoricoVendas telaHistoricoVendas = new TelaHistoricoVendas(func, mensagem);
+				TelaHistoricoVendas telaHistoricoVendas = new TelaHistoricoVendas(func);
 				telaHistoricoVendas.setVisible(true);
 			}
 		});
@@ -120,7 +123,7 @@ public class TelaMenu extends JFrame {
 		btnVendas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				TelaVendas telaVendas = new TelaVendas(func, mensagem);
+				TelaVendas telaVendas = new TelaVendas(func);
 				telaVendas.setVisible(true);
 			}
 		});
@@ -140,7 +143,7 @@ public class TelaMenu extends JFrame {
 		lblSeta.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				TelaLogin tela = new TelaLogin(mensagem);
+				TelaLogin tela = new TelaLogin();
 				dispose();
 				tela.setVisible(true);
 				tela.setSize(1500, 1000);

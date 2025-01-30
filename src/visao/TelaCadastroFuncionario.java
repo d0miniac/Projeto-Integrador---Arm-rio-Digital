@@ -44,26 +44,26 @@ public class TelaCadastroFuncionario extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					String mensagem = "Bem-vindo ao sistema!";
-					TelaCadastroFuncionario frame = new TelaCadastroFuncionario(mensagem);
-					frame.setVisible(true);
-					frame.setSize(1215, 850);
-					frame.setLocationRelativeTo(null);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					String mensagem = "Bem-vindo ao sistema!";
+//					TelaCadastroFuncionario frame = new TelaCadastroFuncionario(mensagem);
+//					frame.setVisible(true);
+//					frame.setSize(1215, 850);
+//					frame.setLocationRelativeTo(null);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
 	 */
-	public TelaCadastroFuncionario(String mensagem) {
+	public TelaCadastroFuncionario() {
 
 		setTitle("Cadastro de Funcionários");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -105,7 +105,7 @@ public class TelaCadastroFuncionario extends JFrame {
 
 			public void mouseClicked(MouseEvent e) {
 				dispose();
-				TelaLogin tela = new TelaLogin(mensagem);
+				TelaLogin tela = new TelaLogin();
 				tela.setSize(1500, 1000);
 				tela.setResizable(false); 
 				tela.setVisible(true);
@@ -246,7 +246,7 @@ public class TelaCadastroFuncionario extends JFrame {
 					int res1 = dao.cadastrarFuncionario(novo);
 
 					dispose();
-					TelaLogin tela = new TelaLogin(mensagem);
+					TelaLogin tela = new TelaLogin();
 					tela.setVisible(true);
 					
 				}

@@ -74,7 +74,7 @@ public class TelaEditarProdutos extends JFrame {
         lblNewLabel_7.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                TelaProdutos tela = new TelaProdutos(func, novoCaminho);
+                TelaProdutos tela = new TelaProdutos(func);
                 dispose();
                 tela.setSize(1215, 850);
                 tela.setLocationRelativeTo(null);
@@ -260,7 +260,7 @@ public class TelaEditarProdutos extends JFrame {
                     e1.printStackTrace();
                 }
 
-                TelaProdutos tela = new TelaProdutos(func, novoCaminho);
+                TelaProdutos tela = new TelaProdutos(func);
                 tela.setSize(1215, 850);
                 tela.setVisible(true);
                 dispose();

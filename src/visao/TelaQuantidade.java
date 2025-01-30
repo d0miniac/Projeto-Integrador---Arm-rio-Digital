@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import modelo.Carrinho;
+import modelo.Funcionario;
 import modelo.ItemVenda;
 import modelo.Produto;
 import net.miginfocom.swing.MigLayout;
@@ -29,7 +30,7 @@ public class TelaQuantidade extends JFrame {
 	private JPanel contentPane;
 	private int quantidade;
 	private JLabel lblQuantidade;
-	private Item item;
+	private ItemVenda item;
 	private Carrinho carrinho;
 	private ArrayList<ItemVenda> itens;
 
@@ -52,9 +53,9 @@ public class TelaQuantidade extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaQuantidade(Produto p) {
-		
-		quantidade=0;
+	public TelaQuantidade(Funcionario f,Produto p,TelaProdutos tp) {
+		carrinho = Carrinho.getInstancia();
+		quantidade=1;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 319, 317);
 		contentPane = new JPanel();
@@ -83,7 +84,7 @@ public class TelaQuantidade extends JFrame {
 		btnMenos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				if(quantidade>0) {
+				if(quantidade>1) {
 					quantidade--;
 					lblQuantidade.setText(String.valueOf(quantidade));
 				}
@@ -94,7 +95,7 @@ public class TelaQuantidade extends JFrame {
 		});
 		contentPane.add(btnMenos, "cell 1 6,alignx center");
 		
-		lblQuantidade = new JLabel("0");
+		lblQuantidade = new JLabel("1");
 		lblQuantidade.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblQuantidade, "cell 2 6,alignx center");
 		
@@ -120,7 +121,7 @@ public class TelaQuantidade extends JFrame {
 				
 				
 				
-				ItemVenda item = new ItemVenda();
+				item = new ItemVenda();
 				if(p.getFoto()==null) {
 					item.setFoto("abcd");
 				}
@@ -128,20 +129,21 @@ public class TelaQuantidade extends JFrame {
 					item.setFoto(p.getFoto());
 				}
 				
-				
+				item.setPreco(p.getPreco());
 				item.setNome(p.getCategoria()+" "+p.getMarca()+" "+p.getCor()+" "+p.getTamanho());
 				item.setQuantidade(quantidade);
-				if(carrinho==null  ) {
-					carrinho=new Carrinho();
-				}
-				
+				item.setId(p.getId());			
 				System.out.println(item.getNome());
-				System.out.println(item.getQuantidade());
 				System.out.println(item.getFoto());
+				System.out.println(item.getQuantidade());
+				System.out.println(item.getId());
+				
+				
 				carrinho.adicionar(item);
 				
-				
-				TelaCarrinho tela = new TelaCarrinho(carrinho);
+				dispose();
+				tp.dispose();
+				TelaVendas tela = new TelaVendas(f);
 				tela.setVisible(true);
 				//c.adicionar(item);
 //				dao.adicionar(item);

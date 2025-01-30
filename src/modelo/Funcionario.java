@@ -1,7 +1,7 @@
 package modelo;
 
 public class Funcionario {
-	public int id;
+	public Long id;
 	public String nome;
 	public String email;
 	public String cpf;
@@ -15,10 +15,10 @@ public class Funcionario {
 	public void setPerfil(String perfil) {
 		this.perfil = perfil;
 	}
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getNome() {
