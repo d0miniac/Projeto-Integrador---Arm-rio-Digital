@@ -4,7 +4,7 @@ public class Venda {
 	private Long id;
 	private String data;
 	private String horario;
-	private int idFuncionario;
+	private Long idFuncionario;
 	private Float total;
 	public Long getId() {
 		return id;
@@ -24,10 +24,10 @@ public class Venda {
 	public void setHorario(String horario) {
 		this.horario = horario;
 	}
-	public int getIdFuncionario() {
+	public Long getIdFuncionario() {
 		return idFuncionario;
 	}
-	public void setIdFuncionario(int i) {
+	public void setIdFuncionario(long i) {
 		this.idFuncionario = i;
 	}
 	public Float getTotal() {
