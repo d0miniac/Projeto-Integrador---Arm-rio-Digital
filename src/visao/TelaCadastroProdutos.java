@@ -49,6 +49,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -68,22 +69,32 @@ public class TelaCadastroProdutos extends JFrame {
 	ArrayList<Fornecedor> listaFornecedores;
 	private JTextField txtTitulo;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(() -> {
-			try {
-				Funcionario funcionario = new Funcionario();
-				String mensagem = "Bem-vindo ao sistema!";
-				TelaCadastroProdutos frame = new TelaCadastroProdutos(funcionario, mensagem);
-				frame.setVisible(true);
-				frame.setSize(657, 425);
-				frame.setLocationRelativeTo(null);
-			} catch (Exception e) {
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(() -> {
+//			try {
+//				Funcionario funcionario = new Funcionario();
+//				String mensagem = "Bem-vindo ao sistema!";
+//				TelaCadastroProdutos frame = new TelaCadastroProdutos(funcionario, mensagem);
+//				frame.setVisible(true);
+//				frame.setSize(657, 425);
+//				frame.setLocationRelativeTo(null);
+//			} catch (Exception e) {
+//
+//				TelaErro telaErro = new TelaErro("Erro crítico: " + e.getMessage());
+//				telaErro.setVisible(true);
+//			}
+//		});
+//	}
 
+<<<<<<< HEAD
 			}
 		});
 	}
 
 	public TelaCadastroProdutos(Funcionario func, String mensagem) throws SQLException {
+=======
+	public TelaCadastroProdutos(Funcionario func) throws SQLException {
+>>>>>>> origin/Carrinho
 		produto = new Produto();
 		setTitle("Cadastro de Produtos");
 		contentPane = new ImagePanel("src/img/bgCadastroProdutos.png");
@@ -108,7 +119,7 @@ public class TelaCadastroProdutos extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				TelaProdutos tela;
-				tela = new TelaProdutos(func, mensagem);
+				tela = new TelaProdutos(func);
 				dispose();
 				tela.setSize(1215, 850);
 				tela.setLocationRelativeTo(null);
@@ -126,9 +137,6 @@ public class TelaCadastroProdutos extends JFrame {
 
 		JLabel lblNewLabel_9 = new JLabel("FORNECEDOR");
 		topo.add(lblNewLabel_9, "flowx,cell 0 0,alignx left");
-		
-		JLabel lblNewLabel = new JLabel("TÍTULO");
-		topo.add(lblNewLabel, "flowx,cell 1 0,alignx center");
 
 		JLabel lblNewLabel_1 = new JLabel("PREÇO");
 		topo.add(lblNewLabel_1, "flowx,cell 2 0,alignx center");
@@ -310,6 +318,11 @@ public class TelaCadastroProdutos extends JFrame {
 		         //produto.setTitulo(titulo);
 
     				Float preco = Float.parseFloat(txtPreco.getText());
+    				
+    				
+    				
+    				
+    				
     				int quantidade = Integer.parseInt(txtQuantidade.getText());
     				// Long id = Long.parseLong(txtID.getText());
     				// int idF = Integer.parseInt(txtFornecedor.getText());
@@ -345,7 +358,7 @@ public class TelaCadastroProdutos extends JFrame {
     				int res1 = dao.cadastrarProduto(produto);
 
     				TelaProdutos tela;
-    				tela = new TelaProdutos(func, mensagem);
+    				tela = new TelaProdutos(func);
     			
     				tela.setVisible(true);
     				tela.setSize(1215, 850);
@@ -353,7 +366,7 @@ public class TelaCadastroProdutos extends JFrame {
 
                     if (res1 == 1) {
                         TelaErro telaErro = new TelaErro("Produto cadastrado com sucesso!", 3);
-                        TelaProdutos telaProdutos = new TelaProdutos(func, mensagem);
+                        TelaProdutos telaProdutos = new TelaProdutos(func);
                         dispose();
                         tela.setVisible(true);
                     } else {

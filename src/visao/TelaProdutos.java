@@ -28,6 +28,7 @@ import javax.swing.table.JTableHeader;
 import javax.swing.text.JTextComponent;
 
 import controle.ProdutoDAO;
+import modelo.Carrinho;
 import modelo.Funcionario;
 import modelo.Produto;
 import modelo.ProdutoTableModel;
@@ -41,23 +42,33 @@ public class TelaProdutos extends JFrame {
 	private ArrayList<Produto> listaProdutos;
 	private ProdutoTableModel ptm;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(() -> {
-			try {
-				Funcionario funcionario = new Funcionario();
-				String mensagem = "Bem-vindo ao sistema!";
-				TelaProdutos frame = new TelaProdutos(funcionario, mensagem);
-				frame.setVisible(true);
-				frame.setSize(1215, 850);
-				frame.setLocationRelativeTo(null);
-			} catch (Exception e) {
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(() -> {
+//			try {
+//				Funcionario funcionario = new Funcionario();
+//				String mensagem = "Bem-vindo ao sistema!";
+//				TelaProdutos frame = new TelaProdutos(funcionario, mensagem);
+//				frame.setVisible(true);
+//				frame.setSize(1215, 850);
+//				frame.setLocationRelativeTo(null);
+//			} catch (Exception e) {
+//
+//				TelaErro telaErro = new TelaErro("Erro crítico: " + e.getMessage());
+//				telaErro.setVisible(true);
+//			}
+//		});
+//	}
 
+<<<<<<< HEAD
 				
 			}
 		});
 	}
 
 	public TelaProdutos(Funcionario func, String mensagem) {
+=======
+	public TelaProdutos(Funcionario func) {
+>>>>>>> origin/Carrinho
 		listaProdutos = new ArrayList<>();
 		ProdutoDAO p = new ProdutoDAO();
 		listaProdutos = p.selecionarProdutos();
@@ -94,13 +105,13 @@ public class TelaProdutos extends JFrame {
 		txtFiltro.setColumns(90);
 		txtFiltro.setPreferredSize(new Dimension(450, 45));
 
-		JButton btnAdd = new JButton("Adicionar");
+		JButton btnAdd = new JButton("Cadastrar");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				TelaCadastroProdutos tela;
 				try {
-					tela = new TelaCadastroProdutos(func, mensagem);
+					tela = new TelaCadastroProdutos(func);
 					tela.setVisible(true);
 					tela.setSize(657, 425);
 					tela.setLocationRelativeTo(null);
@@ -135,7 +146,7 @@ public class TelaProdutos extends JFrame {
 		lblSeta.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				TelaMenu tela = new TelaMenu(func, mensagem);
+				TelaMenu tela = new TelaMenu(func);
 				dispose();
 				tela.setVisible(true);
 
@@ -247,12 +258,39 @@ public class TelaProdutos extends JFrame {
 
 			}
 		});
+		
 		panelComponentes.add(btnPesquisa, "cell 4 0,alignx center,aligny center");
 		btnPesquisa.setBackground(new Color(243, 244, 240));
 		btnPesquisa.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		btnPesquisa.setMinimumSize(new Dimension(150, 30));
 		btnPesquisa.setMaximumSize(new Dimension(150, 30));
 		btnPesquisa.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
+		
+		JButton btnCarrinho = new JButton("Carrinho");
+		btnCarrinho.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int i = tableProdutos.getSelectedRow();
+				Long id = (Long) tableProdutos.getModel().getValueAt(i, 0);
+				Carrinho carrinho = Carrinho.getInstancia();
+				if(carrinho.verificar(id)==true) {
+					TelaErro erro = new TelaErro("Esse produto já está no carrinho!",2);
+				}
+				else {
+					Produto pdt = listaProdutos.get(i);
+					TelaQuantidade tela = new TelaQuantidade(func,pdt,TelaProdutos.this);
+					tela.setVisible(true);
+				}
+				
+				
+			}
+		});
+		btnCarrinho.setBackground(new Color(243, 244, 240));
+		btnCarrinho.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		btnCarrinho.setMinimumSize(new Dimension(150, 30));
+		btnCarrinho.setMaximumSize(new Dimension(150, 30));
+		btnCarrinho.setBorder(new LineBorder(new Color(123, 150, 212), 2, true));
+		panelComponentes.add(btnCarrinho, "cell 4 1");
+		
 	}
 
 	private void theader() {

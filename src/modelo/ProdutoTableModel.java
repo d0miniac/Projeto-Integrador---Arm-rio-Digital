@@ -6,7 +6,7 @@ import javax.swing.table.AbstractTableModel;
 
 public class ProdutoTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = 1L;
-	private static final String[] colunas = {"ID","Titulo", "Categoria", "Marca", "Cor", "Tamanho", "Quantidade", "Pre\u00E7o"};
+	private static final String[] colunas = {"ID", "Categoria", "Marca", "Cor", "Tamanho", "Quantidade", "Pre\u00E7o"};
 	private ArrayList<Produto> produtosLista;
 	public ProdutoTableModel(ArrayList<Produto> produtos) {
 		this.produtosLista = produtos;
@@ -25,25 +25,23 @@ public class ProdutoTableModel extends AbstractTableModel {
 			return produto.getId();
 			
 		}else if(columnIndex ==1) {
-			return produto.getTitulo();
-		}
-		else if(columnIndex ==2) {
 			return produto.getCategoria();
 		}
-		else if(columnIndex ==3) {
+		else if(columnIndex ==2) {
 			return produto.getMarca();
 		}
-		else if(columnIndex ==4) {
+		else if(columnIndex ==3) {
 			return produto.getCor();
 		}
-		else if(columnIndex ==5) {
+		else if(columnIndex ==4) {
 			return produto.getTamanho();
 		}
-		else if(columnIndex ==6) {
+		else if(columnIndex ==5) {
 			return produto.getQuantidade();
 		}
-		else if(columnIndex ==7) {
-			return produto.getPreco();
+		else if(columnIndex ==6) {
+			//String precoFormatado = String.format("%.2f", preco);
+			return "R$ "+ String.format("%.2f",produto.getPreco());
 		}
 		
 		else {

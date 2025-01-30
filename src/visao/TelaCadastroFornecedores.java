@@ -34,22 +34,32 @@ public class TelaCadastroFornecedores extends JFrame {
     private JTextField textTELEFONE;
     private static TelaFornecedores telaFornecedores;  
 
-    public static void main(String[] args) {
-        EventQueue.invokeLater(() -> {
-            try {
-                Funcionario funcionario = new Funcionario(); 
-                String mensagem = "Bem-vindo ao sistema!";
-                TelaCadastroFornecedores frame = new TelaCadastroFornecedores(telaFornecedores, funcionario, mensagem);
-                frame.setVisible(true);
-                frame.setSize(657, 425);
-                frame.setLocationRelativeTo(null);
-            } catch (Exception e) {
+//    public static void main(String[] args) {
+//        EventQueue.invokeLater(() -> {
+//            try {
+//                Funcionario funcionario = new Funcionario(); 
+//                String mensagem = "Bem-vindo ao sistema!";
+//                TelaCadastroFornecedores frame = new TelaCadastroFornecedores(telaFornecedores, funcionario, mensagem);
+//                frame.setVisible(true);
+//                frame.setSize(657, 425);
+//                frame.setLocationRelativeTo(null);
+//            } catch (Exception e) {
+//
+//                TelaErro telaErro = new TelaErro("Erro crítico: " + e.getMessage());
+//                telaErro.setVisible(true);
+//            }
+//        });
+//    }
 
+<<<<<<< HEAD
             }
         });
     }
 
     public TelaCadastroFornecedores(TelaFornecedores telaFornecedores, Funcionario func, String mensagem) {
+=======
+    public TelaCadastroFornecedores(TelaFornecedores telaFornecedores, Funcionario func) {
+>>>>>>> origin/Carrinho
         this.telaFornecedores = telaFornecedores;
         setResizable(false);
         setTitle("Cadastro de Fornecedores");
@@ -74,7 +84,7 @@ public class TelaCadastroFornecedores extends JFrame {
         lblNewLabel_7.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-            	TelaFornecedores telaFornecedores = new TelaFornecedores(func, mensagem);
+            	TelaFornecedores telaFornecedores = new TelaFornecedores(func);
                 dispose();
                 telaFornecedores.setSize(1215, 850);
                 telaFornecedores.setLocationRelativeTo(null);
@@ -182,7 +192,7 @@ public class TelaCadastroFornecedores extends JFrame {
         btnCancelar.setForeground(Color.WHITE);
         btnCancelar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                TelaFornecedores tela = new TelaFornecedores(func, mensagem);
+                TelaFornecedores tela = new TelaFornecedores(func);
                 dispose();
                 tela.setVisible(true);
             }

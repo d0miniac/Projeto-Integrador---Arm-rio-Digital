@@ -24,6 +24,7 @@ public class TelaFornecedores extends JFrame {
     private FornecedorTableModel ftm;
     private ArrayList<Fornecedor> listaFornecedores;
 
+<<<<<<< HEAD
     public static void main(String[] args) {
 	    EventQueue.invokeLater(() -> {
 	        try {
@@ -38,9 +39,27 @@ public class TelaFornecedores extends JFrame {
 	        }
 	    });
 	}
+=======
+//    public static void main(String[] args) {
+//	    EventQueue.invokeLater(() -> {
+//	        try {
+//	            Funcionario funcionario = new Funcionario(); 
+//	            String mensagem = "Bem-vindo ao sistema!";
+//	            TelaFornecedores frame = new TelaFornecedores(funcionario, mensagem);
+//	            frame.setVisible(true);
+//	            frame.setSize(1215, 850);
+//	            frame.setLocationRelativeTo(null);
+//	        } catch (Exception e) {
+//
+//	            TelaErro telaErro = new TelaErro("Erro crítico: " + e.getMessage());
+//	            telaErro.setVisible(true);
+//	        }
+//	    });
+//	}
+>>>>>>> origin/Carrinho
 
 
-    public TelaFornecedores(Funcionario func, String mensagem) {
+    public TelaFornecedores(Funcionario func) {
         listaFornecedores = new ArrayList<>();
 		FornecedorDAO f = new FornecedorDAO();
 		listaFornecedores = f.selecionarFornecedores();
@@ -77,7 +96,7 @@ public class TelaFornecedores extends JFrame {
         btnAdd.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                TelaCadastroFornecedores tela = new TelaCadastroFornecedores(TelaFornecedores.this,func, mensagem);
+                TelaCadastroFornecedores tela = new TelaCadastroFornecedores(TelaFornecedores.this,func);
                 tela.setVisible(true);
                 tela.setSize(657, 425);
                 tela.setLocationRelativeTo(null);
@@ -93,7 +112,7 @@ public class TelaFornecedores extends JFrame {
                 
                 Fornecedor fornecedor = listaFornecedores.get(i);
                
-                TelaEditarFornecedores tela = new TelaEditarFornecedores(fornecedor,func, mensagem);
+                TelaEditarFornecedores tela = new TelaEditarFornecedores(fornecedor,func);
                 dispose();
                 tela.setVisible(true);
                 tela.setSize(657, 425);
@@ -168,7 +187,7 @@ public class TelaFornecedores extends JFrame {
         lblSeta.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                TelaMenu tela = new TelaMenu(func, mensagem);
+                TelaMenu tela = new TelaMenu(func);
                 dispose();
                 tela.setVisible(true);
             }

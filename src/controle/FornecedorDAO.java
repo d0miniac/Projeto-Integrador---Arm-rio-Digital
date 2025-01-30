@@ -10,7 +10,7 @@ import modelo.Fornecedor;
 public class FornecedorDAO {
 
 	public int cadastrarFornecedor(Fornecedor fornecedor) {
-		String sql = "INSERT INTO fornecedores (Email, Nome_Fornecedor, Nome_Ctt, Telefone) VALUES (?, ?, ?, ?)";
+		String sql = "INSERT INTO armariodigital.fornecedores (Email, Nome_Fornecedor, Nome_Ctt, Telefone) VALUES (?, ?, ?, ?)";
 		try (Connection conn = ConexaoBD.getConexaoMySQL();
 				PreparedStatement stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
 
@@ -38,7 +38,7 @@ public class FornecedorDAO {
 	    ProdutoDAO produtoDAO = new ProdutoDAO();
 	    produtoDAO.excluirProdutosPorFornecedor(idFornecedor);  
 
-	    String sql = "DELETE FROM fornecedores WHERE idFornecedor = ?";
+	    String sql = "DELETE FROM armariodigital.fornecedores WHERE idFornecedor = ?";
 	    try (Connection conn = ConexaoBD.getConexaoMySQL(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 	        stmt.setLong(1, idFornecedor);
 	        stmt.executeUpdate();
@@ -46,7 +46,7 @@ public class FornecedorDAO {
 	}
 
 	public void alterarFornecedor(Fornecedor fornecedor) throws SQLException {
-		String sql = "UPDATE fornecedores SET Email = ?, Nome_Fornecedor = ?, Nome_Ctt = ?, Telefone = ? WHERE idFornecedor = ?";
+		String sql = "UPDATE armariodigital.fornecedores SET Email = ?, Nome_Fornecedor = ?, Nome_Ctt = ?, Telefone = ? WHERE idFornecedor = ?";
 		try (Connection conn = ConexaoBD.getConexaoMySQL(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
 			stmt.setString(1, fornecedor.getEmail());
@@ -64,7 +64,7 @@ public class FornecedorDAO {
 
 	public ArrayList<Fornecedor> selecionarFornecedores() {
 		ArrayList<Fornecedor> fornecedores = new ArrayList<>();
-		String sql = "SELECT * FROM Fornecedores";
+		String sql = "SELECT * FROM armariodigital.fornecedores";
 		try (Connection conn = ConexaoBD.getConexaoMySQL();
 				PreparedStatement stmt = conn.prepareStatement(sql);
 				ResultSet rs = stmt.executeQuery()) {
@@ -86,7 +86,7 @@ public class FornecedorDAO {
 
 	public ArrayList<Fornecedor> pesquisarFornecedores(String filtro) {
 		ArrayList<Fornecedor> listaFornecedores = new ArrayList<>();
-		String sql = "SELECT * FROM fornecedores WHERE 1=1";
+		String sql = "SELECT * FROM armariodigital.fornecedores WHERE 1=1";
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		Connection conn = ConexaoBD.getConexaoMySQL();

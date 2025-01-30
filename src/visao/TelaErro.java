@@ -78,6 +78,7 @@ public class TelaErro extends JDialog {
 		getRootPane().setDefaultButton(btOk);
 		setVisible(true);
 	}
+<<<<<<< HEAD
 	
 	public TelaErro(String mensagem) {
         setTitle("Confirmação");
@@ -124,6 +125,68 @@ public class TelaErro extends JDialog {
 
 	
 
+=======
+
+	public TelaErro(String mensagem) {
+		setTitle("Mensagem");
+		setModal(true);
+
+		// Criar Panel
+		JPanel panel = new JPanel();
+		panel.setLayout(new BorderLayout());
+		add(panel);
+
+		JLabel labelPergunta = new JLabel(mensagem, SwingConstants.CENTER);
+		String iconPath;
+		iconPath = "/img/alerta.png";
+		labelPergunta.setIcon(new ImageIcon(getClass().getResource(iconPath)));
+		panel.add(labelPergunta, BorderLayout.CENTER);
+
+		JPanel painelSul = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
+
+		JButton btnSim = new JButton("Sim");
+		// Tamanho do botao
+		btnSim.setPreferredSize(new Dimension(100, 30));
+		btnSim.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				resposta = 1;
+				setVisible(false);
+			}
+		});
+
+		painelSul.add(btnSim);
+
+		JButton btnNao = new JButton("Não");
+		// Tamanho do botao
+		btnNao.setPreferredSize(new Dimension(100, 30));
+		btnNao.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				resposta = 0;
+				setVisible(false);
+			}
+		});
+		painelSul.add(btnNao);
+
+		painelSul.setBorder(new EmptyBorder(10, 10, 10, 10));
+
+		panel.add(painelSul, BorderLayout.SOUTH);
+
+		setSize(400, 200);
+		setResizable(false);
+		setLocationRelativeTo(null);
+		setVisible(true);
+		
+		
+		
+		
+		
+	}
+	
+//	String iconeURL = "/img/alerta.png";
+//	lblMensagem.setIcon(new ImageIcon(getClass().getResource(iconeURL)));
+>>>>>>> origin/Carrinho
 	public int getResposta() {
 		return resposta;
 	}

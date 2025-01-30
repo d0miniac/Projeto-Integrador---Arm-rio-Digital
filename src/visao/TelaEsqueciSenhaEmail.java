@@ -73,7 +73,7 @@ public class TelaEsqueciSenhaEmail extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 		 public void actionPerformed(ActionEvent e) {
 		 dispose();
-		 TelaLogin telaLogin = new TelaLogin(mensagem);
+		 TelaLogin telaLogin = new TelaLogin();
 		 telaLogin.setVisible(true);
 		 }
 		});

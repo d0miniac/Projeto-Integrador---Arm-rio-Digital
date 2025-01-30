@@ -33,6 +33,7 @@ public class TelaEditarFornecedores extends JFrame {
     private JTextField txtTelefone;
     private static Fornecedor fornecedor;
     
+<<<<<<< HEAD
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
             try {
@@ -47,8 +48,25 @@ public class TelaEditarFornecedores extends JFrame {
             }
         });
     }
+=======
+//    public static void main(String[] args) {
+//        EventQueue.invokeLater(() -> {
+//            try {
+//                Funcionario funcionario = new Funcionario(); 
+//                String mensagem = "Bem-vindo ao sistema!";
+//                TelaEditarFornecedores frame = new TelaEditarFornecedores(fornecedor, funcionario, mensagem);
+//                frame.setVisible(true);
+//                frame.setSize(657, 425);
+//                frame.setLocationRelativeTo(null);
+//            } catch (Exception e) {
+//                TelaErro telaErro = new TelaErro("Erro crítico: " + e.getMessage());
+//                telaErro.setVisible(true);
+//            }
+//        });
+//    }
+>>>>>>> origin/Carrinho
     
-    public TelaEditarFornecedores(Fornecedor fornecedor, Funcionario func, String mensagem) {
+    public TelaEditarFornecedores(Fornecedor fornecedor, Funcionario func) {
         this.fornecedor = fornecedor;
         setSize(657, 425);
         setLocationRelativeTo(null);
@@ -74,7 +92,7 @@ public class TelaEditarFornecedores extends JFrame {
         lblVoltar.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                TelaFornecedores tela = new TelaFornecedores(func, mensagem);
+                TelaFornecedores tela = new TelaFornecedores(func);
                 dispose();
                 tela.setVisible(true);
             }
@@ -160,7 +178,7 @@ public class TelaEditarFornecedores extends JFrame {
                     try {
                         dao.alterarFornecedor(fornecedor); 
                         TelaErro telaErro = new TelaErro("Fornecedor alterado com sucesso!", 3);  
-                        TelaFornecedores tela = new TelaFornecedores(func, mensagem);
+                        TelaFornecedores tela = new TelaFornecedores(func);
                         dispose();
                         tela.setVisible(true);
 
