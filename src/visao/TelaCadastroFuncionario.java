@@ -36,7 +36,7 @@ public class TelaCadastroFuncionario extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtNome;
-	private JFormattedTextField txtCpf;  // Alterado para JFormattedTextField
+	private JFormattedTextField txtCpf;  
 	private JTextField txtEmail;
 	private JTextField txtSenha;
 	private JTextField txtConfirma;
@@ -132,7 +132,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		PainelComponentes.add(lblNewLabel_2, "cell 0 6");
 
-		// Adicionando o JFormattedTextField para CPF com a máscara
+		
 		try {
 			MaskFormatter format_textField4 = new MaskFormatter("###.###.###-##");
 			txtCpf = new JFormattedTextField(format_textField4);
@@ -199,9 +199,9 @@ public class TelaCadastroFuncionario extends JFrame {
 			    novo.setEmail(txtEmail.getText());
 			    
 			    strCpf = txtCpf.getText();
-			    strCpf = strCpf.replaceAll("[^0-9]", "");  // Remove qualquer caracter não numérico
+			    strCpf = strCpf.replaceAll("[^0-9]", "");  
 
-			    if (strCpf.length() != 11) {  // Verifica se o CPF tem 11 dígitos
+			    if (strCpf.length() != 11) {  
 			        new TelaErro("O CPF deve conter exatamente 11 números!", 1);
 			        return;
 			    }
@@ -243,7 +243,7 @@ public class TelaCadastroFuncionario extends JFrame {
 			    }
 
 			    
-			    // Cadastra o novo funcionário
+			    
 			    dao.cadastrarFuncionario(novo);
 			    new TelaErro("Funcionário cadastrado com sucesso!", 3);
 			    dispose();

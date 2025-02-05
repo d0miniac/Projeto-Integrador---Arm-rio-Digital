@@ -46,7 +46,7 @@ public class VendaDAO {
 				v.setId(rs.getLong("idVenda"));
 				v.setData(rs.getString("Data_Venda"));
 				v.setHorario(rs.getString("Hora_Venda"));
-				v.setIdFuncionario(rs.getInt("Funcionario_idFuncionario"));
+				v.setIdFuncionario(rs.getLong("Funcionario_idFuncionario"));
 				v.setTotal(rs.getFloat("Total"));
 				listaVendas.add(v);
 				

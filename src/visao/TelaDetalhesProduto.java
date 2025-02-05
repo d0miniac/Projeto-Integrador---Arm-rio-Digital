@@ -70,7 +70,7 @@ public class TelaDetalhesProduto extends JFrame {
 				carrinho.remover(item.getId());
 				dispose();
 				tv.dispose();
-				TelaVendas tela = new TelaVendas(func, mensagem, prod);
+				TelaVendas tela = new TelaVendas(prod,func, mensagem);
 				tela.setVisible(true);
 				
 				

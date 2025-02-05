@@ -172,7 +172,7 @@ public class TelaProdutos extends JFrame {
 		                new TelaErro("Selecione um produto para alterar.", 0).setVisible(true);
 		            }
 		        } catch (Exception ex) {
-		            ex.printStackTrace(); // Exibe o erro no console para depuração
+		            ex.printStackTrace(); 
 		            new TelaErro("Erro ao abrir a tela de edição do produto!", 0).setVisible(true);
 		        }
 		    }

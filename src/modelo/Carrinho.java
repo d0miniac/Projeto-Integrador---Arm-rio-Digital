@@ -2,66 +2,46 @@ package modelo;
 
 import java.util.ArrayList;
 
-
 public class Carrinho {
 	public ArrayList<ItemVenda> itens = new ArrayList<>();
-	private Carrinho() {}
-	private static Carrinho unicaInstancia = null;
-	public static Carrinho getInstancia() {
-        if (unicaInstancia == null) {
-            unicaInstancia = new Carrinho();
-        }
-        return unicaInstancia;
-    }
 
-	
-	
-//	public ArrayList<ItemVenda> adicionar(ItemVenda item){
-//		itens.add(item);
-//		return itens;
-//	}
-//	public static Carrinho getInstancia() {
-//        if (instanciaUnica == null) {
-//            instanciaUnica = new Carrinho();
-//        }
-//        return instanciaUnica;
-//    }
-	
-//	public void listarItens() {
-//        if (itens.isEmpty()) {
-//            System.out.println("Carrinho vazio!");
-//        } else {
-//            for (ItemVenda item : itens) {
-//                
-//            }
-//        }
-//    }
+	private Carrinho() {
+	}
+
+	private static Carrinho unicaInstancia = null;
+
+	public static Carrinho getInstancia() {
+		if (unicaInstancia == null) {
+			unicaInstancia = new Carrinho();
+		}
+		return unicaInstancia;
+	}
+
 	public void adicionar(ItemVenda iv) {
-		
-		//ArrayList<ItemVenda> lista = new ArrayList<>();
-		itens.add(iv);		
-		//this.itens.addAll(lista);
+
+		itens.add(iv);
+
 	}
-	
+
 	public void remover(Long id) {
-		itens.removeIf(item -> item.getId()==id);
-		
+		itens.removeIf(item -> item.getId() == id);
+
 	}
-	
+
 	public boolean verificar(Long id) {
-		int x=0;
+		int x = 0;
 		for (ItemVenda itemVenda : itens) {
-			if(itemVenda.getId()==id) {
-				x=1;
+			if (itemVenda.getId() == id) {
+				x = 1;
 			}
 		}
-		if(x==0) {
+		if (x == 0) {
 			return false;
-		}
-		else {
+		} else {
 			return true;
 		}
 	}
+
 	public ArrayList<ItemVenda> getItens() {
 		return itens;
 	}
@@ -69,5 +49,5 @@ public class Carrinho {
 	public void setItens(ArrayList<ItemVenda> itens) {
 		this.itens = itens;
 	}
-	
+
 }

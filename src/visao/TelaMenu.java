@@ -121,7 +121,7 @@ public class TelaMenu extends JFrame {
         btnVendas.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                TelaVendas telaVendas = new TelaVendas(func, mensagem, prod);
+                TelaVendas telaVendas = new TelaVendas(prod, func, mensagem);
                 telaVendas.setVisible(true);
             }
         });

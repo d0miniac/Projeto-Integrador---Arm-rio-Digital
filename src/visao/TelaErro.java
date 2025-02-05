@@ -1,7 +1,6 @@
 package visao;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -18,9 +17,6 @@ public class TelaErro extends JDialog {
 	private static final long serialVersionUID = 1L;
 	int resposta;
 
-	/**
-	 * @wbp.parser.constructor
-	 */
 	public TelaErro(String mensagem, int tipo) {
 		setTitle("Mensagem");
 		setModal(true);
@@ -30,7 +26,7 @@ public class TelaErro extends JDialog {
 
 		JPanel painel = new JPanel();
 		painel.setLayout(new BorderLayout());
-		getContentPane().add(painel);
+		add(painel);
 
 		JLabel lblMensagem = new JLabel(mensagem, SwingConstants.CENTER);
 		painel.add(lblMensagem, BorderLayout.CENTER);
@@ -54,7 +50,7 @@ public class TelaErro extends JDialog {
 			lblMensagem.setIcon(new ImageIcon(getClass().getResource(iconeURL)));
 			break;
 		case 10:
-			iconeURL = "/img/armariodigital.png";
+			iconeURL = "/img/assistec.png";
 			lblMensagem.setIcon(new ImageIcon(getClass().getResource(iconeURL)));
 			break;
 		}
@@ -62,8 +58,6 @@ public class TelaErro extends JDialog {
 		JPanel painelSul = new JPanel(new FlowLayout(FlowLayout.CENTER,20,10));
 		painelSul.add(new JPanel());
 		JButton btOk = new JButton("Ok");
-		btOk.setForeground(new Color(0,0,0));
-		btOk.setBackground(new Color(211, 211, 211));
 		btOk.setPreferredSize(new Dimension(100,30));
 		btOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -78,52 +72,66 @@ public class TelaErro extends JDialog {
 		getRootPane().setDefaultButton(btOk);
 		setVisible(true);
 	}
-	
+
 	public TelaErro(String mensagem) {
-        setTitle("Confirmação");
-        setModal(true);
-        setSize(350, 200);
-        setLocationRelativeTo(null);
-        setResizable(false);
+		setTitle("Mensagem");
+		setModal(true);
 
-        JPanel painel = new JPanel();
-        painel.setLayout(new BorderLayout());
-        getContentPane().add(painel);
+		// Criar Panel
+		JPanel panel = new JPanel();
+		panel.setLayout(new BorderLayout());
+		add(panel);
 
-        JLabel lblMensagem = new JLabel(mensagem, SwingConstants.CENTER);
-        painel.add(lblMensagem, BorderLayout.CENTER);
-        lblMensagem.setIcon(new ImageIcon(getClass().getResource("/img/alerta.png")));
+		JLabel labelPergunta = new JLabel(mensagem, SwingConstants.CENTER);
+		String iconPath;
+		iconPath = "/img/alerta.png";
+		labelPergunta.setIcon(new ImageIcon(getClass().getResource(iconPath)));
+		panel.add(labelPergunta, BorderLayout.CENTER);
 
-        JPanel painelSul = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
+		JPanel painelSul = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
 
-        JButton btSim = new JButton("Sim");
-        btSim.setPreferredSize(new Dimension(100, 30));
-        btSim.setForeground(new Color(0,0,0));
-		btSim.setBackground(new Color(211, 211, 211));
-        btSim.addActionListener(e -> {
-            resposta = 0; 
-            setVisible(false);
-        });
+		JButton btnSim = new JButton("Sim");
+		// Tamanho do botao
+		btnSim.setPreferredSize(new Dimension(100, 30));
+		btnSim.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				resposta = 1;
+				setVisible(false);
+			}
+		});
 
-        JButton btNao = new JButton("Não");
-        btNao.setPreferredSize(new Dimension(100, 30));
-        btNao.setForeground(new Color(0,0,0));
-		btNao.setBackground(new Color(211, 211, 211));
-        btNao.addActionListener(e -> {
-            resposta = 1;
-            setVisible(false);
-        });
+		painelSul.add(btnSim);
 
-        painelSul.add(btSim);
-        painelSul.add(btNao);
-        painelSul.setBorder(new EmptyBorder(10, 10, 10, 10));
-        painel.add(painelSul, BorderLayout.SOUTH);
+		JButton btnNao = new JButton("Não");
+		// Tamanho do botao
+		btnNao.setPreferredSize(new Dimension(100, 30));
+		btnNao.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				resposta = 0;
+				setVisible(false);
+			}
+		});
+		painelSul.add(btnNao);
 
-        setVisible(true);
-    }
+		painelSul.setBorder(new EmptyBorder(10, 10, 10, 10));
 
+		panel.add(painelSul, BorderLayout.SOUTH);
+
+		setSize(400, 200);
+		setResizable(false);
+		setLocationRelativeTo(null);
+		setVisible(true);
+		
+		
+		
+		
+		
+	}
 	
-
+//	String iconeURL = "/img/alerta.png";
+//	lblMensagem.setIcon(new ImageIcon(getClass().getResource(iconeURL)));
 	public int getResposta() {
 		return resposta;
 	}

@@ -28,8 +28,6 @@ public class TelaVendas extends JFrame {
 	private ArrayList<Produto> listaProdutos;
 	private ProdutoDAO produtoDAO;
 	ArrayList<ItemVenda> listaItens;
-	private Produto prod;
-	private String mensagem;
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(() -> {
@@ -37,7 +35,7 @@ public class TelaVendas extends JFrame {
 				Produto prod = new Produto();
 				Funcionario funcionario = new Funcionario();
 				String mensagem = "Bem-vindo ao sistema!";
-				TelaVendas frame = new TelaVendas(funcionario, mensagem, prod);
+				TelaVendas frame = new TelaVendas(prod,funcionario, mensagem);
 				frame.setVisible(true);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -45,7 +43,7 @@ public class TelaVendas extends JFrame {
 		});
 	}
 
-	public TelaVendas(Funcionario func, String mensagem, Produto prod) {
+	public TelaVendas(Produto prod,Funcionario func, String mensagem) {
 		
 		Carrinho carrinho = Carrinho.getInstancia();
 		produtoDAO = new ProdutoDAO();
@@ -176,7 +174,7 @@ public class TelaVendas extends JFrame {
 							}
 							listaItens.clear();
 							dispose();
-							new TelaVendas(func, mensagem, prod).setVisible(true);
+							new TelaVendas(prod,func, mensagem).setVisible(true);
 						}
 						
 						
@@ -199,7 +197,7 @@ public class TelaVendas extends JFrame {
 		lblSeta.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				TelaMenu tela = new TelaMenu(prod, func, mensagem);
+				TelaMenu tela = new TelaMenu(prod,func, mensagem);
 				dispose();
 				tela.setVisible(true);
 				
@@ -212,6 +210,11 @@ public class TelaVendas extends JFrame {
 	public void MostrarProdutos(Funcionario func){
 		for (ItemVenda item : listaItens) {
 			JButton btnProduto = new JButton();
+			
+			Produto prod = new Produto();
+			Funcionario funcionario = new Funcionario();
+			String mensagem = "";
+			
 			  btnProduto.setPreferredSize(new Dimension(350, 400));
 		        btnProduto.setMaximumSize(new Dimension(350, 400));
 		        btnProduto.setMinimumSize(new Dimension(350, 400));

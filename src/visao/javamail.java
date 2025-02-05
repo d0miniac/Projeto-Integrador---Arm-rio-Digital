@@ -44,7 +44,7 @@ public class javamail {
 	            //vc pode customizar pra ficar tipo: Empresa xxx
 
 	            message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
-	            message.setSubject("Fala Abner, bora trabalhar?");
+	            message.setSubject("Fala, bora trabalhar?");
 	            message.setText("Lê essa msg maneira aqui...");
 
 	            System.out.println("enviando...");

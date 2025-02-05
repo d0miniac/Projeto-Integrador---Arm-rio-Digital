@@ -147,7 +147,7 @@ public class TelaQuantidade extends JFrame {
 				
 				dispose();
 				tp.dispose();
-				TelaVendas tela = new TelaVendas(f, mensagem, p);
+				TelaVendas tela = new TelaVendas(p,f, mensagem);
 				tela.setVisible(true);
 				//c.adicionar(item);
 //				dao.adicionar(item);

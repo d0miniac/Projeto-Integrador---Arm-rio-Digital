@@ -40,7 +40,7 @@ public class ProdutoTableModel extends AbstractTableModel {
 			return produto.getQuantidade();
 		}
 		else if(columnIndex ==6) {
-			return produto.getPreco();
+			return String.format("R$ %.2f", produto.getPreco());
 		}
 		
 		else {

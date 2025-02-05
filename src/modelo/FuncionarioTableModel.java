@@ -2,11 +2,10 @@ package modelo;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
-import modelo.Fornecedor;
 
 public class FuncionarioTableModel extends AbstractTableModel {
 	private List<Funcionario> funcionarios;
-	private String[] colunas = { "ID", "Nome", "Email", "CPF", "Senha"  };
+	private String[] colunas = { "ID", "Nome", "Email", "CPF", "Senha" };
 
 	public FuncionarioTableModel(List<Funcionario> funcionarios) {
 		this.funcionarios = funcionarios;
@@ -33,7 +32,8 @@ public class FuncionarioTableModel extends AbstractTableModel {
 		case 2:
 			return funcionario.getEmail();
 		case 3:
-			return funcionario.getCpf();
+			// Formatar o CPF antes de retorná-lo
+			return formatarCpf(funcionario.getCpf());
 		case 4:
 			return funcionario.getSenha();
 		default:
@@ -44,5 +44,13 @@ public class FuncionarioTableModel extends AbstractTableModel {
 	@Override
 	public String getColumnName(int column) {
 		return colunas[column];
+	}
+
+	private String formatarCpf(String cpf) {
+		if (cpf != null && cpf.length() == 11) {
+			return String.format("%s.%s.%s-%s", cpf.substring(0, 3), cpf.substring(3, 6), cpf.substring(6, 9),
+					cpf.substring(9, 11));
+		}
+		return cpf;
 	}
 }

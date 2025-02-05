@@ -162,36 +162,65 @@ public class TelaCadastroFornecedores extends JFrame {
         btnCadastrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-            
+                
                 if (textEMAIL.getText().isEmpty() || textNOME_FORNECEDOR.getText().isEmpty() ||
                     textNOMECONTATO.getText().isEmpty() || textTELEFONE.getText().isEmpty()) {
                     
-                    TelaErro telaErro = new TelaErro("Preencha todos os campos obrigatórios!",0);
+                    TelaErro telaErro = new TelaErro("Preencha todos os campos obrigatórios!", 0);
                     telaErro.setVisible(true);
                 } else {
-              
+                    
+                    String telefoneNumerico = textTELEFONE.getText().replaceAll("[^\\d]", "");
+
+                    
+                    if (telefoneNumerico.length() != 11) {
+                        TelaErro telaErro = new TelaErro("O telefone deve conter exatamente 11 dígitos!", 0);
+                        telaErro.setVisible(true);
+                        return;
+                    }
+
+                   
+                    String email = textEMAIL.getText();
+                    if (!email.contains("@") || !email.contains(".")) {
+                        TelaErro telaErro = new TelaErro("O e-mail deve conter '@' e '.'!", 0);
+                        telaErro.setVisible(true);
+                        return;
+                    }
+
+                   
+                    String nomeContato = textNOMECONTATO.getText();
+                    if (!nomeContato.matches("[a-zA-ZÀ-ÿ\\s]+")) {
+                        TelaErro telaErro = new TelaErro("O nome para contato deve conter apenas letras!", 0);
+                        telaErro.setVisible(true);
+                        return;
+                    }
+
+                    
                     Fornecedor fornecedor = new Fornecedor();
                     fornecedor.setEmail(textEMAIL.getText());
                     fornecedor.setNomeFornecedor(textNOME_FORNECEDOR.getText());
-                    fornecedor.setNomeCtt(textNOMECONTATO.getText()); 
+                    fornecedor.setNomeCtt(textNOMECONTATO.getText());
                     fornecedor.setTelefone(textTELEFONE.getText());
 
+                    
                     FornecedorDAO dao = new FornecedorDAO();
                     int resultado = dao.cadastrarFornecedor(fornecedor);
                     if (resultado == 1) {
-                    	new TelaErro("Fornecedor cadastrado com sucesso!.", 3);
+                        new TelaErro("Fornecedor cadastrado com sucesso!", 3);
 
                         telaFornecedores.adicionarFornecedor(fornecedor);
                         limparCampos();
-                        
+
                         dispose();
                         telaFornecedores.setVisible(true);
                     } else {
-                    	new TelaErro("Erro ao cadastrar o fornecedor", 0);
+                        new TelaErro("Erro ao cadastrar o fornecedor", 0);
                     }
                 }
             }
         });
+
+
         inferior.add(btnCadastrar, "cell 0 0");
 
         JButton btnCancelar = new JButton("CANCELAR");

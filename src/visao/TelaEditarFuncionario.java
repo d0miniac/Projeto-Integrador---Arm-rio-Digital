@@ -45,13 +45,18 @@ public class TelaEditarFuncionario extends JFrame {
 		lblVoltar.setIcon(new ImageIcon(voltar));
 		vazio.add(lblVoltar);
 		lblVoltar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				TelaFornecedores tela = new TelaFornecedores(prod,func, mensagem);
-				dispose();
-				tela.setVisible(true);
-			}
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+		        try {
+		            TelaFuncionarios tela = new TelaFuncionarios(prod, func, mensagem);
+		            dispose();
+		            tela.setVisible(true);
+		        } catch (Exception ex) {
+		            ex.printStackTrace(); 
+		        }
+		    }
 		});
+
 
 
 		JLabel lblTitulo = new JLabel("Alteração das informações do funcionário");
@@ -123,6 +128,16 @@ public class TelaEditarFuncionario extends JFrame {
                 	new TelaErro("Todos os campos devem ser preenchidos!", 1);
                     return;  
                 }
+                
+                String strCpf;
+			   
+			    strCpf = txtCpf.getText();
+			    strCpf = strCpf.replaceAll("[^0-9]", "");  // Remove qualquer caracter não numérico
+
+			    if (strCpf.length() != 11) {  // Verifica se o CPF tem 11 dígitos
+			        new TelaErro("O CPF deve conter exatamente 11 números!", 1);
+			        return;
+			    }
 
                 funcionario.setNome(txtNome.getText());
                 funcionario.setEmail(txtEmail.getText());

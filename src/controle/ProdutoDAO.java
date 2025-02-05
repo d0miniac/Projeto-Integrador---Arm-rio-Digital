@@ -142,11 +142,12 @@ public class ProdutoDAO {
 		Connection conn = ConexaoBD.getConexaoMySQL();
 		try {
 			stmt1 = conn.prepareStatement(
-					"SELECT * FROM armariodigital.Produtos WHERE Categoria like ? OR Cor like ? OR Tamanho like? OR Marca like ?;");
+					"SELECT * FROM armariodigital.produtos WHERE Categoria like ? OR Cor like ? OR Tamanho like? OR Marca like ?;");
 			stmt1.setString(1, filtro);
 			stmt1.setString(2, filtro);
 			stmt1.setString(3, filtro);
 			stmt1.setString(4, filtro);
+		
 			rs = stmt1.executeQuery();
 			while (rs.next()) {
 				Produto p = new Produto();

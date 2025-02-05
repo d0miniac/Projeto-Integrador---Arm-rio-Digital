@@ -16,7 +16,7 @@ public class ImagePanel extends JPanel
 	    private int w,h;
 	    public ImagePanel(String fname){
 
-	        //reads the image
+	       
 	        try {
 	            image = ImageIO.read(new File(fname));
 	            w = image.getWidth();
@@ -24,7 +24,7 @@ public class ImagePanel extends JPanel
 
 	        } catch (IOException ioe) {
 	            System.out.println("Could not read in the pic");
-	            //System.exit(0);
+	           
 	        }
 
 	    }
@@ -32,7 +32,7 @@ public class ImagePanel extends JPanel
 	    public Dimension getPreferredSize() {
 	        return new Dimension(w,h);
 	    }
-	    //this will draw the image
+	    
 	    public void paintComponent(Graphics g){
 	        super.paintComponent(g);
 	        g.drawImage(image,0,0,this.getWidth(),this.getHeight(),null);
